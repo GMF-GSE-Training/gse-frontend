@@ -1,0 +1,29 @@
+.brand-name {
+  background-image: url("../../assets/bg.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 45%;
+  border-bottom-right-radius: 30px;
+  border-bottom-left-radius: 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-right: 80px;
+  padding-left: 80px;
+  height: 150px;
+}
+
+.brand-logo {
+  width: 235px;
+  height: 48px;
+}
+
+.menu {
+  font-size: 32px;
+  color: #ffffff;
+}
+
+.menu:hover {
+  color: #3E799B;
+  cursor: pointer;
+}
