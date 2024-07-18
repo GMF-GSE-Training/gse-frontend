@@ -2,26 +2,62 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.8.
 
+## Daftar Isi
+- [Tentang Proyek](#tentang-proyek)
+- [Fitur](#fitur)
+- [Instalasi](#instalasi)
+- [Konfigurasi](#konfigurasi)
+- [Struktur Proyek](#struktur-proyek)
+- [Komponen](#komponen)
+- [Layanan](#layanan)
+- [Modul](#modul)
+- [API](#api)
+- [Development server](#development-server)
+- [Menjalankan unit tests](#menjalankan-unit-tests)
+- [Menjalankan end-to-end tests](#menjalankan-end-to-end-tests)
+- [Panduan Penggunaan](#panduan-penggunaan)
+- [Kontribusi](#kontribusi)
+- [Lisensi](#lisensi)
+- [Bantuan lebih lanjut](#bantuan-lebih-lanjut)
+
+## Tentang Proyek
+
+## Fitur
+
+## Instalasi
+
+## Konfigurasi
+
+## Struktur Proyek
+
+## Komponen
+
+## Layanan
+
+## Modul
+
+## API
+
 ## Development server
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+Jalankan `ng serve` untuk server pengembang. Navigasi ke `http://localhost:4200/`. Aplikasi akan dimuat ulang secara otomatis jika Anda mengubah salah satu file sumber.
 
-## Code scaffolding
+## Perancah kode
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Jalankan `ng generate component component-name` untuk menghasilkan komponen baru. Anda juga bisa menggunakan `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
 ## Build
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+Jalankan `ng build` untuk membangun proyek tersebut. Artefak build akan disimpan di direktori `dist/`.
 
-## Running unit tests
+## Menjalankan unit tests
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Jalankan `ng test` untuk menjalankan pengujian unit melalui [Karma](https://karma-runner.github.io).
 
-## Running end-to-end tests
+## Menjalankan end-to-end tests
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+Jalankan `ng e2e` untuk menjalankan pengujian end-to-end melalui platform pilihan Anda. Untuk menggunakan perintah ini, Anda harus terlebih dahulu menambahkan paket yang mengimplementasikan kemampuan pengujian end-to-end.
 
-## Further help
+## Bantuan lebih lanjut
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+Untuk mendapatkan bantuan lebih lanjut tentang Angular CLI gunakan `ng help` atau lihat halaman [Ikhtisar CLI Angular dan Referensi Perintah](https://angular.io/cli).

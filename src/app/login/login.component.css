@@ -1,0 +1,79 @@
+.login-container {
+  background-image: url("/assets/image/bg.png");
+  height: 100vh;
+  background-size: cover;
+  background-position: 45%  ;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-left: 135px;
+}
+
+.login-description {
+  color: #ffffff;
+  font-size: 30px;
+}
+
+.brand-logo {
+  width: 235px;
+  height: 48px;
+  position: absolute;
+  top: 52px;
+  left: 36px;
+}
+
+.form-container {
+  background-color: #ffffff;
+  height: 100%;
+  width: 970px;
+  border-bottom-left-radius: 30px;
+  border-top-left-radius: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 90px;
+}
+
+.login-title {
+  border-bottom: 4px solid #000;
+  font-size: 35px;
+}
+
+.login-form input {
+  font-size: 20px;
+}
+
+#username {
+  border: none;
+  outline: none;
+  border-bottom: 2px solid #000;
+  width: 400px;
+}
+
+#password {
+  border: none;
+  outline: none;
+  border-bottom: 2px solid #000;
+  width: 400px;
+}
+
+#login-button {
+  width: 150px;
+  height: 40px;
+  font-size: 20px;
+  color: #ffffff;
+  border: none;
+  background-color: #02507E;
+  border-radius: 50px;
+}
+
+#login-button:hover {
+  cursor: pointer;
+}
