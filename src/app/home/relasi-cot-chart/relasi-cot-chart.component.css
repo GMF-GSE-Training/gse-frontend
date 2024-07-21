@@ -1,10 +1,10 @@
 .container-chart {
   width: 70%;
   margin: auto;
-  font-family: 'Petrona';
+  font-family: 'Petrona', sans-serif;
 }
 
-#myChart {
+canvas {
   background: linear-gradient(to bottom, #3E799B, #3E799B00);
   border-radius: 15px;
   padding: 20px;
