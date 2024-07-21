@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { Chart, registerables } from 'chart.js';
 
 @Component({
@@ -8,16 +8,14 @@ import { Chart, registerables } from 'chart.js';
   templateUrl: './relasi-cot-chart.component.html',
   styleUrl: './relasi-cot-chart.component.css'
 })
-export class RelasiCotChartComponent {
-  ngOnInit(): void {
+export class RelasiCotChartComponent implements AfterViewInit {
+  @ViewChild('myChart') private myChartRef!: ElementRef<HTMLCanvasElement>;
+
+  ngAfterViewInit(): void {
     Chart.register(...registerables);
 
-    const ctx = (document.getElementById('myChart') as HTMLCanvasElement).getContext('2d');
-
-    if (!ctx) {
-      console.error('Canvas element not found');
-      return;
-    }
+    const canvas = this.myChartRef.nativeElement;
+    const ctx = canvas.getContext('2d');
 
     if (!ctx) {
       console.error('Failed to get canvas context');
