@@ -6,6 +6,6 @@
   aria-hidden="true"
   >
   <app-search></app-search>
-  <h1 class="menu">Menu</h1>
-  <app-nav-menu></app-nav-menu>
+  <h1 class="menu" (click)="toggleMenu()">Menu</h1>
+  <app-nav-menu [isMenuVisible]="isMenuVisible"></app-nav-menu>
 </nav>

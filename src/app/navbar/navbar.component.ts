@@ -15,5 +15,9 @@ import { NavMenuComponent } from "./nav-menu/nav-menu.component";
   styleUrl: './navbar.component.css'
 })
 export class NavbarComponent {
+  isMenuVisible: boolean = false;
 
+  toggleMenu() {
+    this.isMenuVisible = !this.isMenuVisible;
+  }
 }

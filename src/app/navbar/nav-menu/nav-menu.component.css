@@ -8,6 +8,9 @@
   z-index: 1000;
   bottom: 0;
   font-size: 1.5rem;
+  opacity: 0;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  transform: translateX(10px);
 }
 
 .navbar-nav {
@@ -21,4 +24,9 @@
 a{
   text-decoration: none;
   color: #ffffff;
+}
+
+.menu.visible {
+  opacity: 1;
+  transform: translateX(0);
 }
