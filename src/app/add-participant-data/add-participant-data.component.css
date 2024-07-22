@@ -1,0 +1,79 @@
+.title-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.title {
+  border-bottom: 4px solid #000;
+  font-size: 25px;
+}
+
+form {
+  background: white;
+  padding: 20px;
+  border-radius: 5px;
+  max-width: 90%;
+  margin: auto;
+}
+
+.form-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.left-column, .right-column {
+  width: 48%;
+}
+
+label {
+  display: block;
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+input[type="text"], input[type="email"], input[type="tel"], input[type="date"], select, input[type="file"] {
+  width: calc(100% - 10px);
+  padding: 8px;
+  margin-top: 5px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+.container-button {
+  display: flex;
+  justify-content: center;
+  gap: 4em;
+  width: 90%;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  margin-left: 4em;
+}
+
+#save-button {
+  width: 150px;
+  height: 40px;
+  font-size: 25px;
+  color: #ffffff;
+  border: none;
+  background-color: #02507E;
+  border-radius: 50px;
+  font-family: 'Petrona', sans-serif;
+}
+
+#back-button {
+  width: 150px;
+  height: 40px;
+  font-size: 25px;
+  font-family: 'Petrona', sans-serif;
+  color: #02507E;
+  background-color: none;
+  border: 3px solid #02507E;
+  border-radius: 50px;
+}
+
+button {
+  cursor: pointer;
+}
+

@@ -3,6 +3,7 @@ import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
 import { ViewParticipantDataComponent } from './view-participant-data/view-participant-data.component';
 import { ViewCapabilityComponent } from './view-capability/view-capability.component';
+import { AddParticipantDataComponent } from './add-participant-data/add-participant-data.component';
 
 export const routes: Routes = [
   {
@@ -20,5 +21,9 @@ export const routes: Routes = [
   {
     path: 'capability',
     component: ViewCapabilityComponent
+  },
+  {
+    path: 'add-participant-data',
+    component: AddParticipantDataComponent
   }
 ];

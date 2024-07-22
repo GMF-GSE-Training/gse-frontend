@@ -1,0 +1,73 @@
+<app-navbar></app-navbar>
+
+<div class="title-container">
+  <h1 class="title">View Participant Data</h1>
+</div>
+
+<form>
+  <div class="form-container">
+      <div class="left-column">
+          <label for="userId">User Id</label>
+          <input type="text" id="userId" name="userId">
+
+          <label for="noPegawai">No Pegawai</label>
+          <input type="text" id="noPegawai" name="noPegawai">
+
+          <label for="nama">Nama</label>
+          <input type="text" id="nama" name="nama">
+
+          <label for="dinas">Dinas</label>
+          <input type="text" id="dinas" name="dinas">
+
+          <label for="bidang">Bidang</label>
+          <input type="text" id="bidang" name="bidang">
+
+          <label for="perusahaan">Perusahaan</label>
+          <input type="text" id="perusahaan" name="perusahaan">
+
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email">
+
+          <label for="nomorTelpon">Nomor Telpon</label>
+          <input type="tel" id="nomorTelpon" name="nomorTelpon">
+
+          <label for="negara">Negara</label>
+          <input type="text" id="negara" name="negara">
+      </div>
+
+      <div class="right-column">
+          <label for="tempatLahir">Tempat Lahir</label>
+          <input type="text" id="tempatLahir" name="tempatLahir">
+
+          <label for="tanggalLahir">Tanggal Lahir</label>
+          <input type="date" id="tanggalLahir" name="tanggalLahir">
+
+          <label for="sim">SIM</label>
+          <select id="sim" name="sim">
+              <option value="">Pilih</option>
+          </select>
+
+          <label for="ktp">KTP</label>
+          <input type="file" id="ktp" name="ktp">
+
+          <label for="foto">Foto</label>
+          <input type="file" id="foto" name="foto">
+
+          <label for="keteranganSehat">Keterangan Sehat & Buta Warna</label>
+          <input type="file" id="keteranganSehat" name="keteranganSehat">
+          <input type="date" id="tanggalKeteranganSehat" name="tanggalKeteranganSehat">
+
+          <label for="ketBebasNarkoba">Ket Bebas Narkoba</label>
+          <input type="file" id="ketBebasNarkoba" name="ketBebasNarkoba">
+          <input type="date" id="tanggalKetBebasNarkoba" name="tanggalKetBebasNarkoba">
+
+          <label for="gmf">GMF/Non GMF</label>
+          <input type="text" id="gmf" name="gmf">
+      </div>
+  </div>
+</form>
+
+<div class="container-button">
+  <button routerLink="/home" id="back-button">Back</button>
+  <button id="save-button">Save</button>
+</div>
