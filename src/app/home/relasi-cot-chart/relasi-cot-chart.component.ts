@@ -9,12 +9,12 @@ import { Chart, registerables } from 'chart.js';
   styleUrl: './relasi-cot-chart.component.css'
 })
 export class RelasiCotChartComponent implements AfterViewInit {
-  @ViewChild('myChart') private myChartRef!: ElementRef<HTMLCanvasElement>;
+  @ViewChild('relasiCotChart') private relasiCotChartRef!: ElementRef<HTMLCanvasElement>;
 
   ngAfterViewInit(): void {
     Chart.register(...registerables);
 
-    const canvas = this.myChartRef.nativeElement;
+    const canvas = this.relasiCotChartRef.nativeElement;
     const ctx = canvas.getContext('2d');
 
     if (!ctx) {
@@ -70,12 +70,12 @@ export class RelasiCotChartComponent implements AfterViewInit {
             text: 'Realisasi COT 2024',
             color: '#FFFFFF',
             font: {
-              size: 24,
+              size: 30,
               family: 'Petrona'
             },
             padding: {
-              top: 10,
-              bottom: 30
+              top: 5,
+              bottom: 5
             }
           }
         },
@@ -102,7 +102,11 @@ export class RelasiCotChartComponent implements AfterViewInit {
               font: {
                 size: 15,
                 family: 'Petrona'
-              }
+              },
+            },
+            grid: {
+              color: '#000',
+              lineWidth: 2
             }
           }
         }
