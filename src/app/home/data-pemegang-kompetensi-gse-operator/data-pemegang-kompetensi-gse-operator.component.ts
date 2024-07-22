@@ -9,7 +9,7 @@ import { Chart, registerables } from 'chart.js';
   styleUrl: './data-pemegang-kompetensi-gse-operator.component.css'
 })
 export class DataPemegangKompetensiGseOperatorComponent implements AfterViewInit {
-  @ViewChild('dataPemegangKompetensiGseOperator') private dataPemegangKompetensiGseOperatorRef!: ElementRef<HTMLCanvasElement>;
+  @ViewChild('dataPemegangKompetensiGSEOperator') private dataPemegangKompetensiGseOperatorRef!: ElementRef<HTMLCanvasElement>;
 
   ngAfterViewInit(): void {
     Chart.register(...registerables);
@@ -25,29 +25,22 @@ export class DataPemegangKompetensiGseOperatorComponent implements AfterViewInit
     new Chart(ctx, {
       type: 'bar',
       data: {
-        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'],
+        labels: ['Eks', 'TB', 'TC', 'TF', 'TJ', 'TL', 'TM', 'TR', 'TU', 'TV', 'TZ'],
         datasets: [
           {
-            label: 'Open',
-            data: [3, 3.5],
-            backgroundColor: '#3C6735',
+            label: 'GMF',
+            data: [0, 63, 3, 10, 23, 43, 5, 2, 4, 4, 13],
+            backgroundColor: '#02507E',
             stack: 'Stack 0',
-            barThickness: 40
+            barThickness: 20
           },
           {
-            label: 'Cancel',
-            data: [1, 2],
-            backgroundColor: '#FF0000',
+            label: 'Non GMF',
+            data: [5, 0, 8, 0, 2, 0, 5, 0, 3, 1, 2],
+            backgroundColor: '#2C844F',
             stack: 'Stack 0',
-            barThickness: 40
+            barThickness: 20
           },
-          {
-            label: 'Finish',
-            data: [3, 2, 6, 4, 7, 8, 6, 3, 8, 5, 7, 9],
-            backgroundColor: '#FFB800',
-            stack: 'Stack 0',
-            barThickness: 40,
-          }
         ]
       },
       options: {
@@ -67,7 +60,7 @@ export class DataPemegangKompetensiGseOperatorComponent implements AfterViewInit
           },
           title: {
             display: true,
-            text: 'Realisasi COT 2024',
+            text: 'Data Pemegang Kompetensi GSE Operator',
             color: '#FFFFFF',
             font: {
               size: 30,
