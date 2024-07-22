@@ -59,10 +59,6 @@ export class DataJumlahPemegangSertifikatComponent implements AfterViewInit {
               size: 30,
               family: 'Petrona',
             },
-            padding: {
-              top: 20,
-              bottom: 20
-            },
           },
         },
       },
