@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { RelasiCotChartComponent } from './relasi-cot-chart.component';
+import { RealisasiCotChartComponent } from './realisasi-cot-chart.component';
 
 describe('RelasiCotChartComponent', () => {
-  let component: RelasiCotChartComponent;
-  let fixture: ComponentFixture<RelasiCotChartComponent>;
+  let component: RealisasiCotChartComponent;
+  let fixture: ComponentFixture<RealisasiCotChartComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [RelasiCotChartComponent]
+      imports: [RealisasiCotChartComponent]
     })
     .compileComponents();
-    
-    fixture = TestBed.createComponent(RelasiCotChartComponent);
+
+    fixture = TestBed.createComponent(RealisasiCotChartComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

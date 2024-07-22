@@ -5,10 +5,10 @@ import { Chart, registerables } from 'chart.js';
   selector: 'app-relasi-cot-chart',
   standalone: true,
   imports: [],
-  templateUrl: './relasi-cot-chart.component.html',
-  styleUrl: './relasi-cot-chart.component.css'
+  templateUrl: './realisasi-cot-chart.component.html',
+  styleUrl: './realisasi-cot-chart.component.css'
 })
-export class RelasiCotChartComponent implements AfterViewInit {
+export class RealisasiCotChartComponent implements AfterViewInit {
   @ViewChild('relasiCotChart') private relasiCotChartRef!: ElementRef<HTMLCanvasElement>;
 
   ngAfterViewInit(): void {

@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
 import { NavbarComponent } from '../navbar/navbar.component';
-import { RelasiCotChartComponent } from './relasi-cot-chart/relasi-cot-chart.component';
+import { RealisasiCotChartComponent } from './realisasi-cot-chart/realisasi-cot-chart.component';
 
 @Component({
   selector: 'app-home',
   standalone: true,
   imports: [
     NavbarComponent,
-    RelasiCotChartComponent
+    RealisasiCotChartComponent
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
