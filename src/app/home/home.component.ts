@@ -4,6 +4,7 @@ import { RealisasiCotChartComponent } from './realisasi-cot-chart/realisasi-cot-
 import { DataPemegangKompetensiGseOperatorComponent } from './data-pemegang-kompetensi-gse-operator/data-pemegang-kompetensi-gse-operator.component';
 import { DataTotalSertifikatAktifComponent } from './data-total-sertifikat-aktif/data-total-sertifikat-aktif.component';
 import { DataJumlahPemegangSertifikatComponent } from './data-jumlah-pemegang-sertifikat/data-jumlah-pemegang-sertifikat.component';
+import { CotTableComponent } from './cot-table/cot-table.component';
 
 @Component({
   selector: 'app-home',
@@ -13,7 +14,8 @@ import { DataJumlahPemegangSertifikatComponent } from './data-jumlah-pemegang-se
     RealisasiCotChartComponent,
     DataPemegangKompetensiGseOperatorComponent,
     DataTotalSertifikatAktifComponent,
-    DataJumlahPemegangSertifikatComponent
+    DataJumlahPemegangSertifikatComponent,
+    CotTableComponent
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
