@@ -2,19 +2,19 @@ import { Component, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { Chart, registerables } from 'chart.js';
 
 @Component({
-  selector: 'app-relasi-cot-chart',
+  selector: 'app-realisasi-cot-chart',
   standalone: true,
   imports: [],
   templateUrl: './realisasi-cot-chart.component.html',
   styleUrl: './realisasi-cot-chart.component.css'
 })
 export class RealisasiCotChartComponent implements AfterViewInit {
-  @ViewChild('relasiCotChart') private relasiCotChartRef!: ElementRef<HTMLCanvasElement>;
+  @ViewChild('realisasiCotChart') private realisasiCotChartRef!: ElementRef<HTMLCanvasElement>;
 
   ngAfterViewInit(): void {
     Chart.register(...registerables);
 
-    const canvas = this.relasiCotChartRef.nativeElement;
+    const canvas = this.realisasiCotChartRef.nativeElement;
     const ctx = canvas.getContext('2d');
 
     if (!ctx) {
