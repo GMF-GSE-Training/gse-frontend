@@ -63,17 +63,3 @@
   border-bottom: 2px solid #000;
   width: 400px;
 }
-
-#login-button {
-  width: 150px;
-  height: 40px;
-  font-size: 20px;
-  color: #ffffff;
-  border: none;
-  background-color: #02507E;
-  border-radius: 50px;
-}
-
-#login-button:hover {
-  cursor: pointer;
-}
