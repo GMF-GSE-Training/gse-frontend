@@ -13,6 +13,10 @@
   height: 150px;
 }
 
+img:hover {
+  cursor: pointer;
+}
+
 .brand-logo {
   width: 235px;
   height: 48px;

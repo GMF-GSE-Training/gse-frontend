@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { RouterOutlet, RouterLink } from '@angular/router';
 import { SearchComponent } from './search/search.component';
 import { NavMenuComponent } from "./nav-menu/nav-menu.component";
 
@@ -8,6 +8,7 @@ import { NavMenuComponent } from "./nav-menu/nav-menu.component";
   standalone: true,
   imports: [
     RouterOutlet,
+    RouterLink,
     SearchComponent,
     NavMenuComponent
 ],
