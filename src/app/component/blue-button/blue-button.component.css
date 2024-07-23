@@ -1,11 +1,12 @@
 .blue-button {
   width: 150px;
-  height: 40px;
-  font-size: 20px;
+  height: 45px;
+  font-size: 30px;
   color: #ffffff;
   border: none;
   background-color: #02507E;
   border-radius: 50px;
+  font-family: 'Petrona', sans-serif;
 }
 
 .blue-button:hover {
