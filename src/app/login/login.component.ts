@@ -1,9 +1,12 @@
 import { Component } from '@angular/core';
+import { BlueButtonComponent } from '../component/blue-button/blue-button.component';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [],
+  imports: [
+    BlueButtonComponent
+  ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
