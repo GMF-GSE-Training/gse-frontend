@@ -62,19 +62,3 @@ input[type="text"], input[type="email"], input[type="tel"], input[type="date"], 
   border-radius: 50px;
   font-family: 'Petrona', sans-serif;
 }
-
-#back-button {
-  width: 150px;
-  height: 40px;
-  font-size: 25px;
-  font-family: 'Petrona', sans-serif;
-  color: #02507E;
-  background-color: none;
-  border: 3px solid #02507E;
-  border-radius: 50px;
-}
-
-button {
-  cursor: pointer;
-}
-
