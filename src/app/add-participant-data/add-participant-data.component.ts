@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavbarComponent } from "../navbar/navbar.component";
 import { RouterLink } from '@angular/router';
 import { BlueButtonComponent } from "../component/blue-button/blue-button.component";
+import { WhiteButtonComponent } from "../component/white-button/white-button.component";
 
 @Component({
   selector: 'app-add-participant-data',
@@ -9,7 +10,8 @@ import { BlueButtonComponent } from "../component/blue-button/blue-button.compon
   imports: [
     RouterLink,
     NavbarComponent,
-    BlueButtonComponent
+    BlueButtonComponent,
+    WhiteButtonComponent
 ],
   templateUrl: './add-participant-data.component.html',
   styleUrl: './add-participant-data.component.css'

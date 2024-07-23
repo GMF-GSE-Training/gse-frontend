@@ -70,33 +70,3 @@ tbody tr:nth-child(even) {
   margin-bottom: 15px;
   margin-left: 4em;
 }
-
-#add-button {
-  width: 150px;
-  height: 40px;
-  font-size: 25px;
-  color: #ffffff;
-  border: none;
-  background-color: #02507E;
-  border-radius: 50px;
-  font-family: 'Petrona', sans-serif;
-}
-
-#add-button:hover {
-  cursor: pointer;
-}
-
-#back-button {
-  width: 150px;
-  height: 40px;
-  font-size: 25px;
-  font-family: 'Petrona', sans-serif;
-  color: #02507E;
-  background-color: none;
-  border: 3px solid #02507E;
-  border-radius: 50px;
-}
-
-#back-button:hover {
-  cursor: pointer;
-}
