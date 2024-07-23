@@ -1,5 +1,6 @@
 import { Component, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { Chart, registerables } from 'chart.js';
+import ChartDataLabels from 'chartjs-plugin-datalabels';
 
 @Component({
   selector: 'app-realisasi-cot-chart',
@@ -13,6 +14,7 @@ export class RealisasiCotChartComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
     Chart.register(...registerables);
+    Chart.register(ChartDataLabels);
 
     const canvas = this.realisasiCotChartRef.nativeElement;
     const ctx = canvas.getContext('2d');
