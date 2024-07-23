@@ -28,25 +28,10 @@ export class DataTotalSertifikatAktifComponent implements AfterViewInit {
         labels: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'],
         datasets: [
           {
-            label: 'Open',
-            data: [3, 3.5],
-            backgroundColor: '#3C6735',
+            data: [3, 7, 6, 5, 9, 8, 3, 4, 4, 9, 7, 5, 8],
+            backgroundColor: '#003D61',
             stack: 'Stack 0',
             barThickness: 20
-          },
-          {
-            label: 'Cancel',
-            data: [1, 2],
-            backgroundColor: '#FF0000',
-            stack: 'Stack 0',
-            barThickness: 20
-          },
-          {
-            label: 'Finish',
-            data: [3, 2, 6, 4, 7, 8, 6, 3, 8, 5, 7, 9],
-            backgroundColor: '#FFB800',
-            stack: 'Stack 0',
-            barThickness: 20,
           }
         ]
       },
@@ -54,16 +39,7 @@ export class DataTotalSertifikatAktifComponent implements AfterViewInit {
         responsive: true,
         plugins: {
           legend: {
-            position: 'top',
-            labels: {
-              boxWidth: 20,
-              boxHeight: 20,
-              padding: 20,
-              color: '#FFFFFF',
-              font: {
-                family: 'Petrona'
-              }
-            }
+            display: false,
           },
           title: {
             display: true,
@@ -74,8 +50,7 @@ export class DataTotalSertifikatAktifComponent implements AfterViewInit {
               family: 'Petrona'
             },
             padding: {
-              top: 5,
-              bottom: 5
+              bottom: 20
             }
           }
         },
@@ -110,7 +85,7 @@ export class DataTotalSertifikatAktifComponent implements AfterViewInit {
             }
           }
         }
-      }
+      },
     });
   }
 }
