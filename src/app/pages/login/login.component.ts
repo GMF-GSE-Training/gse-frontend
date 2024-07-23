@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BlueButtonComponent } from '../component/blue-button/blue-button.component';
+import { BlueButtonComponent } from '../../component/blue-button/blue-button.component';
 
 @Component({
   selector: 'app-login',

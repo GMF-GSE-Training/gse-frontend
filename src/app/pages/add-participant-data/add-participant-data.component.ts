@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { NavbarComponent } from "../navbar/navbar.component";
+import { NavbarComponent } from '../../navbar/navbar.component';
 import { RouterLink } from '@angular/router';
-import { BlueButtonComponent } from "../component/blue-button/blue-button.component";
-import { WhiteButtonComponent } from "../component/white-button/white-button.component";
+import { WhiteButtonComponent } from '../../component/white-button/white-button.component';
+import { BlueButtonComponent } from '../../component/blue-button/blue-button.component';
 
 @Component({
   selector: 'app-add-participant-data',
