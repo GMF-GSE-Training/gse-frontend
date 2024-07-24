@@ -1,4 +1,4 @@
-<div class="menu" [ngClass]="{ 'visible': isMenuVisible }">
+<div class="menu" *ngIf="isMenuVisible" [ngClass]="{ 'visible': isMenuVisible }">
   <ul class="navbar-nav">
     <li class="nav-item active">
       <a class="nav-link" routerLink="/participant-data">Participant Data</a>
