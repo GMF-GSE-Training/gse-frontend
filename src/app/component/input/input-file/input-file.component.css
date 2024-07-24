@@ -11,17 +11,27 @@
 .file-upload-label {
   display: flex;
   justify-content: center;
+  align-items: center;
   background-color: #02507E;
   padding: 10px 20px;
   cursor: pointer;
   color: #fff;
   font-size: 15px;
   border-radius: 25px;
-  width: 10%;
+  width: auto;
+  margin-top: 0;
+  height: 100%;
 }
 
 .file-upload-text {
   padding: 10px 20px;
   color: #000;
   flex-grow: 1;
+}
+
+label {
+  display: block;
+  margin-top: 10px;
+  font-weight: bold;
+  font-size: 20px;
 }

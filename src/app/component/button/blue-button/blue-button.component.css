@@ -12,3 +12,10 @@
 .blue-button:hover {
   cursor: pointer;
 }
+
+label {
+  display: block;
+  margin-top: 10px;
+  font-weight: bold;
+  font-size: 20px;
+}

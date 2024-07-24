@@ -26,12 +26,6 @@ form {
   width: 48%;
 }
 
-label {
-  display: block;
-  margin-top: 10px;
-  font-weight: bold;
-}
-
 .container-button {
   display: flex;
   justify-content: center;
