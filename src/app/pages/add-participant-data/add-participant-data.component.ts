@@ -6,6 +6,7 @@ import { BlueButtonComponent } from '../../component/button/blue-button/blue-but
 import { InputFileComponent } from "../../component/input/input-file/input-file.component";
 import { InputTextComponent } from '../../component/input/input-text/input-text.component';
 import { InputDateComponent } from "../../component/input/input-date/input-date.component";
+import { InputCompanyComponent } from "../../component/input/input-company/input-company.component";
 
 @Component({
   selector: 'app-add-participant-data',
@@ -17,7 +18,8 @@ import { InputDateComponent } from "../../component/input/input-date/input-date.
     WhiteButtonComponent,
     InputFileComponent,
     InputTextComponent,
-    InputDateComponent
+    InputDateComponent,
+    InputCompanyComponent
 ],
   templateUrl: './add-participant-data.component.html',
   styleUrl: './add-participant-data.component.css'
