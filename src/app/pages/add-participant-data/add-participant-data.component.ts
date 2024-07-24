@@ -4,6 +4,7 @@ import { RouterLink } from '@angular/router';
 import { WhiteButtonComponent } from '../../component/white-button/white-button.component';
 import { BlueButtonComponent } from '../../component/blue-button/blue-button.component';
 import { InputFileComponent } from "../../component/input-file/input-file.component";
+import { InputComponent } from "../../input/input.component";
 
 @Component({
   selector: 'app-add-participant-data',
@@ -13,7 +14,8 @@ import { InputFileComponent } from "../../component/input-file/input-file.compon
     NavbarComponent,
     BlueButtonComponent,
     WhiteButtonComponent,
-    InputFileComponent
+    InputFileComponent,
+    InputComponent
 ],
   templateUrl: './add-participant-data.component.html',
   styleUrl: './add-participant-data.component.css'
