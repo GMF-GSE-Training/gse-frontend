@@ -1,0 +1,19 @@
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 12px;
+  text-align: center;
+  border-bottom: 1px solid #dddddd;
+}
+
+th {
+  background-color:#126A9E;
+  color: #ffffff;
+}
+
+tbody tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
