@@ -1,5 +1,6 @@
 import { Component, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { Chart, registerables } from 'chart.js';
+import ChartDataLabels from 'chartjs-plugin-datalabels';
 
 @Component({
   selector: 'app-data-jumlah-pemegang-sertifikat',
@@ -14,6 +15,7 @@ export class DataJumlahPemegangSertifikatComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
     Chart.register(...registerables);
+    Chart.register(ChartDataLabels);
 
     const canvas = this.jumlahPemegangSertifikatRef.nativeElement;
     const ctx = canvas.getContext('2d');
@@ -46,10 +48,18 @@ export class DataJumlahPemegangSertifikatComponent implements AfterViewInit {
               color: 'white',
               font: {
                 size: 16,
+                family: 'Petrona',
               },
               usePointStyle: true,
               pointStyle: 'circle',
             },
+          },
+          datalabels: {
+            color: '#FFF',
+            font: {
+              family: 'Petrona',
+              size: 20
+            }
           },
           title: {
             display: true,

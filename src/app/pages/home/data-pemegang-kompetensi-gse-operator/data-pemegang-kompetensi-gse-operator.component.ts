@@ -1,5 +1,6 @@
 import { Component, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { Chart, registerables } from 'chart.js';
+import ChartDataLabels from 'chartjs-plugin-datalabels';
 
 @Component({
   selector: 'app-data-pemegang-kompetensi-gse-operator',
@@ -13,6 +14,7 @@ export class DataPemegangKompetensiGseOperatorComponent implements AfterViewInit
 
   ngAfterViewInit(): void {
     Chart.register(...registerables);
+    Chart.register(ChartDataLabels);
 
     const canvas = this.dataPemegangKompetensiGseOperatorRef.nativeElement;
     const ctx = canvas.getContext('2d');
@@ -32,14 +34,14 @@ export class DataPemegangKompetensiGseOperatorComponent implements AfterViewInit
             data: [0, 63, 3, 10, 23, 43, 5, 2, 4, 4, 13],
             backgroundColor: '#02507E',
             stack: 'Stack 0',
-            barThickness: 20
+            barThickness: 35
           },
           {
             label: 'Non GMF',
             data: [5, 0, 8, 0, 2, 0, 5, 0, 3, 1, 2],
             backgroundColor: '#2C844F',
             stack: 'Stack 0',
-            barThickness: 20
+            barThickness: 35
           },
         ]
       },
@@ -56,6 +58,16 @@ export class DataPemegangKompetensiGseOperatorComponent implements AfterViewInit
               font: {
                 family: 'Petrona'
               }
+            }
+          },
+          datalabels: {
+            color: '#FFF',
+            font: {
+              family: 'Petrona',
+              size: 20
+            },
+            display: function(context) {
+              return context.dataset.data[context.dataIndex] !== 0;
             }
           },
           title: {

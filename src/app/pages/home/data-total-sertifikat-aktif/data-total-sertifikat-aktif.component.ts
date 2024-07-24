@@ -1,5 +1,6 @@
 import { Component, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { Chart, registerables } from 'chart.js';
+import ChartDataLabels from 'chartjs-plugin-datalabels';
 
 @Component({
   selector: 'app-data-total-sertifikat-aktif',
@@ -13,6 +14,7 @@ export class DataTotalSertifikatAktifComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
     Chart.register(...registerables);
+    Chart.register(ChartDataLabels);
 
     const canvas = this.totalSertifikatAktifRef.nativeElement;
     const ctx = canvas.getContext('2d');
@@ -31,7 +33,7 @@ export class DataTotalSertifikatAktifComponent implements AfterViewInit {
             data: [3, 7, 6, 5, 9, 8, 3, 4, 4, 9, 7, 5, 8],
             backgroundColor: '#003D61',
             stack: 'Stack 0',
-            barThickness: 20
+            barThickness: 35
           }
         ]
       },
@@ -40,6 +42,13 @@ export class DataTotalSertifikatAktifComponent implements AfterViewInit {
         plugins: {
           legend: {
             display: false,
+          },
+          datalabels: {
+            color: '#FFF',
+            font: {
+              family: 'Petrona',
+              size: 20
+            }
           },
           title: {
             display: true,

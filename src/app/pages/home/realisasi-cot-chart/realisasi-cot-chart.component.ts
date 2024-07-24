@@ -34,21 +34,21 @@ export class RealisasiCotChartComponent implements AfterViewInit {
             data: [3, 3.5],
             backgroundColor: '#3C6735',
             stack: 'Stack 0',
-            barThickness: 20
+            barThickness: 35
           },
           {
             label: 'Cancel',
             data: [1, 2],
             backgroundColor: '#FF0000',
             stack: 'Stack 0',
-            barThickness: 20
+            barThickness: 35
           },
           {
             label: 'Finish',
             data: [3, 2, 6, 4, 7, 8, 6, 3, 8, 5, 7, 9],
             backgroundColor: '#FFB800',
             stack: 'Stack 0',
-            barThickness: 20,
+            barThickness: 35,
           }
         ]
       },
@@ -66,6 +66,13 @@ export class RealisasiCotChartComponent implements AfterViewInit {
                 family: 'Petrona'
               }
             }
+          },
+          datalabels: {
+            color: '#FFF',
+            font: {
+              family: 'Petrona',
+              size: 20
+            },
           },
           title: {
             display: true,
