@@ -32,7 +32,7 @@ label {
   font-weight: bold;
 }
 
-input[type="text"], input[type="email"], input[type="tel"], input[type="date"], select, input[type="file"] {
+input[type="text"], input[type="email"], input[type="tel"], input[type="date"], select {
   width: calc(100% - 10px);
   padding: 8px;
   margin-top: 5px;
