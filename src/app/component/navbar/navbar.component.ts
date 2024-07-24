@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterOutlet, RouterLink } from '@angular/router';
 import { SearchComponent } from '../search/search.component';
-import { NavMenuComponent } from "../nav-menu/nav-menu.component";
+import { NavMenuComponent } from "./nav-menu/nav-menu.component";
 
 @Component({
   selector: 'app-navbar',
