@@ -6,4 +6,5 @@ input {
   border: 3px solid #ccc;
   box-sizing: border-box;
   font-family: 'Petrona', sans-serif;
+  height: 40px;
 }
