@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterOutlet, RouterLink } from '@angular/router';
-import { SearchComponent } from './search/search.component';
+import { SearchComponent } from '../component/search/search.component';
 import { NavMenuComponent } from "../component/nav-menu/nav-menu.component";
 
 @Component({
