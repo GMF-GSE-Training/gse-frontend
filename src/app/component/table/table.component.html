@@ -1,3 +1,4 @@
+<!-- reusable-table.component.html -->
 <table>
   <thead>
     <tr>
@@ -6,7 +7,12 @@
   </thead>
   <tbody>
     <tr *ngFor="let row of data">
-      <td *ngFor="let column of columns">{{ row[column.field] }}</td>
+      <td *ngFor="let column of columns">
+        <ng-container *ngIf="column.field === 'kurikulumSilabus'; else dataCell">
+          <a routerLink="{{ row[column.field] }}">lihat</a>
+        </ng-container>
+        <ng-template #dataCell>{{ row[column.field] }}</ng-template>
+      </td>
     </tr>
   </tbody>
 </table>

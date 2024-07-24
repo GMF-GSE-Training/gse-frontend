@@ -1,10 +1,11 @@
 table {
   width: 100%;
   border-collapse: collapse;
+  font-size: 18px;
 }
 
 th, td {
-  padding: 12px;
+  padding: 10px;
   text-align: center;
   border-bottom: 1px solid #dddddd;
 }
