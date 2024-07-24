@@ -5,6 +5,7 @@ import { WhiteButtonComponent } from '../../component/white-button/white-button.
 import { BlueButtonComponent } from '../../component/blue-button/blue-button.component';
 import { InputFileComponent } from "../../component/input-file/input-file.component";
 import { InputComponent } from "../../input/input.component";
+import { InputDateComponent } from "../../component/input-date/input-date.component";
 
 @Component({
   selector: 'app-add-participant-data',
@@ -15,7 +16,8 @@ import { InputComponent } from "../../input/input.component";
     BlueButtonComponent,
     WhiteButtonComponent,
     InputFileComponent,
-    InputComponent
+    InputComponent,
+    InputDateComponent
 ],
   templateUrl: './add-participant-data.component.html',
   styleUrl: './add-participant-data.component.css'
