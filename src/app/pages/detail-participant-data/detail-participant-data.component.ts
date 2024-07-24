@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { NavbarComponent } from '../../component/navbar/navbar.component';
-import { BlueButtonComponent } from '../../component/blue-button/blue-button.component';
+import { BlueButtonComponent } from '../../component/button/blue-button/blue-button.component';
 
 @Component({
   selector: 'app-detail-participant-data',

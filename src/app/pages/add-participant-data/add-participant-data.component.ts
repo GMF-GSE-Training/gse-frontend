@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { NavbarComponent } from '../../component/navbar/navbar.component';
 import { RouterLink } from '@angular/router';
-import { WhiteButtonComponent } from '../../component/white-button/white-button.component';
-import { BlueButtonComponent } from '../../component/blue-button/blue-button.component';
+import { WhiteButtonComponent } from '../../component/button/white-button/white-button.component';
+import { BlueButtonComponent } from '../../component/button/blue-button/blue-button.component';
 import { InputFileComponent } from "../../component/input/input-file/input-file.component";
-import { InputComponent } from "../../component/input/input.component";
+import { InputTextComponent } from '../../component/input/input-text/input-text.component';
 import { InputDateComponent } from "../../component/input/input-date/input-date.component";
 
 @Component({
@@ -16,7 +16,7 @@ import { InputDateComponent } from "../../component/input/input-date/input-date.
     BlueButtonComponent,
     WhiteButtonComponent,
     InputFileComponent,
-    InputComponent,
+    InputTextComponent,
     InputDateComponent
 ],
   templateUrl: './add-participant-data.component.html',
