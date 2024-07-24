@@ -1,0 +1,27 @@
+.file-upload {
+  display: flex;
+  align-items: center;
+  border-radius: 25px;
+  overflow: hidden;
+  width: calc(100% - 10px);
+  margin-top: 5px;
+  border: 3px solid #ccc;
+}
+
+.file-upload-label {
+  display: flex;
+  justify-content: center;
+  background-color: #02507E;
+  padding: 10px 20px;
+  cursor: pointer;
+  color: #fff;
+  font-size: 15px;
+  border-radius: 25px;
+  width: 10%;
+}
+
+.file-upload-text {
+  padding: 10px 20px;
+  color: #000;
+  flex-grow: 1;
+}

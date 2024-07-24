@@ -1,1 +1,5 @@
-<p>input-file works!</p>
+<div class="file-upload">
+  <label for="fileInput" class="file-upload-label">Pilih File</label>
+  <div class="file-upload-text">{{ fileName || 'Tidak ada file dipilih' }}</div>
+</div>
+<input type="file" id="fileInput" (change)="onFileSelected($event)" hidden>
