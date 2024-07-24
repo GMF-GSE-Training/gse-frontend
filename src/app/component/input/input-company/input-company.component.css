@@ -23,3 +23,8 @@ select, input {
   font-weight: bold;
   padding-left: 8px;
 }
+
+#company-input {
+  height: 35px;
+  width: calc(100% - 23px);
+}
