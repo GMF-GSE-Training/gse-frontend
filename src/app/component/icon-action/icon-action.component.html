@@ -1,4 +1,7 @@
 <div>
+  <span *ngIf="addLink">
+    <i class="fa-solid fa-plus" [routerLink]="[addLink]"></i>
+  </span>
   <span *ngIf="printLink">
     <i class="fa-solid fa-print" [routerLink]="[printLink]"></i>
   </span>
