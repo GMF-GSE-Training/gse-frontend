@@ -1,0 +1,30 @@
+.participant-card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  border: 1px solid #ccc;
+  max-width: 80%;
+  margin: 20px auto;
+  font-size: 22px;
+}
+
+.info-section {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.fill {
+  color: #266E99;
+}
+
+.user-table {
+  border-collapse: collapse;
+  width: 45%;
+}
+
+.user-table td {
+  padding: 8px;
+  border: 1px solid #ddd;
+}

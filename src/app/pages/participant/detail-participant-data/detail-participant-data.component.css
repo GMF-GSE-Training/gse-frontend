@@ -1,0 +1,59 @@
+.section {
+  display: flex;
+  justify-content: center;
+  gap: 30%;
+  margin-top: 20px;
+}
+
+.profile-section {
+  text-align: center;
+}
+
+.profile-section img {
+  width: 100px;
+  height: 133px;
+}
+
+.qr-section {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  gap: 30px;
+}
+
+.qr-section img {
+  width: 100px;
+  height: 100px;
+}
+
+.print {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 30px;
+}
+
+.print a {
+  color: #000;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.container {
+  width: 95%;
+  margin-top: 50px;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin: 25px;
+}
+
+.container-button {
+  display: flex;
+  justify-content: center;
+  width: 90%;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  margin-left: 4em;
+}
+

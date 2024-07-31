@@ -1,0 +1,27 @@
+<app-navbar></app-navbar>
+
+<div class="section">
+  <div class="profile-section">
+    <img src="../../../assets/image/pas_foto.png" alt="Profile Picture">
+    <h2>Heri Susanto</h2>
+  </div>
+  <div class="qr-section">
+    <div class="print">
+      <img src="../../../assets/image/barcode.png" alt="QR Code">
+    </div>
+    <div class="print">
+      <p><a href="#">Cetak Kartu Peserta</a></p>
+      <p><a href="#">Download</a></p>
+    </div>
+  </div>
+</div>
+
+<app-detailed-view [leftTableData]="leftTableData" [rightTableData]="rightTableData"></app-detailed-view>
+
+<div class="container">
+  <app-table [columns]="columns" [data]="data"></app-table>
+</div>
+
+<div class="container-button">
+  <app-blue-button routerLink="/home">Back</app-blue-button>
+</div>

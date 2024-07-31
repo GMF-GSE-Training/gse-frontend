@@ -1,0 +1,53 @@
+<app-navbar></app-navbar>
+
+<div class="title-container">
+  <h1 class="title">Edit Participant Data</h1>
+</div>
+
+<form>
+  <div class="form-container">
+    <div class="left-column">
+
+      <app-input-text type="text" inputMode="numerik">Nomor Pegawai</app-input-text>
+
+      <app-input-text type="text" inputMode="text">Nama *</app-input-text>
+
+      <app-input-text type="text" inputMode="text">Dinas</app-input-text>
+
+      <app-input-text type="text" inputMode="text">Bidang</app-input-text>
+
+      <app-input-company></app-input-company>
+
+      <app-input-text type="email" inputMode="text">Email *</app-input-text>
+
+      <app-input-text type="tel" inputMode="tel">Nomor Telpon *</app-input-text>
+
+      <app-input-text type="text" inputMode="text">Kewarganegaraan *</app-input-text>
+    </div>
+
+    <div class="right-column">
+      <app-input-text type="text" inputMode="text">Tempat Lahir *</app-input-text>
+
+      <app-input-date>Tanggal Lahir *</app-input-date>
+
+      <app-input-file>SIM A *</app-input-file>
+
+      <app-input-file>SIM B *</app-input-file>
+
+      <app-input-file>KTP *</app-input-file>
+
+      <app-input-file>Foto *</app-input-file>
+
+      <app-input-file>Ket Sehat & Buta warna *</app-input-file>
+      <app-input-date></app-input-date>
+
+      <app-input-file>Ket Bebas Narkoba *</app-input-file>
+      <app-input-date></app-input-date>
+    </div>
+  </div>
+</form>
+
+<div class="container-button">
+  <app-white-button routerLink="/home">Back</app-white-button>
+  <app-blue-button>Save</app-blue-button>
+</div>
