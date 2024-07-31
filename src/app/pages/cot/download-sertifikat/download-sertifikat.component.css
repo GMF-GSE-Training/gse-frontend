@@ -1,0 +1,46 @@
+.title-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.title {
+  border-bottom: 4px solid #000;
+  font-size: 25px;
+}
+
+.container {
+  width: 95%;
+  height: 90vh;
+  margin: 40px;
+  border-radius: 25px;
+  border: 4px #02507E solid;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15em;
+}
+
+.file {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 464px;
+  height: 566px;
+  box-sizing: border-box;
+  padding-top: 10px;
+  font-size: 500px;
+}
+
+.file p {
+  margin: 10px;
+  font-size: 25px;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+  margin-top: 25px;
+}
