@@ -40,6 +40,61 @@ export class ViewCapabilityComponent {
     { kodeRating: 'LSS', kodeTraining: 'TCT - 0530', namaTraining: 'Lavatory Service System', durasiMateriRegulasGSE: 23, durasiMateriRating: 25, totalDurasi: 48, kurikulumSilabus: '/home', action: '' },
     { kodeRating: 'WSS', kodeTraining: 'TCT - 0529', namaTraining: 'Water Service System', durasiMateriRegulasGSE: 23, durasiMateriRating: 25, totalDurasi: 48, kurikulumSilabus: '/home', action: '' },
     { kodeRating: 'ASS', kodeTraining: 'TCT - 0527', namaTraining: 'Air Starter System', durasiMateriRegulasGSE: 23, durasiMateriRating: 25, totalDurasi: 48, kurikulumSilabus: '/home', action: '' },
-    { kodeRating: 'MUV', kodeTraining: 'TCT - 0537', namaTraining: 'Maintenance Unit Vehicle', durasiMateriRegulasGSE: 23, durasiMateriRating: 25, totalDurasi: 48, kurikulumSilabus: '/home', action: '' }
+    { kodeRating: 'MUV', kodeTraining: 'TCT - 0537', namaTraining: 'Maintenance Unit Vehicle', durasiMateriRegulasGSE: 23, durasiMateriRating: 25, totalDurasi: 48, kurikulumSilabus: '/home', action: '' },
+    { kodeRating: 'BTT', kodeTraining: 'TCT - 0535', namaTraining: 'Baggage Towing Tractor', durasiMateriRegulasGSE: 25, durasiMateriRating: 25, totalDurasi: 48, kurikulumSilabus: '/home', action: '' },
+    { kodeRating: 'FLT', kodeTraining: 'TCT - 0536', namaTraining: 'Forklift', durasiMateriRegulasGSE: 25, durasiMateriRating: 25, totalDurasi: 48, kurikulumSilabus: '/home', action: '' },
+    { kodeRating: 'RDS', kodeTraining: 'TCT - 0534', namaTraining: 'Refueling Defueling System', durasiMateriRegulasGSE: 24, durasiMateriRating: 40, totalDurasi: 64, kurikulumSilabus: '/home', action: '' },
+    { kodeRating: 'GPS', kodeTraining: 'TCT - 0526', namaTraining: 'Ground Power System', durasiMateriRegulasGSE: 25, durasiMateriRating: 25, totalDurasi: 48, kurikulumSilabus: '/home', action: '' },
+    { kodeRating: 'ACS', kodeTraining: 'TCT - 0528', namaTraining: 'Air Conditioning System', durasiMateriRegulasGSE: 25, durasiMateriRating: 25, totalDurasi: 48, kurikulumSilabus: 'home', action: '' },
+    { kodeRating: 'ATT', kodeTraining: 'TCT - 0555', namaTraining: 'Aircraft Towing Tractor', durasiMateriRegulasGSE: 25, durasiMateriRating: 41, totalDurasi: 64, kurikulumSilabus: 'home', action: '' },
+    { kodeRating: 'LSS', kodeTraining: 'TCT - 0530', namaTraining: 'Lavatory Service System', durasiMateriRegulasGSE: 25, durasiMateriRating: 25, totalDurasi: 48, kurikulumSilabus: '/home', action: '' },
+    { kodeRating: 'WSS', kodeTraining: 'TCT - 0529', namaTraining: 'Water Service System', durasiMateriRegulasGSE: 25, durasiMateriRating: 25, totalDurasi: 48, kurikulumSilabus: '/home', action: '' },
+    { kodeRating: 'ASS', kodeTraining: 'TCT - 0527', namaTraining: 'Air Starter System', durasiMateriRegulasGSE: 25, durasiMateriRating: 25, totalDurasi: 48, kurikulumSilabus: '/home', action: '' },
+    { kodeRating: 'MUV', kodeTraining: 'TCT - 0537', namaTraining: 'Maintenance Unit Vehicle', durasiMateriRegulasGSE: 25, durasiMateriRating: 25, totalDurasi: 48, kurikulumSilabus: '/home', action: '' },
+    { kodeRating: 'BTT', kodeTraining: 'TCT - 0535', namaTraining: 'Baggage Towing Tractor', durasiMateriRegulasGSE: 27, durasiMateriRating: 25, totalDurasi: 48, kurikulumSilabus: '/home', action: '' },
+    { kodeRating: 'FLT', kodeTraining: 'TCT - 0536', namaTraining: 'Forklift', durasiMateriRegulasGSE: 27, durasiMateriRating: 25, totalDurasi: 48, kurikulumSilabus: '/home', action: '' },
+    { kodeRating: 'RDS', kodeTraining: 'TCT - 0534', namaTraining: 'Refueling Defueling System', durasiMateriRegulasGSE: 24, durasiMateriRating: 40, totalDurasi: 64, kurikulumSilabus: '/home', action: '' },
+    { kodeRating: 'GPS', kodeTraining: 'TCT - 0526', namaTraining: 'Ground Power System', durasiMateriRegulasGSE: 27, durasiMateriRating: 25, totalDurasi: 48, kurikulumSilabus: '/home', action: '' },
+    { kodeRating: 'ACS', kodeTraining: 'TCT - 0528', namaTraining: 'Air Conditioning System', durasiMateriRegulasGSE: 27, durasiMateriRating: 25, totalDurasi: 48, kurikulumSilabus: 'home', action: '' },
+    { kodeRating: 'ATT', kodeTraining: 'TCT - 0555', namaTraining: 'Aircraft Towing Tractor', durasiMateriRegulasGSE: 27, durasiMateriRating: 41, totalDurasi: 64, kurikulumSilabus: 'home', action: '' },
+    { kodeRating: 'LSS', kodeTraining: 'TCT - 0530', namaTraining: 'Lavatory Service System', durasiMateriRegulasGSE: 27, durasiMateriRating: 25, totalDurasi: 48, kurikulumSilabus: '/home', action: '' },
+    { kodeRating: 'WSS', kodeTraining: 'TCT - 0529', namaTraining: 'Water Service System', durasiMateriRegulasGSE: 27, durasiMateriRating: 25, totalDurasi: 48, kurikulumSilabus: '/home', action: '' },
+    { kodeRating: 'ASS', kodeTraining: 'TCT - 0527', namaTraining: 'Air Starter System', durasiMateriRegulasGSE: 27, durasiMateriRating: 25, totalDurasi: 48, kurikulumSilabus: '/home', action: '' },
+    { kodeRating: 'MUV', kodeTraining: 'TCT - 0537', namaTraining: 'Maintenance Unit Vehicle', durasiMateriRegulasGSE: 27, durasiMateriRating: 25, totalDurasi: 48, kurikulumSilabus: '/home', action: '' },
+    { kodeRating: 'BTT', kodeTraining: 'TCT - 0535', namaTraining: 'Baggage Towing Tractor', durasiMateriRegulasGSE: 29, durasiMateriRating: 25, totalDurasi: 48, kurikulumSilabus: '/home', action: '' },
+    { kodeRating: 'FLT', kodeTraining: 'TCT - 0536', namaTraining: 'Forklift', durasiMateriRegulasGSE: 29, durasiMateriRating: 25, totalDurasi: 48, kurikulumSilabus: '/home', action: '' },
+    { kodeRating: 'RDS', kodeTraining: 'TCT - 0534', namaTraining: 'Refueling Defueling System', durasiMateriRegulasGSE: 24, durasiMateriRating: 40, totalDurasi: 64, kurikulumSilabus: '/home', action: '' },
+    { kodeRating: 'GPS', kodeTraining: 'TCT - 0526', namaTraining: 'Ground Power System', durasiMateriRegulasGSE: 29, durasiMateriRating: 25, totalDurasi: 48, kurikulumSilabus: '/home', action: '' },
+    { kodeRating: 'ACS', kodeTraining: 'TCT - 0528', namaTraining: 'Air Conditioning System', durasiMateriRegulasGSE: 29, durasiMateriRating: 25, totalDurasi: 48, kurikulumSilabus: 'home', action: '' },
+    { kodeRating: 'ATT', kodeTraining: 'TCT - 0555', namaTraining: 'Aircraft Towing Tractor', durasiMateriRegulasGSE: 29, durasiMateriRating: 41, totalDurasi: 64, kurikulumSilabus: 'home', action: '' },
+    { kodeRating: 'LSS', kodeTraining: 'TCT - 0530', namaTraining: 'Lavatory Service System', durasiMateriRegulasGSE: 29, durasiMateriRating: 25, totalDurasi: 48, kurikulumSilabus: '/home', action: '' },
+    { kodeRating: 'WSS', kodeTraining: 'TCT - 0529', namaTraining: 'Water Service System', durasiMateriRegulasGSE: 29, durasiMateriRating: 25, totalDurasi: 48, kurikulumSilabus: '/home', action: '' },
+    { kodeRating: 'ASS', kodeTraining: 'TCT - 0527', namaTraining: 'Air Starter System', durasiMateriRegulasGSE: 29, durasiMateriRating: 25, totalDurasi: 48, kurikulumSilabus: '/home', action: '' },
+    { kodeRating: 'MUV', kodeTraining: 'TCT - 0537', namaTraining: 'Maintenance Unit Vehicle', durasiMateriRegulasGSE: 29, durasiMateriRating: 25, totalDurasi: 48, kurikulumSilabus: '/home', action: '' }
   ];
+
+  currentPage = 1;
+  itemsPerPage = 10;
+
+  get paginatedData() {
+    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+    const endIndex = startIndex + this.itemsPerPage;
+    return this.data.slice(startIndex, endIndex);
+  }
+
+  get totalPages() {
+    return Math.ceil(this.data.length / this.itemsPerPage);
+  }
+
+  nextPage() {
+    if ((this.currentPage * this.itemsPerPage) < this.data.length) {
+      this.currentPage++;
+    }
+  }
+
+  previousPage() {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+    }
+  }
 }

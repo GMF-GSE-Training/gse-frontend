@@ -59,6 +59,9 @@ tbody tr:nth-child(even) {
 }
 
 .nav-pagination {
+  display: flex;
+  gap: 20px;
+  cursor: pointer;
   font-size: 25px;
 }
 

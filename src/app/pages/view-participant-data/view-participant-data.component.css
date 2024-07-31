@@ -39,7 +39,14 @@ form input {
 }
 
 .nav-pagination {
+  display: flex;
+  gap: 20px;
+  cursor: pointer;
   font-size: 25px;
+}
+
+.nav-pagination p:hover {
+  text-decoration: underline;
 }
 
 .container-button {

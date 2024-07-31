@@ -11,12 +11,14 @@
 </div>
 
 <div class="container">
-  <app-table [columns]="columns" [data]="data"></app-table>
+  <app-table [columns]="columns" [data]="paginatedData"></app-table>
 </div>
 
 <div class="nav">
   <div class="nav-pagination">
-    &lt; Priview ..... 1 2 3 ..... Next &gt;
+    <p (click)="previousPage()">&lt; Preview</p>
+    <p>{{ currentPage }} / {{ totalPages }}</p>
+    <p (click)="nextPage()">Next &gt;</p>
   </div>
 </div>
 
