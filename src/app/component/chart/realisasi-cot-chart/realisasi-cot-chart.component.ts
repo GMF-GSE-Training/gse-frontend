@@ -38,7 +38,7 @@ export class RealisasiCotChartComponent implements AfterViewInit {
           },
           {
             label: 'Cancel',
-            data: [4, 2, 9,   3, 7, 7, 5, 8, 2, 9, 6, 4],
+            data: [4, 2, 9, 3, 7, 7, 5, 8, 2, 9, 6, 4],
             backgroundColor: '#FF0000',
             stack: 'Stack 0',
             barThickness: 35
