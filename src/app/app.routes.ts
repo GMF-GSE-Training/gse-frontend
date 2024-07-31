@@ -19,6 +19,7 @@ import { AddParticipantCotComponent } from './pages/cot/add-participant-cot/add-
 import { DownloadSertifikatComponent } from './pages/cot/download-sertifikat/download-sertifikat.component';
 import { ViewUsersComponent } from './pages/users/view-users/view-users.component';
 import { AddUserComponent } from './pages/users/add-user/create-account.component';
+import { ViewSignComponent } from './pages/sign/add-sign/view-sign.component';
 
 export const routes: Routes = [
   {
@@ -100,5 +101,9 @@ export const routes: Routes = [
   {
     path: 'add-user',
     component: AddUserComponent
+  },
+  {
+    path: 'add-sign',
+    component: ViewSignComponent
   },
 ];
