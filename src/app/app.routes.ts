@@ -9,6 +9,7 @@ import { EditParticipantDataComponent } from './pages/participant/edit-participa
 import { AddCapabilityComponent } from './pages/capability/add-capability/add-capability.component';
 import { EditCapabilityComponent } from './pages/capability/edit-capability/edit-capability.component';
 import { IdCardComponent } from './pages/participant/id-card/id-card.component';
+import { AddCotComponent } from './pages/cot/add-cot/add-cot.component';
 
 export const routes: Routes = [
   {
@@ -50,5 +51,9 @@ export const routes: Routes = [
   {
     path: 'edit-capability',
     component: EditCapabilityComponent
+  },
+  {
+    path: 'add-cot',
+    component: AddCotComponent
   },
 ];
