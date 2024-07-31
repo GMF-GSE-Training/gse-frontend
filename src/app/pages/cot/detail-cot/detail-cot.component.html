@@ -1,0 +1,26 @@
+<app-navbar></app-navbar>
+
+<div class="title-container">
+  <h1 class="title">Calender Of Training</h1>
+</div>
+
+<app-detailed-view [leftTableData]="leftTableData" [rightTableData]="rightTableData"></app-detailed-view>
+
+<div class="container">
+  <app-table [columns]="columns" [data]="paginatedData"></app-table>
+</div>
+
+<div class="nav">
+  <div class="nav-pagination">
+    <p (click)="previousPage()">&lt; Preview</p>
+    <p>{{ currentPage }} / {{ totalPages }}</p>
+    <p (click)="nextPage()">Next &gt;</p>
+  </div>
+  <app-white-button class="add-button"><i class="fa-solid fa-plus"></i></app-white-button>
+</div>
+
+<div class="container-button">
+  <app-white-button routerLink="/home">Back</app-white-button>
+  <app-blue-button routerLink="/view-detail-cot">Finish</app-blue-button>
+  <app-white-button routerLink="/cot">Cancel</app-white-button>
+</div>

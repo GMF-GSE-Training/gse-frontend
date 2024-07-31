@@ -12,6 +12,7 @@ import { IdCardComponent } from './pages/participant/id-card/id-card.component';
 import { AddCotComponent } from './pages/cot/add-cot/add-cot.component';
 import { ViewCotComponent } from './pages/cot/view-cot/view-cot.component';
 import { EditCotComponent } from './pages/cot/edit-cot/edit-cot.component';
+import { DetailCotComponent } from './pages/cot/detail-cot/detail-cot.component';
 
 export const routes: Routes = [
   {
@@ -65,5 +66,9 @@ export const routes: Routes = [
   {
     path: 'edit-cot',
     component: EditCotComponent
+  },
+  {
+    path: 'detail-cot',
+    component: DetailCotComponent
   },
 ];
