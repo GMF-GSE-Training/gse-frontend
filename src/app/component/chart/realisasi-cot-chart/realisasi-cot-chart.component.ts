@@ -31,14 +31,14 @@ export class RealisasiCotChartComponent implements AfterViewInit {
         datasets: [
           {
             label: 'Open',
-            data: [3, 3.5],
+            data: [3, 5, 6, 2, 6, 4, 7, 2, 8, 6, 5, 9],
             backgroundColor: '#3C6735',
             stack: 'Stack 0',
             barThickness: 35
           },
           {
             label: 'Cancel',
-            data: [1, 2],
+            data: [4, 2, 9,   3, 7, 7, 5, 8, 2, 9, 6, 4],
             backgroundColor: '#FF0000',
             stack: 'Stack 0',
             barThickness: 35

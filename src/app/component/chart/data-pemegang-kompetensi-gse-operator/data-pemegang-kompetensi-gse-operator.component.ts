@@ -32,7 +32,7 @@ export class DataPemegangKompetensiGseOperatorComponent implements AfterViewInit
           {
             label: 'TB',
             data: [19, 23, 55, 35, 34, 12, 11, 45, 26, 12, 44, 12, 34],
-            backgroundColor: '#021526',
+            backgroundColor: '#000',
             stack: 'Stack 0',
             barThickness: 35
           },
@@ -53,14 +53,14 @@ export class DataPemegangKompetensiGseOperatorComponent implements AfterViewInit
           {
             label: 'TJ',
             data: [12, 11, 45, 20, 32, 23, 23, 21, 45, 23, 21, 34, 23],
-            backgroundColor: '#021526',
+            backgroundColor: '#114B5F',
             stack: 'Stack 0',
             barThickness: 35
           },
           {
             label: 'TL',
             data: [32, 23, 23, 20, 32, 23, 23, 21, 45, 21, 45, 23, 11],
-            backgroundColor: '#D95F59',
+            backgroundColor: '#A66CC1',
             stack: 'Stack 0',
             barThickness: 35
           },
@@ -88,7 +88,7 @@ export class DataPemegangKompetensiGseOperatorComponent implements AfterViewInit
           {
             label: 'TV',
             data: [20, 10, 19, 42, 32, 23, 10, 29, 72, 12, 38, 39, 44],
-            backgroundColor: 'yellow',
+            backgroundColor: 'orange',
             stack: 'Stack 0',
             barThickness: 35
           },
