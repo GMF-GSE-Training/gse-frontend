@@ -24,16 +24,20 @@ export class DataTotalSertifikatAktifComponent implements AfterViewInit {
       return;
     }
 
+    const dataValues = [3, 7, 6, 5, 9, 8, 3, 4, 4, 9, 7, 5, 8];
+    const totalSertifikatAktif = dataValues.reduce((acc, curr) => acc + curr, 0);
+
     new Chart(ctx, {
       type: 'bar',
       data: {
-        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'],
+        labels: ['FLT', 'GPS', 'WSS', 'WMT', 'AWT', 'GSE', 'ACS', 'ATT', 'BTT', 'RDS', 'LSS', 'ASS', 'TBL'],
         datasets: [
           {
-            data: [3, 7, 6, 5, 9, 8, 3, 4, 4, 9, 7, 5, 8],
+            data: dataValues,
             backgroundColor: '#003D61',
             stack: 'Stack 0',
-            barThickness: 35
+            barThickness: 35,
+            label: `${totalSertifikatAktif}`,
           }
         ]
       },
@@ -41,7 +45,19 @@ export class DataTotalSertifikatAktifComponent implements AfterViewInit {
         responsive: true,
         plugins: {
           legend: {
-            display: false,
+            display: true,
+            labels: {
+              boxWidth: 20,
+              boxHeight: 20,
+              padding: 20,
+              color: '#FFFFFF',
+              font: {
+                family: 'Petrona',
+                size: 50
+              },
+              usePointStyle: true,
+              pointStyle: 'circle',
+            }
           },
           datalabels: {
             color: '#FFF',

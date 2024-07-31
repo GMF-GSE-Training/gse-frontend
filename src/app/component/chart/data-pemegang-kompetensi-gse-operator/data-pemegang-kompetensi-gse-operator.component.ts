@@ -27,19 +27,75 @@ export class DataPemegangKompetensiGseOperatorComponent implements AfterViewInit
     new Chart(ctx, {
       type: 'bar',
       data: {
-        labels: ['Eks', 'TB', 'TC', 'TF', 'TJ', 'TL', 'TM', 'TR', 'TU', 'TV', 'TZ'],
+        labels: ['FLT', 'GPS', 'WSS', 'WMT', 'AWT', 'GSE', 'ACS', 'ATT', 'BTT', 'RDS', 'LSS', 'ASS', 'TBL'],
         datasets: [
           {
-            label: 'GMF',
-            data: [0, 63, 3, 10, 23, 43, 5, 2, 4, 4, 13],
-            backgroundColor: '#02507E',
+            label: 'TB',
+            data: [19, 23, 55, 35, 34, 12, 11, 45, 26, 12, 44, 12, 34],
+            backgroundColor: '#021526',
             stack: 'Stack 0',
             barThickness: 35
           },
           {
-            label: 'Non GMF',
-            data: [5, 0, 8, 0, 2, 0, 5, 0, 3, 1, 2],
-            backgroundColor: '#2C844F',
+            label: 'TC',
+            data: [20, 32, 23, 23, 45, 56, 23, 21, 45, 23, 21, 34, 42,],
+            backgroundColor: '#6EACDA',
+            stack: 'Stack 0',
+            barThickness: 35
+          },
+          {
+            label: 'TF',
+            data: [55, 35, 34, 12, 11, 45, 20, 32, 23, 23, 45, 56, 23],
+            backgroundColor: '#03346E',
+            stack: 'Stack 0',
+            barThickness: 35
+          },
+          {
+            label: 'TJ',
+            data: [12, 11, 45, 20, 32, 23, 23, 21, 45, 23, 21, 34, 23],
+            backgroundColor: '#021526',
+            stack: 'Stack 0',
+            barThickness: 35
+          },
+          {
+            label: 'TL',
+            data: [32, 23, 23, 20, 32, 23, 23, 21, 45, 21, 45, 23, 11],
+            backgroundColor: '#D95F59',
+            stack: 'Stack 0',
+            barThickness: 35
+          },
+          {
+            label: 'TM',
+            data: [45, 21, 45, 23, 11, 32, 46, 13, 12, 23, 43, 54, 75],
+            backgroundColor: '#C63C51',
+            stack: 'Stack 0',
+            barThickness: 35
+          },
+          {
+            label: 'TR',
+            data: [46, 13, 12, 23, 43, 54, 75, 11, 45, 20, 32, 44, 32],
+            backgroundColor: 'green',
+            stack: 'Stack 0',
+            barThickness: 35
+          },
+          {
+            label: 'TU',
+            data: [41, 17, 23, 24, 58, 23, 19, 55, 43, 76, 57, 29, 30],
+            backgroundColor: 'blue',
+            stack: 'Stack 0',
+            barThickness: 35
+          },
+          {
+            label: 'TV',
+            data: [20, 10, 19, 42, 32, 23, 10, 29, 72, 12, 38, 39, 44],
+            backgroundColor: 'yellow',
+            stack: 'Stack 0',
+            barThickness: 35
+          },
+          {
+            label: 'TZ',
+            data: [19, 42, 32, 23, 10, 29, 72, 58, 23, 19, 55, 43, 76],
+            backgroundColor: 'purple',
             stack: 'Stack 0',
             barThickness: 35
           },
@@ -53,10 +109,11 @@ export class DataPemegangKompetensiGseOperatorComponent implements AfterViewInit
             labels: {
               boxWidth: 20,
               boxHeight: 20,
-              padding: 20,
+              padding: 10,
               color: '#FFFFFF',
               font: {
-                family: 'Petrona'
+                family: 'Petrona',
+                size: 20,
               }
             }
           },
@@ -64,7 +121,7 @@ export class DataPemegangKompetensiGseOperatorComponent implements AfterViewInit
             color: '#FFF',
             font: {
               family: 'Petrona',
-              size: 20
+              size: 15
             },
             display: function(context) {
               return context.dataset.data[context.dataIndex] !== 0;
