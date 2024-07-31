@@ -26,6 +26,10 @@ form {
   width: 48%;
 }
 
+.left-column, .right-column {
+  width: 48%;
+}
+
 .container-button {
   display: flex;
   justify-content: center;

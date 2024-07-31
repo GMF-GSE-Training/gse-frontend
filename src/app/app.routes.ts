@@ -14,6 +14,7 @@ import { ViewCotComponent } from './pages/cot/view-cot/view-cot.component';
 import { EditCotComponent } from './pages/cot/edit-cot/edit-cot.component';
 import { DetailCotComponent } from './pages/cot/detail-cot/detail-cot.component';
 import { CotFinishComponent } from './pages/cot/cot-finish/cot-finish.component';
+import { CreateSertifikatComponent } from './pages/cot/create-sertifikat/create-sertifikat.component';
 
 export const routes: Routes = [
   {
@@ -75,5 +76,9 @@ export const routes: Routes = [
   {
     path: 'cot-finish',
     component: CotFinishComponent
+  },
+  {
+    path: 'create-sertifikat',
+    component: CreateSertifikatComponent
   },
 ];

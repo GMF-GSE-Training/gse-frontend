@@ -1,0 +1,30 @@
+<app-navbar></app-navbar>
+
+<div class="title-container">
+  <h1 class="title">Create Sertifikat</h1>
+</div>
+
+<form>
+  <div class="form-container">
+    <div class="left-column">
+      <app-input-text type="text" inputMode="text">No Pegawai</app-input-text>
+      <app-input-text type="text" inputMode="text">Nama Peserta</app-input-text>
+      <app-input-text type="text" inputMode="text">Nama Training</app-input-text>
+      <app-input-date>Tanggal Mulai Regulasi Training</app-input-date>
+      <app-input-date>Tanggal Selesai Regulasi Training</app-input-date>
+      <app-input-text type="text" inputMode="text">Kehadiran</app-input-text>
+    </div>
+    <div class="right-column">
+      <app-input-text type="tel" inputMode="tel">Nilai Teori</app-input-text>
+      <app-input-text type="tel" inputMode="tel">Nilai Praktek</app-input-text>
+      <app-input-text type="text" inputMode="text">Status</app-input-text>
+      <app-input-text type="text" inputMode="text">Tanda Tangan 1</app-input-text>
+      <app-input-text type="text" inputMode="text">Tanda Tangan 2</app-input-text>
+    </div>
+  </div>
+</form>
+
+<div class="container-button">
+  <app-white-button routerLink="/home">Back</app-white-button>
+  <app-blue-button routerLink="/download-sertifikat">Create</app-blue-button>
+</div>
