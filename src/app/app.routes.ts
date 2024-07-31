@@ -6,6 +6,7 @@ import { ViewCapabilityComponent } from './pages/capability/view-capability/view
 import { AddParticipantDataComponent } from './pages/participant/add-participant-data/add-participant-data.component';
 import { DetailParticipantDataComponent } from './pages/participant/detail-participant-data/detail-participant-data.component';
 import { EditParticipantDataComponent } from './pages/participant/edit-participant-data/edit-participant-data.component';
+import { AddCapabilityComponent } from './pages/capability/add-capability/add-capability.component';
 
 export const routes: Routes = [
   {
@@ -35,5 +36,9 @@ export const routes: Routes = [
   {
     path: 'edit-participant-data',
     component: EditParticipantDataComponent
+  },
+  {
+    path: 'add-capability',
+    component: AddCapabilityComponent
   },
 ];
