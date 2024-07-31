@@ -11,6 +11,7 @@ import { EditCapabilityComponent } from './pages/capability/edit-capability/edit
 import { IdCardComponent } from './pages/participant/id-card/id-card.component';
 import { AddCotComponent } from './pages/cot/add-cot/add-cot.component';
 import { ViewCotComponent } from './pages/cot/view-cot/view-cot.component';
+import { EditCotComponent } from './pages/cot/edit-cot/edit-cot.component';
 
 export const routes: Routes = [
   {
@@ -60,5 +61,9 @@ export const routes: Routes = [
   {
     path: 'cot',
     component: ViewCotComponent
+  },
+  {
+    path: 'edit-cot',
+    component: EditCotComponent
   },
 ];

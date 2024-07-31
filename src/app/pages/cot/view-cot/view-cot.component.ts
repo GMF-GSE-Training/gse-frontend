@@ -35,6 +35,9 @@ export class ViewCotComponent {
       Selesai: '10 January 2024',
       kodeRating: 'GSE - Reg',
       namaTraining: 'Regulasi GSE',
+      editLink: '/edit-cot',
+      detailLink: '/detail-cot',
+      deleteMethod: () => this.deleteCot('GSE-REGJAN24-01')
     },
     {
       kodeCot: 'BTTJAN24-02',
