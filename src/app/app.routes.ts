@@ -8,6 +8,7 @@ import { DetailParticipantDataComponent } from './pages/participant/detail-parti
 import { EditParticipantDataComponent } from './pages/participant/edit-participant-data/edit-participant-data.component';
 import { AddCapabilityComponent } from './pages/capability/add-capability/add-capability.component';
 import { EditCapabilityComponent } from './pages/capability/edit-capability/edit-capability.component';
+import { IdCardComponent } from './pages/participant/id-card/id-card.component';
 
 export const routes: Routes = [
   {
@@ -33,6 +34,10 @@ export const routes: Routes = [
   {
     path: 'detail-participant-data',
     component: DetailParticipantDataComponent
+  },
+  {
+    path: 'id-participant-data',
+    component: IdCardComponent
   },
   {
     path: 'edit-participant-data',
