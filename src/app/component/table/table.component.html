@@ -8,7 +8,12 @@
     <tr *ngFor="let item of data">
       <td *ngFor="let column of columns">
         <ng-container *ngIf="column.field !== 'action'; else actionTemplate">
-          {{ item[column.field] }}
+          <ng-container *ngIf="column.field !== 'kurikulumSilabus'; else linkTemplate">
+            {{ item[column.field] }}
+          </ng-container>
+          <ng-template #linkTemplate>
+            <a [routerLink]="['/curryculum-syllabus']">Lihat</a>
+          </ng-template>
         </ng-container>
         <ng-template #actionTemplate>
           <app-icon-action [editLink]="item.editLink" [delete]="item.deleteMethod" [detailLink]="item.detailLink"></app-icon-action>

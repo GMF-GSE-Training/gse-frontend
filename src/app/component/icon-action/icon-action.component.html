@@ -1,5 +1,12 @@
 <div>
-  <i class="fa-solid fa-pen-to-square" routerLink="/edit-participant-data"></i>
-  <i class="fa-solid fa-trash-can action-icon" (click)="delete()"></i>
-  <i class="fa-solid fa-eye action-icon" routerLink="/detail-participant-data"></i>
+  <span *ngIf="editLink">
+    <i class="fa-solid fa-pen-to-square" [routerLink]="[editLink]"></i>
+  </span>
+  <span *ngIf="delete">
+    <i class="fa-solid fa-trash-can action-icon" (click)="delete()"></i>
+  </span>
+  <span *ngIf="detailLink">
+    <i class="fa-solid fa-eye action-icon" [routerLink]="[detailLink]"></i>
+  </span>
+
 </div>
