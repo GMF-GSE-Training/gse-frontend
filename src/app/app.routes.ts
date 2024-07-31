@@ -10,6 +10,7 @@ import { AddCapabilityComponent } from './pages/capability/add-capability/add-ca
 import { EditCapabilityComponent } from './pages/capability/edit-capability/edit-capability.component';
 import { IdCardComponent } from './pages/participant/id-card/id-card.component';
 import { AddCotComponent } from './pages/cot/add-cot/add-cot.component';
+import { ViewCotComponent } from './pages/cot/view-cot/view-cot.component';
 
 export const routes: Routes = [
   {
@@ -55,5 +56,9 @@ export const routes: Routes = [
   {
     path: 'add-cot',
     component: AddCotComponent
+  },
+  {
+    path: 'cot',
+    component: ViewCotComponent
   },
 ];
