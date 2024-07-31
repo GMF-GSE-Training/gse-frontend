@@ -17,6 +17,7 @@ import { CotFinishComponent } from './pages/cot/cot-finish/cot-finish.component'
 import { CreateSertifikatComponent } from './pages/cot/create-sertifikat/create-sertifikat.component';
 import { AddParticipantCotComponent } from './pages/cot/add-participant-cot/add-participant-cot.component';
 import { DownloadSertifikatComponent } from './pages/cot/download-sertifikat/download-sertifikat.component';
+import { ViewUsersComponent } from './pages/users/view-users/view-users.component';
 
 export const routes: Routes = [
   {
@@ -90,5 +91,9 @@ export const routes: Routes = [
   {
     path: 'download-sertifikat',
     component: DownloadSertifikatComponent
+  },
+  {
+    path: 'users',
+    component: ViewUsersComponent
   },
 ];
