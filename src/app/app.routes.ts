@@ -20,6 +20,7 @@ import { DownloadSertifikatComponent } from './pages/cot/download-sertifikat/dow
 import { ViewUsersComponent } from './pages/users/view-users/view-users.component';
 import { AddUserComponent } from './pages/users/add-user/create-account.component';
 import { ViewSignComponent } from './pages/sign/add-sign/view-sign.component';
+import { EditUserComponent } from './pages/users/edit-user/edit-user.component';
 
 export const routes: Routes = [
   {
@@ -101,6 +102,10 @@ export const routes: Routes = [
   {
     path: 'add-user',
     component: AddUserComponent
+  },
+  {
+    path: 'edit-user',
+    component: EditUserComponent
   },
   {
     path: 'add-sign',
