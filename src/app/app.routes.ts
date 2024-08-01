@@ -23,6 +23,7 @@ import { AddSignComponent } from './pages/sign/add-sign/view-sign.component';
 import { EditUserComponent } from './pages/users/edit-user/edit-user.component';
 import { ViewSignComponent } from './pages/sign/view-sign/view-sign.component';
 import { EditSignComponent } from './pages/sign/edit-sign/edit-sign.component';
+import { ViewCurriculumSyllabusComponent } from './pages/curriculum-syllabus/view-curriculum-syllabus/view-curriculum-syllabus.component';
 
 export const routes: Routes = [
   {
@@ -121,4 +122,8 @@ export const routes: Routes = [
     path: 'edit-sign',
     component: EditSignComponent
   },
+  {
+    path: 'curriculum',
+    component: ViewCurriculumSyllabusComponent
+  }
 ];
