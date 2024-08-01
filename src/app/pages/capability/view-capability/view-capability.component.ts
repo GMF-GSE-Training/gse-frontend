@@ -99,6 +99,6 @@ export class ViewCapabilityComponent {
   }
 
   deleteCapability(kodeRating: string) {
-    alert(`Delete participant with kode rating: ${kodeRating}`);
+    alert(`Delete capability with kode rating: ${kodeRating}`);
   }
 }

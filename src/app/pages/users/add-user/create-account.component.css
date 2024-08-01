@@ -65,6 +65,14 @@
   padding-left: 15px;
 }
 
-app-blue-button {
+.buttons {
   margin-top: 50px;
+}
+
+app-white-button {
+  margin-right: 50px;
+}
+
+app-blue-button {
+  margin-left: 50px;
 }

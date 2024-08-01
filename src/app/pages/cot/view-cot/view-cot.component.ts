@@ -158,6 +158,6 @@ export class ViewCotComponent {
   }
 
   deleteCot(noPegawai: string) {
-    alert(`Delete participant with kode cot: ${noPegawai}`);
+    alert(`Delete COT with kode cot: ${noPegawai}`);
   }
 }

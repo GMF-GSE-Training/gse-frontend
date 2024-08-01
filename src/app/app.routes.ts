@@ -24,6 +24,7 @@ import { EditUserComponent } from './pages/users/edit-user/edit-user.component';
 import { ViewSignComponent } from './pages/sign/view-sign/view-sign.component';
 import { EditSignComponent } from './pages/sign/edit-sign/edit-sign.component';
 import { ViewCurriculumSyllabusComponent } from './pages/curriculum-syllabus/view-curriculum-syllabus/view-curriculum-syllabus.component';
+import { AddCurriculumCapabilityComponent } from './pages/capability/add-curriculum-capability/add-curriculum-capability.component';
 
 export const routes: Routes = [
   {
@@ -125,5 +126,9 @@ export const routes: Routes = [
   {
     path: 'curriculum',
     component: ViewCurriculumSyllabusComponent
+  },
+  {
+    path: 'add-curriculum-capability',
+    component: AddCurriculumCapabilityComponent
   }
 ];
