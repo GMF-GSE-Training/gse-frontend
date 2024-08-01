@@ -7,7 +7,7 @@ import { WhiteButtonComponent } from '../../../component/button/white-button/whi
 import { BlueButtonComponent } from '../../../component/button/blue-button/blue-button.component';
 
 @Component({
-  selector: 'app-view-sign',
+  selector: 'app-edit-sign',
   standalone: true,
   imports: [
     RouterLink,
@@ -16,10 +16,10 @@ import { BlueButtonComponent } from '../../../component/button/blue-button/blue-
     InputFileComponent,
     WhiteButtonComponent,
     BlueButtonComponent,
-],
-  templateUrl: './view-sign.component.html',
-  styleUrl: './view-sign.component.css'
+  ],
+  templateUrl: './edit-sign.component.html',
+  styleUrl: './edit-sign.component.css'
 })
-export class AddSignComponent {
+export class EditSignComponent {
 
 }

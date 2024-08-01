@@ -19,8 +19,10 @@ import { AddParticipantCotComponent } from './pages/cot/add-participant-cot/add-
 import { DownloadSertifikatComponent } from './pages/cot/download-sertifikat/download-sertifikat.component';
 import { ViewUsersComponent } from './pages/users/view-users/view-users.component';
 import { AddUserComponent } from './pages/users/add-user/create-account.component';
-import { ViewSignComponent } from './pages/sign/add-sign/view-sign.component';
+import { AddSignComponent } from './pages/sign/add-sign/view-sign.component';
 import { EditUserComponent } from './pages/users/edit-user/edit-user.component';
+import { ViewSignComponent } from './pages/sign/view-sign/view-sign.component';
+import { EditSignComponent } from './pages/sign/edit-sign/edit-sign.component';
 
 export const routes: Routes = [
   {
@@ -109,6 +111,14 @@ export const routes: Routes = [
   },
   {
     path: 'add-sign',
+    component: AddSignComponent
+  },
+  {
+    path: 'e-sign',
     component: ViewSignComponent
+  },
+  {
+    path: 'edit-sign',
+    component: EditSignComponent
   },
 ];

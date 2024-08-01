@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AddSignComponent } from './view-sign.component';
+import { EditSignComponent } from './edit-sign.component';
 
-describe('AddSignComponent', () => {
-  let component: AddSignComponent;
-  let fixture: ComponentFixture<AddSignComponent>;
+describe('EditSignComponent', () => {
+  let component: EditSignComponent;
+  let fixture: ComponentFixture<EditSignComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AddSignComponent]
+      imports: [EditSignComponent]
     })
     .compileComponents();
-
-    fixture = TestBed.createComponent(AddSignComponent);
+    
+    fixture = TestBed.createComponent(EditSignComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
