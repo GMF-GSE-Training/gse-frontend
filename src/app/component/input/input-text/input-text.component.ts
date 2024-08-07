@@ -10,4 +10,5 @@ import { Component, Input } from '@angular/core';
 export class InputTextComponent {
   @Input() type: string = '';
   @Input() inputMode: string = '';
+  @Input() placeholder: string = '';
 }

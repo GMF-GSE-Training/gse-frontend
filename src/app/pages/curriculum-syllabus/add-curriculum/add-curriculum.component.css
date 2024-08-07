@@ -1,0 +1,42 @@
+.title-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.title {
+  border-bottom: 4px solid #000;
+  font-size: 25px;
+}
+
+.form-container {
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 20px;
+  max-width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin: 25px;
+}
+
+.form-section {
+  display: flex;
+  flex-direction: column;
+  width: 48%;
+}
+
+.input-group {
+  margin-bottom: 15px;
+}
+
+.durasi-group {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.durasi-inputs {
+  display: flex;
+  gap: 10px;
+}
+

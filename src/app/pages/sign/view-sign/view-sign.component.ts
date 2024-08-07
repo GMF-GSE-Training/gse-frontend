@@ -28,10 +28,10 @@ export class ViewSignComponent {
   ];
 
   data = [
-    { nama: 'Heri Susanto', noPegawai: '160088', dinas: 'TL', role: 'Admin', email: 'herisusanto@example.com', editLink: '/edit-sign', deleteMethod: () => this.deleteParticipant('160088') },
-    { nama: 'Agus Tariono', noPegawai: '160104', dinas: 'TL', role: 'Supervisor' },
-    { nama: 'Adityo Akhmad Taufiq S.', noPegawai: '430869', dinas: 'TL', role: 'LCU' },
-    { nama: 'Jaya Sunjaya', noPegawai: '430870', dinas: 'TL', role: 'User' },
+    { nama: 'Yusa Asra Yuli Wardana', noPegawai: '160088', dinas: 'TL', role: 'Manager Non Aviation Training', email: 'herisusanto@example.com', editLink: '/edit-sign', deleteMethod: () => this.deleteParticipant('160088') },
+    { nama: 'Moh Hilmi Firmansyah', noPegawai: '160104', dinas: 'TL', role: 'Senior Manager General Affairs' },
+    { nama: 'Adityo Akhmad Taufiq S.', noPegawai: '430869', dinas: 'TL', role: '' },
+    { nama: 'Jaya Sunjaya', noPegawai: '430870', dinas: 'TL', role: '' },
     { nama: 'Andi Satria', noPegawai: '430880', dinas: 'TL', },
     { nama: 'Heri Dwi Irawan', noPegawai: '430882', dinas: 'TL', },
     { nama: 'I Nyoman Putra Jaya', noPegawai: '430890', dinas: 'TL', },

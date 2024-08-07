@@ -25,6 +25,7 @@ import { ViewSignComponent } from './pages/sign/view-sign/view-sign.component';
 import { EditSignComponent } from './pages/sign/edit-sign/edit-sign.component';
 import { ViewCurriculumSyllabusComponent } from './pages/curriculum-syllabus/view-curriculum-syllabus/view-curriculum-syllabus.component';
 import { AddCurriculumCapabilityComponent } from './pages/capability/add-curriculum-capability/add-curriculum-capability.component';
+import { AddCurriculumComponent } from './pages/curriculum-syllabus/add-curriculum/add-curriculum.component';
 
 export const routes: Routes = [
   {
@@ -130,5 +131,9 @@ export const routes: Routes = [
   {
     path: 'add-curriculum-capability',
     component: AddCurriculumCapabilityComponent
+  },
+  {
+    path: 'add-curriculum',
+    component: AddCurriculumComponent
   }
 ];
