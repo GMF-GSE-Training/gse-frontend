@@ -1,3 +1,38 @@
+.login-container {
+  background-image: url("/assets/image/bg.png");
+  height: 100vh;
+  background-size: cover;
+  background-position: 45%  ;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-left: 135px;
+}
+
+.login-description {
+  color: #ffffff;
+  font-size: 30px;
+}
+
+.brand-logo {
+  width: 235px;
+  height: 48px;
+  position: absolute;
+  top: 52px;
+  left: 36px;
+}
+
+.form-container {
+  background-color: #ffffff;
+  height: 100%;
+  width: 970px;
+  border-bottom-left-radius: 30px;
+  border-top-left-radius: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .login-form {
   display: flex;
   flex-direction: column;
@@ -46,14 +81,3 @@ i {
   top: 380px;
   right: 680px;
 }
-
-.fa-eye, .fa-slash {
-  top: 380px;
-  right: 270px;
-  cursor: pointer;
-}
-
-.opacity {
-  opacity: 1;
-}
-

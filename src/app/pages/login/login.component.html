@@ -1,25 +1,15 @@
-<div class="login-container">
-  <img
-  class="brand-logo"
-  src="../assets/image/logo-GMF.png"
-  alt="logo"
-  aria-hidden="true"
-  >
-
-  <div class="login-description">
-    <h1>Enter Your</h1>
-    <h1>Account</h1>
-    <h1>Information</h1>
-    <h1>to Proceed</h1>
-  </div>
-
-  <div class="form-container">
-    <form class="login-form" action="/home">
-      <h1 class="login-title">Login Account</h1>
-      <input type="username" id="username" name="username" placeholder="Username">
-      <input type="password" name="password" id="password" placeholder="Password">
-      <app-blue-button>Login</app-blue-button>
-    </form>
-  </div>
-</div>
-
+<app-login-register>
+  <form class="login-form" action="/home">
+    <h1 class="login-title">Login Account</h1>
+    <i class="fa-solid fa-user user-icon"></i>
+    <input type="username" id="username" name="username" placeholder="No Pegawai or Email">
+    <i class="fa-solid fa-lock pass-icon"></i>
+    <i class="fa-regular fa-eye"></i>
+    <i
+      (click)="passVisible()"
+      [ngClass]="isPassVisible ? 'fa-solid fa-slash' : 'fa-regular fa-eye'">
+    </i>
+    <input [type]="isPassVisible ? 'password' : 'text'" name="password" id="password" placeholder="Password">
+    <app-blue-button>Login</app-blue-button>
+  </form>
+</app-login-register>

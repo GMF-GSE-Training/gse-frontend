@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { RouterOutlet, RouterLink } from '@angular/router';
 import { SearchComponent } from '../search/search.component';
 import { NavMenuComponent } from "./nav-menu/nav-menu.component";
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-navbar',
@@ -10,7 +11,8 @@ import { NavMenuComponent } from "./nav-menu/nav-menu.component";
     RouterOutlet,
     RouterLink,
     SearchComponent,
-    NavMenuComponent
+    NavMenuComponent,
+    CommonModule,
 ],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css'

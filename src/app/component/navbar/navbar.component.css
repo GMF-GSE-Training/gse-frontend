@@ -8,7 +8,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-right: 80px;
+  padding-right: 15px;
   padding-left: 80px;
   height: 150px;
 }
@@ -27,7 +27,20 @@ img:hover {
   color: #ffffff;
 }
 
+.menu i{
+  transition: transform 0.3s ease, color 0.3s ease;
+  margin-left: 5px;
+}
+
+.menu i.fa-x {
+  transform: rotate(180deg);
+}
+
 .menu:hover {
-  color: #3E799B;
+  opacity: 50%;
   cursor: pointer;
+}
+
+.menu:active i {
+  color: #3E799B;
 }

@@ -11,6 +11,8 @@ import ChartDataLabels from 'chartjs-plugin-datalabels';
 })
 export class RealisasiCotChartComponent implements AfterViewInit {
   @ViewChild('realisasiCotChart') private realisasiCotChartRef!: ElementRef<HTMLCanvasElement>;
+  private chart: Chart | undefined;
+  private allDatasetsVisible: boolean = true;
 
   ngAfterViewInit(): void {
     Chart.register(...registerables);
@@ -24,7 +26,7 @@ export class RealisasiCotChartComponent implements AfterViewInit {
       return;
     }
 
-    new Chart(ctx, {
+    this.chart = new Chart(ctx, {
       type: 'bar',
       data: {
         labels: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'],
@@ -60,10 +62,29 @@ export class RealisasiCotChartComponent implements AfterViewInit {
             labels: {
               boxWidth: 20,
               boxHeight: 20,
-              padding: 20,
+              padding: 10,
               color: '#FFFFFF',
               font: {
-                family: 'Petrona'
+                family: 'Petrona',
+                size: 20,
+              }
+            },
+            onClick: (_e, legendItem) => {
+              const index = legendItem.datasetIndex;
+              if (index !== undefined) {
+                this.handleLegendClick(index);
+              }
+            },
+            onHover: (e) => {
+              const target = e.native?.target as HTMLElement;
+              if (target) {
+                target.classList.add('legend-hover-pointer');
+              }
+            },
+            onLeave: (e) => {
+              const target = e.native?.target as HTMLElement;
+              if (target) {
+                target.classList.remove('legend-hover-pointer');
               }
             }
           },
@@ -73,6 +94,9 @@ export class RealisasiCotChartComponent implements AfterViewInit {
               family: 'Petrona',
               size: 20
             },
+            display: function(context) {
+              return context.dataset.data[context.dataIndex] !== 0;
+            }
           },
           title: {
             display: true,
@@ -121,5 +145,30 @@ export class RealisasiCotChartComponent implements AfterViewInit {
         }
       }
     });
+  }
+
+  private handleLegendClick(index: number) {
+    if (!this.chart) return;
+
+    if (this.allDatasetsVisible) {
+      // Hide all datasets except the one clicked
+      this.chart.data.datasets.forEach((_dataset, i) => {
+        const meta = this.chart?.getDatasetMeta(i);
+        if (meta) {
+          meta.hidden = i !== index;
+        }
+      });
+    } else {
+      // Show all datasets
+      this.chart.data.datasets.forEach((_dataset, i) => {
+        const meta = this.chart?.getDatasetMeta(i);
+        if (meta) {
+          meta.hidden = false;
+        }
+      });
+    }
+
+    this.allDatasetsVisible = !this.allDatasetsVisible;
+    this.chart.update();
   }
 }

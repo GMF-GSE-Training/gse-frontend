@@ -5,11 +5,12 @@
   top: 8rem;
   right: 0;
   width: 250px;
-  z-index: 1000;
+  z-index: 99999;
   bottom: 0;
   font-size: 1.5rem;
   opacity: 0;
   transform: translateX(25px);
+  height: 100vh;
 }
 
 .navbar-nav {

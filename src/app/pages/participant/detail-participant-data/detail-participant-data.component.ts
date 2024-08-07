@@ -42,12 +42,11 @@ export class DetailParticipantDataComponent {
   ];
 
   rightTableData = [
-    { label: 'Tempat Lahir', value: '-' },
+    { label: 'Tempat Lahir', value: 'Tangerang' },
     { label: 'Tanggal Lahir', value: '-' },
     { label: 'SIM', value: '-' },
     { label: 'KTP', value: '-' },
     { label: 'Ket Sehat & Buta Warna', value: '-' },
     { label: 'Ket Bebas Narkoba', value: '-' },
-    { label: 'GMF/Non GMF', value: 'Non Gmf' }
   ];
 }

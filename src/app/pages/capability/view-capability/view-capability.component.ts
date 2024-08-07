@@ -4,6 +4,7 @@ import { NavbarComponent } from '../../../component/navbar/navbar.component';
 import { WhiteButtonComponent } from '../../../component/button/white-button/white-button.component';
 import { BlueButtonComponent } from '../../../component/button/blue-button/blue-button.component';
 import { TableComponent } from "../../../component/table/table.component";
+import { SearchComponent } from "../../../component/search/search.component";
 
 @Component({
   selector: 'app-view-capability',
@@ -14,6 +15,7 @@ import { TableComponent } from "../../../component/table/table.component";
     WhiteButtonComponent,
     BlueButtonComponent,
     TableComponent,
+    SearchComponent
 ],
   templateUrl: './view-capability.component.html',
   styleUrl: './view-capability.component.css'

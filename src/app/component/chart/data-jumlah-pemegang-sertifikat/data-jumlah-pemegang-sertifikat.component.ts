@@ -12,6 +12,10 @@ import ChartDataLabels from 'chartjs-plugin-datalabels';
 export class DataJumlahPemegangSertifikatComponent implements AfterViewInit {
   @ViewChild('jumlahPemegangSertifikat')
   private jumlahPemegangSertifikatRef!: ElementRef<HTMLCanvasElement>;
+  private chart: Chart<'pie', number[], string> | undefined;
+  private allDatasetsVisible: boolean = true;
+
+  private data: number[] = [175, 21]; // Simpan data asli
 
   ngAfterViewInit(): void {
     Chart.register(...registerables);
@@ -25,13 +29,13 @@ export class DataJumlahPemegangSertifikatComponent implements AfterViewInit {
       return;
     }
 
-    new Chart(ctx, {
+    this.chart = new Chart(ctx, {
       type: 'pie',
       data: {
         labels: ['GMF', 'Non GMF'],
         datasets: [
           {
-            data: [175, 21],
+            data: this.data,
             backgroundColor: ['#09203f', '#2ca02c'],
             borderWidth: 0,
             rotation: 40,
@@ -47,18 +51,39 @@ export class DataJumlahPemegangSertifikatComponent implements AfterViewInit {
             labels: {
               color: 'white',
               font: {
-                size: 16,
+                size: 20,
                 family: 'Petrona',
               },
               usePointStyle: true,
               pointStyle: 'circle',
             },
+            onClick: (_e, legendItem) => {
+              const index = legendItem.index;
+              if (index !== undefined) {
+                this.handleLegendClick(index);
+              }
+            },
+            onHover: (e) => {
+              const target = e.native?.target as HTMLElement;
+              if (target) {
+                target.classList.add('legend-hover-pointer');
+              }
+            },
+            onLeave: (e) => {
+              const target = e.native?.target as HTMLElement;
+              if (target) {
+                target.classList.remove('legend-hover-pointer');
+              }
+            }
           },
           datalabels: {
             color: '#FFF',
             font: {
               family: 'Petrona',
               size: 20
+            },
+            display: function(context) {
+              return context.dataset.data[context.dataIndex] !== 0;
             }
           },
           title: {
@@ -73,5 +98,22 @@ export class DataJumlahPemegangSertifikatComponent implements AfterViewInit {
         },
       },
     });
+  }
+
+  private handleLegendClick(index: number) {
+    if (!this.chart) return;
+
+    const meta = this.chart.getDatasetMeta(0);
+
+    if (this.allDatasetsVisible) {
+      // Hide all segments except the one clicked
+      this.chart.data.datasets[0].data = this.chart.data.datasets[0].data.map((value, i) => (i === index ? this.data[i] : 0));
+    } else {
+      // Show all segments
+      this.chart.data.datasets[0].data = [...this.data];
+    }
+
+    this.allDatasetsVisible = !this.allDatasetsVisible;
+    this.chart.update();
   }
 }

@@ -57,6 +57,18 @@ export class DataTotalSertifikatAktifComponent implements AfterViewInit {
               },
               usePointStyle: true,
               pointStyle: 'circle',
+            },
+            onHover: (e) => {
+              const target = e.native?.target as HTMLElement;
+              if (target) {
+                target.classList.add('legend-hover-pointer');
+              }
+            },
+            onLeave: (e) => {
+              const target = e.native?.target as HTMLElement;
+              if (target) {
+                target.classList.remove('legend-hover-pointer');
+              }
             }
           },
           datalabels: {

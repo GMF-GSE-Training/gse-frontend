@@ -14,22 +14,39 @@ h1 {
   margin-bottom: 20px;
 }
 
-table {
-  width: 100%;
-  border-collapse: collapse;
+p {
+  font-weight: bold;
+  font-size: 35px;
+  font-family: 'Petrona', sans-serif;
+  position: absolute;
+  left: 50%;
+  right: auto;
+  bottom: -700px;
 }
 
-th, td {
-  padding: 12px;
-  text-align: center;
-  border-bottom: 1px solid #dddddd;
+.fa-chevron-left {
+  font-size: 40px;
+  position: absolute;
+  bottom: -480px;
+  left: 25px;
 }
 
-th {
-  background-color: #003D61;
-  color: #ffffff;
+.fa-chevron-right {
+  font-size: 40px;
+  position: absolute;
+  bottom: -480px;
+  right: 10px;
 }
 
-tbody tr:nth-child(even) {
-  background-color: #f2f2f2;
+i {
+  cursor: pointer;
+}
+
+i:hover {
+  color: #fff;
+}
+
+i:active {
+  opacity: 25%;
+  font-size: 35px;
 }
