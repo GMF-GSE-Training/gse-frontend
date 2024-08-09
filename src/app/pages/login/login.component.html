@@ -1,5 +1,5 @@
 <app-login-register>
-  <form class="login-form" action="/home">
+  <form class="login-form">
     <h1 class="login-title">Login Account</h1>
     <i class="fa-solid fa-user user-icon"></i>
     <input [(ngModel)]="loginRequest.identifier" type="username" id="username" name="username" placeholder="No Pegawai or Email">
@@ -10,6 +10,7 @@
       [ngClass]="isPassVisible ? 'fa-solid fa-slash' : 'fa-regular fa-eye'">
     </i>
     <input [(ngModel)]="loginRequest.password" [type]="isPassVisible ? 'password' : 'text'" name="password" id="password" placeholder="Password">
+    <p class="isRegistered">Belum punya akun? <a routerLink="/register">Register</a></p>
     <app-blue-button (click)="login()">Login</app-blue-button>
   </form>
 </app-login-register>

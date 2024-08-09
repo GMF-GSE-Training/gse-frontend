@@ -26,11 +26,16 @@ import { EditSignComponent } from './pages/sign/edit-sign/edit-sign.component';
 import { ViewCurriculumSyllabusComponent } from './pages/curriculum-syllabus/view-curriculum-syllabus/view-curriculum-syllabus.component';
 import { AddCurriculumCapabilityComponent } from './pages/capability/add-curriculum-capability/add-curriculum-capability.component';
 import { AddCurriculumComponent } from './pages/curriculum-syllabus/add-curriculum/add-curriculum.component';
+import { RegisterComponent } from './pages/register/register.component';
 
 export const routes: Routes = [
   {
     path: '',
     component: LoginComponent
+  },
+  {
+    path: 'register',
+    component: RegisterComponent
   },
   {
     path: 'home',

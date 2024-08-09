@@ -1,17 +1,21 @@
-.login-form {
+.register-form {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 90px;
+  gap: 20px;
 }
 
-.login-title {
+app-input-text {
+  width: 400px;
+}
+
+.register-title {
   border-bottom: 4px solid #000;
   font-size: 35px;
 }
 
-.login-form input {
+.register-form input {
   font-size: 20px;
   font-family: 'Petrona', sans-serif;
   font-weight: bold;
@@ -22,7 +26,7 @@
   border: none;
   outline: none;
   border-bottom: 2px solid #000;
-  width: 400px;
+
 }
 
 #password {
@@ -32,34 +36,7 @@
   width: 400px;
 }
 
-i {
-  font-size: 30px;
-  position: absolute;
-}
-
-.user-icon {
-  top: 265px;
-  right: 680px;
-}
-
-.pass-icon {
-  top: 380px;
-  right: 680px;
-}
-
-.fa-eye, .fa-slash {
-  top: 380px;
-  right: 270px;
-  cursor: pointer;
-}
-
-.opacity {
-  opacity: 1;
-}
-
 .isRegistered {
-  position: absolute;
-  bottom: 225px;
   font-family: 'Petrona', sans-serif;
   font-weight: bold;
 }
