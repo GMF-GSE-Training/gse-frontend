@@ -6,9 +6,3 @@
   margin-left: 25px;
   margin-right: 45px;
 }
-
-app-navbar {
-  position: fixed;
-  z-index: 99999;
-  width: 100%;
-}

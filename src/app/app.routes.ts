@@ -42,67 +42,67 @@ export const routes: Routes = [
     component: HomeComponent
   },
   {
-    path: 'participant-data',
+    path: 'participant',
     component: ViewParticipantDataComponent
+  },
+  {
+    path: 'participant/add',
+    component: AddParticipantDataComponent
+  },
+  {
+    path: 'participant/view',
+    component: DetailParticipantDataComponent
+  },
+  {
+    path: 'participant/id-card',
+    component: IdCardComponent
+  },
+  {
+    path: 'participant/edit',
+    component: EditParticipantDataComponent
   },
   {
     path: 'capability',
     component: ViewCapabilityComponent
   },
   {
-    path: 'add-participant-data',
-    component: AddParticipantDataComponent
-  },
-  {
-    path: 'detail-participant-data',
-    component: DetailParticipantDataComponent
-  },
-  {
-    path: 'id-participant-data',
-    component: IdCardComponent
-  },
-  {
-    path: 'edit-participant-data',
-    component: EditParticipantDataComponent
-  },
-  {
-    path: 'add-capability',
+    path: 'capability/add',
     component: AddCapabilityComponent
   },
   {
-    path: 'edit-capability',
+    path: 'capability/edit',
     component: EditCapabilityComponent
-  },
-  {
-    path: 'add-cot',
-    component: AddCotComponent
   },
   {
     path: 'cot',
     component: ViewCotComponent
   },
   {
-    path: 'edit-cot',
+    path: 'cot/add',
+    component: AddCotComponent
+  },
+  {
+    path: 'cot/edit',
     component: EditCotComponent
   },
   {
-    path: 'detail-cot',
+    path: 'cot/view',
     component: DetailCotComponent
   },
   {
-    path: 'cot-finish',
+    path: 'cot/finish',
     component: CotFinishComponent
   },
   {
-    path: 'add-participant-cot',
+    path: 'participant/add',
     component: AddParticipantCotComponent
   },
   {
-    path: 'create-sertifikat',
+    path: 'sertifikat',
     component: CreateSertifikatComponent
   },
   {
-    path: 'download-sertifikat',
+    path: 'sertifikat/download',
     component: DownloadSertifikatComponent
   },
   {
@@ -110,23 +110,23 @@ export const routes: Routes = [
     component: ViewUsersComponent
   },
   {
-    path: 'add-user',
+    path: 'users/add',
     component: AddUserComponent
   },
   {
-    path: 'edit-user',
+    path: 'users/edit',
     component: EditUserComponent
   },
   {
-    path: 'add-sign',
+    path: 'sign/add',
     component: AddSignComponent
   },
   {
-    path: 'e-sign',
+    path: 'sign',
     component: ViewSignComponent
   },
   {
-    path: 'edit-sign',
+    path: 'sign/edit',
     component: EditSignComponent
   },
   {
@@ -134,11 +134,11 @@ export const routes: Routes = [
     component: ViewCurriculumSyllabusComponent
   },
   {
-    path: 'add-curriculum-capability',
+    path: 'curriculum/capability',
     component: AddCurriculumCapabilityComponent
   },
   {
-    path: 'add-curriculum',
+    path: 'curriculum/add',
     component: AddCurriculumComponent
   }
 ];
