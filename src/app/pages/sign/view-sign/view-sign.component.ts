@@ -28,7 +28,7 @@ export class ViewSignComponent {
   ];
 
   data = [
-    { nama: 'Yusa Asra Yuli Wardana', noPegawai: '160088', dinas: 'TL', role: 'Manager Non Aviation Training', email: 'herisusanto@example.com', editLink: '/edit-sign', deleteMethod: () => this.deleteParticipant('160088') },
+    { nama: 'Yusa Asra Yuli Wardana', noPegawai: '160088', dinas: 'TL', role: 'Manager Non Aviation Training', email: 'herisusanto@example.com', editLink: '/sign/edit', deleteMethod: () => this.deleteParticipant('160088') },
     { nama: 'Moh Hilmi Firmansyah', noPegawai: '160104', dinas: 'TL', role: 'Senior Manager General Affairs' },
     { nama: 'Adityo Akhmad Taufiq S.', noPegawai: '430869', dinas: 'TL', role: '' },
     { nama: 'Jaya Sunjaya', noPegawai: '430870', dinas: 'TL', role: '' },

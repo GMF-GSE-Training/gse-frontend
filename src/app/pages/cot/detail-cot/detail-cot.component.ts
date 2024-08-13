@@ -57,8 +57,8 @@ export class DetailCotComponent {
       dinas: 'TL',
       bidang: 'TLC - 4',
       perusahaan: 'Kopkar',
-      editLink: '/edit-participant-data',
-      detailLink: '/detail-participant-data',
+      editLink: '/participant/edit',
+      detailLink: '/participant/view',
       deleteMethod: () => this.deleteParticipant('160088'),
     },
     {

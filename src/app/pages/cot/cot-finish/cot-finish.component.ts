@@ -59,8 +59,8 @@ export class CotFinishComponent {
       dinas: 'TL',
       bidang: 'TLC - 4',
       perusahaan: 'Kopkar',
-      printLink: '/create-sertifikat',
-      detailLink: '/detail-participant-data',
+      printLink: '/sertifikat',
+      detailLink: '/participant/view',
       deleteMethod: () => this.deleteParticipant('160088'),
     },
     {

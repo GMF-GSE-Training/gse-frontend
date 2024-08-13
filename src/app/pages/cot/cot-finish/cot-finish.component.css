@@ -42,7 +42,7 @@ form input {
   display: flex;
   gap: 20px;
   cursor: pointer;
-  font-size: 25px;  
+  font-size: 25px;
 }
 
 .nav-pagination p:hover {

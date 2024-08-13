@@ -1,8 +1,11 @@
+main {
+  margin-top: 25px;
+}
+
 .chart-container {
   display: grid;
   grid-template-columns: 50% 50%;
   gap: 20px;
-  margin-top: 185px;
   margin-left: 25px;
   margin-right: 45px;
 }

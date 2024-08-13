@@ -26,7 +26,7 @@ export class AddCurriculumCapabilityComponent {
   ];
 
   data = [
-    { kodeRating: 'BTT', namaTraining: 'Baggage Towing Tractor', addLink: '/add-capability' , editLink: '/edit-curriculum', deleteMethod: () => this.deleteCapability('BTT') },
+    { kodeRating: 'BTT', namaTraining: 'Baggage Towing Tractor', addLink: '/capability/add' , editLink: '/curriculum/edit', deleteMethod: () => this.deleteCapability('BTT') },
     { kodeRating: 'FLT', namaTraining: 'Forklift', action: '' },
     { kodeRating: 'RDS', namaTraining: 'Refueling Defueling System', action: '' },
     { kodeRating: 'GPS', namaTraining: 'Ground Power System', action: '' },

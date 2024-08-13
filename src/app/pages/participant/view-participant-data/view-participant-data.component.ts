@@ -29,7 +29,7 @@ export class ViewParticipantDataComponent {
   ];
 
   data = [
-    { nama: 'Heri Susanto', noPegawai: '160088', dinas: 'TL', bidang: 'TLC - 4', perusahaan: 'Kopkar', editLink: '/edit-participant-data', detailLink: '/detail-participant-data', deleteMethod: () => this.deleteParticipant('160088') },
+    { nama: 'Heri Susanto', noPegawai: '160088', dinas: 'TL', bidang: 'TLC - 4', perusahaan: 'Kopkar', editLink: '/participant/edit', detailLink: '/participant/view', deleteMethod: () => this.deleteParticipant('160088') },
     { nama: 'Agus Tariono', noPegawai: '160104', dinas: 'TL', bidang: 'TLC - 4', perusahaan: 'DPP' },
     { nama: 'Adityo Akhmad Taufiq S.', noPegawai: '430869', dinas: 'TL', bidang: 'TLC - 4', perusahaan: 'DPP' },
     { nama: 'Jaya Sunjaya', noPegawai: '430870', dinas: 'TL', bidang: 'TLC - 4', perusahaan: 'DPP' },

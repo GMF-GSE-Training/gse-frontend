@@ -1,23 +1,25 @@
-<div class="container">
-  <div id="idCard" class="card">
-    <div class="header">
-      <img src="../../../../assets/image/gmf-logo-biru.png" alt="Logo" class="logo">
-    </div>
-    <div class="profile-section">
-      <img src="/../../../../assets/image/pas_foto.png" alt="Pas Foto" class="profile-picture">
-      <div class="info">
-        <h2>Heri Susanto</h2>
-        <p>160088</p>
-        <p>-</p>
+<main>
+  <div class="container">
+    <div id="idCard" class="card">
+      <div class="header">
+        <img src="../../../../assets/image/gmf-logo-biru.png" alt="Logo" class="logo">
+      </div>
+      <div class="profile-section">
+        <img src="/../../../../assets/image/pas_foto.png" alt="Pas Foto" class="profile-picture">
+        <div class="info">
+          <h2>Heri Susanto</h2>
+          <p>160088</p>
+          <p>-</p>
+        </div>
+      </div>
+      <div class="barcode-section">
+        <img src="/../../../../assets/image/barcode.png" alt="Barcode" class="barcode">
       </div>
     </div>
-    <div class="barcode-section">
-      <img src="/../../../../assets/image/barcode.png" alt="Barcode" class="barcode">
+    <div class="buttons">
+      <app-white-button (click)="print()">Print</app-white-button>
+      <app-blue-button (click)="download()">Download</app-blue-button>
+      <app-white-button routerLink="/home">Back</app-white-button>
     </div>
   </div>
-  <div class="buttons">
-    <app-white-button (click)="print()">Print</app-white-button>
-    <app-blue-button (click)="download()">Download</app-blue-button>
-    <app-white-button routerLink="/home">Back</app-white-button>
-  </div>
-</div>
+</main>
