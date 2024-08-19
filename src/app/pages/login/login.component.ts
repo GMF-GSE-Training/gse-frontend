@@ -39,8 +39,7 @@ export class LoginComponent {
 
   login() {
     this.authService.login(this.loginRequest).subscribe((response: any) => {
-      console.log(this.loginRequest)
-      if(!response.ok) {
+      if(response.data) {
         alert('Login Berhasil');
         this.router.navigateByUrl('/home');
       } else {

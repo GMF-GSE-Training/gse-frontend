@@ -1,8 +1,8 @@
-<label for="noPegawai">
-  <ng-content></ng-content>
-</label>
 <input
   [type]="type"
   [inputMode]="inputMode"
   [placeholder]="placeholder"
+  [(ngModel)]="value"
+  (ngModelChange)="onValueChange()"
+  [name]="name"
 />
