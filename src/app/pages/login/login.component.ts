@@ -25,6 +25,8 @@ import { AuthService } from '../../service/auth.service';
 export class LoginComponent {
   isPassVisible: boolean = true;
   loginRequest: LoginUserRequest;
+  loginError: boolean = false;
+  message: string = '';
 
   constructor(
     private router: Router,
@@ -39,11 +41,19 @@ export class LoginComponent {
 
   login() {
     this.authService.login(this.loginRequest).subscribe((response: any) => {
-      if(response.data) {
-        alert('Login Berhasil');
+        const token = response.data.token;
+        localStorage.setItem('Token', token);
+        this.loginError = false;
         this.router.navigateByUrl('/home');
+    },
+    (error) => {
+      this.loginError = true;
+      if(error.status === 400) {
+        this.message = 'Email atau Nomor Pegawai dan Password tidak boleh kosong';
+      } else if(error.status === 401) {
+        this.message = 'Informasi login tidak valid. Silakan periksa kembali email atau nomor pegawai dan password Anda'
       } else {
-        alert('Login Gagal')
+        this.message = 'Terjadi kesalahan pada server. Silakan coba lagi nanti.';
       }
     });
   }

@@ -3,7 +3,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 90px;
+  gap: 100px;
 }
 
 .login-title {
@@ -18,18 +18,12 @@
   padding-left: 50px;
 }
 
-#username {
+#username, #password {
   border: none;
   outline: none;
   border-bottom: 2px solid #000;
   width: 400px;
-}
-
-#password {
-  border: none;
-  outline: none;
-  border-bottom: 2px solid #000;
-  width: 400px;
+  height: 40px;
 }
 
 i {
@@ -38,17 +32,17 @@ i {
 }
 
 .user-icon {
-  top: 265px;
+  top: 260px;
   right: 680px;
 }
 
 .pass-icon {
-  top: 380px;
+  bottom: 262px;
   right: 680px;
 }
 
 .fa-eye, .fa-slash {
-  top: 380px;
+  bottom: 262px;
   right: 270px;
   cursor: pointer;
 }
@@ -59,11 +53,28 @@ i {
 
 .isRegistered {
   position: absolute;
-  bottom: 225px;
+  bottom: 190px;
   font-family: 'Petrona', sans-serif;
   font-weight: bold;
 }
 
 .isRegistered a {
   color: #02507E;
+}
+
+.forgotPassword {
+  font-weight: bold;
+  color: #02507E;
+  position: absolute;
+  bottom: 225px;
+  right: 600px;
+}
+
+.error-message {
+  background-color: #ffeeba;
+  padding: 2px;
+  position: absolute;
+  top: 210px;
+  color: red;
+  font-weight: bold;
 }
