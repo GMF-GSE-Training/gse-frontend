@@ -1,10 +1,10 @@
 export class RegisterUserRequest {
-  no_pegawai: string;
+  no_pegawai?: string;
   nik: string;
   email: string;
   name: string;
   password: string;
-  dinas: string;
+  dinas?: string;
 
   constructor(){
     this.no_pegawai = '';

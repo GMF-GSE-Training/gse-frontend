@@ -26,6 +26,8 @@ import { CommonModule } from '@angular/common';
 })
 export class RegisterComponent {
   registerUserRequest: RegisterUserRequest;
+  registerError: boolean = false;
+  message: string = '';
 
   constructor(
     private router: Router,
@@ -36,16 +38,32 @@ export class RegisterComponent {
   }
 
   onRegister() {
-    console.log(this.registerUserRequest);
-
-    this.apiUserService.register(this.registerUserRequest).subscribe(response => {
-      if(response.data) {
-        alert('Register Berhasil');
-        this.router.navigateByUrl('/home');
-      } else {
-        console.log(response.body.errors)
-        alert('Register Gagal')
-      }
+    this.apiUserService.register(this.registerUserRequest).subscribe({
+      next: (response: any) => {
+        this.registerError = false;
+        this.router.navigateByUrl('/');
+      },
+      error: (error) => {
+        this.registerError = true;
+        const e = error.error.errors
+        console.log(e)
+        if (error.status === 400) {
+          if(e.nik || e.email || e.name || e.password) {
+            if(e.email == 'Invalid email') {
+              this.message = 'Alamat email tidak valid'
+            } else {
+              this.message = 'NIK, Email, Name, dan Password wajib diisi';
+            }
+          } else {
+            this.message = 'NIK tidak ada di data peserta';
+          }
+        } else if (error.status === 401) {
+          this.message = 'Informasi login tidak valid. Silakan periksa kembali email atau nomor pegawai dan password Anda';
+        } else {
+          this.message = 'Terjadi kesalahan pada server. Silakan coba lagi nanti.';
+        }
+      },
     });
   }
+
 }

@@ -3,7 +3,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 20px;
+  gap: 25px;
 }
 
 app-input-text {
@@ -43,4 +43,12 @@ app-input-text {
 
 .isRegistered a {
   color: #02507E;
+}
+
+.error-message {
+  background-color: #ffeeba;
+  padding: 2px;
+  top: 210px;
+  color: red;
+  font-weight: bold;
 }

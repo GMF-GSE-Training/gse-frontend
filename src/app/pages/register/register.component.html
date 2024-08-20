@@ -1,11 +1,14 @@
 <app-login-register>
   <form class="register-form">
     <h1 class="register-title">Register Account</h1>
+      <div *ngIf="registerError" class="error-message">
+    <p>{{ message }}</p>
+  </div>
+    <app-input-text [type]="'text'" name="nik" placeholder="NIK *" (valueChange)="registerUserRequest.nik= $event"></app-input-text>
     <app-input-text [type]="'text'" name="no_pegawai" placeholder="No Pegawai" (valueChange)="registerUserRequest.no_pegawai= $event"></app-input-text>
-    <app-input-text [type]="'text'" name="nik" placeholder="NIK" (valueChange)="registerUserRequest.nik= $event"></app-input-text>
-    <app-input-text [type]="'text'" name="email" placeholder="Email" (valueChange)="registerUserRequest.email= $event"></app-input-text>
-    <app-input-text [type]="'text'" placeholder="Name" name="name"(valueChange)="registerUserRequest.name= $event"></app-input-text>
-    <app-input-text [type]="'password'" name="password" placeholder="Password" (valueChange)="registerUserRequest.password= $event"></app-input-text>
+    <app-input-text [type]="'text'" name="email" placeholder="Email *" (valueChange)="registerUserRequest.email= $event"></app-input-text>
+    <app-input-text [type]="'text'" placeholder="Name *" name="name"(valueChange)="registerUserRequest.name= $event"></app-input-text>
+    <app-input-text [type]="'password'" name="password" placeholder="Password *" (valueChange)="registerUserRequest.password= $event"></app-input-text>
     <app-input-text [type]="'text'" name="dinas" placeholder="Dinas" (valueChange)="registerUserRequest.dinas= $event"></app-input-text>
     <p class="isRegistered">Sudah punya akun? <a routerLink="/">Login</a></p>
     <app-blue-button (buttonClick)="onRegister()">Register</app-blue-button>
