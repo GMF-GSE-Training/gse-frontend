@@ -2,7 +2,16 @@ export const environment = {
   production: false,
   apiUrl: 'http://localhost:3000',
   endpoints: {
-    login: 'auth/login',
-    register: 'users/register',
+    auth: {
+      login: 'auth/login',
+      me: 'auth/current'
+    },
+    user: {
+      register: 'users/register',
+      get: '/users'
+    },
+    role: {
+      get: '/roles',
+    }
   }
 };

@@ -27,10 +27,11 @@ import { ViewCurriculumSyllabusComponent } from './pages/curriculum-syllabus/vie
 import { AddCurriculumCapabilityComponent } from './pages/capability/add-curriculum-capability/add-curriculum-capability.component';
 import { AddCurriculumComponent } from './pages/curriculum-syllabus/add-curriculum/add-curriculum.component';
 import { RegisterComponent } from './pages/register/register.component';
+import { authGuard } from './guard/auth.guard';
 
 export const routes: Routes = [
   {
-    path: '',
+    path: 'login',
     component: LoginComponent
   },
   {
@@ -38,107 +39,132 @@ export const routes: Routes = [
     component: RegisterComponent
   },
   {
-    path: 'home',
-    component: HomeComponent
+    path: '',
+    component: HomeComponent,
+    canActivate: [authGuard],
   },
   {
     path: 'participant',
-    component: ViewParticipantDataComponent
+    component: ViewParticipantDataComponent,
+    canActivate: [authGuard],
   },
   {
     path: 'participant/add',
-    component: AddParticipantDataComponent
+    component: AddParticipantDataComponent,
+    canActivate: [authGuard],
   },
   {
     path: 'participant/view',
-    component: DetailParticipantDataComponent
+    component: DetailParticipantDataComponent,
   },
   {
     path: 'participant/id-card',
-    component: IdCardComponent
+    component: IdCardComponent,
+    canActivate: [authGuard],
   },
   {
     path: 'participant/edit',
-    component: EditParticipantDataComponent
+    component: EditParticipantDataComponent,
+    canActivate: [authGuard],
   },
   {
     path: 'capability',
-    component: ViewCapabilityComponent
+    component: ViewCapabilityComponent,
+    canActivate: [authGuard],
   },
   {
     path: 'capability/add',
-    component: AddCapabilityComponent
+    component: AddCapabilityComponent,
+    canActivate: [authGuard],
   },
   {
     path: 'capability/edit',
-    component: EditCapabilityComponent
+    component: EditCapabilityComponent,
+    canActivate: [authGuard],
   },
   {
     path: 'cot',
-    component: ViewCotComponent
+    component: ViewCotComponent,
+    canActivate: [authGuard],
   },
   {
     path: 'cot/add',
-    component: AddCotComponent
+    component: AddCotComponent,
+    canActivate: [authGuard],
   },
   {
     path: 'cot/edit',
-    component: EditCotComponent
+    component: EditCotComponent,
+    canActivate: [authGuard],
   },
   {
     path: 'cot/view',
-    component: DetailCotComponent
+    component: DetailCotComponent,
+    canActivate: [authGuard],
   },
   {
     path: 'cot/finish',
-    component: CotFinishComponent
+    component: CotFinishComponent,
+    canActivate: [authGuard],
   },
   {
-    path: 'participant/add',
-    component: AddParticipantCotComponent
+    path: 'participant-cot/add',
+    component: AddParticipantCotComponent,
+    canActivate: [authGuard],
   },
   {
     path: 'sertifikat',
-    component: CreateSertifikatComponent
+    component: CreateSertifikatComponent,
+    canActivate: [authGuard],
   },
   {
     path: 'sertifikat/download',
-    component: DownloadSertifikatComponent
+    component: DownloadSertifikatComponent,
+    canActivate: [authGuard],
   },
   {
     path: 'users',
-    component: ViewUsersComponent
+    component: ViewUsersComponent,
+    canActivate: [authGuard],
   },
   {
     path: 'users/add',
-    component: AddUserComponent
+    component: AddUserComponent,
+    canActivate: [authGuard],
   },
   {
     path: 'users/edit',
-    component: EditUserComponent
+    component: EditUserComponent,
+    canActivate: [authGuard],
   },
   {
     path: 'sign/add',
-    component: AddSignComponent
+    component: AddSignComponent,
+    canActivate: [authGuard],
   },
   {
     path: 'sign',
-    component: ViewSignComponent
+    component: ViewSignComponent,
+    canActivate: [authGuard],
   },
   {
     path: 'sign/edit',
-    component: EditSignComponent
+    component: EditSignComponent,
+    canActivate: [authGuard],
   },
   {
     path: 'curriculum',
-    component: ViewCurriculumSyllabusComponent
+    component: ViewCurriculumSyllabusComponent,
+    canActivate: [authGuard],
   },
   {
     path: 'curriculum/capability',
-    component: AddCurriculumCapabilityComponent
+    component: AddCurriculumCapabilityComponent,
+    canActivate: [authGuard],
   },
   {
     path: 'curriculum/add',
-    component: AddCurriculumComponent
+    component: AddCurriculumComponent,
+    canActivate: [authGuard],
   }
 ];

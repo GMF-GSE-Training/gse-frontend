@@ -10,11 +10,15 @@ import { RegisterUserRequest } from '../model/user.model';
 export class ApiUserService {
 
   private apiUrl = environment.apiUrl;
-  private endpoint = environment.endpoints;
+  private endpoint = environment.endpoints.user;
 
   constructor(private http: HttpClient) {}
 
   register<T>(request: RegisterUserRequest): Observable<any> {
     return this.http.post<T>(`${this.apiUrl}/${this.endpoint.register}`, request);
+  }
+
+  get<T>(id: number): Observable<any> {
+    return this.http.get<T>(`${this.apiUrl}/${this.endpoint.get}/${id}`);
   }
 }

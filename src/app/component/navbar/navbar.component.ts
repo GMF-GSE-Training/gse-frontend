@@ -34,7 +34,7 @@ export class NavbarComponent implements OnInit {
   ngOnInit() {
     this.router.events.subscribe(() => {
       const currentRoute = this.router.url;
-      this.shouldShowNavbar = !(currentRoute === '/' || currentRoute === '/register');
+      this.shouldShowNavbar = !(currentRoute === '/login' || currentRoute === '/register');
     });
   }
 }
