@@ -4,6 +4,7 @@ import { NavbarComponent } from '../../../component/navbar/navbar.component';
 import { WhiteButtonComponent } from '../../../component/button/white-button/white-button.component';
 import { BlueButtonComponent } from '../../../component/button/blue-button/blue-button.component';
 import { TableComponent } from "../../../component/table/table.component";
+import { RoleBasedAccessDirective } from '../../../directive/role-based-access.directive';
 
 @Component({
   selector: 'app-view-participant-data',
@@ -13,7 +14,8 @@ import { TableComponent } from "../../../component/table/table.component";
     RouterLink,
     WhiteButtonComponent,
     BlueButtonComponent,
-    TableComponent
+    TableComponent,
+    RoleBasedAccessDirective,
 ],
   templateUrl: './view-participant-data.component.html',
   styleUrl: './view-participant-data.component.css'

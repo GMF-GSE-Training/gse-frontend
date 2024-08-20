@@ -15,7 +15,7 @@ export class ApiRoleService {
   constructor(private http: HttpClient) {}
 
   get<T>(id: number): Observable<any> {
-    return this.http.get<T>(`${this.apiUrl}/${this.endpoint.get}/${id}`);
+    return this.http.get<T>(`${this.apiUrl}/${this.endpoint}/${id}`);
   }
 
   getAll<T>(): Observable<any> {

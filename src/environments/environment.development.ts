@@ -4,11 +4,11 @@ export const environment = {
   endpoints: {
     auth: {
       login: 'auth/login',
-      me: 'auth/current'
+      current: 'auth/current',
     },
     user: {
       register: 'users/register',
-      get: '/users'
+      get: '/users',
     },
     role: {
       get: '/roles',
