@@ -27,6 +27,9 @@ export class NavbarComponent implements OnInit {
     this.isMenuVisible = !this.isMenuVisible;
   }
 
+  onMenuClose() {
+    this.isMenuVisible = false;
+  }
 
   ngOnInit() {
     this.router.events.subscribe(() => {

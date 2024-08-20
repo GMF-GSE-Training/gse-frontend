@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
@@ -14,4 +14,10 @@ import { CommonModule } from '@angular/common';
 })
 export class NavMenuComponent {
   @Input() isMenuVisible: boolean = false;
+  @Output() menuClose = new EventEmitter<void>();
+
+  closeMenu() {
+    this.isMenuVisible = false;
+    this.menuClose.emit();
+  }
 }

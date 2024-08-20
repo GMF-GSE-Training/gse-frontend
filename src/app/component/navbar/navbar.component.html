@@ -8,5 +8,5 @@
   >
   <app-search></app-search>
   <h1 class="menu" (click)="toggleMenu()">Menu <i class="fa-solid" [ngClass]="isMenuVisible ? 'fa-x' : 'fa-bars'"></i></h1>
-  <app-nav-menu [isMenuVisible]="isMenuVisible"></app-nav-menu>
+  <app-nav-menu [isMenuVisible]="isMenuVisible" (menuClose)="onMenuClose()"></app-nav-menu>
 </nav>
