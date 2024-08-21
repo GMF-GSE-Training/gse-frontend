@@ -15,7 +15,7 @@ import { CotTableComponent } from './cot-table/cot-table.component';
     DataPemegangKompetensiGseOperatorComponent,
     DataTotalSertifikatAktifComponent,
     DataJumlahPemegangSertifikatComponent,
-    CotTableComponent
+    CotTableComponent,
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'

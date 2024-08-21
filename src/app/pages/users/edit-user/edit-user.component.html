@@ -1,4 +1,4 @@
-<div class="login-container">
+<div *appRoleBasedAccess="['Super Admin', 'supervisor', 'lcu']" class="login-container">
   <img
   class="brand-logo"
   src="../assets/image/logo-GMF.png"

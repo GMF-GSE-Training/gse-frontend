@@ -24,7 +24,6 @@ export class RoleBasedAccessDirective {
 
   @Input() set appRoleBasedAccess(allowedRoles: string[]) {
     this.allowedRoles = allowedRoles;
-    this.updateView(); // Update view jika role user sudah tersedia
   }
 
   private updateView(): void {

@@ -7,6 +7,7 @@ import { InputTextComponent } from "../../../component/input/input-text/input-te
 import { InputCompanyComponent } from "../../../component/input/input-company/input-company.component";
 import { NavbarComponent } from "../../../component/navbar/navbar.component";
 import { RouterLink } from '@angular/router';
+import { RoleBasedAccessDirective } from '../../../directive/role-based-access.directive';
 
 @Component({
   selector: 'app-edit-participant-data',
@@ -20,6 +21,7 @@ import { RouterLink } from '@angular/router';
     InputCompanyComponent,
     NavbarComponent,
     RouterLink,
+    RoleBasedAccessDirective,
   ],
   templateUrl: './edit-participant-data.component.html',
   styleUrl: './edit-participant-data.component.css'

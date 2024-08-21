@@ -5,6 +5,7 @@ import { WhiteButtonComponent } from "../../../component/button/white-button/whi
 import { BlueButtonComponent } from "../../../component/button/blue-button/blue-button.component";
 import { RouterLink } from '@angular/router';
 import { InputDateComponent } from "../../../component/input/input-date/input-date.component";
+import { RoleBasedAccessDirective } from '../../../directive/role-based-access.directive';
 
 @Component({
   selector: 'app-add-cot',
@@ -15,7 +16,8 @@ import { InputDateComponent } from "../../../component/input/input-date/input-da
     WhiteButtonComponent,
     BlueButtonComponent,
     RouterLink,
-    InputDateComponent
+    InputDateComponent,
+    RoleBasedAccessDirective
 ],
   templateUrl: './add-cot.component.html',
   styleUrl: './add-cot.component.css'

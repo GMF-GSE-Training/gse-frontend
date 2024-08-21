@@ -5,6 +5,7 @@ import { InputDateComponent } from "../../../component/input/input-date/input-da
 import { WhiteButtonComponent } from "../../../component/button/white-button/white-button.component";
 import { BlueButtonComponent } from "../../../component/button/blue-button/blue-button.component";
 import { RouterLink } from '@angular/router';
+import { RoleBasedAccessDirective } from '../../../directive/role-based-access.directive';
 
 @Component({
   selector: 'app-create-sertifikat',
@@ -16,6 +17,7 @@ import { RouterLink } from '@angular/router';
     WhiteButtonComponent,
     BlueButtonComponent,
     RouterLink,
+    RoleBasedAccessDirective,
   ],
   templateUrl: './create-sertifikat.component.html',
   styleUrl: './create-sertifikat.component.css'

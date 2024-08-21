@@ -7,6 +7,7 @@ import { InputFileComponent } from "../../../component/input/input-file/input-fi
 import { InputTextComponent } from '../../../component/input/input-text/input-text.component';
 import { InputDateComponent } from "../../../component/input/input-date/input-date.component";
 import { InputCompanyComponent } from "../../../component/input/input-company/input-company.component";
+import { RoleBasedAccessDirective } from '../../../directive/role-based-access.directive';
 
 @Component({
   selector: 'app-add-participant-data',
@@ -19,7 +20,8 @@ import { InputCompanyComponent } from "../../../component/input/input-company/in
     InputFileComponent,
     InputTextComponent,
     InputDateComponent,
-    InputCompanyComponent
+    InputCompanyComponent,
+    RoleBasedAccessDirective
 ],
   templateUrl: './add-participant-data.component.html',
   styleUrl: './add-participant-data.component.css'

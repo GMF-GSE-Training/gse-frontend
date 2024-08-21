@@ -13,6 +13,7 @@ export class InputTextComponent {
   @Input() inputMode: string = '';
   @Input() placeholder: string = '';
   @Input() name: string = '';
+  @Input() label: string = '';
 
   @Output() valueChange = new EventEmitter<string>();
 

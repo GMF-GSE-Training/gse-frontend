@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { BlueButtonComponent } from "../../../component/button/blue-button/blue-button.component";
 import { RouterLink } from '@angular/router';
 import { WhiteButtonComponent } from '../../../component/button/white-button/white-button.component';
+import { RoleBasedAccessDirective } from '../../../directive/role-based-access.directive';
 
 @Component({
   selector: 'app-add-user',
@@ -9,7 +10,8 @@ import { WhiteButtonComponent } from '../../../component/button/white-button/whi
   imports: [
     BlueButtonComponent,
     RouterLink,
-    WhiteButtonComponent
+    WhiteButtonComponent,
+    RoleBasedAccessDirective
   ],
   templateUrl: './create-account.component.html',
   styleUrl: './create-account.component.css'

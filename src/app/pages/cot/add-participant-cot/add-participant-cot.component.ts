@@ -4,6 +4,7 @@ import { NavbarComponent } from '../../../component/navbar/navbar.component';
 import { WhiteButtonComponent } from '../../../component/button/white-button/white-button.component';
 import { BlueButtonComponent } from '../../../component/button/blue-button/blue-button.component';
 import { TableComponent } from '../../../component/table/table.component';
+import { RoleBasedAccessDirective } from '../../../directive/role-based-access.directive';
 
 @Component({
   selector: 'app-add-participant-cot',
@@ -14,6 +15,7 @@ import { TableComponent } from '../../../component/table/table.component';
     WhiteButtonComponent,
     BlueButtonComponent,
     TableComponent,
+    RoleBasedAccessDirective
   ],
   templateUrl: './add-participant-cot.component.html',
   styleUrl: './add-participant-cot.component.css',

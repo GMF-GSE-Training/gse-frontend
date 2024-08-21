@@ -1,13 +1,15 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { RoleBasedAccessDirective } from '../../../directive/role-based-access.directive';
 
 @Component({
   selector: 'app-nav-menu',
   standalone: true,
   imports: [
     RouterLink,
-    CommonModule
+    CommonModule,
+    RoleBasedAccessDirective,
   ],
   templateUrl: './nav-menu.component.html',
   styleUrl: './nav-menu.component.css'
