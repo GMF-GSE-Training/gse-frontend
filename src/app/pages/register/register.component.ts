@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { BlueButtonComponent } from "../../component/button/blue-button/blue-button.component";
 import { LoginRegisterComponent } from "../../component/login-register/login-register.component";
 import { Router, RouterLink } from '@angular/router';
@@ -32,7 +32,6 @@ export class RegisterComponent {
   constructor(
     private router: Router,
     private apiUserService: ApiUserService,
-    private httpClient: HttpClientModule
   ){
     this.registerUserRequest = new RegisterUserRequest();
   }
@@ -46,7 +45,6 @@ export class RegisterComponent {
       error: (error) => {
         this.registerError = true;
         const e = error.error.errors
-        console.log(e)
         if (error.status === 400) {
           if(e.nik || e.email || e.name || e.password) {
             if(e.email == 'Invalid email') {

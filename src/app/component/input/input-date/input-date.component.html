@@ -1,4 +1,8 @@
 <label>
   <ng-content></ng-content>
 </label>
-<input type="date">
+<input
+type="date"
+[(ngModel)]="value"
+(ngModelChange)="onValueChange()"
+>
