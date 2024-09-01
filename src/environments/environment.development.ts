@@ -3,18 +3,20 @@ export const environment = {
   apiUrl: 'http://localhost:3000',
   endpoints: {
     auth: {
+      base: 'auth/current',
       login: 'auth/login',
-      current: 'auth/current',
       register: 'auth/register'
     },
     user: {
-      get: '/users',
+      base: 'users',
+      list: 'users/list',
+      search: 'users/search/result'
     },
-    role: {
-      get: '/roles',
-    },
+    role: '/roles',
     participant: {
-      get: '/participants',
-    },
+      base: 'participants',
+      list: 'participants/list/result',
+      search: 'participants/search/result'
+    }
   }
 };

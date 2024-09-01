@@ -10,11 +10,11 @@ import { RegisterUserRequest } from '../model/user.model';
 export class ApiUserService {
 
   private apiUrl = environment.apiUrl;
-  private endpoint = environment.endpoints.user;
+  private endpoints = environment.endpoints.user.base;
 
   constructor(private http: HttpClient) {}
 
-  get<T>(id: number): Observable<any> {
-    return this.http.get<T>(`${this.apiUrl}/${this.endpoint.get}/${id}`, { withCredentials: true });
+  get<T>(link: string): Observable<any> {
+    return this.http.get<T>(`${this.apiUrl}/${link}`, { withCredentials: true });
   }
 }

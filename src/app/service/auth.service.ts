@@ -31,11 +31,11 @@ export class AuthService {
   }
 
   me<T>(): Observable<any> {
-    return this.http.get(`${this.apiUrl}/${this.endpoint.current}`, { withCredentials: true });
+    return this.http.get(`${this.apiUrl}/${this.endpoint.base}`, { withCredentials: true });
   }
 
   logout<T>(): Observable<any> {
     console.log
-    return this.http.delete(`${this.apiUrl}/${this.endpoint.current}`, { withCredentials: true });
+    return this.http.delete(`${this.apiUrl}/${this.endpoint.base}`, { withCredentials: true });
   }
 }

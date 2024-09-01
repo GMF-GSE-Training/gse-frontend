@@ -1,10 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { NavbarComponent } from '../../../component/navbar/navbar.component';
 import { WhiteButtonComponent } from '../../../component/button/white-button/white-button.component';
 import { BlueButtonComponent } from '../../../component/button/blue-button/blue-button.component';
 import { TableComponent } from "../../../component/table/table.component";
 import { RoleBasedAccessDirective } from '../../../directive/role-based-access.directive';
+import { ParticipantService } from '../../../service/participant.service';
+import { ApiResponse, Participant } from '../../../model/participant.model';
 
 @Component({
   selector: 'app-view-participant-data',
@@ -20,9 +22,9 @@ import { RoleBasedAccessDirective } from '../../../directive/role-based-access.d
   templateUrl: './view-participant-data.component.html',
   styleUrl: './view-participant-data.component.css'
 })
-export class ViewParticipantDataComponent {
+export class ViewParticipantDataComponent implements OnInit {
   columns = [
-    { header: 'No Pegawai', field: 'noPegawai' },
+    { header: 'No Pegawai', field: 'no_pegawai' },
     { header: 'Nama', field: 'nama' },
     { header: 'Dinas', field: 'dinas' },
     { header: 'Bidang', field: 'bidang' },
@@ -30,75 +32,41 @@ export class ViewParticipantDataComponent {
     { header: 'Action', field: 'action' }
   ];
 
-  data = [
-    { nama: 'Heri Susanto', noPegawai: '160088', dinas: 'TL', bidang: 'TLC - 4', perusahaan: 'Kopkar', editLink: '/participant/edit', detailLink: '/participant/view', deleteMethod: () => this.deleteParticipant('160088') },
-    { nama: 'Agus Tariono', noPegawai: '160104', dinas: 'TL', bidang: 'TLC - 4', perusahaan: 'DPP' },
-    { nama: 'Adityo Akhmad Taufiq S.', noPegawai: '430869', dinas: 'TL', bidang: 'TLC - 4', perusahaan: 'DPP' },
-    { nama: 'Jaya Sunjaya', noPegawai: '430870', dinas: 'TL', bidang: 'TLC - 4', perusahaan: 'DPP' },
-    { nama: 'Andi Satria', noPegawai: '430880', dinas: 'TL', bidang: 'TLC - 4', perusahaan: 'DPP' },
-    { nama: 'Heri Dwi Irawan', noPegawai: '430882', dinas: 'TL', bidang: 'TLC - 4', perusahaan: 'DPP' },
-    { nama: 'I Nyoman Putra Jaya', noPegawai: '430890', dinas: 'TL', bidang: 'TLC - 4', perusahaan: 'DPP' },
-    { nama: 'I Ketut Jurnaedi', noPegawai: '430891', dinas: 'TL', bidang: 'TLC - 4', perusahaan: 'DPP' },
-    { nama: 'Lihansyah', noPegawai: '430892', dinas: 'TL', bidang: 'TLC - 4', perusahaan: 'GDPS' },
-    { nama: 'Deni Jaelani', noPegawai: '430893', dinas: 'TL', bidang: 'TLC - 4', perusahaan: 'GDPS' },
-    { nama: 'Heri Susanto', noPegawai: '160088', dinas: 'TZ', bidang: 'TLC - 4', perusahaan: 'Kopkar' },
-    { nama: 'Agus Tariono', noPegawai: '160104', dinas: 'TZ', bidang: 'TLC - 4', perusahaan: 'DPP' },
-    { nama: 'Adityo Akhmad Taufiq S.', noPegawai: '430869', dinas: 'TZ', bidang: 'TLC - 4', perusahaan: 'DPP' },
-    { nama: 'Jaya Sunjaya', noPegawai: '430870', dinas: 'TZ', bidang: 'TLC - 4', perusahaan: 'DPP' },
-    { nama: 'Andi Satria', noPegawai: '430880', dinas: 'TZ', bidang: 'TLC - 4', perusahaan: 'DPP' },
-    { nama: 'Heri Dwi Irawan', noPegawai: '430882', dinas: 'TZ', bidang: 'TLC - 4', perusahaan: 'DPP' },
-    { nama: 'I Nyoman Putra Jaya', noPegawai: '430890', dinas: 'TZ', bidang: 'TLC - 4', perusahaan: 'DPP' },
-    { nama: 'I Ketut Jurnaedi', noPegawai: '430891', dinas: 'TZ', bidang: 'TLC - 4', perusahaan: 'DPP' },
-    { nama: 'Lihansyah', noPegawai: '430892', dinas: 'TZ', bidang: 'TLC - 4', perusahaan: 'GDPS' },
-    { nama: 'Deni Jaelani', noPegawai: '430893', dinas: 'TZ', bidang: 'TLC - 4', perusahaan: 'GDPS' },
-    { nama: 'Heri Susanto', noPegawai: '160088', dinas: 'TU', bidang: 'TLC - 4', perusahaan: 'Kopkar' },
-    { nama: 'Agus Tariono', noPegawai: '160104', dinas: 'TU', bidang: 'TLC - 4', perusahaan: 'DPP' },
-    { nama: 'Adityo Akhmad Taufiq S.', noPegawai: '430869', dinas: 'TU', bidang: 'TLC - 4', perusahaan: 'DPP' },
-    { nama: 'Jaya Sunjaya', noPegawai: '430870', dinas: 'TU', bidang: 'TLC - 4', perusahaan: 'DPP' },
-    { nama: 'Andi Satria', noPegawai: '430880', dinas: 'TU', bidang: 'TLC - 4', perusahaan: 'DPP' },
-    { nama: 'Heri Dwi Irawan', noPegawai: '430882', dinas: 'TU', bidang: 'TLC - 4', perusahaan: 'DPP' },
-    { nama: 'I Nyoman Putra Jaya', noPegawai: '430890', dinas: 'TU', bidang: 'TLC - 4', perusahaan: 'DPP' },
-    { nama: 'I Ketut Jurnaedi', noPegawai: '430891', dinas: 'TU', bidang: 'TLC - 4', perusahaan: 'DPP' },
-    { nama: 'Lihansyah', noPegawai: '430892', dinas: 'TU', bidang: 'TLC - 4', perusahaan: 'GDPS' },
-    { nama: 'Deni Jaelani', noPegawai: '430893', dinas: 'TU', bidang: 'TLC - 4', perusahaan: 'GDPS' },
-    { nama: 'Heri Susanto', noPegawai: '160088', dinas: 'TV', bidang: 'TLC - 4', perusahaan: 'Kopkar' },
-    { nama: 'Agus Tariono', noPegawai: '160104', dinas: 'TV', bidang: 'TLC - 4', perusahaan: 'DPP' },
-    { nama: 'Adityo Akhmad Taufiq S.', noPegawai: '430869', dinas: 'TV', bidang: 'TLC - 4', perusahaan: 'DPP' },
-    { nama: 'Jaya Sunjaya', noPegawai: '430870', dinas: 'TV', bidang: 'TLC - 4', perusahaan: 'DPP' },
-    { nama: 'Andi Satria', noPegawai: '430880', dinas: 'TV', bidang: 'TLC - 4', perusahaan: 'DPP' },
-    { nama: 'Heri Dwi Irawan', noPegawai: '430882', dinas: 'TV', bidang: 'TLC - 4', perusahaan: 'DPP' },
-    { nama: 'I Nyoman Putra Jaya', noPegawai: '430890', dinas: 'TV', bidang: 'TLC - 4', perusahaan: 'DPP' },
-    { nama: 'I Ketut Jurnaedi', noPegawai: '430891', dinas: 'TV', bidang: 'TLC - 4', perusahaan: 'DPP' },
-    { nama: 'Lihansyah', noPegawai: '430892', dinas: 'TV', bidang: 'TLC - 4', perusahaan: 'GDPS' },
-    { nama: 'Deni Jaelani', noPegawai: '430893', dinas: 'TV', bidang: 'TLC - 4', perusahaan: 'GDPS' },
-  ];
+  participants: Participant[] = [];
+  currentPage: number = 1;
+  itemsPerPage: number = 10;
+  totalPages: number = 1;
 
-  currentPage = 1;
-  itemsPerPage = 10;
+  constructor(private participantService: ParticipantService) {}
 
-  get paginatedData() {
-    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
-    const endIndex = startIndex + this.itemsPerPage;
-    return this.data.slice(startIndex, endIndex);
+  ngOnInit(): void {
+    this.loadParticipants(this.currentPage, this.itemsPerPage);
   }
 
-  get totalPages() {
-    return Math.ceil(this.data.length / this.itemsPerPage);
+  loadParticipants(page: number, size: number): void {
+    this.participantService.listParticipants(page, size).subscribe((response: ApiResponse) => {
+      if (response.code === 200 && response.status === 'OK') {
+        this.participants = response.data;
+        this.totalPages = response.paging.total_page;
+      }
+    });
   }
 
-  nextPage() {
-    if ((this.currentPage * this.itemsPerPage) < this.data.length) {
+  nextPage(): void {
+    if (this.currentPage < this.totalPages) {
       this.currentPage++;
+      this.loadParticipants(this.currentPage, this.itemsPerPage);
     }
   }
 
-  previousPage() {
+  previousPage(): void {
     if (this.currentPage > 1) {
       this.currentPage--;
+      this.loadParticipants(this.currentPage, this.itemsPerPage);
     }
   }
 
-  deleteParticipant(noPegawai: string) {
+  deleteParticipant(noPegawai: string): void {
     alert(`Delete participant with noPegawai: ${noPegawai}`);
   }
 }
