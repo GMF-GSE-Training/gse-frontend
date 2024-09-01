@@ -59,16 +59,17 @@ export const routes: Routes = [
     canActivate: [authGuard],
   },
   {
-    path: 'participant/view',
+    path: 'participant/:id/view',
     component: DetailParticipantDataComponent,
+    canActivate: [authGuard]
   },
   {
-    path: 'participant/id-card',
+    path: 'participant/:id/id-card',
     component: IdCardComponent,
     canActivate: [authGuard],
   },
   {
-    path: 'participant/edit',
+    path: 'participant/:id/edit',
     component: EditParticipantDataComponent,
     canActivate: [authGuard],
   },
@@ -83,7 +84,7 @@ export const routes: Routes = [
     canActivate: [authGuard],
   },
   {
-    path: 'capability/edit',
+    path: 'capability/:id/edit',
     component: EditCapabilityComponent,
     canActivate: [authGuard],
   },
@@ -98,12 +99,12 @@ export const routes: Routes = [
     canActivate: [authGuard],
   },
   {
-    path: 'cot/edit',
+    path: 'cot/:id/edit',
     component: EditCotComponent,
     canActivate: [authGuard],
   },
   {
-    path: 'cot/view',
+    path: 'cot/:id/view',
     component: DetailCotComponent,
     canActivate: [authGuard],
   },
@@ -138,7 +139,7 @@ export const routes: Routes = [
     canActivate: [authGuard],
   },
   {
-    path: 'users/edit',
+    path: 'users/:id/edit',
     component: EditUserComponent,
     canActivate: [authGuard],
   },
@@ -153,7 +154,7 @@ export const routes: Routes = [
     canActivate: [authGuard],
   },
   {
-    path: 'sign/edit',
+    path: 'sign/:id/edit',
     component: EditSignComponent,
     canActivate: [authGuard],
   },
