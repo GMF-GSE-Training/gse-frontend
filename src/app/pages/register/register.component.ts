@@ -8,6 +8,7 @@ import { RegisterUserRequest } from '../../model/user.model';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
+import { AuthService } from '../../service/auth.service';
 
 @Component({
   selector: 'app-register',
@@ -31,21 +32,21 @@ export class RegisterComponent {
 
   constructor(
     private router: Router,
-    private apiUserService: ApiUserService,
+    private authService: AuthService,
   ){
     this.registerUserRequest = new RegisterUserRequest();
   }
 
   onRegister() {
-    this.apiUserService.register(this.registerUserRequest).subscribe({
-      next: (response: any) => {
+    this.authService.register(this.registerUserRequest).subscribe({
+      next: () => {
         this.registerError = false;
         this.router.navigateByUrl('/');
       },
       error: (error) => {
         this.registerError = true;
         const e = error.error.errors
-        if (error.status === 400) {
+        if (error.error.code === 400) {
           if(e.nik || e.email || e.name || e.password) {
             if(e.email == 'Invalid email') {
               this.message = 'Alamat email tidak valid'
@@ -55,7 +56,7 @@ export class RegisterComponent {
           } else {
             this.message = 'NIK tidak ada di data peserta';
           }
-        } else if (error.status === 401) {
+        } else if (error.error.code === 401) {
           this.message = 'Informasi login tidak valid. Silakan periksa kembali email atau nomor pegawai dan password Anda';
         } else {
           this.message = 'Terjadi kesalahan pada server. Silakan coba lagi nanti.';

@@ -32,8 +32,7 @@ export class NavMenuComponent {
 
   logout() {
     this.authService.logout().subscribe({
-      next: (response: any) => {
-        localStorage.removeItem('Token');
+      next: () => {
         this.router.navigateByUrl('/login');
       },
       error: (error) => {

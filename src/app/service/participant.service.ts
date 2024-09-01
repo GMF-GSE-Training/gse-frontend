@@ -8,11 +8,11 @@ import { Observable } from "rxjs";
 })
 export class ParticipantService {
   private apiUrl = environment.apiUrl;
-  private endpoint = environment.endpoints.user;
+  private endpoint = environment.endpoints.participant;
 
   constructor(private http: HttpClient) {}
 
   create<T>(request: any): Observable<any > {
-    return this.http.post<T>(`${this.apiUrl}/${this.endpoint.register}`, request);
+    return this.http.post<T>(`${this.apiUrl}/${this.endpoint.get}`, request, { withCredentials: true });
   }
 }

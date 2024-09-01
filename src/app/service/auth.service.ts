@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { LoginUserRequest } from '../model/auth.model';
 import { environment } from '../../environments/environment.development';
+import { CookieService } from 'ngx-cookie-service';
 
 @Injectable({
   providedIn: 'root',
@@ -14,33 +15,27 @@ export class AuthService {
 
   constructor(
     private http: HttpClient,
+    private cookieService: CookieService,
   ) {}
 
-  token(): string | null {
-    return localStorage.getItem('Token');
+  getToken(): string | undefined {
+    return this.cookieService.get('access_token');
+  }
+
+  register<T>(request: any): Observable<any > {
+    return this.http.post<T>(`${this.apiUrl}/${this.endpoint.register}`, request);
   }
 
   login<T>(request: LoginUserRequest): Observable<any> {
-    return this.http.post(`${this.apiUrl}/${this.endpoint.login}`, request);
+    return this.http.post(`${this.apiUrl}/${this.endpoint.login}`, request, { withCredentials: true });
   }
 
   me<T>(): Observable<any> {
-    const token = this.token();
-    if (!token) {
-      throw new Error('Token is missing!');
-    }
-
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.get(`${this.apiUrl}/${this.endpoint.current}`, { headers });
+    return this.http.get(`${this.apiUrl}/${this.endpoint.current}`, { withCredentials: true });
   }
 
   logout<T>(): Observable<any> {
-    const token = this.token();
-    if (!token) {
-      throw new Error('Token is missing!');
-    }
-
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.delete(`${this.apiUrl}/${this.endpoint.current}`, { headers });
+    console.log
+    return this.http.delete(`${this.apiUrl}/${this.endpoint.current}`, { withCredentials: true });
   }
 }

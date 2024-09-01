@@ -14,8 +14,7 @@ export class RoleBasedAccessDirective {
     private templateRef: TemplateRef<any>,
     private viewContainer: ViewContainerRef,
     private authService: AuthService
-  ) {
-
+  ) { 
     this.authService.me().subscribe(user => {
       this.currentUserRole = user.data.role.role;
       this.updateView();
@@ -27,10 +26,7 @@ export class RoleBasedAccessDirective {
   }
 
   private updateView(): void {
-    console.log('Allowed Roles:', this.allowedRoles);
-    console.log('Current User Role:', this.currentUserRole);
-
-    if (this.allowedRoles.includes(this.currentUserRole)) {
+    if (this.allowedRoles.map(role => role.toLowerCase()).includes(this.currentUserRole.toLowerCase())) {
       this.viewContainer.createEmbeddedView(this.templateRef);
     } else {
       this.viewContainer.clear();

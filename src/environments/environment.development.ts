@@ -5,13 +5,16 @@ export const environment = {
     auth: {
       login: 'auth/login',
       current: 'auth/current',
+      register: 'auth/register'
     },
     user: {
-      register: 'users/register',
       get: '/users',
     },
     role: {
       get: '/roles',
-    }
+    },
+    participant: {
+      get: '/participants',
+    },
   }
 };

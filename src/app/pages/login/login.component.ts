@@ -41,12 +41,11 @@ export class LoginComponent {
 
   login() {
     this.authService.login(this.loginRequest).subscribe((response: any) => {
-        const token = response.data.token;
-        localStorage.setItem('Token', token);
-        this.loginError = false;
-        this.router.navigateByUrl('/');
+      this.loginError = false;
+      this.router.navigate(['/home']);
     },
     (error) => {
+      console.log(error)
       this.loginError = true;
       if(error.status === 400) {
         this.message = 'Email atau Nomor Pegawai dan Password tidak boleh kosong';

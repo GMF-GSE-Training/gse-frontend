@@ -12,13 +12,13 @@
     <li class="nav-item">
       <a class="nav-link" (click)="closeMenu()" routerLink="/cot">COT</a>
     </li>
-    <li *appRoleBasedAccess="['Super Admin', 'supervisor', 'lcu']" class="nav-item">
+    <li *appRoleBasedAccess="['super admin', 'supervisor', 'LCU']" class="nav-item">
       <a class="nav-link" (click)="closeMenu()" routerLink="/users">Users</a>
     </li>
-    <li *appRoleBasedAccess="['Super Admin', 'supervisor']" class="nav-item">
+    <li *appRoleBasedAccess="['super admin', 'supervisor', 'LCU']" class="nav-item">
       <a class="nav-link" (click)="closeMenu()" routerLink="/sign">E-Sign</a>
     </li>
-    <li *appRoleBasedAccess="['Super Admin', 'supervisor']" class="nav-item">
+    <li *appRoleBasedAccess="['super admin', 'supervisor', 'LCU']" class="nav-item">
       <a class="nav-link" (click)="closeMenu()" routerLink="/curriculum">Curriculum & Syllabus</a>
     </li>
     <li class="nav-item">

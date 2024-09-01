@@ -14,11 +14,7 @@ export class ApiUserService {
 
   constructor(private http: HttpClient) {}
 
-  register<T>(request: RegisterUserRequest): Observable<any > {
-    return this.http.post<T>(`${this.apiUrl}/${this.endpoint.register}`, request);
-  }
-
   get<T>(id: number): Observable<any> {
-    return this.http.get<T>(`${this.apiUrl}/${this.endpoint.get}/${id}`);
+    return this.http.get<T>(`${this.apiUrl}/${this.endpoint.get}/${id}`, { withCredentials: true });
   }
 }

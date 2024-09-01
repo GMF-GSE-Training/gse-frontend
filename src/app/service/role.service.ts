@@ -14,10 +14,10 @@ export class ApiRoleService {
   constructor(private http: HttpClient) {}
 
   get<T>(id: number): Observable<any> {
-    return this.http.get<T>(`${this.apiUrl}/${this.endpoint}/${id}`);
+    return this.http.get<T>(`${this.apiUrl}/${this.endpoint}/${id}`, { withCredentials: true });
   }
 
   getAll<T>(): Observable<any> {
-    return this.http.get<T>(`${this.apiUrl}/${this.endpoint.get}`);
+    return this.http.get<T>(`${this.apiUrl}/${this.endpoint.get}`, { withCredentials: true });
   }
 }
