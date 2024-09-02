@@ -46,7 +46,14 @@ export class ViewParticipantDataComponent implements OnInit {
   loadParticipants(page: number, size: number): void {
     this.participantService.listParticipants(page, size).subscribe((response: ApiResponse) => {
       if (response.code === 200 && response.status === 'OK') {
-        this.participants = response.data;
+        this.participants = response.data.map((participant: Participant) => {
+          return {
+            ...participant,
+            editLink: `/participant/${participant.id}/edit`,
+            detailLink: `/participant/${participant.id}/view`,
+            deleteMethod: () => this.deleteParticipant(participant)
+          };
+        });
         this.totalPages = response.paging.total_page;
       }
     });
@@ -66,7 +73,20 @@ export class ViewParticipantDataComponent implements OnInit {
     }
   }
 
-  deleteParticipant(noPegawai: string): void {
-    alert(`Delete participant with noPegawai: ${noPegawai}`);
+  deleteParticipant(participant: Participant): void {
+    if (confirm(`Are you sure you want to delete participant with id: ${participant.no_pegawai}?`)) {
+      this.participantService.deleteParticipant(participant.id).subscribe({
+        next: () => {
+          alert('Participant deleted successfully.');
+          this.participants = this.participants.filter(p => p.id !== participant.id);
+        },
+        error: (err) => {
+          console.error('Error deleting participant:', err);
+          alert('Failed to delete participant.');
+        }
+      });
+    } else {
+      alert('Failed to delete participant.');
+    }
   }
 }

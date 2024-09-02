@@ -1,5 +1,6 @@
 export const environment = {
   production: false,
+  link_qr_code: 'http://localhost:4200/participant/{id}/view',
   apiUrl: 'http://localhost:3000',
   endpoints: {
     auth: {
@@ -12,11 +13,14 @@ export const environment = {
       list: 'users/list',
       search: 'users/search/result'
     },
-    role: '/roles',
+    role: {
+      base: 'roles',
+    },
     participant: {
       base: 'participants',
+      qr_code: 'qr-code',
       list: 'participants/list/result',
       search: 'participants/search/result'
     }
-  }
+  },
 };

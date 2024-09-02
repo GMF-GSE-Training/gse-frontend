@@ -14,7 +14,7 @@ export class RoleBasedAccessDirective {
     private templateRef: TemplateRef<any>,
     private viewContainer: ViewContainerRef,
     private authService: AuthService
-  ) { 
+  ) {
     this.authService.me().subscribe(user => {
       this.currentUserRole = user.data.role.role;
       this.updateView();

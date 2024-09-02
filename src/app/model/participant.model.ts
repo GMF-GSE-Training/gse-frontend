@@ -1,12 +1,13 @@
 export interface Participant {
+  id: string;
   no_pegawai: string;
-  name: string;
+  nama: string;
   dinas: string;
   bidang: string;
   perusahaan: string;
   email: string;
   no_telp: string;
-  Kewarganegaraan: string;
+  negara: string;
   tempat_lahir: string;
   tanggal_lahir: string;
   sim_a: string;
@@ -27,7 +28,7 @@ export interface Participant {
   };
   editLink?: string;
   detailLink?: string;
-  delete?: () => void; 
+  delete?: () => any;
 }
 
 export interface Paging {

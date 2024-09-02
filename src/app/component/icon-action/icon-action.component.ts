@@ -19,5 +19,5 @@ export class IconActionComponent {
   @Input() printLink?: string;
   @Input() editLink?: string;
   @Input() detailLink?: string;
-  @Input() delete?: () => void;
+  @Input() delete?: () => any;
 }

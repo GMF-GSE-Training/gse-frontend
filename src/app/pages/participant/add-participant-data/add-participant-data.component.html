@@ -11,6 +11,8 @@
 
         <app-input-text (valueChange)="createParticipant.nama= $event" label="Nama *" type="text" inputMode="text"></app-input-text>
 
+        <app-input-text (valueChange)="createParticipant.nik= $event" label="NIK *" type="text" inputMode="text"></app-input-text>
+
         <app-input-text (valueChange)="createParticipant.dinas= $event" label="Dinas" type="text" inputMode="text"></app-input-text>
 
         <app-input-text (valueChange)="createParticipant.bidang= $event" label="Bidang" type="text" inputMode="text"></app-input-text>
@@ -29,19 +31,16 @@
 
         <app-input-date (valueChange)="createParticipant.tanggal_lahir= $event">Tanggal Lahir *</app-input-date>
 
-        <app-input-file (valueChange)="createParticipant.sime_a= $event">SIM A *</app-input-file>
+        <app-input-file idInput="sim_a_input" (valueChange)="onFileChange('sim_a', $event)">SIM A *</app-input-file>
+        <app-input-file idInput="sim_b_input" (valueChange)="onFileChange('sim_b', $event)">SIM B *</app-input-file>
+        <app-input-file idInput="ktp_input" (valueChange)="onFileChange('ktp', $event)">KTP *</app-input-file>
+        <app-input-file idInput="foto_input" (valueChange)="onFileChange('foto', $event)">Foto *</app-input-file>
 
-        <app-input-file (valueChange)="createParticipant.sim_b= $event">SIM B *</app-input-file>
+        <app-input-file idInput="surat_sehat_input" (valueChange)="onFileChange('surat_sehat_buta_warna', $event)">Ket Sehat & Buta Warna *</app-input-file>
+        <app-input-date (valueChange)="createParticipant.exp_surat_sehat= $event"></app-input-date>
 
-        <app-input-file (valueChange)="createParticipant.ktp= $event">KTP *</app-input-file>
-
-        <app-input-file (valueChange)="createParticipant.foto= $event">Foto *</app-input-file>
-
-        <app-input-file>Ket Sehat & Buta warna *</app-input-file>
-        <app-input-date></app-input-date>
-
-        <app-input-file>Ket Bebas Narkoba *</app-input-file>
-        <app-input-date></app-input-date>
+        <app-input-file idInput="surat_bebas_narkoba_input" (valueChange)="onFileChange('surat_bebas_narkoba', $event)">Ket Bebas Narkoba *</app-input-file>
+        <app-input-date (valueChange)="createParticipant.exp_bebas_narkoba= $event"></app-input-date>
       </div>
     </div>
   </form>

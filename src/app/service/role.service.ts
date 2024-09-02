@@ -18,6 +18,6 @@ export class ApiRoleService {
   }
 
   getAll<T>(): Observable<any> {
-    return this.http.get<T>(`${this.apiUrl}/${this.endpoint.get}`, { withCredentials: true });
+    return this.http.get<T>(`${this.apiUrl}/${this.endpoint.base}`, { withCredentials: true });
   }
 }

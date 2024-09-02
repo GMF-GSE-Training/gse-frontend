@@ -9,6 +9,7 @@ import { InputDateComponent } from "../../../component/input/input-date/input-da
 import { InputCompanyComponent } from "../../../component/input/input-company/input-company.component";
 import { RoleBasedAccessDirective } from '../../../directive/role-based-access.directive';
 import { ParticipantService } from '../../../service/participant.service';
+import { environment } from '../../../../environments/environment.development';
 
 @Component({
   selector: 'app-add-participant-data',
@@ -28,7 +29,28 @@ import { ParticipantService } from '../../../service/participant.service';
   styleUrl: './add-participant-data.component.css'
 })
 export class AddParticipantDataComponent {
-  createParticipant: any;
+  createParticipant: any = {
+    no_pegawai: '',
+    nama: '',
+    dinas: '',
+    bidang: '',
+    perusahaan: 'GMF',
+    email: '',
+    no_telp: '',
+    negara: '',
+    tempat_lahir: '',
+    tanggal_lahir: '',
+    sim_a: null,
+    sim_b: null,
+    ktp: null,
+    foto: null,
+    surat_sehat_buta_warna: null,
+    surat_bebas_narkoba: null,
+    exp_surat_sehat: '',
+    exp_bebas_narkoba: '',
+    link_qr_code: environment.link_qr_code,
+    gmf_non_gmf: 'GMF'
+  };
 
   constructor(
     private router: Router,
@@ -36,29 +58,28 @@ export class AddParticipantDataComponent {
   ) {}
 
   onCreate() {
-    this.participantService.create(this.createParticipant).subscribe({
+    const formData = new FormData();
+    for (const key in this.createParticipant) {
+      if (this.createParticipant.hasOwnProperty(key)) {
+        formData.append(key, this.createParticipant[key]);
+      }
+    }
+
+    this.participantService.createParticipant(formData).subscribe({
       next: (response) => {
-        alert('Peserta berhasil ditembahkan');
-        this.router.navigateByUrl('/participant/view');
+        alert('Peserta berhasil ditambahkan');
+        console.log(response.data.id);
+        this.router.navigateByUrl(`/participant/${response.data.id}/view`);
       },
       error: (error) => {
-        const e = error.error.errors
-        if (error.status === 400) {
-          if(e.nik || e.email || e.name) {
-            if(e.email == 'Invalid email') {
-              alert('Alamat email tidak valid');
-            } else {
-              alert('Field dengan tanda bintang (*) wajib diisi');
-            }
-          } else {
-            alert('NIK tidak ada di data peserta');
-          }
-        } else if (error.status === 401) {
-          alert('Informasi login tidak valid. Silakan periksa kembali email atau nomor pegawai dan password Anda');
-        } else {
-          alert('Terjadi kesalahan pada server. Silakan coba lagi nanti');
-        }
+        const e = error.error.errors;
+        console.log(e)
       }
     });
+  }
+
+  onFileChange(property: string, file: File | null): void {
+    console.log(`File selected for ${property}:`, file?.name);
+    this.createParticipant[property] = file;
   }
 }
