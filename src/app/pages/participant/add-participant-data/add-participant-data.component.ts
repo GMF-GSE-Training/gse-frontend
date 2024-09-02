@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { NavbarComponent } from '../../../component/navbar/navbar.component';
 import { Router, RouterLink } from '@angular/router';
 import { WhiteButtonComponent } from '../../../component/button/white-button/white-button.component';
@@ -30,6 +30,8 @@ import { CreateParticipantModel } from '../../../model/participant.model';
   styleUrl: './add-participant-data.component.css'
 })
 export class AddParticipantDataComponent {
+  @ViewChild(InputCompanyComponent) inputCompanyComponent!: InputCompanyComponent;
+
   createParticipant: CreateParticipantModel = {
     no_pegawai: '',
     nama: '',
@@ -61,6 +63,8 @@ export class AddParticipantDataComponent {
 
   onCreate() {
     const formData = new FormData();
+    this.createParticipant.perusahaan = this.inputCompanyComponent.getCompanyName();
+
     for (const key in this.createParticipant) {
       if (this.createParticipant.hasOwnProperty(key)) {
         formData.append(key, this.createParticipant[key as keyof CreateParticipantModel] as any);
@@ -70,7 +74,6 @@ export class AddParticipantDataComponent {
     this.participantService.createParticipant(formData).subscribe({
       next: (response) => {
         alert('Peserta berhasil ditambahkan');
-        console.log(response.data.id);
         this.router.navigateByUrl(`/participant/${response.data.id}/view`);
       },
       error: (error) => {
@@ -81,7 +84,6 @@ export class AddParticipantDataComponent {
   }
 
   onFileChange(property: keyof CreateParticipantModel, file: File | null): void {
-    console.log(`File selected for ${property}:`, file?.name);
     (this.createParticipant as any)[property] = file;
   }
 }

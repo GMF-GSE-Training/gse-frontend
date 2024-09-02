@@ -20,4 +20,8 @@ export class InputCompanyComponent {
   toggleCompanyInput() {
     this.showCompanyInput = this.selectedCompany === 'Non GMF';
   }
+
+  getCompanyName(): string {
+    return this.selectedCompany === 'Non GMF' ? this.companyName : 'GMF';
+  }
 }
