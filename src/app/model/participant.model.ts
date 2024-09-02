@@ -10,18 +10,18 @@ export interface Participant {
   negara: string;
   tempat_lahir: string;
   tanggal_lahir: string;
-  sim_a: string;
-  sim_b: string;
-  ktp: string;
-  foto: string;
-  surat_sehat_buta_warna: string;
+  sim_a: string | File | null;
+  sim_b: string | File | null;
+  ktp: string | File | null;
+  foto: string | File | null;
+  surat_sehat_buta_warna: string | File | null;
   exp_surat_sehat: string;
-  surat_bebas_narkoba: string;
+  surat_bebas_narkoba: string | File | null;
   exp_bebas_narkoba: string;
-  gmf_nongmf: string;
-  link_qr_code: string;
-  qr_code: string;
-  link: {
+  link_qr_code?: string;
+  qr_code?: string | File;
+  gmf_non_gmf?: string;
+  link?: {
     self: string;
     update: string;
     delete: string;

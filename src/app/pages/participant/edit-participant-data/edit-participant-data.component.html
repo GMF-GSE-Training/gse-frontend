@@ -8,7 +8,7 @@
       <div class="left-column">
         <app-input-text
           [(ngModel)]="currentParticipant.no_pegawai"
-          (valueChange)="updateParticipant.no_pegawai= $event"
+          (ngModelChange)="updateParticipant.no_pegawai= $event"
           label="No Pegawai"
           name="noPegawai"
           type="text"
@@ -17,7 +17,7 @@
 
         <app-input-text
           [(ngModel)]="currentParticipant.nama"
-          (valueChange)="updateParticipant.nama= $event"
+          (ngModelChange)="updateParticipant.nama= $event"
           label="Nama"
           name="nama"
           type="text"
@@ -26,7 +26,7 @@
 
         <app-input-text
           [(ngModel)]="currentParticipant.dinas"
-          (valueChange)="updateParticipant.dinas= $event"
+          (ngModelChange)="updateParticipant.dinas= $event"
           label="Dinas"
           name="dinas"
           type="text"
@@ -35,7 +35,7 @@
 
         <app-input-text
           [(ngModel)]="currentParticipant.bidang"
-          (valueChange)="updateParticipant.bidang= $event"
+          (ngModelChange)="updateParticipant.bidang= $event"
           label="Bidang"
           name="bidang"
           type="text"
@@ -46,7 +46,7 @@
 
         <app-input-text
           [(ngModel)]="currentParticipant.email"
-          (valueChange)="updateParticipant.email= $event"
+          (ngModelChange)="updateParticipant.email= $event"
           label="Email"
           name="email"
           type="email"
@@ -55,7 +55,7 @@
 
         <app-input-text
           [(ngModel)]="currentParticipant.no_telp"
-          (valueChange)="updateParticipant.no_telp= $event"
+          (ngModelChange)="updateParticipant.no_telp= $event"
           label="Nomor Telpon"
           name="no_telp"
           type="tel"
@@ -64,7 +64,7 @@
 
         <app-input-text
           [(ngModel)]="currentParticipant.negara"
-          (valueChange)="updateParticipant.negara= $event"
+          (ngModelChange)="updateParticipant.negara= $event"
           label="Kewarganegaraan"
           name="negara"
           type="text"
@@ -75,7 +75,7 @@
       <div class="right-column">
         <app-input-text
           [(ngModel)]="currentParticipant.tempat_lahir"
-          (valueChange)="updateParticipant.tempat_lahir= $event"
+          (ngModelChange)="updateParticipant.tempat_lahir= $event"
           label="Tempat Lahir"
           name="tempat_lahir"
           type="text"
@@ -84,7 +84,7 @@
 
         <app-input-date
           [(ngModel)]="currentParticipant.tanggal_lahir"
-          (valueChange)="onDateChange($event)"
+          (ngModelChange)="onDateChange($event)"
           name="tanggal_lahir">
           Tanggal Lahir
         </app-input-date>
@@ -92,7 +92,7 @@
         <app-input-file
           [(ngModel)]="currentParticipant.sim_a"
           idInput="sim_a_input"
-          (valueChange)="onFileChange('sim_a', $event)"
+          (ngModelChange)="onFileChange('sim_a', $event)"
           name="sim_a">
           SIM A
         </app-input-file>
@@ -100,7 +100,7 @@
         <app-input-file
           [(ngModel)]="currentParticipant.sim_b"
           idInput="sim_b_input"
-          (valueChange)="onFileChange('sim_b', $event)"
+          (ngModelChange)="onFileChange('sim_b', $event)"
           name="sim_b">
           SIM B
         </app-input-file>
@@ -108,7 +108,7 @@
         <app-input-file
           [(ngModel)]="currentParticipant.ktp"
           idInput="ktp_input"
-          (valueChange)="onFileChange('ktp', $event)"
+          (ngModelChange)="onFileChange('ktp', $event)"
           name="ktp">
           KTP
         </app-input-file>
@@ -116,7 +116,7 @@
         <app-input-file
           [(ngModel)]="currentParticipant.foto"
           idInput="foto_input"
-          (valueChange)="onFileChange('foto', $event)"
+          (ngModelChange)="onFileChange('foto', $event)"
           name="foto">
           Foto
         </app-input-file>
@@ -124,28 +124,28 @@
         <app-input-file
           [(ngModel)]="currentParticipant.surat_sehat_buta_warna"
           idInput="surat_sehat_input"
-          (valueChange)="onFileChange('surat_sehat_buta_warna', $event)"
+          (ngModelChange)="onFileChange('surat_sehat_buta_warna', $event)"
           name="surat_sehat_buta_warna">
           Ket Sehat & Buta Warna
         </app-input-file>
 
         <app-input-date
           [(ngModel)]="currentParticipant.exp_surat_sehat"
-          (valueChange)="onDateChange($event)"
+          (ngModelChange)="onDateChange($event)"
           name="exp_surat_sehat">
         </app-input-date>
 
         <app-input-file
           [(ngModel)]="currentParticipant.surat_bebas_narkoba"
           idInput="surat_bebas_narkoba_input"
-          (valueChange)="onFileChange('surat_bebas_narkoba', $event)"
+          (ngModelChange)="onFileChange('surat_bebas_narkoba', $event)"
           name="surat_bebas_narkoba">
           Ket Bebas Narkoba
         </app-input-file>
 
         <app-input-date
           [(ngModel)]="currentParticipant.exp_bebas_narkoba"
-          (valueChange)="onDateChange($event)"
+          (ngModelChange)="onDateChange($event)"
           name="exp_bebas_narkoba">
         </app-input-date>
       </div>

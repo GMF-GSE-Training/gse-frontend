@@ -83,10 +83,12 @@ export class EditParticipantDataComponent implements OnInit{
 
   onUpdate() {
     const formData = new FormData();
+    let isUpdated = false;
 
     // Menambahkan hanya data yang berubah ke FormData
     for (const key in this.updateParticipant) {
-      if (this.updateParticipant[key as keyof UpdateParticipantModel] !== this.currentParticipant[key as keyof UpdateParticipantModel]) {
+      if (this.updateParticipant) {
+        isUpdated = true; // Ada perubahan data
         const value = this.updateParticipant[key as keyof UpdateParticipantModel];
         if (value instanceof File) {
           formData.append(key, value);
@@ -94,6 +96,11 @@ export class EditParticipantDataComponent implements OnInit{
           formData.append(key, value as any);
         }
       }
+    }
+
+    if (!isUpdated) {
+      alert('Tidak ada perubahan data yang perlu diperbarui.');
+      return;
     }
 
     this.participantService.updateParticipant(this.currentParticipant.id, formData).subscribe({
@@ -115,18 +122,11 @@ export class EditParticipantDataComponent implements OnInit{
   }
 
   onDateChange(date: string): void {
-    const newDate = this.convertToDateFormat(date);
-    this.currentParticipant.tanggal_lahir = newDate;
+    this.updateParticipant.tanggal_lahir = date;
   }
 
   convertToDateFormat(dateString: string): string {
     const [day, month, year] = dateString.split('-');
     return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
   }
-
-  convertToDateFormatRequest(dateString: string): string {
-    const [year, month, day] = dateString.split('-');
-    return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
-  }
-
 }
