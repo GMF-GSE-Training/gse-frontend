@@ -35,7 +35,6 @@ export class AuthService {
   }
 
   logout<T>(): Observable<any> {
-    console.log
     return this.http.delete(`${this.apiUrl}/${this.endpoint.base}`, { withCredentials: true });
   }
 }

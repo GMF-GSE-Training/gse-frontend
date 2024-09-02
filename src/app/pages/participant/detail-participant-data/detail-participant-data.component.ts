@@ -50,7 +50,6 @@ export class DetailParticipantDataComponent implements OnInit {
     if (id) {
       this.participantService.getParticipantById(id).subscribe(response => {
         if (response.status === 'OK' && response.code === 200) {
-          // Mengakses data dari objek respons
           this.participant = response.data;
 
           this.leftTableData = [

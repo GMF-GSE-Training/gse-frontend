@@ -21,8 +21,8 @@ export class ParticipantService {
     return this.http.get<Participant>(`${this.apiUrl}/${this.endpoints.base}/${id}`, { withCredentials: true });
   }
 
-  updateParticipant(id: string, participant: Participant): Observable<Participant> {
-    return this.http.put<Participant>(id, participant, { withCredentials: true });
+  updateParticipant<T>(id: string, request: FormData): Observable<any> {
+    return this.http.patch<T>(`${this.apiUrl}/${this.endpoints.base}/${id}`, request, { withCredentials: true });
   }
 
   deleteParticipant(id: string): Observable<any> {

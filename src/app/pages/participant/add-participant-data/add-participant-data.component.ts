@@ -10,6 +10,7 @@ import { InputCompanyComponent } from "../../../component/input/input-company/in
 import { RoleBasedAccessDirective } from '../../../directive/role-based-access.directive';
 import { ParticipantService } from '../../../service/participant.service';
 import { environment } from '../../../../environments/environment.development';
+import { CreateParticipantModel } from '../../../model/participant.model';
 
 @Component({
   selector: 'app-add-participant-data',
@@ -29,12 +30,13 @@ import { environment } from '../../../../environments/environment.development';
   styleUrl: './add-participant-data.component.css'
 })
 export class AddParticipantDataComponent {
-  createParticipant: any = {
+  createParticipant: CreateParticipantModel = {
     no_pegawai: '',
     nama: '',
+    nik: '',
     dinas: '',
     bidang: '',
-    perusahaan: 'GMF',
+    perusahaan: '',
     email: '',
     no_telp: '',
     negara: '',
@@ -49,7 +51,7 @@ export class AddParticipantDataComponent {
     exp_surat_sehat: '',
     exp_bebas_narkoba: '',
     link_qr_code: environment.link_qr_code,
-    gmf_non_gmf: 'GMF'
+    gmf_non_gmf: ''
   };
 
   constructor(
@@ -61,7 +63,7 @@ export class AddParticipantDataComponent {
     const formData = new FormData();
     for (const key in this.createParticipant) {
       if (this.createParticipant.hasOwnProperty(key)) {
-        formData.append(key, this.createParticipant[key]);
+        formData.append(key, this.createParticipant[key as keyof CreateParticipantModel] as any);
       }
     }
 
@@ -78,8 +80,8 @@ export class AddParticipantDataComponent {
     });
   }
 
-  onFileChange(property: string, file: File | null): void {
+  onFileChange(property: keyof CreateParticipantModel, file: File | null): void {
     console.log(`File selected for ${property}:`, file?.name);
-    this.createParticipant[property] = file;
+    (this.createParticipant as any)[property] = file;
   }
 }

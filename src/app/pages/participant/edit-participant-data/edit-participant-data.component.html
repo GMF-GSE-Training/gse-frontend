@@ -6,48 +6,154 @@
   <form>
     <div class="form-container">
       <div class="left-column">
+        <app-input-text
+          [(ngModel)]="currentParticipant.no_pegawai"
+          (valueChange)="updateParticipant.no_pegawai= $event"
+          label="No Pegawai"
+          name="noPegawai"
+          type="text"
+          inputMode="numerik">
+        </app-input-text>
 
-        <app-input-text type="text" inputMode="numerik">Nomor Pegawai</app-input-text>
+        <app-input-text
+          [(ngModel)]="currentParticipant.nama"
+          (valueChange)="updateParticipant.nama= $event"
+          label="Nama *"
+          name="nama"
+          type="text"
+          inputMode="text">
+        </app-input-text>
 
-        <app-input-text type="text" inputMode="text">Nama *</app-input-text>
+        <app-input-text
+          [(ngModel)]="currentParticipant.dinas"
+          (valueChange)="updateParticipant.dinas= $event"
+          label="Dinas"
+          name="dinas"
+          type="text"
+          inputMode="text"
+        ></app-input-text>
 
-        <app-input-text type="text" inputMode="text">Dinas</app-input-text>
-
-        <app-input-text type="text" inputMode="text">Bidang</app-input-text>
+        <app-input-text
+          [(ngModel)]="currentParticipant.bidang"
+          (valueChange)="updateParticipant.bidang= $event"
+          label="Bidang"
+          name="bidang"
+          type="text"
+          inputMode="text">
+        </app-input-text>
 
         <app-input-company></app-input-company>
 
-        <app-input-text type="email" inputMode="text">Email *</app-input-text>
+        <app-input-text
+          [(ngModel)]="currentParticipant.email"
+          (valueChange)="updateParticipant.email= $event"
+          label="Email *"
+          name="email"
+          type="email"
+          inputMode="text">
+        </app-input-text>
 
-        <app-input-text type="tel" inputMode="tel">Nomor Telpon *</app-input-text>
+        <app-input-text
+          [(ngModel)]="currentParticipant.no_telp"
+          (valueChange)="updateParticipant.no_telp= $event"
+          label="Nomor Telpon *"
+          name="no_telp"
+          type="tel"
+          inputMode="tel">
+        </app-input-text>
 
-        <app-input-text type="text" inputMode="text">Kewarganegaraan *</app-input-text>
+        <app-input-text
+          [(ngModel)]="currentParticipant.negara"
+          (valueChange)="updateParticipant.negara= $event"
+          label="Kewarganegaraan *"
+          name="negara"
+          type="text"
+          inputMode="text">
+        </app-input-text>
       </div>
 
       <div class="right-column">
-        <app-input-text type="text" inputMode="text">Tempat Lahir *</app-input-text>
+        <app-input-text
+          [(ngModel)]="currentParticipant.tempat_lahir"
+          (valueChange)="updateParticipant.tempat_lahir= $event"
+          label="Tempat Lahir *"
+          name="tempat_lahir"
+          type="text"
+          inputMode="text">
+        </app-input-text>
 
-        <app-input-date>Tanggal Lahir *</app-input-date>
+        <app-input-date
+          [(ngModel)]="currentParticipant.tanggal_lahir"
+          (valueChange)="onDateChange($event)"
+          name="tanggal_lahir">
+          Tanggal Lahir *
+        </app-input-date>
 
-        <app-input-file>SIM A *</app-input-file>
+        <app-input-file
+          [(ngModel)]="currentParticipant.sim_a"
+          idInput="sim_a_input"
+          (valueChange)="onFileChange('sim_a', $event)"
+          name="sim_a">
+          SIM A *
+        </app-input-file>
 
-        <app-input-file>SIM B *</app-input-file>
+        <app-input-file
+          [(ngModel)]="currentParticipant.sim_b"
+          idInput="sim_b_input"
+          (valueChange)="onFileChange('sim_b', $event)"
+          name="sim_b">
+          SIM B *
+        </app-input-file>
 
-        <app-input-file>KTP *</app-input-file>
+        <app-input-file
+          [(ngModel)]="currentParticipant.ktp"
+          idInput="ktp_input"
+          (valueChange)="onFileChange('ktp', $event)"
+          name="ktp">
+          KTP *
+        </app-input-file>
 
-        <app-input-file>Foto *</app-input-file>
+        <app-input-file
+          [(ngModel)]="currentParticipant.foto"
+          idInput="foto_input"
+          (valueChange)="onFileChange('foto', $event)"
+          name="foto">
+          Foto *
+        </app-input-file>
 
-        <app-input-file>Ket Sehat & Buta warna *</app-input-file>
-        <app-input-date></app-input-date>
+        <app-input-file
+          [(ngModel)]="currentParticipant.surat_sehat_buta_warna"
+          idInput="surat_sehat_input"
+          (valueChange)="onFileChange('surat_sehat_buta_warna', $event)"
+          name="surat_sehat_buta_warna">
+          Ket Sehat & Buta Warna *
+        </app-input-file>
 
-        <app-input-file>Ket Bebas Narkoba *</app-input-file>
-        <app-input-date></app-input-date>
+        <app-input-date
+          [(ngModel)]="currentParticipant.exp_surat_sehat"
+          (valueChange)="onDateChange($event)"
+          name="exp_surat_sehat">
+        </app-input-date>
+
+        <app-input-file
+          [(ngModel)]="currentParticipant.surat_bebas_narkoba"
+          idInput="surat_bebas_narkoba_input"
+          (valueChange)="onFileChange('surat_bebas_narkoba', $event)"
+          name="surat_bebas_narkoba">
+          Ket Bebas Narkoba *
+        </app-input-file>
+
+        <app-input-date
+          [(ngModel)]="currentParticipant.exp_bebas_narkoba"
+          (valueChange)="onDateChange($event)"
+          name="exp_bebas_narkoba">
+        </app-input-date>
       </div>
     </div>
   </form>
 
   <div class="container-button">
     <app-white-button routerLink="/home">Back</app-white-button>
-    <app-blue-button routerLink="/participant/view">Save</app-blue-button>
+    <app-blue-button (click)="onUpdate()">Save</app-blue-button>
   </div>
 </main>
