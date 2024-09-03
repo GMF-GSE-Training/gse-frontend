@@ -7,7 +7,7 @@ import { TableComponent } from "../../../component/table/table.component";
 import { RoleBasedAccessDirective } from '../../../shared/directive/role-based-access.directive';
 import { ParticipantService } from '../../../shared/service/participant.service';
 import { ApiResponse, Participant } from '../../../shared/model/participant.model';
-import Swal from 'sweetalert2';
+import { SweetalertService } from '../../../shared/service/sweetaler.service';
 
 @Component({
   selector: 'app-view-participant-data',
@@ -38,7 +38,10 @@ export class ViewParticipantDataComponent implements OnInit {
   itemsPerPage: number = 10;
   totalPages: number = 1;
 
-  constructor(private participantService: ParticipantService) {}
+  constructor(
+    private participantService: ParticipantService,
+    private sweetalertService: SweetalertService,
+  ) {}
 
   ngOnInit(): void {
     this.loadParticipants(this.currentPage, this.itemsPerPage);
@@ -75,49 +78,16 @@ export class ViewParticipantDataComponent implements OnInit {
   }
 
   async deleteParticipant(participant: Participant): Promise<void> {
-    const isConfirmed = await this.confirm('Anda Yakin?', `Apakah anda ingin menghapus peserta ini : ${participant.nama}?`);
+    const isConfirmed = await this.sweetalertService.confirm('Anda Yakin?', `Apakah anda ingin menghapus peserta ini : ${participant.nama}?`, 'warning', 'Ya, hapus!');
     if (isConfirmed) {
       this.participantService.deleteParticipant(participant.id).subscribe({
         next: () => {
-          this.alert(isConfirmed);
+          this.sweetalertService.alert(isConfirmed, 'Dihapus!', 'Data peserta berhasil dihapus', 'success');
           this.participants = this.participants.filter(p => p.id !== participant.id);
         },
         error: () => {
-          this.alert(!isConfirmed);
+          this.sweetalertService.alert(!isConfirmed, 'Gagal!', 'Gagal menghapus data peserta', 'error');
         }
-      });
-    }
-  }
-
-  async confirm(title: string, message: string): Promise<boolean> {
-    return Swal.fire({
-      title: title,
-      text: message,
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#02507E",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Ya, hapus!",
-      cancelButtonText: "Tidak",
-    }).then((result) => {
-      return result.isConfirmed;
-    });
-  }
-
-  async alert(isConfirmed: boolean) {
-    if (isConfirmed) {
-      Swal.fire({
-        title: "Dihapus!",
-        text: "Data peserta berhasil dihapus",
-        icon: "success",
-        confirmButtonColor: "#02507E",
-      });
-    } else {
-      Swal.fire({
-        title: "Gagal",
-        text: "Gagal menghapus data peserta",
-        icon: "error",
-        confirmButtonColor: "#02507E",
       });
     }
   }

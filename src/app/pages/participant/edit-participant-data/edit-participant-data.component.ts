@@ -11,7 +11,7 @@ import { RoleBasedAccessDirective } from '../../../shared/directive/role-based-a
 import { UpdateParticipantModel } from '../../../shared/model/participant.model';
 import { ParticipantService } from '../../../shared/service/participant.service';
 import { FormsModule } from '@angular/forms';
-import Swal from 'sweetalert2';
+import { SweetalertService } from '../../../shared/service/sweetaler.service';
 
 @Component({
   selector: 'app-edit-participant-data',
@@ -65,6 +65,7 @@ export class EditParticipantDataComponent implements OnInit{
     private route: ActivatedRoute,
     private router: Router,
     private participantService: ParticipantService,
+    private sweetalertService: SweetalertService,
   ) {}
 
   ngOnInit() {
@@ -86,7 +87,7 @@ export class EditParticipantDataComponent implements OnInit{
     }
   }
 
-  onUpdate() {
+  async onUpdate() {
     const formData = new FormData();
     let isUpdated = false;
 
@@ -104,18 +105,18 @@ export class EditParticipantDataComponent implements OnInit{
     }
 
     if (!isUpdated) {
-      this.alert(false, "Gagal memperbarui data peserta");
+      await this.sweetalertService.alert(true, 'Diperbarui!', 'Gagal memperbarui data peserta', 'error');
       return;
     }
 
     this.participantService.updateParticipant(this.currentParticipant.id, formData).subscribe({
       next: async (response) => {
-        await this.alert(true, "Data peserta berhasil diperbarui");
+        await this.sweetalertService.alert(true, 'Diperbarui!', 'Data peserta berhasil diperbarui', 'success');
         this.router.navigateByUrl(`/participant/${response.data.id}/view`);
       },
-      error: (error) => {
+      error: async (error) => {
         console.error('Error updating participant:', error.error.errors);
-        this.alert(false, "Gagal memperbarui data peserta");
+        await this.sweetalertService.alert(true, 'Gagal!', 'Gagal memperbarui data peserta', 'error');
       }
     });
   }
@@ -133,23 +134,5 @@ export class EditParticipantDataComponent implements OnInit{
   convertToDateFormat(dateString: string): string {
     const [day, month, year] = dateString.split('-');
     return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
-  }
-
-  async alert(isConfirmed: boolean, message: string) {
-    if (isConfirmed) {
-      await Swal.fire({
-        title: "Diperbarui!",
-        text: message,
-        icon: "success",
-        confirmButtonColor: "#02507E",
-      });
-    } else {
-      await Swal.fire({
-        title: "Gagal",
-        text: message,
-        icon: "error",
-        confirmButtonColor: "#02507E",
-      });
-    }
   }
 }
