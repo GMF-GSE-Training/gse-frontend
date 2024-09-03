@@ -3,10 +3,10 @@ import { BlueButtonComponent } from '../../component/button/blue-button/blue-but
 import { LoginRegisterComponent } from "../../component/login-register/login-register.component";
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
-import { LoginUserRequest } from '../../model/auth.model';
+import { LoginUserRequest } from '../../shared/model/auth.model';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
-import { AuthService } from '../../service/auth.service';
+import { AuthService } from '../../shared/service/auth.service';
 
 @Component({
   selector: 'app-login',

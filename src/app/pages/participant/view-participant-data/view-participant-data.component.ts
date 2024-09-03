@@ -4,9 +4,9 @@ import { NavbarComponent } from '../../../component/navbar/navbar.component';
 import { WhiteButtonComponent } from '../../../component/button/white-button/white-button.component';
 import { BlueButtonComponent } from '../../../component/button/blue-button/blue-button.component';
 import { TableComponent } from "../../../component/table/table.component";
-import { RoleBasedAccessDirective } from '../../../directive/role-based-access.directive';
-import { ParticipantService } from '../../../service/participant.service';
-import { ApiResponse, Participant } from '../../../model/participant.model';
+import { RoleBasedAccessDirective } from '../../../shared/directive/role-based-access.directive';
+import { ParticipantService } from '../../../shared/service/participant.service';
+import { ApiResponse, Participant } from '../../../shared/model/participant.model';
 import Swal from 'sweetalert2';
 
 @Component({

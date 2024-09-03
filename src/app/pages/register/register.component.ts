@@ -3,12 +3,12 @@ import { BlueButtonComponent } from "../../component/button/blue-button/blue-but
 import { LoginRegisterComponent } from "../../component/login-register/login-register.component";
 import { Router, RouterLink } from '@angular/router';
 import { InputTextComponent } from "../../component/input/input-text/input-text.component";
-import { ApiUserService } from '../../service/user.service';
-import { RegisterUserRequest } from '../../model/user.model';
+import { ApiUserService } from '../../shared/service/user.service';
+import { RegisterUserRequest } from '../../shared/model/user.model';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
-import { AuthService } from '../../service/auth.service';
+import { AuthService } from '../../shared/service/auth.service';
 
 @Component({
   selector: 'app-register',

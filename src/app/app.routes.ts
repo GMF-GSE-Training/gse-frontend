@@ -27,7 +27,7 @@ import { ViewCurriculumSyllabusComponent } from './pages/curriculum-syllabus/vie
 import { AddCurriculumCapabilityComponent } from './pages/capability/add-curriculum-capability/add-curriculum-capability.component';
 import { AddCurriculumComponent } from './pages/curriculum-syllabus/add-curriculum/add-curriculum.component';
 import { RegisterComponent } from './pages/register/register.component';
-import { authGuard } from './guard/auth.guard';
+import { authGuard } from './shared/guard/auth.guard';
 
 export const routes: Routes = [
   {

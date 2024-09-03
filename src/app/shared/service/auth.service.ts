@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { LoginUserRequest } from '../model/auth.model';
-import { environment } from '../../environments/environment.development';
+import { environment } from '../../../environments/environment.development';
 import { CookieService } from 'ngx-cookie-service';
 
 @Injectable({

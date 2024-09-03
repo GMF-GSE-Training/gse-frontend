@@ -7,10 +7,10 @@ import { InputFileComponent } from "../../../component/input/input-file/input-fi
 import { InputTextComponent } from '../../../component/input/input-text/input-text.component';
 import { InputDateComponent } from "../../../component/input/input-date/input-date.component";
 import { InputCompanyComponent } from "../../../component/input/input-company/input-company.component";
-import { RoleBasedAccessDirective } from '../../../directive/role-based-access.directive';
-import { ParticipantService } from '../../../service/participant.service';
+import { RoleBasedAccessDirective } from '../../../shared/directive/role-based-access.directive';
+import { ParticipantService } from '../../../shared/service/participant.service';
 import { environment } from '../../../../environments/environment.development';
-import { CreateParticipantModel } from '../../../model/participant.model';
+import { CreateParticipantModel } from '../../../shared/model/participant.model';
 
 @Component({
   selector: 'app-add-participant-data',

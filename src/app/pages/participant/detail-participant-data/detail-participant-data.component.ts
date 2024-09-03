@@ -4,8 +4,8 @@ import { NavbarComponent } from '../../../component/navbar/navbar.component';
 import { BlueButtonComponent } from '../../../component/button/blue-button/blue-button.component';
 import { DetailedViewComponent } from "../../../component/detailed-view/detailed-view.component";
 import { TableComponent } from "../../../component/table/table.component";
-import { ParticipantService } from '../../../service/participant.service';
-import { Participant } from '../../../model/participant.model';
+import { ParticipantService } from '../../../shared/service/participant.service';
+import { Participant } from '../../../shared/model/participant.model';
 import { map } from 'rxjs/operators';
 
 @Component({

@@ -7,9 +7,9 @@ import { InputTextComponent } from "../../../component/input/input-text/input-te
 import { InputCompanyComponent } from "../../../component/input/input-company/input-company.component";
 import { NavbarComponent } from "../../../component/navbar/navbar.component";
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { RoleBasedAccessDirective } from '../../../directive/role-based-access.directive';
-import { UpdateParticipantModel } from '../../../model/participant.model';
-import { ParticipantService } from '../../../service/participant.service';
+import { RoleBasedAccessDirective } from '../../../shared/directive/role-based-access.directive';
+import { UpdateParticipantModel } from '../../../shared/model/participant.model';
+import { ParticipantService } from '../../../shared/service/participant.service';
 import { FormsModule } from '@angular/forms';
 import Swal from 'sweetalert2';
 

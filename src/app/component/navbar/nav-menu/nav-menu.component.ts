@@ -1,8 +1,8 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { RoleBasedAccessDirective } from '../../../directive/role-based-access.directive';
-import { AuthService } from '../../../service/auth.service';
+import { RoleBasedAccessDirective } from '../../../shared/directive/role-based-access.directive';
+import { AuthService } from '../../../shared/service/auth.service';
 
 @Component({
   selector: 'app-nav-menu',
