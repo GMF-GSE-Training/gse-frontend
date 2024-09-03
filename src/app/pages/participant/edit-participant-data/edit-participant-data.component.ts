@@ -106,7 +106,6 @@ export class EditParticipantDataComponent implements OnInit{
     this.participantService.updateParticipant(this.currentParticipant.id, formData).subscribe({
       next: (response) => {
         alert('Peserta berhasil diupdate');
-        console.log(response.data.id);
         this.router.navigateByUrl(`/participant/${response.data.id}/view`);
       },
       error: (error) => {

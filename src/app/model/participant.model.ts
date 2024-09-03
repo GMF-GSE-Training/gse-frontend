@@ -58,6 +58,7 @@ export interface CreateParticipantModel {
 export interface UpdateParticipantModel {
   no_pegawai?: string;
   nama?: string;
+  nik?: string;
   dinas?: string;
   bidang?: string;
   perusahaan?: string;

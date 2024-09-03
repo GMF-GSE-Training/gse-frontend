@@ -25,6 +25,15 @@
         </app-input-text>
 
         <app-input-text
+          [(ngModel)]="currentParticipant.nik"
+          (ngModelChange)="updateParticipant.nik= $event"
+          label="NIK"
+          name="nik"
+          type="text"
+          inputMode="text">
+        </app-input-text>
+
+        <app-input-text
           [(ngModel)]="currentParticipant.dinas"
           (ngModelChange)="updateParticipant.dinas= $event"
           label="Dinas"
