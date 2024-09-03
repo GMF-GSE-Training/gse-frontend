@@ -69,19 +69,22 @@ export class AddParticipantDataComponent {
 
     for (const key in this.createParticipant) {
       if (this.createParticipant.hasOwnProperty(key)) {
-        formData.append(key, this.createParticipant[key as keyof CreateParticipantModel] as any);
+        const value = this.createParticipant[key as keyof CreateParticipantModel];
+      if (value !== '' && value !== null) {
+        formData.append(key, value as any);
+      }
       }
     }
 
     this.participantService.createParticipant(formData).subscribe({
-      next: (response) => {
-        this.sweetalertService.alert(true, 'Ditambahkan!', 'Peserta berhasil ditambahkan', 'success');
+      next: async (response) => {
+        await this.sweetalertService.alert(true, 'Ditambahkan!', 'Peserta berhasil ditambahkan', 'success');
         this.router.navigateByUrl(`/participant/${response.data.id}/view`);
       },
       error: (error) => {
         const e = error.error.errors;
         console.log(e)
-        this.sweetalertService.alert(true, 'Gagal!', 'Gagal menambahkan peserta', 'error');
+        this.sweetalertService.alert(false, 'Gagal!', 'Gagal menambahkan peserta', 'error');
       }
     });
   }

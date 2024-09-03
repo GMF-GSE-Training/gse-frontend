@@ -111,10 +111,10 @@ export class EditParticipantDataComponent implements OnInit{
 
     this.participantService.updateParticipant(this.currentParticipant.id, formData).subscribe({
       next: async (response) => {
-        this.sweetalertService.alert(true, 'Diperbarui!', 'Data peserta berhasil diperbarui', 'success');
+        await this.sweetalertService.alert(true, 'Diperbarui!', 'Data peserta berhasil diperbarui', 'success');
         this.router.navigateByUrl(`/participant/${response.data.id}/view`);
       },
-      error: async (error) => {
+      error: (error) => {
         console.error('Error updating participant:', error.error.errors);
         this.sweetalertService.alert(true, 'Gagal!', 'Gagal memperbarui data peserta', 'error');
       }

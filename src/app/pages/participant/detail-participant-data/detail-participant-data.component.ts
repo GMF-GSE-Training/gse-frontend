@@ -54,7 +54,7 @@ export class DetailParticipantDataComponent implements OnInit {
 
           this.leftTableData = [
             { label: 'Nama Peserta', value: this.participant!.nama },
-            { label: 'Dinas', value: this.participant!.dinas },
+            { label: 'Dinas', value: this.participant?.dinas},
             { label: 'Bidang', value: this.participant!.bidang },
             { label: 'Perusahaan', value: this.participant!.perusahaan },
             { label: 'Email', value: this.participant!.email },
