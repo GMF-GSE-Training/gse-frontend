@@ -34,10 +34,10 @@ import { SweetalertService } from '../../../shared/service/sweetaler.service';
 export class EditParticipantDataComponent implements OnInit{
   currentParticipant: any = {
     id: '',
-    no_pegawai: '',
+    no_pegawai: null,
     nama: '',
-    dinas: '',
-    bidang: '',
+    dinas: null,
+    bidang: null,
     perusahaan: '',
     email: '',
     no_telp: '',
@@ -101,22 +101,24 @@ export class EditParticipantDataComponent implements OnInit{
         } else if (value) {
           formData.append(key, value as any);
         }
+        console.log(this.updateParticipant)
       }
     }
 
     if (!isUpdated) {
-      this.sweetalertService.alert(true, 'Diperbarui!', 'Gagal memperbarui data peserta', 'error');
+      this.sweetalertService.alert(true, 'Diperbarui!', 'Gagal memperbarui data peserta, tidak ada data yang diubah', 'error');
       return;
     }
 
     this.participantService.updateParticipant(this.currentParticipant.id, formData).subscribe({
       next: async (response) => {
+        console.log(response);
         await this.sweetalertService.alert(true, 'Diperbarui!', 'Data peserta berhasil diperbarui', 'success');
         this.router.navigateByUrl(`/participant/${response.data.id}/view`);
       },
       error: (error) => {
         console.error('Error updating participant:', error.error.errors);
-        this.sweetalertService.alert(true, 'Gagal!', 'Gagal memperbarui data peserta', 'error');
+        this.sweetalertService.alert(false, 'Gagal!', 'Gagal memperbarui data peserta', 'error');
       }
     });
   }

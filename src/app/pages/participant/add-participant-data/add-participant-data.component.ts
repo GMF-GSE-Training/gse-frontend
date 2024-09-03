@@ -70,9 +70,9 @@ export class AddParticipantDataComponent {
     for (const key in this.createParticipant) {
       if (this.createParticipant.hasOwnProperty(key)) {
         const value = this.createParticipant[key as keyof CreateParticipantModel];
-      if (value !== '' && value !== null) {
-        formData.append(key, value as any);
-      }
+        if (value !== '' && value !== null) {
+          formData.append(key, value as any);
+        }
       }
     }
 
