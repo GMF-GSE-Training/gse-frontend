@@ -11,8 +11,7 @@ import { RoleBasedAccessDirective } from '../../../directive/role-based-access.d
 import { UpdateParticipantModel } from '../../../model/participant.model';
 import { ParticipantService } from '../../../service/participant.service';
 import { FormsModule } from '@angular/forms';
-import { AlertComponent } from "../../../component/alert/alert.component";
-import { CommonModule } from '@angular/common';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-edit-participant-data',
@@ -28,8 +27,6 @@ import { CommonModule } from '@angular/common';
     RouterLink,
     RoleBasedAccessDirective,
     FormsModule,
-    AlertComponent,
-    CommonModule,
 ],
   templateUrl: './edit-participant-data.component.html',
   styleUrl: './edit-participant-data.component.css'
@@ -62,6 +59,7 @@ export class EditParticipantDataComponent implements OnInit{
 
   showAlert: boolean = false;
   alertMessage: string = '';
+  iconType: 'success' | 'fail' = 'success';
 
   constructor(
     private route: ActivatedRoute,
@@ -106,18 +104,18 @@ export class EditParticipantDataComponent implements OnInit{
     }
 
     if (!isUpdated) {
-      this.showAlertMessage('Tidak ada perubahan data yang perlu diperbarui');
+      this.alert(false, "Gagal memperbarui data peserta");
       return;
     }
 
     this.participantService.updateParticipant(this.currentParticipant.id, formData).subscribe({
       next: async (response) => {
-        await this.showAlertMessage('Peserta berhasil diupdate');
+        await this.alert(true, "Data peserta berhasil diperbarui");
         this.router.navigateByUrl(`/participant/${response.data.id}/view`);
       },
-      error: async (error) => {
+      error: (error) => {
         console.error('Error updating participant:', error.error.errors);
-        await this.showAlertMessage('Gagal memperbarui peserta');
+        this.alert(false, "Gagal memperbarui data peserta");
       }
     });
   }
@@ -137,20 +135,21 @@ export class EditParticipantDataComponent implements OnInit{
     return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
   }
 
-  showAlertMessage(message: string): Promise<void> {
-    return new Promise((resolve) => {
-      this.alertMessage = message;
-      this.showAlert = true;
-      // Resolusi ketika alert ditutup
-      this.closeAlert = () => {
-        this.showAlert = false;
-        resolve();
-      };
-    });
-  }
-
-
-  closeAlert(): void {
-    this.showAlert = false;
+  async alert(isConfirmed: boolean, message: string) {
+    if (isConfirmed) {
+      await Swal.fire({
+        title: "Diperbarui!",
+        text: message,
+        icon: "success",
+        confirmButtonColor: "#02507E",
+      });
+    } else {
+      await Swal.fire({
+        title: "Gagal",
+        text: message,
+        icon: "error",
+        confirmButtonColor: "#02507E",
+      });
+    }
   }
 }

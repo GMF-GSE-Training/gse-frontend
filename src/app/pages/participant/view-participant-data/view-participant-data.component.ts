@@ -7,9 +7,7 @@ import { TableComponent } from "../../../component/table/table.component";
 import { RoleBasedAccessDirective } from '../../../directive/role-based-access.directive';
 import { ParticipantService } from '../../../service/participant.service';
 import { ApiResponse, Participant } from '../../../model/participant.model';
-import { AlertComponent } from '../../../component/alert/alert.component';
-import { ConfirmComponent } from '../../../component/confirm/confirm.component';
-import { CommonModule } from '@angular/common';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-view-participant-data',
@@ -20,10 +18,7 @@ import { CommonModule } from '@angular/common';
     WhiteButtonComponent,
     BlueButtonComponent,
     TableComponent,
-    AlertComponent,
-    ConfirmComponent,
     RoleBasedAccessDirective,
-    CommonModule,
 ],
   templateUrl: './view-participant-data.component.html',
   styleUrl: './view-participant-data.component.css'
@@ -37,12 +32,6 @@ export class ViewParticipantDataComponent implements OnInit {
     { header: 'Perusahaan', field: 'perusahaan' },
     { header: 'Action', field: 'action' }
   ];
-
-  showAlert: boolean = false;
-  showConfirm: boolean = false;
-  alertMessage: string = '';
-  confirmMessage: string = '';
-  participantToDelete?: Participant;
 
   participants: Participant[] = [];
   currentPage: number = 1;
@@ -63,7 +52,7 @@ export class ViewParticipantDataComponent implements OnInit {
             ...participant,
             editLink: `/participant/${participant.id}/edit`,
             detailLink: `/participant/${participant.id}/view`,
-            deleteMethod: () => this.confirmDelete(participant)
+            deleteMethod: () => this.deleteParticipant(participant)
           };
         });
         this.totalPages = response.paging.total_page;
@@ -85,38 +74,51 @@ export class ViewParticipantDataComponent implements OnInit {
     }
   }
 
-  confirmDelete(participant: Participant): void {
-    this.participantToDelete = participant;
-    this.confirmMessage = `Apakah Anda yakin ingin menghapus peserta dengan No Pegawai: ${participant.no_pegawai}?`;
-    this.showConfirm = true;
-  }
-
-  onConfirmDelete(): void {
-    if (this.participantToDelete) {
-      this.participantService.deleteParticipant(this.participantToDelete.id).subscribe({
+  async deleteParticipant(participant: Participant): Promise<void> {
+    const isConfirmed = await this.confirm('Anda Yakin?', `Apakah anda ingin menghapus peserta ini : ${participant.nama}?`);
+    if (isConfirmed) {
+      this.participantService.deleteParticipant(participant.id).subscribe({
         next: () => {
-          this.showAlertMessage('Peserta berhasil dihapus');
-          this.participants = this.participants.filter(p => p.id !== this.participantToDelete!.id);
+          this.alert(isConfirmed);
+          this.participants = this.participants.filter(p => p.id !== participant.id);
         },
-        error: (err) => {
-          console.error('Error deleting participant:', err);
-          this.showAlertMessage('Gagal menghapus peserta.');
+        error: () => {
+          this.alert(!isConfirmed);
         }
       });
     }
-    this.showConfirm = false;
   }
 
-  onCancelDelete(): void {
-    this.showConfirm = false;
+  async confirm(title: string, message: string): Promise<boolean> {
+    return Swal.fire({
+      title: title,
+      text: message,
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#02507E",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Ya, hapus!",
+      cancelButtonText: "Tidak",
+    }).then((result) => {
+      return result.isConfirmed;
+    });
   }
 
-  showAlertMessage(message: string): void {
-    this.alertMessage = message;
-    this.showAlert = true;
-  }
-
-  closeAlert(): void {
-    this.showAlert = false;
+  async alert(isConfirmed: boolean) {
+    if (isConfirmed) {
+      Swal.fire({
+        title: "Dihapus!",
+        text: "Data peserta berhasil dihapus",
+        icon: "success",
+        confirmButtonColor: "#02507E",
+      });
+    } else {
+      Swal.fire({
+        title: "Gagal",
+        text: "Gagal menghapus data peserta",
+        icon: "error",
+        confirmButtonColor: "#02507E",
+      });
+    }
   }
 }
