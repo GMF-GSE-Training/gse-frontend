@@ -7,6 +7,9 @@ import { TableComponent } from "../../../component/table/table.component";
 import { RoleBasedAccessDirective } from '../../../directive/role-based-access.directive';
 import { ParticipantService } from '../../../service/participant.service';
 import { ApiResponse, Participant } from '../../../model/participant.model';
+import { AlertComponent } from '../../../component/alert/alert.component';
+import { ConfirmComponent } from '../../../component/confirm/confirm.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-view-participant-data',
@@ -17,7 +20,10 @@ import { ApiResponse, Participant } from '../../../model/participant.model';
     WhiteButtonComponent,
     BlueButtonComponent,
     TableComponent,
+    AlertComponent,
+    ConfirmComponent,
     RoleBasedAccessDirective,
+    CommonModule,
 ],
   templateUrl: './view-participant-data.component.html',
   styleUrl: './view-participant-data.component.css'
@@ -31,6 +37,12 @@ export class ViewParticipantDataComponent implements OnInit {
     { header: 'Perusahaan', field: 'perusahaan' },
     { header: 'Action', field: 'action' }
   ];
+
+  showAlert: boolean = false;
+  showConfirm: boolean = false;
+  alertMessage: string = '';
+  confirmMessage: string = '';
+  participantToDelete?: Participant;
 
   participants: Participant[] = [];
   currentPage: number = 1;
@@ -51,7 +63,7 @@ export class ViewParticipantDataComponent implements OnInit {
             ...participant,
             editLink: `/participant/${participant.id}/edit`,
             detailLink: `/participant/${participant.id}/view`,
-            deleteMethod: () => this.deleteParticipant(participant)
+            deleteMethod: () => this.confirmDelete(participant)
           };
         });
         this.totalPages = response.paging.total_page;
@@ -73,20 +85,38 @@ export class ViewParticipantDataComponent implements OnInit {
     }
   }
 
-  deleteParticipant(participant: Participant): void {
-    if (confirm(`Are you sure you want to delete participant with id: ${participant.no_pegawai}?`)) {
-      this.participantService.deleteParticipant(participant.id).subscribe({
+  confirmDelete(participant: Participant): void {
+    this.participantToDelete = participant;
+    this.confirmMessage = `Apakah Anda yakin ingin menghapus peserta dengan No Pegawai: ${participant.no_pegawai}?`;
+    this.showConfirm = true;
+  }
+
+  onConfirmDelete(): void {
+    if (this.participantToDelete) {
+      this.participantService.deleteParticipant(this.participantToDelete.id).subscribe({
         next: () => {
-          alert('Participant deleted successfully.');
-          this.participants = this.participants.filter(p => p.id !== participant.id);
+          this.showAlertMessage('Peserta berhasil dihapus.');
+          this.participants = this.participants.filter(p => p.id !== this.participantToDelete!.id);
         },
         error: (err) => {
           console.error('Error deleting participant:', err);
-          alert('Failed to delete participant.');
+          this.showAlertMessage('Gagal menghapus peserta.');
         }
       });
-    } else {
-      alert('Failed to delete participant.');
     }
+    this.showConfirm = false;
+  }
+
+  onCancelDelete(): void {
+    this.showConfirm = false;
+  }
+
+  showAlertMessage(message: string): void {
+    this.alertMessage = message;
+    this.showAlert = true;
+  }
+
+  closeAlert(): void {
+    this.showAlert = false;
   }
 }

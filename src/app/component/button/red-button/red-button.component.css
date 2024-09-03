@@ -1,18 +1,17 @@
-.blue-button {
+.red-button {
   width: 150px;
   height: 45px;
   font-size: 30px;
   color: #ffffff;
   border: none;
-  background-color: #02507E;
+  background-color: #DC143C;
   border-radius: 50px;
   font-family: 'Petrona', sans-serif;
-  transition: background-color 0.3s ease;
 }
 
-.blue-button:hover {
+.red-button:hover {
   cursor: pointer;
-  background-color: #003a5c;
+  background-color: #970b27;
 }
 
 label {

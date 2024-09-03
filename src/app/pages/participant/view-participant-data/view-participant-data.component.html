@@ -26,4 +26,8 @@
     <app-white-button routerLink="/home">Back</app-white-button>
     <app-blue-button *appRoleBasedAccess="['Super Admin', 'lcu']" routerLink="/participant/add">Add</app-blue-button>
   </div>
+
+  <app-alert *ngIf="showAlert" [message]="alertMessage" (close)="closeAlert()"></app-alert>
+  <app-confirm *ngIf="showConfirm" [message]="confirmMessage" (confirm)="onConfirmDelete()" (cancel)="onCancelDelete()"></app-confirm>
+
 </main>
