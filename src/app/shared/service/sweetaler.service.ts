@@ -16,6 +16,7 @@ export class SweetalertService {
       cancelButtonColor: '#d33',
       confirmButtonText: confirmButtonText,
       cancelButtonText: 'Tidak',
+      scrollbarPadding: false,
     }).then((result) => {
       return result.isConfirmed;
     });
@@ -28,6 +29,7 @@ export class SweetalertService {
         text: message,
         icon: icon,
         confirmButtonColor: '#02507E',
+        scrollbarPadding: false,
       });
     } else {
       Swal.fire({
@@ -35,6 +37,7 @@ export class SweetalertService {
         text: message,
         icon: icon,
         confirmButtonColor: '#02507E',
+        scrollbarPadding: false,
       });
     }
   }
