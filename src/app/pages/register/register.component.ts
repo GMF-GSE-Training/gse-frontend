@@ -54,7 +54,7 @@ export class RegisterComponent {
               this.message = 'NIK, Email, Name, dan Password wajib diisi';
             }
           } else {
-            this.message = 'NIK tidak ada di data peserta';
+            this.message = e;
           }
         } else if (error.error.code === 401) {
           this.message = 'Informasi login tidak valid. Silakan periksa kembali email atau nomor pegawai dan password Anda';
