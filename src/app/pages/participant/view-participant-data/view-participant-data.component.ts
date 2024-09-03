@@ -53,6 +53,9 @@ export class ViewParticipantDataComponent implements OnInit {
         this.participants = response.data.map((participant: Participant) => {
           return {
             ...participant,
+            no_pegawai: participant.no_pegawai ?? '-',
+            dinas: participant.dinas ?? '-',
+            bidang: participant.bidang ?? '-',
             editLink: `/participant/${participant.id}/edit`,
             detailLink: `/participant/${participant.id}/view`,
             deleteMethod: () => this.deleteParticipant(participant)

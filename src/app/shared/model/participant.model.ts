@@ -1,9 +1,9 @@
 export interface Participant {
   id: string;
-  no_pegawai: string;
+  no_pegawai?: string;
   nama: string;
-  dinas: string;
-  bidang: string;
+  dinas?: string;
+  bidang?: string;
   perusahaan: string;
   email: string;
   no_telp: string;

@@ -54,16 +54,16 @@ export class DetailParticipantDataComponent implements OnInit {
 
           this.leftTableData = [
             { label: 'Nama Peserta', value: this.participant!.nama },
-            { label: 'Dinas', value: this.participant?.dinas},
-            { label: 'Bidang', value: this.participant!.bidang },
+            { label: 'Dinas', value: this.participant?.dinas ?? '-'},
+            { label: 'Bidang', value: this.participant?.bidang ?? '-' },
             { label: 'Perusahaan', value: this.participant!.perusahaan },
             { label: 'Email', value: this.participant!.email },
             { label: 'No Telp', value: this.participant!.no_telp }
           ];
 
           this.rightTableData = [
-            { label: 'Tempat Lahir', value: this.participant?.tempat_lahir },
-            { label: 'Tanggal Lahir', value: this.participant?.tanggal_lahir },
+            { label: 'Tempat Lahir', value: this.participant!.tempat_lahir },
+            { label: 'Tanggal Lahir', value: this.participant!.tanggal_lahir },
             { label: 'SIM A', value: '-' },
             { label: 'SIM B', value: '-' },
             { label: 'KTP', value: '-' },
