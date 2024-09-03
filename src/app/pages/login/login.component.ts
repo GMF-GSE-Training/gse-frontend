@@ -40,19 +40,21 @@ export class LoginComponent {
   }
 
   login() {
-    this.authService.login(this.loginRequest).subscribe((response: any) => {
-      this.loginError = false;
-      this.router.navigate(['/home']);
-    },
-    (error) => {
-      console.log(error)
-      this.loginError = true;
-      if(error.status === 400) {
-        this.message = 'Email atau Nomor Pegawai dan Password tidak boleh kosong';
-      } else if(error.status === 401) {
-        this.message = 'Informasi login tidak valid. Silakan periksa kembali email atau nomor pegawai dan password Anda'
-      } else {
-        this.message = 'Terjadi kesalahan pada server. Silakan coba lagi nanti.';
+    this.authService.login(this.loginRequest).subscribe({
+      next: () => {
+        this.loginError = false;
+        this.router.navigate(['/home']);
+      },
+      error: (error) => {
+        console.log(error)
+        this.loginError = true;
+        if(error.status === 400) {
+          this.message = 'Email atau Nomor Pegawai dan Password tidak boleh kosong';
+        } else if(error.status === 401) {
+          this.message = 'Informasi login tidak valid. Silakan periksa kembali email atau nomor pegawai dan password Anda'
+        } else {
+          this.message = 'Terjadi kesalahan pada server. Silakan coba lagi nanti.';
+        }
       }
     });
   }
