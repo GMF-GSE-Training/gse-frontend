@@ -21,16 +21,16 @@ export class SweetalertService {
     });
   }
 
-  async alert(isConfirmed: boolean, title: string, message: string, icon: SweetAlertIcon): Promise<void> {
+  alert(isConfirmed: boolean, title: string, message: string, icon: SweetAlertIcon): void {
     if (isConfirmed) {
-      await Swal.fire({
+      Swal.fire({
         title: title,
         text: message,
         icon: icon,
         confirmButtonColor: '#02507E',
       });
     } else {
-      await Swal.fire({
+      Swal.fire({
         title: title,
         text: message,
         icon: icon,

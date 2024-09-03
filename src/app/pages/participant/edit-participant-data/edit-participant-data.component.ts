@@ -105,18 +105,18 @@ export class EditParticipantDataComponent implements OnInit{
     }
 
     if (!isUpdated) {
-      await this.sweetalertService.alert(true, 'Diperbarui!', 'Gagal memperbarui data peserta', 'error');
+      this.sweetalertService.alert(true, 'Diperbarui!', 'Gagal memperbarui data peserta', 'error');
       return;
     }
 
     this.participantService.updateParticipant(this.currentParticipant.id, formData).subscribe({
       next: async (response) => {
-        await this.sweetalertService.alert(true, 'Diperbarui!', 'Data peserta berhasil diperbarui', 'success');
+        this.sweetalertService.alert(true, 'Diperbarui!', 'Data peserta berhasil diperbarui', 'success');
         this.router.navigateByUrl(`/participant/${response.data.id}/view`);
       },
       error: async (error) => {
         console.error('Error updating participant:', error.error.errors);
-        await this.sweetalertService.alert(true, 'Gagal!', 'Gagal memperbarui data peserta', 'error');
+        this.sweetalertService.alert(true, 'Gagal!', 'Gagal memperbarui data peserta', 'error');
       }
     });
   }

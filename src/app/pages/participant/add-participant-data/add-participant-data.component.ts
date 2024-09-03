@@ -11,6 +11,7 @@ import { RoleBasedAccessDirective } from '../../../shared/directive/role-based-a
 import { ParticipantService } from '../../../shared/service/participant.service';
 import { environment } from '../../../../environments/environment.development';
 import { CreateParticipantModel } from '../../../shared/model/participant.model';
+import { SweetalertService } from '../../../shared/service/sweetaler.service';
 
 @Component({
   selector: 'app-add-participant-data',
@@ -59,6 +60,7 @@ export class AddParticipantDataComponent {
   constructor(
     private router: Router,
     private participantService: ParticipantService,
+    private sweetalertService: SweetalertService,
   ) {}
 
   onCreate() {
@@ -73,12 +75,13 @@ export class AddParticipantDataComponent {
 
     this.participantService.createParticipant(formData).subscribe({
       next: (response) => {
-        alert('Peserta berhasil ditambahkan');
+        this.sweetalertService.alert(true, 'Ditambahkan!', 'Peserta berhasil ditambahkan', 'success');
         this.router.navigateByUrl(`/participant/${response.data.id}/view`);
       },
       error: (error) => {
         const e = error.error.errors;
         console.log(e)
+        this.sweetalertService.alert(true, 'Gagal!', 'Gagal menambahkan peserta', 'error');
       }
     });
   }
