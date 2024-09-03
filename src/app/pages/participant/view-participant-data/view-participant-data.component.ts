@@ -95,7 +95,7 @@ export class ViewParticipantDataComponent implements OnInit {
     if (this.participantToDelete) {
       this.participantService.deleteParticipant(this.participantToDelete.id).subscribe({
         next: () => {
-          this.showAlertMessage('Peserta berhasil dihapus.');
+          this.showAlertMessage('Peserta berhasil dihapus');
           this.participants = this.participants.filter(p => p.id !== this.participantToDelete!.id);
         },
         error: (err) => {

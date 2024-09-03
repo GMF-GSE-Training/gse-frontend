@@ -11,6 +11,8 @@ import { RoleBasedAccessDirective } from '../../../directive/role-based-access.d
 import { UpdateParticipantModel } from '../../../model/participant.model';
 import { ParticipantService } from '../../../service/participant.service';
 import { FormsModule } from '@angular/forms';
+import { AlertComponent } from "../../../component/alert/alert.component";
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-edit-participant-data',
@@ -26,7 +28,9 @@ import { FormsModule } from '@angular/forms';
     RouterLink,
     RoleBasedAccessDirective,
     FormsModule,
-  ],
+    AlertComponent,
+    CommonModule,
+],
   templateUrl: './edit-participant-data.component.html',
   styleUrl: './edit-participant-data.component.css'
 })
@@ -55,6 +59,9 @@ export class EditParticipantDataComponent implements OnInit{
   };
 
   updateParticipant: Partial<UpdateParticipantModel> = {};
+
+  showAlert: boolean = false;
+  alertMessage: string = '';
 
   constructor(
     private route: ActivatedRoute,
@@ -99,17 +106,18 @@ export class EditParticipantDataComponent implements OnInit{
     }
 
     if (!isUpdated) {
-      alert('Tidak ada perubahan data yang perlu diperbarui.');
+      this.showAlertMessage('Tidak ada perubahan data yang perlu diperbarui');
       return;
     }
 
     this.participantService.updateParticipant(this.currentParticipant.id, formData).subscribe({
-      next: (response) => {
-        alert('Peserta berhasil diupdate');
+      next: async (response) => {
+        await this.showAlertMessage('Peserta berhasil diupdate');
         this.router.navigateByUrl(`/participant/${response.data.id}/view`);
       },
-      error: (error) => {
+      error: async (error) => {
         console.error('Error updating participant:', error.error.errors);
+        await this.showAlertMessage('Gagal memperbarui peserta');
       }
     });
   }
@@ -127,5 +135,22 @@ export class EditParticipantDataComponent implements OnInit{
   convertToDateFormat(dateString: string): string {
     const [day, month, year] = dateString.split('-');
     return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
+  }
+
+  showAlertMessage(message: string): Promise<void> {
+    return new Promise((resolve) => {
+      this.alertMessage = message;
+      this.showAlert = true;
+      // Resolusi ketika alert ditutup
+      this.closeAlert = () => {
+        this.showAlert = false;
+        resolve();
+      };
+    });
+  }
+
+
+  closeAlert(): void {
+    this.showAlert = false;
   }
 }
