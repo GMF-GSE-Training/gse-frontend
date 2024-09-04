@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
@@ -12,16 +12,25 @@ import { CommonModule } from '@angular/common';
   templateUrl: './input-company.component.html',
   styleUrl: './input-company.component.css',
 })
-export class InputCompanyComponent {
-  selectedCompany: string = 'GMF';
+export class InputCompanyComponent implements OnInit {
+  @Input() options: string[] = [];
+  @Input() triggerOption: string = '';
+  selectedCompany: string = '';
   showCompanyInput: boolean = false;
   companyName: string = '';
 
+  ngOnInit(): void {
+    if (this.options.length > 0) {
+      this.selectedCompany = this.options[0];
+      this.toggleCompanyInput();
+    }
+  }
+
   toggleCompanyInput() {
-    this.showCompanyInput = this.selectedCompany === 'Non GMF';
+    this.showCompanyInput = this.selectedCompany === this.triggerOption;
   }
 
   getCompanyName(): string {
-    return this.selectedCompany === 'Non GMF' ? this.companyName : 'GMF';
+    return this.selectedCompany === this.triggerOption ? this.companyName : this.selectedCompany;
   }
 }

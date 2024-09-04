@@ -37,7 +37,8 @@ export class NavbarComponent implements OnInit {
       this.shouldShowNavbar = !(
         currentRoute.includes('/login') ||
         currentRoute.includes('/register') ||
-        (currentRoute.includes('/users') && currentRoute.includes('/edit'))
+        (currentRoute.includes('/users') && currentRoute.includes('/edit')) ||
+        (currentRoute.includes('/users') && currentRoute.includes('/add'))
       );
     });
   }

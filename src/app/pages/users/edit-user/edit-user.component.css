@@ -1,4 +1,4 @@
-.login-container {
+.edit-container {
   background-image: url("/assets/image/bg.png");
   height: 100vh;
   background-size: cover;
@@ -9,7 +9,7 @@
   padding-left: 135px;
 }
 
-.login-description {
+.edit-description {
   color: #ffffff;
   font-size: 30px;
 }
@@ -33,7 +33,7 @@
   justify-content: center;
 }
 
-.login-form {
+.edit-form {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -41,13 +41,13 @@
   gap: 20px;
 }
 
-.login-title {
+.edit-title {
   border-bottom: 4px solid #000;
   font-size: 35px;
   margin-bottom: 50px;
 }
 
-.login-form input {
+.edit-form input {
   font-size: 20px;
 }
 

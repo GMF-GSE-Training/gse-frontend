@@ -1,4 +1,4 @@
-<div *appRoleBasedAccess="['Super Admin', 'supervisor', 'lcu']" class="login-container">
+<div *appRoleBasedAccess="['Super Admin', 'lcu']" class="create-container">
   <img
   class="brand-logo"
   src="../assets/image/logo-GMF.png"
@@ -6,7 +6,7 @@
   aria-hidden="true"
   >
 
-  <div class="login-description">
+  <div class="create-description">
     <h1>Enter Your</h1>
     <h1>Account</h1>
     <h1>Information</h1>
@@ -14,8 +14,9 @@
   </div>
 
   <div class="form-container">
-    <form class="login-form" action="/home">
-      <h1 class="login-title">Create Account</h1>
+    <form class="create-form" action="/home">
+      <h1 class="create-title">Create User</h1>
+      <app-input-text type="text" inputMode="tel" placeholder="No Pegawai" name="no_pegawai"></app-input-text>
       <input type="role" id="role" name="role" placeholder="Role">
       <input type="nama" id="nama" name="nama" placeholder="Nama">
       <input type="username" id="username" name="username" placeholder="Username">
@@ -27,4 +28,3 @@
     </form>
   </div>
 </div>
-

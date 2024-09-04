@@ -6,28 +6,123 @@
   <form>
     <div class="form-container">
       <div class="left-column">
-        <app-input-text (valueChange)="createParticipant.no_pegawai= $event" label="No Pegawai" type="text" inputMode="numerik"></app-input-text>
-        <app-input-text (valueChange)="createParticipant.nama= $event" label="Nama *" type="text" inputMode="text"></app-input-text>
-        <app-input-text (valueChange)="createParticipant.nik= $event" label="NIK *" type="text" inputMode="text"></app-input-text>
-        <app-input-text (valueChange)="createParticipant.dinas= $event" label="Dinas" type="text" inputMode="text"></app-input-text>
-        <app-input-text (valueChange)="createParticipant.bidang= $event" label="Bidang" type="text" inputMode="text"></app-input-text>
-        <app-input-company></app-input-company>
-        <app-input-text (valueChange)="createParticipant.email= $event" label="Email *" type="email" inputMode="text"></app-input-text>
-        <app-input-text (valueChange)="createParticipant.no_telp= $event" label="Nomor Telpon *" type="tel" inputMode="tel"></app-input-text>
-        <app-input-text (valueChange)="createParticipant.negara= $event" label="Kewarganegaraan *" type="text" inputMode="text"></app-input-text>
+        <app-input-text (valueChange)="createParticipant.no_pegawai= $event"
+          label="No Pegawai" type="text"
+          inputMode="numerik">
+        </app-input-text>
+
+        <app-input-text
+          (valueChange)="createParticipant.nama= $event"
+          label="Nama *"
+          type="text"
+          inputMode="text">
+        </app-input-text>
+
+        <app-input-text
+          (valueChange)="createParticipant.nik= $event"
+          label="NIK *"
+          type="text"
+          inputMode="text">
+        </app-input-text>
+
+        <app-input-text
+          (valueChange)="createParticipant.dinas= $event"
+          label="Dinas" t
+          ype="text"
+          inputMode="text">
+        </app-input-text>
+
+        <app-input-text
+          (valueChange)="createParticipant.bidang= $event"
+          label="Bidang"
+          type="text"
+          inputMode="text">
+        </app-input-text>
+
+        <app-input-company
+          [options]="['GMF', 'Non GMF']"
+          [triggerOption]="'Non GMF'">
+        </app-input-company>
+
+
+        <app-input-text
+          (valueChange)="createParticipant.email= $event"
+          label="Email *"
+          type="email"
+          inputMode="text">
+        </app-input-text>
+
+        <app-input-text
+          (valueChange)="createParticipant.no_telp= $event"
+          label="Nomor Telpon *"
+          type="tel"
+          inputMode="tel">
+        </app-input-text>
+
+        <app-input-text
+          (valueChange)="createParticipant.negara= $event"
+          label="Kewarganegaraan *"
+          type="text"
+          inputMode="text"></app-input-text>
+
       </div>
 
       <div class="right-column">
-        <app-input-text (valueChange)="createParticipant.tempat_lahir= $event" label="Tempat Lahir *" type="text" inputMode="text"></app-input-text>
-        <app-input-date (valueChange)="createParticipant.tanggal_lahir= $event">Tanggal Lahir *</app-input-date>
-        <app-input-file idInput="sim_a_input" (valueChange)="onFileChange('sim_a', $event)">SIM A *</app-input-file>
-        <app-input-file idInput="sim_b_input" (valueChange)="onFileChange('sim_b', $event)">SIM B *</app-input-file>
-        <app-input-file idInput="ktp_input" (valueChange)="onFileChange('ktp', $event)">KTP *</app-input-file>
-        <app-input-file idInput="foto_input" (valueChange)="onFileChange('foto', $event)">Foto *</app-input-file>
-        <app-input-file idInput="surat_sehat_input" (valueChange)="onFileChange('surat_sehat_buta_warna', $event)">Ket Sehat & Buta Warna *</app-input-file>
-        <app-input-date (valueChange)="createParticipant.exp_surat_sehat= $event"></app-input-date>
-        <app-input-file idInput="surat_bebas_narkoba_input" (valueChange)="onFileChange('surat_bebas_narkoba', $event)">Ket Bebas Narkoba *</app-input-file>
-        <app-input-date (valueChange)="createParticipant.exp_bebas_narkoba= $event"></app-input-date>
+        <app-input-text
+          (valueChange)="createParticipant.tempat_lahir= $event"
+          label="Tempat Lahir *"
+          type="text"
+          inputMode="text"></app-input-text>
+
+        <app-input-date
+          (valueChange)="createParticipant.tanggal_lahir= $event">
+          Tanggal Lahir *
+        </app-input-date>
+
+        <app-input-file
+          idInput="sim_a_input"
+          (valueChange)="onFileChange('sim_a', $event)">
+          SIM A *
+        </app-input-file>
+
+        <app-input-file
+          idInput="sim_b_input"
+          (valueChange)="onFileChange('sim_b', $event)">
+          SIM B *
+        </app-input-file>
+
+        <app-input-file
+          idInput="ktp_input"
+          (valueChange)="onFileChange('ktp', $event)">
+          KTP *
+        </app-input-file>
+
+        <app-input-file
+          idInput="foto_input"
+          (valueChange)="onFileChange('foto', $event)">
+          Foto *
+        </app-input-file>
+
+        <app-input-file
+          idInput="surat_sehat_input"
+          (valueChange)="onFileChange('surat_sehat_buta_warna', $event)">
+          Ket Sehat & Buta Warna *
+        </app-input-file>
+
+        <app-input-date
+          (valueChange)="createParticipant.exp_surat_sehat= $event">
+        </app-input-date>
+
+        <app-input-file
+          idInput="surat_bebas_narkoba_input"
+          (valueChange)="onFileChange('surat_bebas_narkoba', $event)">
+          Ket Bebas Narkoba *
+        </app-input-file>
+
+
+        <app-input-date
+          (valueChange)="createParticipant.exp_bebas_narkoba= $event">
+        </app-input-date>
       </div>
     </div>
   </form>
