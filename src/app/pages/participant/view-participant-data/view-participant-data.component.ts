@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { NavbarComponent } from '../../../component/navbar/navbar.component';
 import { WhiteButtonComponent } from '../../../component/button/white-button/white-button.component';
 import { BlueButtonComponent } from '../../../component/button/blue-button/blue-button.component';
@@ -8,6 +8,7 @@ import { RoleBasedAccessDirective } from '../../../shared/directive/role-based-a
 import { ParticipantService } from '../../../shared/service/participant.service';
 import { ApiResponse, Participant } from '../../../shared/model/participant.model';
 import { SweetalertService } from '../../../shared/service/sweetaler.service';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-view-participant-data',
@@ -19,6 +20,7 @@ import { SweetalertService } from '../../../shared/service/sweetaler.service';
     BlueButtonComponent,
     TableComponent,
     RoleBasedAccessDirective,
+    FormsModule,
 ],
   templateUrl: './view-participant-data.component.html',
   styleUrl: './view-participant-data.component.css'
@@ -37,46 +39,81 @@ export class ViewParticipantDataComponent implements OnInit {
   currentPage: number = 1;
   itemsPerPage: number = 10;
   totalPages: number = 1;
+  searchQuery: string = '';
 
   constructor(
     private participantService: ParticipantService,
     private sweetalertService: SweetalertService,
+    private router: Router,
+    private route: ActivatedRoute,
   ) {}
 
   ngOnInit(): void {
-    this.loadParticipants(this.currentPage, this.itemsPerPage);
-  }
-
-  loadParticipants(page: number, size: number): void {
-    this.participantService.listParticipants(page, size).subscribe((response: ApiResponse) => {
-      if (response.code === 200 && response.status === 'OK') {
-        this.participants = response.data.map((participant: Participant) => {
-          return {
-            ...participant,
-            no_pegawai: participant.no_pegawai ?? '-',
-            dinas: participant.dinas ?? '-',
-            bidang: participant.bidang ?? '-',
-            editLink: `/participant/${participant.id}/edit`,
-            detailLink: `/participant/${participant.id}/view`,
-            deleteMethod: () => this.deleteParticipant(participant)
-          };
-        });
-        this.totalPages = response.paging.total_page;
-      }
+    this.route.queryParams.subscribe(params => {
+      this.searchQuery = params['search'] || '';
+      this.currentPage = +params['page'] || 1;
+      this.loadParticipants(this.currentPage, this.itemsPerPage);
     });
   }
 
-  nextPage(): void {
-    if (this.currentPage < this.totalPages) {
-      this.currentPage++;
-      this.loadParticipants(this.currentPage, this.itemsPerPage);
-    }
-  }
+  // loadParticipants(page: number, size: number): void {
+  //   this.participantService.listParticipants(page, size).subscribe((response: ApiResponse) => {
+  //     if (response.code === 200 && response.status === 'OK') {
+  //       this.participants = response.data.map((participant: Participant) => {
+  //         return {
+  //           ...participant,
+  //           no_pegawai: participant.no_pegawai ?? '-',
+  //           dinas: participant.dinas ?? '-',
+  //           bidang: participant.bidang ?? '-',
+  //           editLink: `/participant/${participant.id}/edit`,
+  //           detailLink: `/participant/${participant.id}/view`,
+  //           deleteMethod: () => this.deleteParticipant(participant)
+  //         };
+  //       });
+  //       this.totalPages = response.paging.total_page;
+  //     }
+  //   });
+  // }
 
-  previousPage(): void {
-    if (this.currentPage > 1) {
-      this.currentPage--;
-      this.loadParticipants(this.currentPage, this.itemsPerPage);
+  loadParticipants(page: number, size: number): void {
+    if (this.searchQuery) {
+      this.participantService.searchParticipant(this.searchQuery, page, size).subscribe((response: ApiResponse) => {
+        if (response.code === 200 && response.status === 'OK') {
+          this.participants = response.data.map((participant: Participant) => {
+            return {
+              ...participant,
+              no_pegawai: participant.no_pegawai ?? '-',
+              dinas: participant.dinas ?? '-',
+              bidang: participant.bidang ?? '-',
+              editLink: `/participant/${participant.id}/edit`,
+              detailLink: `/participant/${participant.id}/view`,
+              deleteMethod: () => this.deleteParticipant(participant)
+            };
+          });
+          this.totalPages = response.paging.total_page;
+        } else {
+          this.participants = [];
+        }
+      });
+    } else {
+      this.participantService.listParticipants(page, size).subscribe((response: ApiResponse) => {
+        if (response.code === 200 && response.status === 'OK') {
+          this.participants = response.data.map((participant: Participant) => {
+            return {
+              ...participant,
+              no_pegawai: participant.no_pegawai ?? '-',
+              dinas: participant.dinas ?? '-',
+              bidang: participant.bidang ?? '-',
+              editLink: `/participant/${participant.id}/edit`,
+              detailLink: `/participant/${participant.id}/view`,
+              deleteMethod: () => this.deleteParticipant(participant)
+            };
+          });
+          this.totalPages = response.paging.total_page;
+        } else {
+          this.participants = [];
+        }
+      });
     }
   }
 
@@ -94,4 +131,86 @@ export class ViewParticipantDataComponent implements OnInit {
       });
     }
   }
+
+  // onSearch(): void {
+  //   if (this.searchQuery.trim()) {
+  //     this.router.navigate([], {
+  //       relativeTo: this.route,
+  //       queryParams: { search: this.searchQuery, page: 1 },
+  //       queryParamsHandling: 'merge', // mempertahankan parameter lain
+  //     });
+  //   } else {
+  //     this.sweetalertService.alert(false, 'Kosong!', 'Masukkan kata kunci pencarian.', 'warning');
+  //   }
+  // }
+
+  onSearch(): void {
+    if (this.searchQuery.trim()) {
+      this.router.navigate([], {
+        relativeTo: this.route,
+        queryParams: { search: this.searchQuery, page: 1 }, // Update URL dengan query parameter
+        queryParamsHandling: 'merge', // Pertahankan parameter lain yang ada
+      });
+
+      this.participantService.searchParticipant(this.searchQuery, this.currentPage, this.itemsPerPage).subscribe({
+        next: (response: ApiResponse) => {
+          if (response && response.code === 200 && response.status === 'OK') {
+            this.participants = response.data;
+            this.totalPages = response.paging.total_page;
+            this.router.navigate([], {
+              relativeTo: this.route,
+              queryParams: { search: this.searchQuery, page: 1 },
+              queryParamsHandling: 'merge',
+            })
+          } else {
+            this.participants = []; // Kosongkan tabel jika tidak ada hasil
+            this.totalPages = 1; // Reset jumlah halaman
+            this.sweetalertService.alert(false, 'Tidak ditemukan!', 'Peserta tidak ditemukan.', 'warning');
+          }
+        },
+        error: () => {
+          this.participants = []; // Kosongkan tabel jika terjadi error
+          this.totalPages = 1; // Reset jumlah halaman
+          this.sweetalertService.alert(false, 'Gagal!', 'Terjadi kesalahan saat mencari peserta.', 'error');
+        }
+      });
+    }
+  }
+
+
+  nextPage(): void {
+    if (this.currentPage < this.totalPages) {
+      this.currentPage++;
+      this.router.navigate([], {
+        relativeTo: this.route,
+        queryParams: { page: this.currentPage },
+        queryParamsHandling: 'merge',
+      });
+      this.loadParticipants(this.currentPage, this.itemsPerPage);
+    }
+  }
+
+  previousPage(): void {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+      this.router.navigate([], {
+        relativeTo: this.route,
+        queryParams: { page: this.currentPage },
+        queryParamsHandling: 'merge',
+      });
+      this.loadParticipants(this.currentPage, this.itemsPerPage);
+    }
+  }
+
+  viewAll(): void {
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: { search: null, page: 1 },
+      queryParamsHandling: 'merge',
+    });
+
+    this.searchQuery = '';
+    this.loadParticipants(1, this.itemsPerPage);
+  }
+
 }

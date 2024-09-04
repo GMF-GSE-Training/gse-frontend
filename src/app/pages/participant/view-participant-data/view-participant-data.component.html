@@ -4,11 +4,13 @@
   </div>
 
   <div class="search-container">
-    <form action="">
-      <input type="text" placeholder="Search Participant Data">
-      <i class="fa-solid fa-magnifying-glass"></i>
+    <form (ngSubmit)="onSearch()">
+      <input [(ngModel)]="searchQuery" name="q" type="text" placeholder="Search Participant Data">
+      <i type="submit" class="fa-solid fa-magnifying-glass"></i>
     </form>
   </div>
+
+  <button (click)="viewAll()" class="view-all"><i class="fa-solid fa-arrows-rotate"></i> Tampilkan semua</button>
 
   <div class="container">
     <app-table [columns]="columns" [data]="participants"></app-table>

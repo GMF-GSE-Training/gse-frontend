@@ -40,4 +40,11 @@ export class ParticipantService {
   getQrCode(id: string): Observable<{ data: string }> {
     return this.http.get<{ data: string }>(`${this.apiUrl}/participants/${id}/qr-code`, { withCredentials: true });
   }
+
+  searchParticipant(q: string, page: number = 1, size: number = 10): Observable<ApiResponse> {
+    return this.http.get<ApiResponse>(
+      `${this.apiUrl}/${this.endpoints.search}?q=${q}&page=${page}&size=${size}`,
+      { withCredentials: true }
+    );
+  }
 }
