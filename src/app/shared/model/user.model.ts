@@ -16,13 +16,41 @@ export class RegisterUserRequest {
   }
 }
 
-export interface UserResponse {
-  id: number;
+export interface User {
+  id: string;
   no_pegawai?: string;
-  nik?: string;
+  nik: string;
   email: string;
   name: string;
   dinas?: string;
   roleId: number;
-  token?: string;
+  role: {
+    id: string,
+    role: string,
+  },
+  roleName: string;
+}
+
+export interface Paging {
+  current_page: number;
+  total_page: number;
+  size: number;
+  links: {
+    next: string | null;
+    prev: string | null;
+  };
+}
+
+export interface ListUserResponse {
+  code: number;
+  status: string;
+  data: User[];
+  paging: Paging;
+}
+
+export interface UserResponse {
+  code: number;
+  status: string;
+  data: User[];
+  paging?: Paging;
 }

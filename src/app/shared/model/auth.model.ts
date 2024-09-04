@@ -8,7 +8,7 @@ export class LoginUserRequest {
   }
 }
 
-export interface UserResponse {
+export interface AuthResponse {
   id: number;
   no_pegawai?: string;
   nik?: string;

@@ -1,10 +1,13 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { NavbarComponent } from '../../../component/navbar/navbar.component';
 import { WhiteButtonComponent } from '../../../component/button/white-button/white-button.component';
 import { BlueButtonComponent } from '../../../component/button/blue-button/blue-button.component';
 import { TableComponent } from "../../../component/table/table.component";
 import { RoleBasedAccessDirective } from '../../../shared/directive/role-based-access.directive';
+import { ListUserResponse, User } from '../../../shared/model/user.model';
+import { UserService } from '../../../shared/service/user.service';
+import { SweetalertService } from '../../../shared/service/sweetaler.service';
 
 @Component({
   selector: 'app-view-users',
@@ -20,85 +23,77 @@ import { RoleBasedAccessDirective } from '../../../shared/directive/role-based-a
   templateUrl: './view-users.component.html',
   styleUrl: './view-users.component.css'
 })
-export class ViewUsersComponent {
+export class ViewUsersComponent implements OnInit {
   columns = [
-    { header: 'No Pegawai', field: 'noPegawai' },
-    { header: 'Nama', field: 'nama' },
+    { header: 'No Pegawai', field: 'no_pegawai' },
+    { header: 'Nama', field: 'name' },
     { header: 'Dinas', field: 'dinas' },
-    { header: 'Role', field: 'role' },
+    { header: 'Role', field: 'roleName' },
     { header: 'email', field: 'email' },
     { header: 'Action', field: 'action' }
   ];
 
-  data = [
-    { nama: 'Heri Susanto', noPegawai: '160088', dinas: 'TL', role: 'Admin', email: 'herisusanto@example.com', editLink: '/edit-user', deleteMethod: () => this.deleteParticipant('160088') },
-    { nama: 'Agus Tariono', noPegawai: '160104', dinas: 'TL', role: 'Supervisor' },
-    { nama: 'Adityo Akhmad Taufiq S.', noPegawai: '430869', dinas: 'TL', role: 'LCU' },
-    { nama: 'Jaya Sunjaya', noPegawai: '430870', dinas: 'TL', role: 'User' },
-    { nama: 'Andi Satria', noPegawai: '430880', dinas: 'TL', },
-    { nama: 'Heri Dwi Irawan', noPegawai: '430882', dinas: 'TL', },
-    { nama: 'I Nyoman Putra Jaya', noPegawai: '430890', dinas: 'TL', },
-    { nama: 'I Ketut Jurnaedi', noPegawai: '430891', dinas: 'TL', },
-    { nama: 'Lihansyah', noPegawai: '430892', dinas: 'TL', },
-    { nama: 'Deni Jaelani', noPegawai: '430893', dinas: 'TL', },
-    { nama: 'Heri Susanto', noPegawai: '160088', dinas: 'TZ', },
-    { nama: 'Agus Tariono', noPegawai: '160104', dinas: 'TZ', },
-    { nama: 'Adityo Akhmad Taufiq S.', noPegawai: '430869', dinas: 'TZ', },
-    { nama: 'Jaya Sunjaya', noPegawai: '430870', dinas: 'TZ', },
-    { nama: 'Andi Satria', noPegawai: '430880', dinas: 'TZ', },
-    { nama: 'Heri Dwi Irawan', noPegawai: '430882', dinas: 'TZ', },
-    { nama: 'I Nyoman Putra Jaya', noPegawai: '430890', dinas: 'TZ', },
-    { nama: 'I Ketut Jurnaedi', noPegawai: '430891', dinas: 'TZ', },
-    { nama: 'Lihansyah', noPegawai: '430892', dinas: 'TZ', },
-    { nama: 'Deni Jaelani', noPegawai: '430893', dinas: 'TZ', },
-    { nama: 'Heri Susanto', noPegawai: '160088', dinas: 'TU', },
-    { nama: 'Agus Tariono', noPegawai: '160104', dinas: 'TU', },
-    { nama: 'Adityo Akhmad Taufiq S.', noPegawai: '430869', dinas: 'TU', },
-    { nama: 'Jaya Sunjaya', noPegawai: '430870', dinas: 'TU', },
-    { nama: 'Andi Satria', noPegawai: '430880', dinas: 'TU', },
-    { nama: 'Heri Dwi Irawan', noPegawai: '430882', dinas: 'TU', },
-    { nama: 'I Nyoman Putra Jaya', noPegawai: '430890', dinas: 'TU', },
-    { nama: 'I Ketut Jurnaedi', noPegawai: '430891', dinas: 'TU', },
-    { nama: 'Lihansyah', noPegawai: '430892', dinas: 'TU', },
-    { nama: 'Deni Jaelani', noPegawai: '430893', dinas: 'TU', },
-    { nama: 'Heri Susanto', noPegawai: '160088', dinas: 'TV', },
-    { nama: 'Agus Tariono', noPegawai: '160104', dinas: 'TV', },
-    { nama: 'Adityo Akhmad Taufiq S.', noPegawai: '430869', dinas: 'TV', },
-    { nama: 'Jaya Sunjaya', noPegawai: '430870', dinas: 'TV', },
-    { nama: 'Andi Satria', noPegawai: '430880', dinas: 'TV', },
-    { nama: 'Heri Dwi Irawan', noPegawai: '430882', dinas: 'TV', },
-    { nama: 'I Nyoman Putra Jaya', noPegawai: '430890', dinas: 'TV', },
-    { nama: 'I Ketut Jurnaedi', noPegawai: '430891', dinas: 'TV', },
-    { nama: 'Lihansyah', noPegawai: '430892', dinas: 'TV', },
-    { nama: 'Deni Jaelani', noPegawai: '430893', dinas: 'TV', },
-  ];
+  users: User[] = [];
+  currentPage: number = 1;
+  itemsPerPage: number = 10;
+  totalPages: number = 1;
 
-  currentPage = 1;
-  itemsPerPage = 10;
+  constructor(
+    private userService: UserService,
+    private sweetalertService: SweetalertService,
+  ) {}
 
-  get paginatedData() {
-    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
-    const endIndex = startIndex + this.itemsPerPage;
-    return this.data.slice(startIndex, endIndex);
+  ngOnInit(): void {
+    this.loadParticipants(this.currentPage, this.itemsPerPage);
   }
 
-  get totalPages() {
-    return Math.ceil(this.data.length / this.itemsPerPage);
+  loadParticipants(page: number, size: number): void {
+    this.userService.listUsers(page, size).subscribe((response: ListUserResponse) => {
+      if (response.code === 200 && response.status === 'OK') {
+        this.users = response.data.map((user: User) => {
+          return {
+            ...user,
+            role: {
+              id: user.role.id,
+              role: user.role.role,
+            },
+            roleName: user.role.role,
+            editLink: `/users/${user.id}/edit`,
+            deleteMethod: () => this.deleteUser(user)
+          };
+        });
+        this.totalPages = response.paging.total_page;
+      }
+      console.log(this.users);
+    });
   }
 
-  nextPage() {
-    if ((this.currentPage * this.itemsPerPage) < this.data.length) {
+  nextPage(): void {
+    if (this.currentPage < this.totalPages) {
       this.currentPage++;
+      this.loadParticipants(this.currentPage, this.itemsPerPage);
     }
   }
 
-  previousPage() {
+  previousPage(): void {
     if (this.currentPage > 1) {
       this.currentPage--;
+      this.loadParticipants(this.currentPage, this.itemsPerPage);
     }
   }
 
-  deleteParticipant(noPegawai: string) {
-    alert(`Delete participant with noPegawai: ${noPegawai}`);
+  async deleteUser(user: User): Promise<void> {
+    const isConfirmed = await this.sweetalertService.confirm('Anda Yakin?', `Apakah anda ingin menghapus user ini : ${user.name}?`, 'warning', 'Ya, hapus!');
+    if (isConfirmed) {
+      this.userService.deleteUser(user.id).subscribe({
+        next: () => {
+          this.sweetalertService.alert(isConfirmed, 'Dihapus!', 'Data peserta berhasil dihapus', 'success');
+          this.users = this.users.filter(p => p.id !== user.id);
+        },
+        error: () => {
+          this.sweetalertService.alert(!isConfirmed, 'Gagal!', 'Gagal menghapus data peserta', 'error');
+        }
+      });
+    }
   }
 }

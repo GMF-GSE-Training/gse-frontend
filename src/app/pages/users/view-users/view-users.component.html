@@ -11,19 +11,19 @@
   </div>
 
   <div class="container">
-    <app-table [columns]="columns" [data]="paginatedData"></app-table>
+    <app-table [columns]="columns" [data]="users"></app-table>
   </div>
 
   <div class="nav">
     <div class="nav-pagination">
-      <p (click)="previousPage()">&lt; Preview</p>
+      <p (click)="previousPage()" [class.disabled]="currentPage === 1">&lt; Preview</p>
       <p>{{ currentPage }} / {{ totalPages }}</p>
-      <p (click)="nextPage()">Next &gt;</p>
+      <p (click)="nextPage()" [class.disabled]="currentPage === totalPages">Next &gt;</p>
     </div>
   </div>
 
   <div class="container-button">
     <app-white-button routerLink="/home">Back</app-white-button>
-    <app-blue-button routerLink="/user/add">Add</app-blue-button>
+    <app-blue-button *appRoleBasedAccess="['Super Admin', 'lcu']" routerLink="/user/add">Add</app-blue-button>
   </div>
 </main>

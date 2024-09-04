@@ -10,7 +10,7 @@ export const environment = {
     },
     user: {
       base: 'users',
-      list: 'users/list',
+      list: 'users/list/result',
       search: 'users/search/result'
     },
     role: {
