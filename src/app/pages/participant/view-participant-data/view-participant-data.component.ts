@@ -56,25 +56,6 @@ export class ViewParticipantDataComponent implements OnInit {
     });
   }
 
-  // loadParticipants(page: number, size: number): void {
-  //   this.participantService.listParticipants(page, size).subscribe((response: ApiResponse) => {
-  //     if (response.code === 200 && response.status === 'OK') {
-  //       this.participants = response.data.map((participant: Participant) => {
-  //         return {
-  //           ...participant,
-  //           no_pegawai: participant.no_pegawai ?? '-',
-  //           dinas: participant.dinas ?? '-',
-  //           bidang: participant.bidang ?? '-',
-  //           editLink: `/participant/${participant.id}/edit`,
-  //           detailLink: `/participant/${participant.id}/view`,
-  //           deleteMethod: () => this.deleteParticipant(participant)
-  //         };
-  //       });
-  //       this.totalPages = response.paging.total_page;
-  //     }
-  //   });
-  // }
-
   loadParticipants(page: number, size: number): void {
     if (this.searchQuery) {
       this.participantService.searchParticipant(this.searchQuery, page, size).subscribe((response: ApiResponse) => {
@@ -131,18 +112,6 @@ export class ViewParticipantDataComponent implements OnInit {
       });
     }
   }
-
-  // onSearch(): void {
-  //   if (this.searchQuery.trim()) {
-  //     this.router.navigate([], {
-  //       relativeTo: this.route,
-  //       queryParams: { search: this.searchQuery, page: 1 },
-  //       queryParamsHandling: 'merge', // mempertahankan parameter lain
-  //     });
-  //   } else {
-  //     this.sweetalertService.alert(false, 'Kosong!', 'Masukkan kata kunci pencarian.', 'warning');
-  //   }
-  // }
 
   onSearch(): void {
     if (this.searchQuery.trim()) {
