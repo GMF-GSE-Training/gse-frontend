@@ -56,11 +56,11 @@ export interface CreateParticipantModel {
 }
 
 export interface UpdateParticipantModel {
-  no_pegawai?: string;
+  no_pegawai?: string | null;
   nama?: string;
   nik?: string;
-  dinas?: string;
-  bidang?: string;
+  dinas?: string | null;
+  bidang?: string | null;
   perusahaan?: string;
   email?: string;
   no_telp?: string;

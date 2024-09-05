@@ -1,8 +1,8 @@
 <div class="container">
   <label for="company-select">Perusahaan *</label>
   <select id="company-select" [(ngModel)]="selectedCompany" (change)="toggleCompanyInput()">
-    <option *ngFor="let option of options" [value]="option">{{ option }}</option>
+    <option value="GMF">GMF</option>
+    <option value="Non GMF">Non GMF</option>
   </select>
   <input *ngIf="showCompanyInput" type="text" id="company-input" placeholder="Nama Perusahaan" [(ngModel)]="companyName">
 </div>
-

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { InputDateComponent } from "../../../component/input/input-date/input-date.component";
 import { InputFileComponent } from "../../../component/input/input-file/input-file.component";
 import { WhiteButtonComponent } from "../../../component/button/white-button/white-button.component";
@@ -32,6 +32,8 @@ import { SweetalertService } from '../../../shared/service/sweetaler.service';
   styleUrl: './edit-participant-data.component.css'
 })
 export class EditParticipantDataComponent implements OnInit{
+  @ViewChild(InputCompanyComponent) inputCompanyComponent!: InputCompanyComponent;
+
   currentParticipant: any = {
     id: '',
     no_pegawai: null,
@@ -79,6 +81,11 @@ export class EditParticipantDataComponent implements OnInit{
             exp_bebas_narkoba: this.convertToDateFormat(response.data.exp_bebas_narkoba),
             exp_surat_sehat: this.convertToDateFormat(response.data.exp_surat_sehat)
           };
+          if(!this.currentParticipant.perusahaan.toLowerCase().includes('gmf')) {
+            this.inputCompanyComponent.selectedCompany = 'Non GMF';
+            this.inputCompanyComponent.showCompanyInput = true
+            this.inputCompanyComponent.companyName = this.currentParticipant.perusahaan;
+          }
         },
         error: (error) => {
           console.error('Error loading currentParticipant data:', error);
@@ -91,6 +98,20 @@ export class EditParticipantDataComponent implements OnInit{
     const formData = new FormData();
     let isUpdated = false;
 
+    if (this.currentParticipant.no_pegawai === '') {
+      this.updateParticipant.no_pegawai = "null";
+    }
+    if (this.currentParticipant.dinas === '') {
+      this.updateParticipant.dinas = "null";
+    }
+    if (this.currentParticipant.bidang === '') {
+      this.updateParticipant.bidang = "null";
+    }
+
+    if(this.currentParticipant.perusahaan !== this.inputCompanyComponent.getCompanyName() && this.inputCompanyComponent.getCompanyName() !== '') {
+      this.updateParticipant.perusahaan = this.inputCompanyComponent.getCompanyName();
+    }
+
     // Menambahkan hanya data yang berubah ke FormData
     for (const key in this.updateParticipant) {
       if (this.updateParticipant) {
@@ -101,7 +122,6 @@ export class EditParticipantDataComponent implements OnInit{
         } else if (value) {
           formData.append(key, value as any);
         }
-        console.log(this.updateParticipant)
       }
     }
 
@@ -112,7 +132,6 @@ export class EditParticipantDataComponent implements OnInit{
 
     this.participantService.updateParticipant(this.currentParticipant.id, formData).subscribe({
       next: async (response) => {
-        console.log(response);
         await this.sweetalertService.alert(true, 'Diperbarui!', 'Data peserta berhasil diperbarui', 'success');
         this.router.navigateByUrl(`/participant/${response.data.id}/view`);
       },

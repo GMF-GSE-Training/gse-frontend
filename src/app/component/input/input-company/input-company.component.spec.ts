@@ -11,7 +11,7 @@ describe('InputCompanyComponent', () => {
       imports: [InputCompanyComponent]
     })
     .compileComponents();
-    
+
     fixture = TestBed.createComponent(InputCompanyComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

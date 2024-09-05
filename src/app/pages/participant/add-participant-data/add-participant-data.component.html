@@ -39,11 +39,7 @@
           inputMode="text">
         </app-input-text>
 
-        <app-input-company
-          [options]="['GMF', 'Non GMF']"
-          [triggerOption]="'Non GMF'">
-        </app-input-company>
-
+        <app-input-company></app-input-company>
 
         <app-input-text
           (valueChange)="createParticipant.email= $event"
