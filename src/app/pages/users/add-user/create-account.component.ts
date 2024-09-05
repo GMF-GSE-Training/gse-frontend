@@ -42,20 +42,9 @@ export class AddUserComponent {
 
   constructor(
     private router: Router,
-    private roleService: RoleService,
     private userService: UserService,
     private sweetalertService: SweetalertService,
   ) {}
-
-  ngOnInit(): void {
-    this.getAllRoles();
-  }
-
-  getAllRoles(): void {
-    this.roleService.getAllRoles().subscribe(response => {
-      this.roles = response.data;
-    });
-  }
 
   onRoleIdChange(roleId: string): void {
     this.createUser.roleId = roleId;
