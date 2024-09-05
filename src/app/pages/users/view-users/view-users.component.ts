@@ -53,6 +53,8 @@ export class ViewUsersComponent implements OnInit {
         this.users = response.data.map((user: User) => {
           return {
             ...user,
+            no_pegawai: user.no_pegawai ?? '-',
+            dinas: user.dinas ?? '-',
             role: {
               id: user.role.id,
               role: user.role.role,
