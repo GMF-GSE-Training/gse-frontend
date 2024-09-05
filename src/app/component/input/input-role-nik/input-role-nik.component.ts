@@ -2,7 +2,6 @@ import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RoleService } from '../../../shared/service/role.service';
-import { map } from 'rxjs';
 
 @Component({
   selector: 'app-input-role-nik',
@@ -22,12 +21,12 @@ export class InputRoleNikComponent {
 
   roles: any[] = [];
   showNikInput: boolean = false;
-  selectedRoleId: number | null = null;
 
   constructor(private roleService: RoleService) {}
 
   ngOnInit(): void {
     this.getAllRoleName();
+    this.toggleNikInput();
   }
 
   getAllRoleName(): void {

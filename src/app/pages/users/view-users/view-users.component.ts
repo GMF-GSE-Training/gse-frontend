@@ -87,12 +87,14 @@ export class ViewUsersComponent implements OnInit {
   async deleteUser(user: User): Promise<void> {
     const isConfirmed = await this.sweetalertService.confirm('Anda Yakin?', `Apakah anda ingin menghapus user ini : ${user.name}?`, 'warning', 'Ya, hapus!');
     if (isConfirmed) {
+      console.log(user.id)
       this.userService.deleteUser(user.id).subscribe({
         next: () => {
           this.sweetalertService.alert(isConfirmed, 'Dihapus!', 'Data peserta berhasil dihapus', 'success');
           this.users = this.users.filter(p => p.id !== user.id);
         },
-        error: () => {
+        error: (error) => {
+          console.log(error)
           this.sweetalertService.alert(!isConfirmed, 'Gagal!', 'Gagal menghapus data peserta', 'error');
         }
       });

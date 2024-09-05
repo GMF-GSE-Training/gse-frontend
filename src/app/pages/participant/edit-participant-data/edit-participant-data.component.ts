@@ -59,10 +59,6 @@ export class EditParticipantDataComponent implements OnInit{
 
   updateParticipant: Partial<UpdateParticipantModel> = {};
 
-  showAlert: boolean = false;
-  alertMessage: string = '';
-  iconType: 'success' | 'fail' = 'success';
-
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -94,7 +90,7 @@ export class EditParticipantDataComponent implements OnInit{
     }
   }
 
-  async onUpdate() {
+  onUpdate() {
     const formData = new FormData();
     let isUpdated = false;
 

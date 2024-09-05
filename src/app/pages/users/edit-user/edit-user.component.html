@@ -14,17 +14,72 @@
   </div>
 
   <div class="form-container">
-    <form class="edit-form" action="/home">
-      <h1 class="edit-title">Update Account</h1>
-      <input type="role" id="role" name="role" placeholder="Role">
-      <input type="nama" id="nama" name="nama" placeholder="Nama">
-      <input type="username" id="username" name="username" placeholder="Username">
-      <input type="password" name="password" id="password" placeholder="Password">
+    <form class="edit-form" (keydown.enter)="onEnterKey($event)">
+      <h1 class="edit-title">Create Account</h1>
+
+      <app-input-text
+        class="input"
+        type="text"
+        inputMode="tel"
+        placeholder="No Pegawai"
+        name="no_pegawai"
+        [(ngModel)]="currentUser.no_pegawai"
+        (ngModelChange)="updateUser.no_pegawai= $event"
+      ></app-input-text>
+
+      <!-- Input Role dan NIK -->
+      <app-input-role-nik
+        class="input"
+        (roleIdChange)="onRoleIdChange($event)"
+        (nikChange)="onNikChange($event)"
+        [(ngModel)]="currentUser.nik"
+        (ngModelChange)="updateUser.nik= $event">
+      </app-input-role-nik>
+
+      <app-input-text
+        class="input"
+        type="text"
+        inputMode="text"
+        placeholder="Name"
+        name="name"
+        [(ngModel)]="currentUser.name"
+        (ngModelChange)="updateUser.name= $event"
+      ></app-input-text>
+
+      <app-input-text
+        class="input"
+        type="email"
+        inputMode="email"
+        placeholder="Email"
+        name="email"
+        [(ngModel)]="currentUser.email"
+        (ngModelChange)="updateUser.email= $event"
+      ></app-input-text>
+
+      <app-input-text
+        class="input"
+        type="password"
+        inputMode="text"
+        placeholder="Password"
+        name="password"
+        [(ngModel)]="currentUser.password"
+        (ngModelChange)="updateUser.password= $event"
+      ></app-input-text>
+
+      <app-input-text
+        class="input"
+        type="text"
+        inputMode="text"
+        placeholder="Dinas"
+        name="dinas"
+        [(ngModel)]="currentUser.dinas"
+        (ngModelChange)="updateUser.dinas= $event"
+      ></app-input-text>
+
       <div class="buttons">
-        <app-white-button routerLink="/users">Cancel</app-white-button>
-        <app-blue-button routerLink="/users">Save</app-blue-button>
+        <app-white-button type="button" routerLink="/users">Cancel</app-white-button>
+        <app-blue-button type="submit" (click)="onUpdate()">Save</app-blue-button>
       </div>
     </form>
   </div>
 </div>
-

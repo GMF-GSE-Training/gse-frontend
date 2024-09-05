@@ -24,7 +24,6 @@
         placeholder="No Pegawai"
         name="no_pegawai"
         [(ngModel)]="createUser.no_pegawai"
-        required
       ></app-input-text>
 
       <!-- Input Role dan NIK -->
@@ -42,7 +41,6 @@
         placeholder="Name"
         name="name"
         [(ngModel)]="createUser.name"
-        required
       ></app-input-text>
 
       <app-input-text
@@ -52,7 +50,6 @@
         placeholder="Email"
         name="email"
         [(ngModel)]="createUser.email"
-        required
       ></app-input-text>
 
       <app-input-text
@@ -62,7 +59,6 @@
         placeholder="Password"
         name="password"
         [(ngModel)]="createUser.password"
-        required
       ></app-input-text>
 
       <app-input-text
@@ -72,12 +68,11 @@
         placeholder="Dinas"
         name="dinas"
         [(ngModel)]="createUser.dinas"
-        required
       ></app-input-text>
 
       <div class="buttons">
         <app-white-button type="button" routerLink="/users">Cancel</app-white-button>
-        <app-blue-button type="submit" type="submit" (click)="onCreate()">Save</app-blue-button>
+        <app-blue-button type="submit" (click)="onCreate()">Save</app-blue-button>
       </div>
     </form>
   </div>

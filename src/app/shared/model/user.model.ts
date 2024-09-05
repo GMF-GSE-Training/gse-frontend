@@ -26,6 +26,16 @@ export interface CreateUserRequest {
   roleId: string;
 }
 
+export interface UpdateUserRequest {
+  no_pegawai?: string;
+  nik?: string;
+  email?: string;
+  name?: string;
+  password?: string;
+  dinas?: string;
+  roleId?: string;
+}
+
 export interface User {
   id: string;
   no_pegawai?: string;
@@ -33,7 +43,7 @@ export interface User {
   email: string;
   name: string;
   dinas?: string;
-  roleId: number;
+  roleId: string;
   role: {
     id: string,
     role: string,
