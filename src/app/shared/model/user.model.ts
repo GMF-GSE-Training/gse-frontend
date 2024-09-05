@@ -16,6 +16,16 @@ export class RegisterUserRequest {
   }
 }
 
+export interface CreateUserRequest {
+  no_pegawai?: string;
+  nik?: string;
+  email: string;
+  name: string;
+  password: string;
+  dinas?: string;
+  roleId: string;
+}
+
 export interface User {
   id: string;
   no_pegawai?: string;
@@ -51,6 +61,6 @@ export interface ListUserResponse {
 export interface UserResponse {
   code: number;
   status: string;
-  data: User[];
-  paging?: Paging;
+  data?: User;
+  errors: any;
 }

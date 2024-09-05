@@ -2,22 +2,19 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment.development';
+import { RoleResponse } from '../model/Role.model';
 
 @Injectable({
   providedIn: 'root',
 })
-export class ApiRoleService {
+export class RoleService {
 
   private apiUrl = environment.apiUrl;
-  private endpoint = environment.endpoints.role;
+  private endpoints = environment.endpoints.role;
 
   constructor(private http: HttpClient) {}
 
-  get<T>(id: number): Observable<any> {
-    return this.http.get<T>(`${this.apiUrl}/${this.endpoint}/${id}`, { withCredentials: true });
-  }
-
-  getAll<T>(): Observable<any> {
-    return this.http.get<T>(`${this.apiUrl}/${this.endpoint.base}`, { withCredentials: true });
+  getAllRoles(): Observable<RoleResponse> {
+    return this.http.get<RoleResponse>(`${this.apiUrl}/${this.endpoints.base}`, { withCredentials: true });
   }
 }

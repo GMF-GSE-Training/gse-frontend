@@ -1,0 +1,8 @@
+<div class="container">
+  <select id="role-select" [(ngModel)]="selectedRole" (change)="toggleNikInput()">
+    <option [ngValue]="null" disabled [hidden]="selectedRole !== null">--- Pilih Role ---</option>
+    <option *ngFor="let role of roles" [ngValue]="role.role">{{ role.role }}</option>
+  </select>
+
+  <input *ngIf="showNikInput" type="text" inputmode="tel" id="nik-input" placeholder="NIK" [(ngModel)]="nik" (ngModelChange)="toggleNikInput()">
+</div>

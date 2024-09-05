@@ -14,16 +14,70 @@
   </div>
 
   <div class="form-container">
-    <form class="create-form" action="/home">
+    <form class="create-form" (ngSubmit)="onCreate()" (keydown.enter)="onEnterKey($event)">
       <h1 class="create-title">Create User</h1>
-      <app-input-text type="text" inputMode="tel" placeholder="No Pegawai" name="no_pegawai"></app-input-text>
-      <input type="role" id="role" name="role" placeholder="Role">
-      <input type="nama" id="nama" name="nama" placeholder="Nama">
-      <input type="username" id="username" name="username" placeholder="Username">
-      <input type="password" name="password" id="password" placeholder="Password">
+
+      <app-input-text
+        class="input"
+        type="text"
+        inputMode="tel"
+        placeholder="No Pegawai"
+        name="no_pegawai"
+        [(ngModel)]="createUser.no_pegawai"
+        required
+      ></app-input-text>
+
+      <!-- Input Role dan NIK -->
+      <app-input-role-nik
+        class="input"
+        (roleIdChange)="onRoleIdChange($event)"
+        (nikChange)="onNikChange($event)"
+        [(ngModel)]="createUser.nik">
+      </app-input-role-nik>
+
+      <app-input-text
+        class="input"
+        type="text"
+        inputMode="text"
+        placeholder="Name"
+        name="name"
+        [(ngModel)]="createUser.name"
+        required
+      ></app-input-text>
+
+      <app-input-text
+        class="input"
+        type="email"
+        inputMode="email"
+        placeholder="Email"
+        name="email"
+        [(ngModel)]="createUser.email"
+        required
+      ></app-input-text>
+
+      <app-input-text
+        class="input"
+        type="password"
+        inputMode="text"
+        placeholder="Password"
+        name="password"
+        [(ngModel)]="createUser.password"
+        required
+      ></app-input-text>
+
+      <app-input-text
+        class="input"
+        type="text"
+        inputMode="text"
+        placeholder="Dinas"
+        name="dinas"
+        [(ngModel)]="createUser.dinas"
+        required
+      ></app-input-text>
+
       <div class="buttons">
-        <app-white-button routerLink="/users">Cancel</app-white-button>
-        <app-blue-button routerLink="/users">Save</app-blue-button>
+        <app-white-button type="button" routerLink="/users">Cancel</app-white-button>
+        <app-blue-button type="submit" type="submit" (click)="onCreate()">Save</app-blue-button>
       </div>
     </form>
   </div>
