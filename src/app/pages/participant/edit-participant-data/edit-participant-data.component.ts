@@ -98,15 +98,9 @@ export class EditParticipantDataComponent implements OnInit{
     const formData = new FormData();
     let isUpdated = false;
 
-    if (this.currentParticipant.no_pegawai === '') {
-      this.updateParticipant.no_pegawai = "null";
-    }
-    if (this.currentParticipant.dinas === '') {
-      this.updateParticipant.dinas = "null";
-    }
-    if (this.currentParticipant.bidang === '') {
-      this.updateParticipant.bidang = "null";
-    }
+    this.currentParticipant.no_pegawai === '' ? this.updateParticipant.no_pegawai = "null" : this.updateParticipant;
+    this.currentParticipant.dinas === '' ? this.updateParticipant.dinas = "null" : this.updateParticipant;
+    this.currentParticipant.bidang === '' ? this.updateParticipant.bidang = "null" : this.updateParticipant;
 
     if(this.currentParticipant.perusahaan !== this.inputCompanyComponent.getCompanyName() && this.inputCompanyComponent.getCompanyName() !== '') {
       this.updateParticipant.perusahaan = this.inputCompanyComponent.getCompanyName();
