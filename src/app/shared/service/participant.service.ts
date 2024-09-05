@@ -41,6 +41,17 @@ export class ParticipantService {
     return this.http.get<{ data: string }>(`${this.apiUrl}/participants/${id}/qr-code`, { withCredentials: true });
   }
 
+  // viewIdCard(id: string): Observable<any> {
+  //   return this.http.get<any>(`${this.apiUrl}/${this.endpoints.base}/${id}/${this.endpoints.id_card}`, { withCredentials: true });
+  // }
+
+  viewIdCard(id: string): Observable<string> {
+      return this.http.get<string>(`${this.apiUrl}/${this.endpoints.base}/${id}/${this.endpoints.id_card}`, {
+          responseType: 'text' as 'json', // Mengatur responseType ke 'text'
+          withCredentials: true
+      });
+  }
+
   searchParticipant(q: string, page: number = 1, size: number = 10): Observable<ApiResponse> {
     return this.http.get<ApiResponse>(
       `${this.apiUrl}/${this.endpoints.search}?q=${q}&page=${page}&size=${size}`,

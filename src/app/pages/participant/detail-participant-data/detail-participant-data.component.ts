@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { NavbarComponent } from '../../../component/navbar/navbar.component';
 import { BlueButtonComponent } from '../../../component/button/blue-button/blue-button.component';
 import { DetailedViewComponent } from "../../../component/detailed-view/detailed-view.component";
@@ -30,6 +30,7 @@ export class DetailParticipantDataComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private participantService: ParticipantService
   ) {}
 
@@ -94,5 +95,11 @@ export class DetailParticipantDataComponent implements OnInit {
     ).subscribe((qrCode: string) => {
       this.qr_code = qrCode;
     });
+  }
+
+  cetakKartuPeserta(): void {
+    if (this.participant && this.participant.id) {
+      this.router.navigate([`/participant/${this.participant.id}/id-card`]); // Navigasi ke halaman id-card
+    }
   }
 }

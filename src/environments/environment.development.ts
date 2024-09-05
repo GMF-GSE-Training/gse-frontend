@@ -19,6 +19,7 @@ export const environment = {
     participant: {
       base: 'participants',
       qr_code: 'qr-code',
+      id_card: 'id-card',
       list: 'participants/list/result',
       search: 'participants/search/result'
     }
