@@ -20,6 +20,7 @@ export const environment = {
       base: 'participants',
       qr_code: 'qr-code',
       id_card: 'id-card',
+      download_id_card: 'id-card/download',
       list: 'participants/list/result',
       search: 'participants/search/result'
     }

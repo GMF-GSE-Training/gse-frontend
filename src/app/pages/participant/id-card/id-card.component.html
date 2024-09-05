@@ -3,8 +3,7 @@
     <div id="idCard" class="card" [innerHTML]="id_card">
     </div>
     <div class="buttons">
-      <app-white-button >Print</app-white-button>
-      <app-blue-button >Download</app-blue-button>
+      <app-blue-button (click)="downloadIdCard()">Download</app-blue-button>
       <app-white-button routerLink="/home">Back</app-white-button>
     </div>
   </div>

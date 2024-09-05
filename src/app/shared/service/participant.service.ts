@@ -41,9 +41,12 @@ export class ParticipantService {
     return this.http.get<{ data: string }>(`${this.apiUrl}/participants/${id}/qr-code`, { withCredentials: true });
   }
 
-  // viewIdCard(id: string): Observable<any> {
-  //   return this.http.get<any>(`${this.apiUrl}/${this.endpoints.base}/${id}/${this.endpoints.id_card}`, { withCredentials: true });
-  // }
+  downloadIdCard(id: string): Observable<Blob> {
+    return this.http.get<Blob>(`${this.apiUrl}/${this.endpoints.base}/${id}/${this.endpoints.download_id_card}`, {
+      withCredentials: true,
+      responseType: 'blob' as 'json' // Set response type to 'blob'
+    });
+  }
 
   viewIdCard(id: string): Observable<string> {
       return this.http.get<string>(`${this.apiUrl}/${this.endpoints.base}/${id}/${this.endpoints.id_card}`, {

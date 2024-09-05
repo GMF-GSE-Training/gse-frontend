@@ -5,6 +5,7 @@ import { BlueButtonComponent } from '../../../component/button/blue-button/blue-
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { ParticipantService } from '../../../shared/service/participant.service';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { saveAs } from 'file-saver';
 
 @Component({
   selector: 'app-id-card',
@@ -20,6 +21,7 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 })
 export class IdCardComponent implements OnInit {
   id_card: SafeHtml = '';
+  id = this.route.snapshot.paramMap.get('id');
 
   constructor(
     private route: ActivatedRoute,
@@ -28,9 +30,8 @@ export class IdCardComponent implements OnInit {
   ){}
 
   ngOnInit(): void {
-    const id = this.route.snapshot.paramMap.get('id');
-    if(id) {
-      this.participantService.viewIdCard(id).subscribe({
+    if(this.id) {
+      this.participantService.viewIdCard(this.id).subscribe({
         next: (response) => {
           this.id_card = this.sanitizer.bypassSecurityTrustHtml(response);
         },
@@ -38,6 +39,20 @@ export class IdCardComponent implements OnInit {
           console.log(error)
         }
       })
+    }
+  }
+
+  downloadIdCard() {
+    if (this.id) {
+      this.participantService.downloadIdCard(this.id).subscribe({
+        next: (response: Blob) => {
+          // Use FileSaver to save the file
+          saveAs(response, 'id-card.pdf');
+        },
+        error: (error) => {
+          console.log(error);
+        }
+      });
     }
   }
 }
