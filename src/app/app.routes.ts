@@ -28,6 +28,7 @@ import { AddCurriculumCapabilityComponent } from './pages/capability/add-curricu
 import { AddCurriculumComponent } from './pages/curriculum-syllabus/add-curriculum/add-curriculum.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { authGuard } from './shared/guard/auth.guard';
+import { DisplayFilesComponent } from './pages/participant/display-files/display-files.component';
 
 export const routes: Routes = [
   {
@@ -71,6 +72,11 @@ export const routes: Routes = [
   {
     path: 'participant/:id/edit',
     component: EditParticipantDataComponent,
+    canActivate: [authGuard],
+  },
+  {
+    path: 'participant/:id/:file-name',
+    component: DisplayFilesComponent,
     canActivate: [authGuard],
   },
   {

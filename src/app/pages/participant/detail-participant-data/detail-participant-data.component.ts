@@ -65,11 +65,11 @@ export class DetailParticipantDataComponent implements OnInit {
           this.rightTableData = [
             { label: 'Tempat Lahir', value: this.participant!.tempat_lahir },
             { label: 'Tanggal Lahir', value: this.participant!.tanggal_lahir },
-            { label: 'SIM A', value: '-' },
-            { label: 'SIM B', value: '-' },
-            { label: 'KTP', value: '-' },
-            { label: 'Ket Sehat & Buta Warna', value: '-' },
-            { label: 'Ket Bebas Narkoba', value: '-' },
+            { label: 'SIM A', value: '-', link: `/participant/${this.participant!.id}/sim-a` },
+            { label: 'SIM B', value: '-', link: `/participant/${this.participant!.id}/sim-b` },
+            { label: 'KTP', value: '-', link: `/participant/${this.participant!.id}/ktp` },
+            { label: 'Ket Sehat & Buta Warna', value: '-', link: `/participant/${this.participant!.id}/surat-sehat-buta-warna` },
+            { label: 'Ket Bebas Narkoba', value: '-', link: `/participant/${this.participant!.id}/surat-bebas-narkoba` },
           ];
 
           this.getFoto(this.participant!.id);

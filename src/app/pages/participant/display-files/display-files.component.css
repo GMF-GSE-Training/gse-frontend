@@ -1,0 +1,18 @@
+.container {
+  width: 95%;
+  height: 90vh;
+  margin: 40px;
+  border-radius: 25px;
+  border: 4px #02507E solid;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5em;
+  overflow: hidden;
+}
+
+.file {
+  display: flex;
+  gap: 25px;
+  box-sizing: border-box;
+}

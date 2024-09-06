@@ -9,7 +9,10 @@
     <table class="user-table" id="right-table">
       <tr *ngFor="let row of rightTableData">
         <td>{{ row.label }}</td>
-        <td class="fill">{{ row.value }}</td>
+        <td class="fill">
+          <a *ngIf="row.link" (click)="lihatDokumen(row.link)">lihat</a>
+          <span *ngIf="!row.link">{{ row.value }}</span>
+        </td>
       </tr>
     </table>
   </div>
