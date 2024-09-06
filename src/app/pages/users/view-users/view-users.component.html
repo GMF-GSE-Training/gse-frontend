@@ -4,9 +4,9 @@
   </div>
 
   <div class="search-container">
-    <form action="">
-      <input type="text" placeholder="Search User">
-      <i class="fa-solid fa-magnifying-glass"></i>
+    <form (ngSubmit)="onSearch()">
+      <input [(ngModel)]="searchQuery" name="q" type="text" placeholder="Search Participant Data">
+      <i type="submit" class="fa-solid fa-magnifying-glass"></i>
     </form>
   </div>
 

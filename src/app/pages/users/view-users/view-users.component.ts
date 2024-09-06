@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { NavbarComponent } from '../../../component/navbar/navbar.component';
 import { WhiteButtonComponent } from '../../../component/button/white-button/white-button.component';
 import { BlueButtonComponent } from '../../../component/button/blue-button/blue-button.component';
 import { TableComponent } from "../../../component/table/table.component";
 import { RoleBasedAccessDirective } from '../../../shared/directive/role-based-access.directive';
-import { ListUserResponse, User } from '../../../shared/model/user.model';
+import { ListUserResponse, User, UserResponse } from '../../../shared/model/user.model';
 import { UserService } from '../../../shared/service/user.service';
 import { SweetalertService } from '../../../shared/service/sweetaler.service';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-view-users',
@@ -18,7 +19,8 @@ import { SweetalertService } from '../../../shared/service/sweetaler.service';
     WhiteButtonComponent,
     BlueButtonComponent,
     TableComponent,
-    RoleBasedAccessDirective
+    RoleBasedAccessDirective,
+    FormsModule,
   ],
   templateUrl: './view-users.component.html',
   styleUrl: './view-users.component.css'
@@ -37,10 +39,13 @@ export class ViewUsersComponent implements OnInit {
   currentPage: number = 1;
   itemsPerPage: number = 10;
   totalPages: number = 1;
+  searchQuery: string = '';
 
   constructor(
     private userService: UserService,
     private sweetalertService: SweetalertService,
+    private router: Router,
+    private route: ActivatedRoute,
   ) {}
 
   ngOnInit(): void {
@@ -96,6 +101,39 @@ export class ViewUsersComponent implements OnInit {
         error: (error) => {
           console.log(error)
           this.sweetalertService.alert(!isConfirmed, 'Gagal!', 'Gagal menghapus data peserta', 'error');
+        }
+      });
+    }
+  }
+
+  onSearch(): void {
+    if (this.searchQuery.trim()) {
+      this.router.navigate([], {
+        relativeTo: this.route,
+        queryParams: { search: this.searchQuery, page: 1 }, // Update URL dengan query parameter
+        queryParamsHandling: 'merge', // Pertahankan parameter lain yang ada
+      });
+
+      this.userService.searchUser(this.searchQuery, this.currentPage, this.itemsPerPage).subscribe({
+        next: (response: ListUserResponse) => {
+          if (response && response.code === 200 && response.status === 'OK') {
+            this.users = response.data;
+            this.totalPages = response.paging.total_page;
+            this.router.navigate([], {
+              relativeTo: this.route,
+              queryParams: { search: this.searchQuery, page: 1 },
+              queryParamsHandling: 'merge',
+            })
+          } else {
+            this.users = []; // Kosongkan tabel jika tidak ada hasil
+            this.totalPages = 1; // Reset jumlah halaman
+            this.sweetalertService.alert(false, 'Tidak ditemukan!', 'Peserta tidak ditemukan.', 'warning');
+          }
+        },
+        error: () => {
+          this.users = []; // Kosongkan tabel jika terjadi error
+          this.totalPages = 1; // Reset jumlah halaman
+          this.sweetalertService.alert(false, 'Gagal!', 'Terjadi kesalahan saat mencari peserta.', 'error');
         }
       });
     }

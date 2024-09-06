@@ -26,8 +26,8 @@ export class UserService {
     return this.http.patch<UserResponse>(`${this.apiUrl}/${this.endpoints.base}/${id}`, request, { withCredentials: true });
   }
 
-  searchUser(q: string, page: number = 1, size: number = 10): Observable<UserResponse> {
-    return this.http.get<UserResponse>(
+  searchUser(q: string, page: number = 1, size: number = 10): Observable<ListUserResponse> {
+    return this.http.get<ListUserResponse>(
       `${this.apiUrl}/${this.endpoints.search}?q=${q}&page=${page}&size=${size}`,
       { withCredentials: true }
     );
