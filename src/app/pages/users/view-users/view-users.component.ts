@@ -117,7 +117,20 @@ export class ViewUsersComponent implements OnInit {
       this.userService.searchUser(this.searchQuery, this.currentPage, this.itemsPerPage).subscribe({
         next: (response: ListUserResponse) => {
           if (response && response.code === 200 && response.status === 'OK') {
-            this.users = response.data;
+            this.users = response.data.map((user: User) => {
+              return {
+                ...user,
+                no_pegawai: user.no_pegawai ?? '-',
+                dinas: user.dinas ?? '-',
+                role: {
+                  id: user.role.id,
+                  role: user.role.role,
+                },
+                roleName: user.role.role,
+                editLink: `/users/${user.id}/edit`,
+                deleteMethod: () => this.deleteUser(user)
+              };
+            });
             this.totalPages = response.paging.total_page;
             this.router.navigate([], {
               relativeTo: this.route,

@@ -13,6 +13,6 @@
 
 .file {
   display: flex;
-  gap: 25px;
-  box-sizing: border-box;
+  justify-content: center;
+  padding: 25px;
 }

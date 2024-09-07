@@ -38,6 +38,7 @@ export class EditParticipantDataComponent implements OnInit{
     id: '',
     no_pegawai: null,
     nama: '',
+    nik: '',
     dinas: null,
     bidang: null,
     perusahaan: '',

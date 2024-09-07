@@ -23,12 +23,20 @@ export class DisplayFilesComponent implements OnInit {
 
   ngOnInit(): void {
     if(this.fileName === 'sim-a') {
-      this.getSimA(this.id!);
+      this.getFile(this.id!, this.fileName);
+    } else if(this.fileName === 'sim-b') {
+      this.getFile(this.id!, this.fileName);
+    } else if(this.fileName === 'ktp') {
+      this.getFile(this.id!, this.fileName);
+    } else if(this.fileName === 'surat-sehat-buta-warna') {
+      this.getFile(this.id!, this.fileName);
+    } else if(this.fileName === 'surat-bebas-narkoba') {
+      this.getFile(this.id!, this.fileName);
     }
   }
 
-  getSimA(id: string): void {
-    this.participantService.getSimA(id).pipe(
+  getFile(id: string, fileName: string): void {
+    this.participantService.getFile({ id }, fileName).pipe(
       map(response => response.data)
     ).subscribe((file: string) => {
       this.file = file;

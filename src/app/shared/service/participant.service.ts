@@ -33,8 +33,8 @@ export class ParticipantService {
     return this.http.get<ApiResponse>(`${this.apiUrl}/${this.endpoints.list}?page=${page}&size=${size}`, { withCredentials: true });
   }
 
-  getSimA(id: string): Observable<{ data: string }> {
-    return this.http.get<{ data: string }>(`${this.apiUrl}/participants/${id}/sim-a`, { withCredentials: true });
+  getFile({ id }: { id: string; }, fileName: string): Observable<{ data: string }> {
+    return this.http.get<{ data: string }>(`${this.apiUrl}/participants/${id}/${fileName}`, { withCredentials: true });
   }
 
   getFoto(id: string): Observable<{ data: string }> {
