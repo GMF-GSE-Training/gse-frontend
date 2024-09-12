@@ -1,3 +1,8 @@
+.search-container {
+  margin-top: 50px;
+  margin-left: 50px;
+}
+
 .view-all {
   position: absolute;
   right: 25px;
@@ -33,6 +38,14 @@ i {
   margin-left: -45px;
   margin-top: 7px;
   cursor: pointer;
+}
+
+form input {
+  width: 350px;
+  height: 40px;
+  border-radius: 15px;
+  font-size: 25px;
+  padding-left: 10px;
 }
 
 .table-container {
