@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterOutlet, RouterLink, Router } from '@angular/router';
 import { SearchComponent } from '../search/search.component';
-import { NavMenuComponent } from "./nav-menu/nav-menu.component";
+import { SidebarComponent } from "../sidebar/sidebar.component";
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -11,13 +11,13 @@ import { CommonModule } from '@angular/common';
     RouterOutlet,
     RouterLink,
     SearchComponent,
-    NavMenuComponent,
+    SidebarComponent,
     CommonModule,
 ],
-  templateUrl: './navbar.component.html',
-  styleUrl: './navbar.component.css'
+  templateUrl: './header.component.html',
+  styleUrl: './header.component.css'
 })
-export class NavbarComponent implements OnInit {
+export class HeaderComponent implements OnInit {
   isMenuVisible: boolean = false;
   shouldShowNavbar = true;
 

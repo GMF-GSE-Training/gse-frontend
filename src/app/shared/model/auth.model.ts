@@ -1,11 +1,6 @@
-export class LoginUserRequest {
+export interface LoginUserRequest {
   identifier: string;
   password: string;
-
-  constructor() {
-    this.identifier = '';
-    this.password = '';
-  }
 }
 
 export interface AuthResponse {

@@ -50,32 +50,32 @@ export const routes: Routes = [
     canActivate: [authGuard],
   },
   {
-    path: 'participant',
+    path: 'participants',
     component: ViewParticipantDataComponent,
     canActivate: [authGuard],
   },
   {
-    path: 'participant/add',
+    path: 'participants/add',
     component: AddParticipantDataComponent,
     canActivate: [authGuard],
   },
   {
-    path: 'participant/:id/view',
+    path: 'participants/:id/view',
     component: DetailParticipantDataComponent,
     canActivate: [authGuard]
   },
   {
-    path: 'participant/:id/id-card',
+    path: 'participants/:id/id-card',
     component: IdCardComponent,
     canActivate: [authGuard],
   },
   {
-    path: 'participant/:id/edit',
+    path: 'participants/:id/edit',
     component: EditParticipantDataComponent,
     canActivate: [authGuard],
   },
   {
-    path: 'participant/:id/:file-name',
+    path: 'participants/:id/:file-name',
     component: DisplayFilesComponent,
     canActivate: [authGuard],
   },

@@ -1,14 +1,15 @@
 import { Component } from '@angular/core';
-import { BlueButtonComponent } from "../../component/button/blue-button/blue-button.component";
-import { LoginRegisterComponent } from "../../component/login-register/login-register.component";
+import { BlueButtonComponent } from "../../elements/button/blue-button/blue-button.component";
+import { LoginRegisterComponent } from "../../components/login-register/login-register.component";
 import { Router, RouterLink } from '@angular/router';
-import { InputTextComponent } from "../../component/input/input-text/input-text.component";
+import { InputTextComponent } from "../../elements/input/input-text/input-text.component";
 import { UserService } from '../../shared/service/user.service';
 import { RegisterUserRequest } from '../../shared/model/user.model';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../shared/service/auth.service';
+import { TitleComponent } from "../../components/title/title.component";
 
 @Component({
   selector: 'app-register',
@@ -21,21 +22,27 @@ import { AuthService } from '../../shared/service/auth.service';
     FormsModule,
     CommonModule,
     HttpClientModule,
-  ],
+    TitleComponent
+],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css'
 })
 export class RegisterComponent {
-  registerUserRequest: RegisterUserRequest;
+  registerUserRequest: RegisterUserRequest = {
+    no_pegawai: '',
+    nik: '',
+    email: '',
+    name: '',
+    password: '',
+    dinas: '',
+  };
   registerError: boolean = false;
   message: string = '';
 
   constructor(
     private router: Router,
     private authService: AuthService,
-  ){
-    this.registerUserRequest = new RegisterUserRequest();
-  }
+  ){ }
 
   onRegister() {
     this.authService.register(this.registerUserRequest).subscribe({

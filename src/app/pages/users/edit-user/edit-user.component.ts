@@ -1,15 +1,16 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { BlueButtonComponent } from "../../../component/button/blue-button/blue-button.component";
-import { WhiteButtonComponent } from '../../../component/button/white-button/white-button.component';
+import { BlueButtonComponent } from "../../../elements/button/blue-button/blue-button.component";
+import { WhiteButtonComponent } from '../../../elements/button/white-button/white-button.component';
 import { RoleBasedAccessDirective } from '../../../shared/directive/role-based-access.directive';
-import { InputTextComponent } from "../../../component/input/input-text/input-text.component";
+import { InputTextComponent } from "../../../elements/input/input-text/input-text.component";
 import { UpdateUserRequest } from '../../../shared/model/user.model';
 import { UserService } from '../../../shared/service/user.service';
 import { SweetalertService } from '../../../shared/service/sweetaler.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { InputRoleNikComponent } from "../../../component/input/input-role-nik/input-role-nik.component";
+import { InputRoleNikComponent } from "../../../elements/input/input-role-nik/input-role-nik.component";
+import { TitleComponent } from "../../../components/title/title.component";
 
 @Component({
   selector: 'app-edit-user',
@@ -22,7 +23,8 @@ import { InputRoleNikComponent } from "../../../component/input/input-role-nik/i
     InputTextComponent,
     FormsModule,
     CommonModule,
-    InputRoleNikComponent
+    InputRoleNikComponent,
+    TitleComponent
 ],
   templateUrl: './edit-user.component.html',
   styleUrl: './edit-user.component.css'

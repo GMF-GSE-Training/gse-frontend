@@ -1,31 +1,33 @@
 import { Component, ViewChild } from '@angular/core';
-import { NavbarComponent } from '../../../component/navbar/navbar.component';
+import { HeaderComponent } from '../../../components/header/header.component';
 import { Router, RouterLink } from '@angular/router';
-import { WhiteButtonComponent } from '../../../component/button/white-button/white-button.component';
-import { BlueButtonComponent } from '../../../component/button/blue-button/blue-button.component';
-import { InputFileComponent } from "../../../component/input/input-file/input-file.component";
-import { InputTextComponent } from '../../../component/input/input-text/input-text.component';
-import { InputDateComponent } from "../../../component/input/input-date/input-date.component";
-import { InputCompanyComponent } from "../../../component/input/input-company/input-company.component";
+import { WhiteButtonComponent } from '../../../elements/button/white-button/white-button.component';
+import { BlueButtonComponent } from '../../../elements/button/blue-button/blue-button.component';
+import { InputFileComponent } from "../../../elements/input/input-file/input-file.component";
+import { InputTextComponent } from '../../../elements/input/input-text/input-text.component';
+import { InputDateComponent } from "../../../elements/input/input-date/input-date.component";
+import { InputCompanyComponent } from "../../../elements/input/input-company/input-company.component";
 import { RoleBasedAccessDirective } from '../../../shared/directive/role-based-access.directive';
 import { ParticipantService } from '../../../shared/service/participant.service';
 import { environment } from '../../../../environments/environment.development';
 import { CreateParticipantModel } from '../../../shared/model/participant.model';
 import { SweetalertService } from '../../../shared/service/sweetaler.service';
+import { TitleComponent } from "../../../components/title/title.component";
 
 @Component({
   selector: 'app-add-participant-data',
   standalone: true,
   imports: [
     RouterLink,
-    NavbarComponent,
+    HeaderComponent,
     BlueButtonComponent,
     WhiteButtonComponent,
     InputFileComponent,
     InputTextComponent,
     InputDateComponent,
     InputCompanyComponent,
-    RoleBasedAccessDirective
+    RoleBasedAccessDirective,
+    TitleComponent
 ],
   templateUrl: './add-participant-data.component.html',
   styleUrl: './add-participant-data.component.css'

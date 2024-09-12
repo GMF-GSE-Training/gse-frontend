@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { NavbarComponent } from "../../../component/navbar/navbar.component";
-import { InputTextComponent } from "../../../component/input/input-text/input-text.component";
-import { InputDateComponent } from "../../../component/input/input-date/input-date.component";
-import { WhiteButtonComponent } from "../../../component/button/white-button/white-button.component";
-import { BlueButtonComponent } from "../../../component/button/blue-button/blue-button.component";
+import { HeaderComponent } from "../../../components/header/header.component";
+import { InputTextComponent } from "../../../elements/input/input-text/input-text.component";
+import { InputDateComponent } from "../../../elements/input/input-date/input-date.component";
+import { WhiteButtonComponent } from "../../../elements/button/white-button/white-button.component";
+import { BlueButtonComponent } from "../../../elements/button/blue-button/blue-button.component";
 import { RouterLink } from '@angular/router';
 import { RoleBasedAccessDirective } from '../../../shared/directive/role-based-access.directive';
 
@@ -11,7 +11,7 @@ import { RoleBasedAccessDirective } from '../../../shared/directive/role-based-a
   selector: 'app-create-sertifikat',
   standalone: true,
   imports: [
-    NavbarComponent,
+    HeaderComponent,
     InputTextComponent,
     InputDateComponent,
     WhiteButtonComponent,

@@ -1,18 +1,18 @@
 import { Component } from '@angular/core';
-import { NavbarComponent } from '../../../component/navbar/navbar.component';
-import { DetailedViewComponent } from '../../../component/detailed-view/detailed-view.component';
-import { TableComponent } from '../../../component/table/table.component';
-import { WhiteButtonComponent } from "../../../component/button/white-button/white-button.component";
-import { BlueButtonComponent } from "../../../component/button/blue-button/blue-button.component";
+import { HeaderComponent } from '../../../components/header/header.component';
+import { DetailedViewComponent } from '../../../components/detailed-view/detailed-view.component';
+import { TableComponent } from '../../../components/table/table.component';
+import { WhiteButtonComponent } from "../../../elements/button/white-button/white-button.component";
+import { BlueButtonComponent } from "../../../elements/button/blue-button/blue-button.component";
 import { RouterLink } from '@angular/router';
-import { IconActionComponent } from "../../../component/icon-action/icon-action.component";
+import { IconActionComponent } from "../../../components/icon-action/icon-action.component";
 import { RoleBasedAccessDirective } from '../../../shared/directive/role-based-access.directive';
 
 @Component({
   selector: 'app-cot-finish',
   standalone: true,
   imports: [
-    NavbarComponent,
+    HeaderComponent,
     DetailedViewComponent,
     TableComponent,
     WhiteButtonComponent,

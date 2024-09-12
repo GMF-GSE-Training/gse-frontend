@@ -1,9 +1,9 @@
 <app-login-register>
   <form class="register-form">
-    <h1 class="register-title">Register Account</h1>
-      <div *ngIf="registerError" class="error-message">
-    <p>{{ message }}</p>
-  </div>
+    <app-title>Register Account</app-title>
+    <div *ngIf="registerError" class="error-message">
+      <p>{{ message }}</p>
+    </div>
     <app-input-text [type]="'text'" name="nik" placeholder="NIK *" (valueChange)="registerUserRequest.nik= $event"></app-input-text>
     <app-input-text [type]="'text'" name="no_pegawai" placeholder="No Pegawai" (valueChange)="registerUserRequest.no_pegawai= $event"></app-input-text>
     <app-input-text [type]="'text'" name="email" placeholder="Email *" (valueChange)="registerUserRequest.email= $event"></app-input-text>

@@ -10,11 +10,6 @@ app-input-text {
   width: 400px;
 }
 
-.register-title {
-  border-bottom: 4px solid #000;
-  font-size: 35px;
-}
-
 .register-form input {
   font-size: 20px;
   font-family: 'Petrona', sans-serif;

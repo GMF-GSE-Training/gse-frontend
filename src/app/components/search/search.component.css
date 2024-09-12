@@ -1,0 +1,12 @@
+.search-container {
+  margin-top: 50px;
+  margin-left: 50px;
+}
+
+form input {
+  width: 350px;
+  height: 40px;
+  border-radius: 15px;
+  font-size: 25px;
+  padding-left: 10px;
+}

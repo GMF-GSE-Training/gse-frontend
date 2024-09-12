@@ -1,12 +1,13 @@
 import { Component } from '@angular/core';
-import { BlueButtonComponent } from '../../component/button/blue-button/blue-button.component';
-import { LoginRegisterComponent } from "../../component/login-register/login-register.component";
+import { BlueButtonComponent } from '../../elements/button/blue-button/blue-button.component';
+import { LoginRegisterComponent } from "../../components/login-register/login-register.component";
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
 import { LoginUserRequest } from '../../shared/model/auth.model';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../shared/service/auth.service';
+import { TitleComponent } from "../../components/title/title.component";
 
 @Component({
   selector: 'app-login',
@@ -18,22 +19,24 @@ import { AuthService } from '../../shared/service/auth.service';
     HttpClientModule,
     FormsModule,
     RouterLink,
-  ],
+    TitleComponent
+],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
   isPassVisible: boolean = true;
-  loginRequest: LoginUserRequest;
+  loginRequest: LoginUserRequest = {
+    identifier: '',
+    password: '',
+  };
   loginError: boolean = false;
   message: string = '';
 
   constructor(
     private router: Router,
     private authService: AuthService,
-  ) {
-    this.loginRequest = new LoginUserRequest();
-  }
+  ) { }
 
   passVisible() {
     this.isPassVisible = !this.isPassVisible;

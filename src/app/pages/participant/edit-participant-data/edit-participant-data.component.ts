@@ -1,17 +1,18 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { InputDateComponent } from "../../../component/input/input-date/input-date.component";
-import { InputFileComponent } from "../../../component/input/input-file/input-file.component";
-import { WhiteButtonComponent } from "../../../component/button/white-button/white-button.component";
-import { BlueButtonComponent } from "../../../component/button/blue-button/blue-button.component";
-import { InputTextComponent } from "../../../component/input/input-text/input-text.component";
-import { InputCompanyComponent } from "../../../component/input/input-company/input-company.component";
-import { NavbarComponent } from "../../../component/navbar/navbar.component";
+import { InputDateComponent } from "../../../elements/input/input-date/input-date.component";
+import { InputFileComponent } from "../../../elements/input/input-file/input-file.component";
+import { WhiteButtonComponent } from "../../../elements/button/white-button/white-button.component";
+import { BlueButtonComponent } from "../../../elements/button/blue-button/blue-button.component";
+import { InputTextComponent } from "../../../elements/input/input-text/input-text.component";
+import { InputCompanyComponent } from "../../../elements/input/input-company/input-company.component";
+import { HeaderComponent } from "../../../components/header/header.component";
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { RoleBasedAccessDirective } from '../../../shared/directive/role-based-access.directive';
 import { UpdateParticipantModel } from '../../../shared/model/participant.model';
 import { ParticipantService } from '../../../shared/service/participant.service';
 import { FormsModule } from '@angular/forms';
 import { SweetalertService } from '../../../shared/service/sweetaler.service';
+import { TitleComponent } from "../../../components/title/title.component";
 
 @Component({
   selector: 'app-edit-participant-data',
@@ -23,10 +24,11 @@ import { SweetalertService } from '../../../shared/service/sweetaler.service';
     BlueButtonComponent,
     InputTextComponent,
     InputCompanyComponent,
-    NavbarComponent,
+    HeaderComponent,
     RouterLink,
     RoleBasedAccessDirective,
     FormsModule,
+    TitleComponent
 ],
   templateUrl: './edit-participant-data.component.html',
   styleUrl: './edit-participant-data.component.css'
@@ -124,7 +126,7 @@ export class EditParticipantDataComponent implements OnInit{
     this.participantService.updateParticipant(this.currentParticipant.id, formData).subscribe({
       next: async (response) => {
         await this.sweetalertService.alert(true, 'Diperbarui!', 'Data peserta berhasil diperbarui', 'success');
-        this.router.navigateByUrl(`/participant/${response.data.id}/view`);
+        this.router.navigateByUrl(`/participants/${response.data.id}/view`);
       },
       error: (error) => {
         console.error('Error updating participant:', error.error.errors);

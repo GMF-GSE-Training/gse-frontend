@@ -1,16 +1,16 @@
 import { Component } from '@angular/core';
-import { NavbarComponent } from '../../component/navbar/navbar.component';
-import { RealisasiCotChartComponent } from '../../component/chart/realisasi-cot-chart/realisasi-cot-chart.component';
-import { DataPemegangKompetensiGseOperatorComponent } from '../../component/chart/data-pemegang-kompetensi-gse-operator/data-pemegang-kompetensi-gse-operator.component';
-import { DataTotalSertifikatAktifComponent } from '../../component/chart/data-total-sertifikat-aktif/data-total-sertifikat-aktif.component';
-import { DataJumlahPemegangSertifikatComponent } from '../../component/chart/data-jumlah-pemegang-sertifikat/data-jumlah-pemegang-sertifikat.component';
+import { HeaderComponent } from '../../components/header/header.component';
+import { RealisasiCotChartComponent } from '../../elements/chart/realisasi-cot-chart/realisasi-cot-chart.component';
+import { DataPemegangKompetensiGseOperatorComponent } from '../../elements/chart/data-pemegang-kompetensi-gse-operator/data-pemegang-kompetensi-gse-operator.component';
+import { DataTotalSertifikatAktifComponent } from '../../elements/chart/data-total-sertifikat-aktif/data-total-sertifikat-aktif.component';
+import { DataJumlahPemegangSertifikatComponent } from '../../elements/chart/data-jumlah-pemegang-sertifikat/data-jumlah-pemegang-sertifikat.component';
 import { CotTableComponent } from './cot-table/cot-table.component';
 
 @Component({
   selector: 'app-home',
   standalone: true,
   imports: [
-    NavbarComponent,
+    HeaderComponent,
     RealisasiCotChartComponent,
     DataPemegangKompetensiGseOperatorComponent,
     DataTotalSertifikatAktifComponent,

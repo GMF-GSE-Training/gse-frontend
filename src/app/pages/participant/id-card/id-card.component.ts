@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { NavbarComponent } from '../../../component/navbar/navbar.component';
-import { WhiteButtonComponent } from '../../../component/button/white-button/white-button.component';
-import { BlueButtonComponent } from '../../../component/button/blue-button/blue-button.component';
+import { HeaderComponent } from '../../../components/header/header.component';
+import { WhiteButtonComponent } from '../../../elements/button/white-button/white-button.component';
+import { BlueButtonComponent } from '../../../elements/button/blue-button/blue-button.component';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { ParticipantService } from '../../../shared/service/participant.service';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
@@ -11,7 +11,7 @@ import { saveAs } from 'file-saver';
   selector: 'app-id-card',
   standalone: true,
   imports: [
-    NavbarComponent,
+    HeaderComponent,
     WhiteButtonComponent,
     BlueButtonComponent,
     RouterLink,

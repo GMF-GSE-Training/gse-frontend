@@ -13,12 +13,17 @@
   height: 100vh;
 }
 
-.navbar-nav {
+.nav-menu {
   list-style-type: none;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 1.7em;
+}
+
+.optional-menu,
+.general-menu {
+  margin-top: 1.7em;
 }
 
 a{

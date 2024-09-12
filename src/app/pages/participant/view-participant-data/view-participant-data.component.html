@@ -1,7 +1,5 @@
 <main>
-  <div class="title-container">
-    <h1 class="title">View Participant Data</h1>
-  </div>
+  <app-title>View Participant Data</app-title>
 
   <div class="search-container">
     <form (ngSubmit)="onSearch()">
@@ -12,7 +10,7 @@
 
   <button (click)="viewAll()" class="view-all"><i class="fa-solid fa-arrows-rotate"></i> Tampilkan semua</button>
 
-  <div class="container">
+  <div class="table-container">
     <app-table [columns]="columns" [data]="participants"></app-table>
   </div>
 
@@ -26,6 +24,6 @@
 
   <div class="container-button">
     <app-white-button routerLink="/home">Back</app-white-button>
-    <app-blue-button *appRoleBasedAccess="['Super Admin', 'lcu']" routerLink="/participant/add">Add</app-blue-button>
+    <app-blue-button *appRoleBasedAccess="['Super Admin', 'lcu']" routerLink="/participants/add">Add</app-blue-button>
   </div>
 </main>

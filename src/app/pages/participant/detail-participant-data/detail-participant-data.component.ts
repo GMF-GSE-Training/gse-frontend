@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { NavbarComponent } from '../../../component/navbar/navbar.component';
-import { BlueButtonComponent } from '../../../component/button/blue-button/blue-button.component';
-import { DetailedViewComponent } from "../../../component/detailed-view/detailed-view.component";
-import { TableComponent } from "../../../component/table/table.component";
+import { HeaderComponent } from '../../../components/header/header.component';
+import { BlueButtonComponent } from '../../../elements/button/blue-button/blue-button.component';
+import { DetailedViewComponent } from "../../../components/detailed-view/detailed-view.component";
+import { TableComponent } from "../../../components/table/table.component";
 import { ParticipantService } from '../../../shared/service/participant.service';
 import { Participant } from '../../../shared/model/participant.model';
 import { map } from 'rxjs/operators';
@@ -13,7 +13,7 @@ import { map } from 'rxjs/operators';
   standalone: true,
   imports: [
     RouterLink,
-    NavbarComponent,
+    HeaderComponent,
     BlueButtonComponent,
     DetailedViewComponent,
     TableComponent
@@ -65,11 +65,11 @@ export class DetailParticipantDataComponent implements OnInit {
           this.rightTableData = [
             { label: 'Tempat Lahir', value: this.participant!.tempat_lahir },
             { label: 'Tanggal Lahir', value: this.participant!.tanggal_lahir },
-            { label: 'SIM A', value: '-', link: `/participant/${this.participant!.id}/sim-a` },
-            { label: 'SIM B', value: '-', link: `/participant/${this.participant!.id}/sim-b` },
-            { label: 'KTP', value: '-', link: `/participant/${this.participant!.id}/ktp` },
-            { label: 'Ket Sehat & Buta Warna', value: '-', link: `/participant/${this.participant!.id}/surat-sehat-buta-warna` },
-            { label: 'Ket Bebas Narkoba', value: '-', link: `/participant/${this.participant!.id}/surat-bebas-narkoba` },
+            { label: 'SIM A', value: '-', link: `/participants/${this.participant!.id}/sim-a` },
+            { label: 'SIM B', value: '-', link: `/participants/${this.participant!.id}/sim-b` },
+            { label: 'KTP', value: '-', link: `/participants/${this.participant!.id}/ktp` },
+            { label: 'Ket Sehat & Buta Warna', value: '-', link: `/participants/${this.participant!.id}/surat-sehat-buta-warna` },
+            { label: 'Ket Bebas Narkoba', value: '-', link: `/participants/${this.participant!.id}/surat-bebas-narkoba` },
           ];
 
           this.getFoto(this.participant!.id);
@@ -99,7 +99,7 @@ export class DetailParticipantDataComponent implements OnInit {
 
   cetakKartuPeserta(): void {
     if (this.participant && this.participant.id) {
-      this.router.navigate([`/participant/${this.participant.id}/id-card`]); // Navigasi ke halaman id-card
+      this.router.navigate([`/participants/${this.participant.id}/id-card`]); // Navigasi ke halaman id-card
     }
   }
 }

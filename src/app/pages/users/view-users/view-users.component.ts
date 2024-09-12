@@ -1,27 +1,29 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { NavbarComponent } from '../../../component/navbar/navbar.component';
-import { WhiteButtonComponent } from '../../../component/button/white-button/white-button.component';
-import { BlueButtonComponent } from '../../../component/button/blue-button/blue-button.component';
-import { TableComponent } from "../../../component/table/table.component";
+import { HeaderComponent } from '../../../components/header/header.component';
+import { WhiteButtonComponent } from '../../../elements/button/white-button/white-button.component';
+import { BlueButtonComponent } from '../../../elements/button/blue-button/blue-button.component';
+import { TableComponent } from "../../../components/table/table.component";
 import { RoleBasedAccessDirective } from '../../../shared/directive/role-based-access.directive';
 import { ListUserResponse, User, UserResponse } from '../../../shared/model/user.model';
 import { UserService } from '../../../shared/service/user.service';
 import { SweetalertService } from '../../../shared/service/sweetaler.service';
 import { FormsModule } from '@angular/forms';
+import { TitleComponent } from "../../../components/title/title.component";
 
 @Component({
   selector: 'app-view-users',
   standalone: true,
   imports: [
-    NavbarComponent,
+    HeaderComponent,
     RouterLink,
     WhiteButtonComponent,
     BlueButtonComponent,
     TableComponent,
     RoleBasedAccessDirective,
     FormsModule,
-  ],
+    TitleComponent
+],
   templateUrl: './view-users.component.html',
   styleUrl: './view-users.component.css'
 })

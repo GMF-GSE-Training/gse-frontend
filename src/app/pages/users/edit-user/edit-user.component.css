@@ -41,12 +41,6 @@
   gap: 20px;
 }
 
-.edit-title {
-  border-bottom: 4px solid #000;
-  font-size: 35px;
-  margin-bottom: 50px;
-}
-
 .edit-form input {
   font-size: 20px;
 }

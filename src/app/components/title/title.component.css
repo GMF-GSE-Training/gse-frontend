@@ -1,0 +1,9 @@
+.title-container {
+  display: flex;
+  justify-content: center;
+}
+
+.title {
+  border-bottom: 4px solid #000;
+  font-size: 25px;
+}

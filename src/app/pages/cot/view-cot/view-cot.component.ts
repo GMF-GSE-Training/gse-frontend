@@ -1,15 +1,15 @@
 import { Component } from '@angular/core';
-import { NavbarComponent } from '../../../component/navbar/navbar.component';
-import { TableComponent } from '../../../component/table/table.component';
+import { HeaderComponent } from '../../../components/header/header.component';
+import { TableComponent } from '../../../components/table/table.component';
 import { RouterLink } from '@angular/router';
-import { WhiteButtonComponent } from '../../../component/button/white-button/white-button.component';
-import { BlueButtonComponent } from '../../../component/button/blue-button/blue-button.component';
+import { WhiteButtonComponent } from '../../../elements/button/white-button/white-button.component';
+import { BlueButtonComponent } from '../../../elements/button/blue-button/blue-button.component';
 
 @Component({
   selector: 'app-view-cot',
   standalone: true,
   imports: [
-    NavbarComponent,
+    HeaderComponent,
     TableComponent,
     RouterLink,
     WhiteButtonComponent,
