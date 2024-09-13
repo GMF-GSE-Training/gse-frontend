@@ -1,4 +1,7 @@
-<form action="" >
-  <input type="text" placeholder="Search">
-  <i class="fa-solid fa-magnifying-glass"></i>
-</form>
+<div class="search-container">
+    <form (submit)="onSearch(inputElement.value)">
+      <input #inputElement name="q" type="text" [placeholder]="placeHolder">
+      <i type="submit" class="fa-solid fa-magnifying-glass"></i>
+    </form>
+  </div>
+

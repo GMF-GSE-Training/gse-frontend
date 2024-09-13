@@ -1,1 +1,26 @@
-<p>data-management works!</p>
+<main>
+  <app-title [pageTitle]="pageTitle"></app-title>
+
+  <div class="search-container">
+    <app-search placeHolder="Search Participant"></app-search>
+    <app-view-all></app-view-all>
+  </div>
+
+  <div class="table-container">
+    <app-table
+      [columns]="columns"
+      [data]="data">
+    </app-table>
+  </div>
+
+  <app-pagination
+    [totalPages]="totalPages"
+    [currentPage]="currentPage"
+    (pageChange)="onPageChanged($event)">
+  </app-pagination>
+
+  <div class="container-button">
+    <app-white-button routerLink="/home">Back</app-white-button>
+    <app-blue-button routerLink="/participants/add">Add</app-blue-button>
+  </div>
+</main>

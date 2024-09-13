@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-blue-button',
@@ -8,6 +8,8 @@ import { Component, EventEmitter, Output } from '@angular/core';
   styleUrl: './blue-button.component.css'
 })
 export class BlueButtonComponent {
+  @Input() type: string = 'button';
+  @Input() disabled: boolean = false;
   @Output() buttonClick = new EventEmitter<void>();
 
   onClick() {

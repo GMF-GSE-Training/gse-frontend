@@ -8,5 +8,8 @@ import { Component } from '@angular/core';
   styleUrl: './view-all.component.css'
 })
 export class ViewAllComponent {
+viewAll() {
+throw new Error('Method not implemented.');
+}
 
 }

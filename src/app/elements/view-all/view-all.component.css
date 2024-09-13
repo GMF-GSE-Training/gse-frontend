@@ -1,0 +1,30 @@
+.view-all {
+  width: 250px;
+  height: 45px;
+  font-size: 20px;
+  color: #02507E;
+  border: none;
+  background-color: none;
+  border-radius: 50px;
+  font-family: 'Petrona', sans-serif;
+  display: flex;
+  align-items: center;
+  padding-left: 70px;
+}
+
+.view-all i {
+  margin-bottom: 7px;
+}
+
+.view-all:hover {
+  cursor: pointer;
+  background-color: #d8dadb;
+}
+
+i {
+  font-size: 30px;
+  position: absolute;
+  margin-left: -45px;
+  margin-top: 7px;
+  cursor: pointer;
+}

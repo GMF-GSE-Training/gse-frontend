@@ -35,8 +35,8 @@ export class HeaderComponent implements OnInit {
     this.router.events.subscribe(() => {
       const currentRoute = this.router.url;
       this.shouldShowNavbar = !(
-        currentRoute.includes('/login') ||
-        currentRoute.includes('/register') ||
+        currentRoute === '/login' ||
+        currentRoute === '/register' ||
         (currentRoute.includes('/users') && currentRoute.includes('/edit')) ||
         (currentRoute.includes('/users') && currentRoute.includes('/add'))
       );

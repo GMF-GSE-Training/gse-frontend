@@ -4,7 +4,6 @@ import { HeaderComponent } from '../../../components/header/header.component';
 import { WhiteButtonComponent } from '../../../elements/button/white-button/white-button.component';
 import { BlueButtonComponent } from '../../../elements/button/blue-button/blue-button.component';
 import { TableComponent } from "../../../components/table/table.component";
-import { RoleBasedAccessDirective } from '../../../shared/directive/role-based-access.directive';
 import { ListUserResponse, User, UserResponse } from '../../../shared/model/user.model';
 import { UserService } from '../../../shared/service/user.service';
 import { SweetalertService } from '../../../shared/service/sweetaler.service';
@@ -20,7 +19,6 @@ import { TitleComponent } from "../../../components/title/title.component";
     WhiteButtonComponent,
     BlueButtonComponent,
     TableComponent,
-    RoleBasedAccessDirective,
     FormsModule,
     TitleComponent
 ],

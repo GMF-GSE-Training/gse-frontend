@@ -5,7 +5,6 @@ import { WhiteButtonComponent } from '../../../elements/button/white-button/whit
 import { BlueButtonComponent } from '../../../elements/button/blue-button/blue-button.component';
 import { TableComponent } from "../../../components/table/table.component";
 import { SearchComponent } from "../../../components/search/search.component";
-import { RoleBasedAccessDirective } from '../../../shared/directive/role-based-access.directive';
 
 @Component({
   selector: 'app-view-capability',
@@ -17,7 +16,6 @@ import { RoleBasedAccessDirective } from '../../../shared/directive/role-based-a
     BlueButtonComponent,
     TableComponent,
     SearchComponent,
-    RoleBasedAccessDirective
 ],
   templateUrl: './view-capability.component.html',
   styleUrl: './view-capability.component.css'

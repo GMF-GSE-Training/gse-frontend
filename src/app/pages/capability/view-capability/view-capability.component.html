@@ -1,4 +1,4 @@
-<main *appRoleBasedAccess="['Super Admin', 'supervisor', 'lcu', 'user']">
+<main>
   <div class="title-container">
     <h1 class="title">View Capability</h1>
   </div>
@@ -24,6 +24,6 @@
 
   <div class="container-button">
     <app-white-button routerLink="/home" id="back-app-white-button">Back</app-white-button>
-    <app-blue-button *appRoleBasedAccess="['Super Admin']" routerLink="/capability/add">Add</app-blue-button>
+    <app-blue-button routerLink="/capability/add">Add</app-blue-button>
   </div>
 </main>

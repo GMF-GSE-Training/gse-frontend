@@ -7,7 +7,6 @@ import { InputTextComponent } from "../../../elements/input/input-text/input-tex
 import { InputCompanyComponent } from "../../../elements/input/input-company/input-company.component";
 import { HeaderComponent } from "../../../components/header/header.component";
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { RoleBasedAccessDirective } from '../../../shared/directive/role-based-access.directive';
 import { UpdateParticipantModel } from '../../../shared/model/participant.model';
 import { ParticipantService } from '../../../shared/service/participant.service';
 import { FormsModule } from '@angular/forms';
@@ -26,7 +25,6 @@ import { TitleComponent } from "../../../components/title/title.component";
     InputCompanyComponent,
     HeaderComponent,
     RouterLink,
-    RoleBasedAccessDirective,
     FormsModule,
     TitleComponent
 ],

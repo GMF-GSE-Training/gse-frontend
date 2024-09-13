@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { RoleBasedAccessDirective } from '../../shared/directive/role-based-access.directive';
+// import { RoleBasedAccessDirective } from '../../shared/directive/role-based-access.directive';
 import { AuthService } from '../../shared/service/auth.service';
 
 @Component({
@@ -10,7 +10,7 @@ import { AuthService } from '../../shared/service/auth.service';
   imports: [
     RouterLink,
     CommonModule,
-    RoleBasedAccessDirective,
+    // RoleBasedAccessDirective,
   ],
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.css'

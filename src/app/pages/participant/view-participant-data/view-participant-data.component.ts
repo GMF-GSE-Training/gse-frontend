@@ -1,33 +1,27 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { HeaderComponent } from '../../../components/header/header.component';
-import { WhiteButtonComponent } from '../../../elements/button/white-button/white-button.component';
-import { BlueButtonComponent } from '../../../elements/button/blue-button/blue-button.component';
-import { TableComponent } from "../../../components/table/table.component";
-import { RoleBasedAccessDirective } from '../../../shared/directive/role-based-access.directive';
 import { ParticipantService } from '../../../shared/service/participant.service';
 import { ApiResponse, Participant } from '../../../shared/model/participant.model';
 import { SweetalertService } from '../../../shared/service/sweetaler.service';
 import { FormsModule } from '@angular/forms';
-import { TitleComponent } from "../../../components/title/title.component";
+import { DataManagementComponent } from "../../../layouts/data-management/data-management.component";
 
 @Component({
   selector: 'app-view-participant-data',
   standalone: true,
   imports: [
-    HeaderComponent,
     RouterLink,
-    WhiteButtonComponent,
-    BlueButtonComponent,
-    TableComponent,
-    RoleBasedAccessDirective,
     FormsModule,
-    TitleComponent
+    DataManagementComponent
 ],
   templateUrl: './view-participant-data.component.html',
   styleUrl: './view-participant-data.component.css'
 })
 export class ViewParticipantDataComponent implements OnInit {
+  // Komponen title
+  pageTitle = 'View Participant Data';
+
+  // Komponen tabel
   columns = [
     { header: 'No Pegawai', field: 'no_pegawai' },
     { header: 'Nama', field: 'nama' },
@@ -36,11 +30,12 @@ export class ViewParticipantDataComponent implements OnInit {
     { header: 'Perusahaan', field: 'perusahaan' },
     { header: 'Action', field: 'action' }
   ];
-
   participants: Participant[] = [];
+
+  // Komponen pagination
   currentPage: number = 1;
-  itemsPerPage: number = 10;
   totalPages: number = 1;
+  itemsPerPage: number = 10;
   searchQuery: string = '';
 
   constructor(
@@ -62,6 +57,7 @@ export class ViewParticipantDataComponent implements OnInit {
     if (this.searchQuery) {
       this.participantService.searchParticipant(this.searchQuery, page, size).subscribe((response: ApiResponse) => {
         if (response.code === 200 && response.status === 'OK') {
+          console.log(response);
           this.participants = response.data.map((participant: Participant) => {
             return {
               ...participant,
@@ -125,7 +121,7 @@ export class ViewParticipantDataComponent implements OnInit {
 
       this.participantService.searchParticipant(this.searchQuery, this.currentPage, this.itemsPerPage).subscribe({
         next: (response: ApiResponse) => {
-          if (response && response.code === 200 && response.status === 'OK') {
+          if (response && response.code === 200 && response.status === 'OK') {this.columns
             this.participants = response.data;
             this.totalPages = response.paging.total_page;
             this.router.navigate([], {
@@ -148,29 +144,11 @@ export class ViewParticipantDataComponent implements OnInit {
     }
   }
 
-
-  nextPage(): void {
-    if (this.currentPage < this.totalPages) {
-      this.currentPage++;
-      this.router.navigate([], {
-        relativeTo: this.route,
-        queryParams: { page: this.currentPage },
-        queryParamsHandling: 'merge',
-      });
-      this.loadParticipants(this.currentPage, this.itemsPerPage);
-    }
-  }
-
-  previousPage(): void {
-    if (this.currentPage > 1) {
-      this.currentPage--;
-      this.router.navigate([], {
-        relativeTo: this.route,
-        queryParams: { page: this.currentPage },
-        queryParamsHandling: 'merge',
-      });
-      this.loadParticipants(this.currentPage, this.itemsPerPage);
-    }
+  onPageChanged(page: number): void {
+    this.router.navigate([], {
+      queryParams: { page },
+      queryParamsHandling: 'merge',
+    });
   }
 
   viewAll(): void {
@@ -183,5 +161,4 @@ export class ViewParticipantDataComponent implements OnInit {
     this.searchQuery = '';
     this.loadParticipants(1, this.itemsPerPage);
   }
-
 }

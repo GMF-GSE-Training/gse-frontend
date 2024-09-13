@@ -6,7 +6,6 @@ import { WhiteButtonComponent } from "../../../elements/button/white-button/whit
 import { BlueButtonComponent } from "../../../elements/button/blue-button/blue-button.component";
 import { RouterLink } from '@angular/router';
 import { IconActionComponent } from "../../../components/icon-action/icon-action.component";
-import { RoleBasedAccessDirective } from '../../../shared/directive/role-based-access.directive';
 
 @Component({
   selector: 'app-cot-finish',
@@ -19,7 +18,6 @@ import { RoleBasedAccessDirective } from '../../../shared/directive/role-based-a
     BlueButtonComponent,
     RouterLink,
     IconActionComponent,
-    RoleBasedAccessDirective
 ],
   templateUrl: './cot-finish.component.html',
   styleUrl: './cot-finish.component.css'

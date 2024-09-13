@@ -2,7 +2,6 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { BlueButtonComponent } from "../../../elements/button/blue-button/blue-button.component";
 import { WhiteButtonComponent } from '../../../elements/button/white-button/white-button.component';
-import { RoleBasedAccessDirective } from '../../../shared/directive/role-based-access.directive';
 import { InputTextComponent } from "../../../elements/input/input-text/input-text.component";
 import { UpdateUserRequest } from '../../../shared/model/user.model';
 import { UserService } from '../../../shared/service/user.service';
@@ -19,7 +18,6 @@ import { TitleComponent } from "../../../components/title/title.component";
     RouterLink,
     BlueButtonComponent,
     WhiteButtonComponent,
-    RoleBasedAccessDirective,
     InputTextComponent,
     FormsModule,
     CommonModule,

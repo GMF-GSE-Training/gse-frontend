@@ -26,11 +26,11 @@ export class AuthService {
     return this.http.post<T>(`${this.apiUrl}/${this.endpoint.register}`, request);
   }
 
-  login<T>(request: LoginUserRequest): Observable<any> {
+  login(request: LoginUserRequest): Observable<any> {
     return this.http.post(`${this.apiUrl}/${this.endpoint.login}`, request, { withCredentials: true });
   }
 
-  me<T>(): Observable<any> {
+  me(): Observable<any> {
     return this.http.get(`${this.apiUrl}/${this.endpoint.base}`, { withCredentials: true });
   }
 

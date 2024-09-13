@@ -1,29 +1,6 @@
-<main>
-  <app-title>View Participant Data</app-title>
-
-  <div class="search-container">
-    <form (ngSubmit)="onSearch()">
-      <input [(ngModel)]="searchQuery" name="q" type="text" placeholder="Search Participant Data">
-      <i type="submit" class="fa-solid fa-magnifying-glass"></i>
-    </form>
-  </div>
-
-  <button (click)="viewAll()" class="view-all"><i class="fa-solid fa-arrows-rotate"></i> Tampilkan semua</button>
-
-  <div class="table-container">
-    <app-table [columns]="columns" [data]="participants"></app-table>
-  </div>
-
-  <div class="nav">
-    <div class="nav-pagination">
-      <p (click)="previousPage()" [class.disabled]="currentPage === 1">&lt; Preview</p>
-      <p>{{ currentPage }} / {{ totalPages }}</p>
-      <p (click)="nextPage()" [class.disabled]="currentPage === totalPages">Next &gt;</p>
-    </div>
-  </div>
-
-  <div class="container-button">
-    <app-white-button routerLink="/home">Back</app-white-button>
-    <app-blue-button *appRoleBasedAccess="['Super Admin', 'lcu']" routerLink="/participants/add">Add</app-blue-button>
-  </div>
-</main>
+<app-data-management
+  [pageTitle]="pageTitle"
+  [columns]="columns" [data]="participants"
+  [totalPages]="totalPages" [currentPage]="currentPage"
+  (pageChange)="onPageChanged($event)"
+></app-data-management>
