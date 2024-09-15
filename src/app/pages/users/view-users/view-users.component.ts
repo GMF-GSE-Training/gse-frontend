@@ -9,6 +9,7 @@ import { UserService } from '../../../shared/service/user.service';
 import { SweetalertService } from '../../../shared/service/sweetaler.service';
 import { FormsModule } from '@angular/forms';
 import { TitleComponent } from "../../../components/title/title.component";
+import { DataManagementComponent } from "../../../layouts/data-management/data-management.component";
 
 @Component({
   selector: 'app-view-users',
@@ -20,12 +21,17 @@ import { TitleComponent } from "../../../components/title/title.component";
     BlueButtonComponent,
     TableComponent,
     FormsModule,
-    TitleComponent
+    TitleComponent,
+    DataManagementComponent
 ],
   templateUrl: './view-users.component.html',
   styleUrl: './view-users.component.css'
 })
 export class ViewUsersComponent implements OnInit {
+  // Komponen title
+  pageTitle = 'View Users';
+
+  // Komponen tabel
   columns = [
     { header: 'No Pegawai', field: 'no_pegawai' },
     { header: 'Nama', field: 'name' },
@@ -36,10 +42,15 @@ export class ViewUsersComponent implements OnInit {
   ];
 
   users: User[] = [];
+
+  // Komponen pagination
   currentPage: number = 1;
   itemsPerPage: number = 10;
   totalPages: number = 1;
   searchQuery: string = '';
+
+  // Komponen Search
+  placeHolder: string = 'Search User';
 
   constructor(
     private userService: UserService,
@@ -49,104 +60,105 @@ export class ViewUsersComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.loadParticipants(this.currentPage, this.itemsPerPage);
+    this.route.queryParams.subscribe(params => {
+      this.searchQuery = params['q'] || '';
+      this.currentPage =+ params['page'] || 1;
+      if (this.searchQuery) {
+        this.getSearchUsers(this.searchQuery, this.currentPage, this.itemsPerPage);
+      } else {
+        this.getListUsers(this.currentPage, this.itemsPerPage);
+      }
+    });
   }
 
-  loadParticipants(page: number, size: number): void {
+  getListUsers(page: number, size: number): void {
     this.userService.listUsers(page, size).subscribe((response: ListUserResponse) => {
       if (response.code === 200 && response.status === 'OK') {
-        console.log(response)
+        console.log('List Response', response)
         this.users = response.data.map((user: User) => {
           return {
             ...user,
             no_pegawai: user.no_pegawai ?? '-',
             dinas: user.dinas ?? '-',
-            role: {
-              id: user.role.id,
-              role: user.role.role,
-            },
-            roleName: user.role.role,
             editLink: response.actions.canEdit ? `/users/${user.id}/edit` : null,
-            deleteMethod: response.actions.canDelete ? () => this.deleteUser(user) : null,
+            detailLink: response.actions.canView ? `/users/${user.id}/view` : null,
+            deleteMethod: response.actions.canDelete ? () => this.deleteParticipant(user) : null,
           };
         });
         this.totalPages = response.paging.total_page;
+      } else {
+        this.users = [];
       }
     });
   }
 
-  nextPage(): void {
-    if (this.currentPage < this.totalPages) {
-      this.currentPage++;
-      this.loadParticipants(this.currentPage, this.itemsPerPage);
-    }
-  }
-
-  previousPage(): void {
-    if (this.currentPage > 1) {
-      this.currentPage--;
-      this.loadParticipants(this.currentPage, this.itemsPerPage);
-    }
-  }
-
-  async deleteUser(user: User): Promise<void> {
-    const isConfirmed = await this.sweetalertService.confirm('Anda Yakin?', `Apakah anda ingin menghapus user ini : ${user.name}?`, 'warning', 'Ya, hapus!');
+  async deleteParticipant(user: User): Promise<void> {
+    const isConfirmed = await this.sweetalertService.confirm('Anda Yakin?', `Apakah anda ingin menghapus peserta ini : ${user.no_pegawai}?`, 'warning', 'Ya, hapus!');
     if (isConfirmed) {
       this.userService.deleteUser(user.id).subscribe({
         next: () => {
           this.sweetalertService.alert(isConfirmed, 'Dihapus!', 'Data peserta berhasil dihapus', 'success');
           this.users = this.users.filter(p => p.id !== user.id);
         },
-        error: (error) => {
+        error: () => {
           this.sweetalertService.alert(!isConfirmed, 'Gagal!', 'Gagal menghapus data peserta', 'error');
         }
       });
     }
   }
 
-  onSearch(): void {
-    if (this.searchQuery.trim()) {
-      this.router.navigate([], {
-        relativeTo: this.route,
-        queryParams: { search: this.searchQuery, page: 1 }, // Update URL dengan query parameter
-        queryParamsHandling: 'merge', // Pertahankan parameter lain yang ada
-      });
+  getSearchUsers(query: string, page: number, size: number) {
+    this.userService.searchUser(query, page, size).subscribe((response: ListUserResponse) => {
+      if (response.code === 200 && response.status === 'OK') {
+        console.log('Search Response', response);
+        this.users = response.data.map((user: User) => {
+          return {
+            ...user,
+            no_pegawai: user.no_pegawai ?? '-',
+            dinas: user.dinas ?? '-',
+            editLink: response.actions.canEdit ? `/users/${user.id}/edit` : null,
+            detailLink: response.actions.canView ? `/users/${user.id}/view` : null,
+            deleteMethod: response.actions.canDelete ? () => this.deleteParticipant(user) : null,
+          };
+        });
+        this.totalPages = response.paging.total_page;
+      } else {
+        this.users = [];
+      }
+    });
+  }
 
-      this.userService.searchUser(this.searchQuery, this.currentPage, this.itemsPerPage).subscribe({
-        next: (response: ListUserResponse) => {
-          if (response && response.code === 200 && response.status === 'OK') {
-            this.users = response.data.map((user: User) => {
-              return {
-                ...user,
-                no_pegawai: user.no_pegawai ?? '-',
-                dinas: user.dinas ?? '-',
-                role: {
-                  id: user.role.id,
-                  role: user.role.role,
-                },
-                roleName: user.role.role,
-                editLink: response.actions.canEdit ? `/users/${user.id}/edit` : null,
-                deleteMethod: response.actions.canDelete ? () => this.deleteUser(user) : null,
-              };
-            });
-            this.totalPages = response.paging.total_page;
-            this.router.navigate([], {
-              relativeTo: this.route,
-              queryParams: { search: this.searchQuery, page: 1 },
-              queryParamsHandling: 'merge',
-            })
-          } else {
-            this.users = []; // Kosongkan tabel jika tidak ada hasil
-            this.totalPages = 1; // Reset jumlah halaman
-            this.sweetalertService.alert(false, 'Tidak ditemukan!', 'Peserta tidak ditemukan.', 'warning');
-          }
-        },
-        error: () => {
-          this.users = []; // Kosongkan tabel jika terjadi error
-          this.totalPages = 1; // Reset jumlah halaman
-          this.sweetalertService.alert(false, 'Gagal!', 'Terjadi kesalahan saat mencari peserta.', 'error');
-        }
-      });
-    }
+  onSearchChanged(query: string): void {
+    this.searchQuery = query;
+    this.router.navigate([], {
+      queryParams: { search: query },
+      queryParamsHandling: 'merge',
+    });
+    this.getSearchUsers(query, 1, this.itemsPerPage);
+  }
+
+  onPageChanged(page: number): void {
+    this.router.navigate([], {
+      queryParams: { page },
+      queryParamsHandling: 'merge',
+    });
+  }
+
+  viewAll(): void {
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: { q: null, page: null },
+      queryParamsHandling: 'merge',
+    });
+
+    this.searchQuery = '';
+  }
+
+  onBlueButtonClick() {
+    this.router.navigateByUrl('/users/add');
+  }
+
+  onWhiteButtonClick() {
+    this.router.navigateByUrl('/home');
   }
 }

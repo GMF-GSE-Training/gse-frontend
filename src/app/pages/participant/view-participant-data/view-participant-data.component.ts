@@ -30,6 +30,7 @@ export class ViewParticipantDataComponent implements OnInit {
     { header: 'Perusahaan', field: 'perusahaan' },
     { header: 'Action', field: 'action' }
   ];
+
   participants: Participant[] = [];
 
   // Komponen pagination
