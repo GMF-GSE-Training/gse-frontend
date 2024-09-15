@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { ParticipantService } from '../../../shared/service/participant.service';
-import { ApiResponse, Participant } from '../../../shared/model/participant.model';
+import { ListParticipantsResponse, Participant } from '../../../shared/model/participant.model';
 import { SweetalertService } from '../../../shared/service/sweetaler.service';
 import { FormsModule } from '@angular/forms';
 import { DataManagementComponent } from "../../../layouts/data-management/data-management.component";
@@ -38,6 +38,9 @@ export class ViewParticipantDataComponent implements OnInit {
   itemsPerPage: number = 10;
   searchQuery: string = '';
 
+  // Komponen Search
+  placeHolder: string = 'Search Participant';
+
   constructor(
     private participantService: ParticipantService,
     private sweetalertService: SweetalertService,
@@ -47,53 +50,36 @@ export class ViewParticipantDataComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
-      this.searchQuery = params['search'] || '';
-      this.currentPage = +params['page'] || 1;
-      this.loadParticipants(this.currentPage, this.itemsPerPage);
+      this.searchQuery = params['q'] || '';
+      this.currentPage =+ params['page'] || 1;
+      if (this.searchQuery) {
+        this.getSearchParticipants(this.searchQuery, this.currentPage, this.itemsPerPage);
+      } else {
+        this.getListParticipants(this.currentPage, this.itemsPerPage);
+      }
     });
   }
 
-  loadParticipants(page: number, size: number): void {
-    if (this.searchQuery) {
-      this.participantService.searchParticipant(this.searchQuery, page, size).subscribe((response: ApiResponse) => {
-        if (response.code === 200 && response.status === 'OK') {
-          console.log(response);
-          this.participants = response.data.map((participant: Participant) => {
-            return {
-              ...participant,
-              no_pegawai: participant.no_pegawai ?? '-',
-              dinas: participant.dinas ?? '-',
-              bidang: participant.bidang ?? '-',
-              editLink: `/participants/${participant.id}/edit`,
-              detailLink: `/participants/${participant.id}/view`,
-              deleteMethod: () => this.deleteParticipant(participant)
-            };
-          });
-          this.totalPages = response.paging.total_page;
-        } else {
-          this.participants = [];
-        }
-      });
-    } else {
-      this.participantService.listParticipants(page, size).subscribe((response: ApiResponse) => {
-        if (response.code === 200 && response.status === 'OK') {
-          this.participants = response.data.map((participant: Participant) => {
-            return {
-              ...participant,
-              no_pegawai: participant.no_pegawai ?? '-',
-              dinas: participant.dinas ?? '-',
-              bidang: participant.bidang ?? '-',
-              editLink: `/participants/${participant.id}/edit`,
-              detailLink: `/participants/${participant.id}/view`,
-              deleteMethod: () => this.deleteParticipant(participant)
-            };
-          });
-          this.totalPages = response.paging.total_page;
-        } else {
-          this.participants = [];
-        }
-      });
-    }
+  getListParticipants(page: number, size: number): void {
+    this.participantService.listParticipants(page, size).subscribe((response: ListParticipantsResponse) => {
+      if (response.code === 200 && response.status === 'OK') {
+        console.log('List Response', response)
+        this.participants = response.data.map((participant: Participant) => {
+          return {
+            ...participant,
+            no_pegawai: participant.no_pegawai ?? '-',
+            dinas: participant.dinas ?? '-',
+            bidang: participant.bidang ?? '-',
+            editLink: response.actions.canEdit ? `/participants/${participant.id}/edit` : null,
+            detailLink: response.actions.canView ? `/participants/${participant.id}/view` : null,
+            deleteMethod: response.actions.canDelete ? () => this.deleteParticipant(participant) : null,
+          };
+        });
+        this.totalPages = response.paging.total_page;
+      } else {
+        this.participants = [];
+      }
+    });
   }
 
   async deleteParticipant(participant: Participant): Promise<void> {
@@ -111,37 +97,35 @@ export class ViewParticipantDataComponent implements OnInit {
     }
   }
 
-  onSearch(): void {
-    if (this.searchQuery.trim()) {
-      this.router.navigate([], {
-        relativeTo: this.route,
-        queryParams: { search: this.searchQuery, page: 1 }, // Update URL dengan query parameter
-        queryParamsHandling: 'merge', // Pertahankan parameter lain yang ada
-      });
+  getSearchParticipants(query: string, page: number, size: number) {
+    this.participantService.searchParticipant(query, page, size).subscribe((response: ListParticipantsResponse) => {
+      if (response.code === 200 && response.status === 'OK') {
+        console.log('Search Response', response);
+        this.participants = response.data.map((participant: Participant) => {
+          return {
+            ...participant,
+            no_pegawai: participant.no_pegawai ?? '-',
+            dinas: participant.dinas ?? '-',
+            bidang: participant.bidang ?? '-',
+            editLink: response.actions.canEdit ? `/participants/${participant.id}/edit` : null,
+            detailLink: response.actions.canView ? `/participants/${participant.id}/view` : null,
+            deleteMethod: response.actions.canDelete ? () => this.deleteParticipant(participant) : null,
+          };
+        });
+        this.totalPages = response.paging.total_page;
+      } else {
+        this.participants = [];
+      }
+    });
+  }
 
-      this.participantService.searchParticipant(this.searchQuery, this.currentPage, this.itemsPerPage).subscribe({
-        next: (response: ApiResponse) => {
-          if (response && response.code === 200 && response.status === 'OK') {this.columns
-            this.participants = response.data;
-            this.totalPages = response.paging.total_page;
-            this.router.navigate([], {
-              relativeTo: this.route,
-              queryParams: { search: this.searchQuery, page: 1 },
-              queryParamsHandling: 'merge',
-            })
-          } else {
-            this.participants = []; // Kosongkan tabel jika tidak ada hasil
-            this.totalPages = 1; // Reset jumlah halaman
-            this.sweetalertService.alert(false, 'Tidak ditemukan!', 'Peserta tidak ditemukan.', 'warning');
-          }
-        },
-        error: () => {
-          this.participants = []; // Kosongkan tabel jika terjadi error
-          this.totalPages = 1; // Reset jumlah halaman
-          this.sweetalertService.alert(false, 'Gagal!', 'Terjadi kesalahan saat mencari peserta.', 'error');
-        }
-      });
-    }
+  onSearchChanged(query: string): void {
+    this.searchQuery = query;
+    this.router.navigate([], {
+      queryParams: { search: query },
+      queryParamsHandling: 'merge',
+    });
+    this.getSearchParticipants(query, 1, this.itemsPerPage);
   }
 
   onPageChanged(page: number): void {
@@ -154,11 +138,18 @@ export class ViewParticipantDataComponent implements OnInit {
   viewAll(): void {
     this.router.navigate([], {
       relativeTo: this.route,
-      queryParams: { search: null, page: 1 },
+      queryParams: { q: null, page: null },
       queryParamsHandling: 'merge',
     });
 
     this.searchQuery = '';
-    this.loadParticipants(1, this.itemsPerPage);
+  }
+
+  onBlueButtonClick() {
+    this.router.navigateByUrl('/participants/add');
+  }
+
+  onWhiteButtonClick() {
+    this.router.navigateByUrl('/home');
   }
 }

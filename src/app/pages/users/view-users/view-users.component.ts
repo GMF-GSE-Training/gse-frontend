@@ -55,6 +55,7 @@ export class ViewUsersComponent implements OnInit {
   loadParticipants(page: number, size: number): void {
     this.userService.listUsers(page, size).subscribe((response: ListUserResponse) => {
       if (response.code === 200 && response.status === 'OK') {
+        console.log(response)
         this.users = response.data.map((user: User) => {
           return {
             ...user,
@@ -65,13 +66,12 @@ export class ViewUsersComponent implements OnInit {
               role: user.role.role,
             },
             roleName: user.role.role,
-            editLink: `/users/${user.id}/edit`,
-            deleteMethod: () => this.deleteUser(user)
+            editLink: response.actions.canEdit ? `/users/${user.id}/edit` : null,
+            deleteMethod: response.actions.canDelete ? () => this.deleteUser(user) : null,
           };
         });
         this.totalPages = response.paging.total_page;
       }
-      console.log(this.users);
     });
   }
 
@@ -92,14 +92,12 @@ export class ViewUsersComponent implements OnInit {
   async deleteUser(user: User): Promise<void> {
     const isConfirmed = await this.sweetalertService.confirm('Anda Yakin?', `Apakah anda ingin menghapus user ini : ${user.name}?`, 'warning', 'Ya, hapus!');
     if (isConfirmed) {
-      console.log(user.id)
       this.userService.deleteUser(user.id).subscribe({
         next: () => {
           this.sweetalertService.alert(isConfirmed, 'Dihapus!', 'Data peserta berhasil dihapus', 'success');
           this.users = this.users.filter(p => p.id !== user.id);
         },
         error: (error) => {
-          console.log(error)
           this.sweetalertService.alert(!isConfirmed, 'Gagal!', 'Gagal menghapus data peserta', 'error');
         }
       });
@@ -127,8 +125,8 @@ export class ViewUsersComponent implements OnInit {
                   role: user.role.role,
                 },
                 roleName: user.role.role,
-                editLink: `/users/${user.id}/edit`,
-                deleteMethod: () => this.deleteUser(user)
+                editLink: response.actions.canEdit ? `/users/${user.id}/edit` : null,
+                deleteMethod: response.actions.canDelete ? () => this.deleteUser(user) : null,
               };
             });
             this.totalPages = response.paging.total_page;

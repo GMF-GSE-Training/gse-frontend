@@ -28,3 +28,8 @@ i {
   margin-top: 7px;
   cursor: pointer;
 }
+
+button:active i {
+  transition: transform 0.3s ease, color 0.3s ease;
+  transform: rotate(180deg);  
+}

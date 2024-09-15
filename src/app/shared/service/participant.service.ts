@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { environment } from "../../../environments/environment.development";
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
-import { ApiResponse, Participant } from "../model/participant.model";
+import { ListParticipantsResponse, Participant } from "../model/participant.model";
 
 @Injectable({
   providedIn: 'root',
@@ -29,8 +29,8 @@ export class ParticipantService {
     return this.http.delete<Participant>(`${this.apiUrl}/${this.endpoints.base}/${id}`, { withCredentials: true });
   }
 
-  listParticipants(page: number = 1, size: number = 10): Observable<ApiResponse> {
-    return this.http.get<ApiResponse>(`${this.apiUrl}/${this.endpoints.list}?page=${page}&size=${size}`, { withCredentials: true });
+  listParticipants(page: number = 1, size: number = 10): Observable<ListParticipantsResponse> {
+    return this.http.get<ListParticipantsResponse>(`${this.apiUrl}/${this.endpoints.list}?page=${page}&size=${size}`, { withCredentials: true });
   }
 
   getFile({ id }: { id: string; }, fileName: string): Observable<{ data: string }> {
@@ -59,8 +59,8 @@ export class ParticipantService {
       });
   }
 
-  searchParticipant(q: string, page: number = 1, size: number = 10): Observable<ApiResponse> {
-    return this.http.get<ApiResponse>(
+  searchParticipant(q: string, page: number = 1, size: number = 10): Observable<ListParticipantsResponse> {
+    return this.http.get<ListParticipantsResponse>(
       `${this.apiUrl}/${this.endpoints.search}?q=${q}&page=${page}&size=${size}`,
       { withCredentials: true }
     );

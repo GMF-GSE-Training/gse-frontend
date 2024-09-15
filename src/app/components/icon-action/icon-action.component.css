@@ -4,6 +4,7 @@ div {
   gap: 25px;
 }
 
-i {
+i:hover {
   cursor: pointer;
+  color: #02507E;
 }

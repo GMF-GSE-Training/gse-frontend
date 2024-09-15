@@ -1,7 +1,10 @@
 <div class="search-container">
     <form (submit)="onSearch(inputElement.value)">
-      <input #inputElement name="q" type="text" [placeholder]="placeHolder">
-      <i type="submit" class="fa-solid fa-magnifying-glass"></i>
+      <input
+        #inputElement
+        name="q"
+        type="text"
+        [placeholder]="placeHolder">
+      <button type="submit" class="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
     </form>
-  </div>
-
+</div>

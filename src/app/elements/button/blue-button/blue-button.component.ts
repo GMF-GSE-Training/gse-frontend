@@ -10,9 +10,9 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 export class BlueButtonComponent {
   @Input() type: string = 'button';
   @Input() disabled: boolean = false;
-  @Output() buttonClick = new EventEmitter<void>();
+  @Output() blueButtonClick = new EventEmitter<void>();
 
-  onClick() {
-    this.buttonClick.emit();
+  onBlueButtonClick() {
+    this.blueButtonClick.emit();
   }
 }

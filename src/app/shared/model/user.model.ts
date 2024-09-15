@@ -42,20 +42,23 @@ export interface User {
   roleName: string;
 }
 
-export interface Paging {
+type Paging = {
   current_page: number;
   total_page: number;
   size: number;
-  links: {
-    next: string | null;
-    prev: string | null;
-  };
+}
+
+type ActionAccessRigts = {
+  canEdit: boolean;
+  canDelete: boolean;
+  canView: boolean;
 }
 
 export interface ListUserResponse {
   code: number;
   status: string;
   data: User[];
+  actions: ActionAccessRigts,
   paging: Paging;
 }
 

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-white-button',
@@ -8,5 +8,9 @@ import { Component } from '@angular/core';
   styleUrl: './white-button.component.css'
 })
 export class WhiteButtonComponent {
+  @Output() whiteButtonClick = new EventEmitter<void>();
 
+  onWhiteButtonClick() {
+    this.whiteButtonClick.emit();
+  }
 }

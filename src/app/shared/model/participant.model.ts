@@ -2,34 +2,26 @@ export interface Participant {
   id: string;
   no_pegawai?: string;
   nama: string;
-  nik: string;
+  nik?: string;
   dinas?: string;
   bidang?: string;
   perusahaan: string;
   email: string;
   no_telp: string;
-  negara: string;
-  tempat_lahir: string;
-  tanggal_lahir: string;
-  sim_a: string | File | null;
-  sim_b: string | File | null;
-  ktp: string | File | null;
-  foto: string | File | null;
-  surat_sehat_buta_warna: string | File | null;
-  exp_surat_sehat: string;
-  surat_bebas_narkoba: string | File | null;
-  exp_bebas_narkoba: string;
+  negara?: string;
+  tempat_lahir?: string;
+  tanggal_lahir?: string;
+  sim_a?: string | File | null;
+  sim_b?: string | File | null;
+  ktp?: string | File | null;
+  foto?: string | File | null;
+  surat_sehat_buta_warna?: string | File | null;
+  exp_surat_sehat?: string;
+  surat_bebas_narkoba?: string | File | null;
+  exp_bebas_narkoba?: string;
   link_qr_code?: string;
   qr_code?: string | File;
   gmf_non_gmf?: string;
-  link?: {
-    self: string;
-    update: string;
-    delete: string;
-  };
-  editLink?: string;
-  detailLink?: string;
-  delete?: () => any;
 }
 
 export interface CreateParticipantModel {
@@ -79,19 +71,28 @@ export interface UpdateParticipantModel {
   gmf_non_gmf?: string;
 }
 
-export interface Paging {
+type ActionAccessRigts = {
+  canEdit: boolean;
+  canDelete: boolean;
+  canView: boolean;
+}
+
+type Paging = {
   current_page: number;
   total_page: number;
   size: number;
-  links: {
-    next: string | null;
-    prev: string | null;
-  };
 }
 
-export interface ApiResponse {
+export interface ListParticipantsResponse {
   code: number;
   status: string;
-  data: Participant[];
+  data: Participant[],
+  actions: ActionAccessRigts,
   paging: Paging;
+}
+
+export interface ParticipantResponse {
+  code: number;
+  status: string;
+  data: Participant;
 }

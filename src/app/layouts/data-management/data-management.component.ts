@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { TitleComponent } from "../../components/title/title.component";
 import { SearchComponent } from "../../components/search/search.component";
-import { ViewAllComponent } from "../../elements/view-all/view-all.component";
+import { ViewAllComponent } from "../../components/view-all/view-all.component";
 import { TableComponent } from "../../components/table/table.component";
 import { WhiteButtonComponent } from "../../elements/button/white-button/white-button.component";
 import { BlueButtonComponent } from "../../elements/button/blue-button/blue-button.component";
@@ -39,5 +39,34 @@ export class DataManagementComponent {
     if (typeof page === 'number' && page !== this.currentPage) {
       this.pageChange.emit(page);
     }
+  }
+
+  // Komponen search
+  @Input() placeHolder: string = '';
+  @Output() searchChange = new EventEmitter<string>();
+
+  onSearchChanged(query: string) {
+    this.searchChange.emit(query);
+  }
+
+  // Komponen view all
+  @Output() viewAllChange = new EventEmitter();
+
+  viewAll() {
+    this.viewAllChange.emit();
+  }
+
+  // Komponen blue button
+  @Output() blueButtonClick = new EventEmitter<void>();
+
+  onBlueButtonClick() {
+    this.blueButtonClick.emit();
+  }
+
+  // Komponen white button
+  @Output() whiteButtonClick = new EventEmitter<void>();
+
+  onWhiteButtonClick() {
+    this.whiteButtonClick.emit();
   }
 }

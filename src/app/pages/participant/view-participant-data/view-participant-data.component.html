@@ -1,6 +1,9 @@
 <app-data-management
   [pageTitle]="pageTitle"
   [columns]="columns" [data]="participants"
-  [totalPages]="totalPages" [currentPage]="currentPage"
-  (pageChange)="onPageChanged($event)"
+  [totalPages]="totalPages" [currentPage]="currentPage" (pageChange)="onPageChanged($event)"
+  [placeHolder]="placeHolder" (searchChange)="onSearchChanged($event)"
+  (viewAllChange)="viewAll()"
+  (whiteButtonClick)="onWhiteButtonClick()"
+  (blueButtonClick)="onBlueButtonClick()"
 ></app-data-management>

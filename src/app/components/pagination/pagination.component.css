@@ -18,16 +18,10 @@
 }
 
 .page-link:hover {
+  cursor: pointer;
   color: #02507E;
   text-decoration: underline;
-  background-color: #e9ecef;
-  border-color: #dee2e6;
-}
-
-.item:focus {
-  color: #02507E;
-  text-decoration: underline;
-  background-color: #e9ecef;
+  background-color: #d8dadb;
   border-color: #dee2e6;
 }
 
@@ -41,7 +35,9 @@
 
 .page-item.active .page-link {
   z-index: 1;
-  color: #fff;
-  background-color: #007bff;
+  background-color: #02507E;
   border-color: #007bff;
+  color: #fff;
+  text-decoration: underline;
+  border-color: #dee2e6;
 }

@@ -2,8 +2,11 @@
   <app-title [pageTitle]="pageTitle"></app-title>
 
   <div class="search-container">
-    <app-search placeHolder="Search Participant"></app-search>
-    <app-view-all></app-view-all>
+    <app-search
+      [placeHolder]="placeHolder"
+      (searchChange)="onSearchChanged($event)">
+    </app-search>
+    <app-view-all (viewAllChange)="viewAll()"></app-view-all>
   </div>
 
   <div class="table-container">
@@ -20,7 +23,7 @@
   </app-pagination>
 
   <div class="container-button">
-    <app-white-button routerLink="/home">Back</app-white-button>
-    <app-blue-button routerLink="/participants/add">Add</app-blue-button>
+    <app-white-button (whiteButtonClick)="onWhiteButtonClick()">Back</app-white-button>
+    <app-blue-button (blueButtonClick)="onBlueButtonClick()">Add</app-blue-button>
   </div>
 </main>

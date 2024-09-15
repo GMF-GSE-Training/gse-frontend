@@ -7,18 +7,28 @@ form input {
 }
 
 i {
-  font-size: 30px;
-  position: absolute;
-  margin-left: -45px;
-  margin-top: 7px;
-  cursor: pointer;
-}
-
-i:hover {
-  cursor: pointer;
+  margin-top: 4px;
+  margin-right: 4px;
+  margin-left: 4px;
   color: #02507E;
 }
 
-i:active {
+.submit {
+  font-size: 30px;
+  position: absolute;
+  margin-left: -47px;
+  margin-top: 3px;
+  border-radius: 10px;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+.submit:hover {
+  cursor: pointer;
+  background-color: #d8dadb;
+}
+
+.submit:active {
   color: grey;
 }
