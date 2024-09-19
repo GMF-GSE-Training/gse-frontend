@@ -3,32 +3,13 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 25px;
+  gap: 20px;
+  border: 2px solid red;
+  width: 50%;
 }
 
-app-input-text {
-  width: 400px;
-}
-
-.register-form input {
-  font-size: 20px;
-  font-family: 'Petrona', sans-serif;
-  font-weight: bold;
-  padding-left: 50px;
-}
-
-#username {
-  border: none;
-  outline: none;
-  border-bottom: 2px solid #000;
-
-}
-
-#password {
-  border: none;
-  outline: none;
-  border-bottom: 2px solid #000;
-  width: 400px;
+app-base-input {
+  width: 100%;
 }
 
 .isRegistered {

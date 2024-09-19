@@ -32,17 +32,17 @@ i {
 }
 
 .user-icon {
-  top: 260px;
+  top: 255px;
   right: 680px;
 }
 
 .pass-icon {
-  bottom: 262px;
+  bottom: 268px;
   right: 680px;
 }
 
 .fa-eye, .fa-slash {
-  bottom: 262px;
+  bottom: 268px;
   right: 270px;
   cursor: pointer;
 }

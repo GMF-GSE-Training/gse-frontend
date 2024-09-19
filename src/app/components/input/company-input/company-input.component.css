@@ -15,7 +15,7 @@ select, input {
   align-items: center;
   border-radius: 25px;
   overflow: hidden;
-  width: calc(100% - 10px);
+  width: calc(100%);
   margin-top: 5px;
   border: 3px solid #ccc;
   height: 40px;
