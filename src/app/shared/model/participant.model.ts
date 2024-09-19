@@ -2,23 +2,23 @@ export interface Participant {
   id: string;
   no_pegawai?: string;
   nama: string;
-  nik?: string;
+  nik: string;
   dinas?: string;
   bidang?: string;
   perusahaan: string;
   email: string;
   no_telp: string;
-  negara?: string;
-  tempat_lahir?: string;
-  tanggal_lahir?: string;
-  sim_a?: string | File | null;
-  sim_b?: string | File | null;
-  ktp?: string | File | null;
-  foto?: string | File | null;
-  surat_sehat_buta_warna?: string | File | null;
-  exp_surat_sehat?: string;
-  surat_bebas_narkoba?: string | File | null;
-  exp_bebas_narkoba?: string;
+  negara: string;
+  tempat_lahir: string;
+  tanggal_lahir: string;
+  sim_a: File | string | null;
+  sim_b: File | string | null;
+  ktp: File | string | null;
+  foto: File | string | null;
+  surat_sehat_buta_warna: File | string | null;
+  exp_surat_sehat: string;
+  surat_bebas_narkoba: File | string | null;
+  exp_bebas_narkoba: string;
   link_qr_code?: string;
   qr_code?: string | File;
   gmf_non_gmf?: string;
@@ -94,4 +94,16 @@ export interface ParticipantResponse {
   code: number;
   status: string;
   data: Participant;
+}
+
+export interface DeleteParticipant {
+  code: number;
+  status: string;
+  data: boolean;
+}
+
+export interface FileResponse {
+  code: number;
+  status: string;
+  data: string;
 }
