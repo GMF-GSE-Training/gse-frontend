@@ -81,7 +81,6 @@ export class ViewUsersComponent implements OnInit {
             dinas: user.dinas ?? '-',
             roleName: user.role.role,
             editLink: response.actions.canEdit ? `/users/${user.id}/edit` : null,
-            detailLink: response.actions.canView ? `/users/${user.id}/view` : null,
             deleteMethod: response.actions.canDelete ? () => this.deleteParticipant(user) : null,
           };
         });
