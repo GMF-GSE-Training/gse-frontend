@@ -29,6 +29,7 @@ import { AddCurriculumComponent } from './pages/curriculum-syllabus/add-curricul
 import { RegisterComponent } from './pages/register/register.component';
 import { authGuard } from './shared/guard/auth.guard';
 import { DisplayFilesComponent } from './pages/participant/display-files/display-files.component';
+import { guestGuard } from './shared/guard/guest.guard';
 
 export const routes: Routes = [
   {
@@ -38,11 +39,13 @@ export const routes: Routes = [
   },
   {
     path: 'login',
-    component: LoginComponent
+    component: LoginComponent,
+    canActivate: [guestGuard],
   },
   {
     path: 'register',
-    component: RegisterComponent
+    component: RegisterComponent,
+    canActivate: [guestGuard],
   },
   {
     path: 'home',
