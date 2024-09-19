@@ -3,7 +3,7 @@
     <p>{{ message }}</p>
   </div>
   <form class="login-form" (submit)="login()">
-    <app-title>Login Account</app-title>
+    <app-title pageTitle="Login Account"></app-title>
     <i class="fa-solid fa-user user-icon"></i>
     <input [(ngModel)]="loginRequest.identifier" type="username" id="username" name="username" placeholder="No Pegawai or Email">
     <i class="fa-solid fa-lock pass-icon"></i>
