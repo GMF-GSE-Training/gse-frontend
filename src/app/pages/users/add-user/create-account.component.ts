@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { BlueButtonComponent } from "../../../components/button/blue-button/blue-button.component";
 import { Router, RouterLink } from '@angular/router';
 import { WhiteButtonComponent } from '../../../components/button/white-button/white-button.component';
-import { LoginRegisterComponent } from "../../../components/login-register/login-register.component";
+import { AuthComponent } from "../../../components/auth/auth.component";
 import { InputRoleNikComponent } from "../../../components/input/input-role-nik/input-role-nik.component";
 import { CreateUserRequest } from '../../../shared/model/user.model';
 import { UserService } from '../../../shared/service/user.service';
@@ -18,7 +18,7 @@ import { BaseInputComponent } from '../../../components/input/base-input/base-in
     BlueButtonComponent,
     RouterLink,
     WhiteButtonComponent,
-    LoginRegisterComponent,
+    AuthComponent,
     BaseInputComponent,
     InputRoleNikComponent,
     FormsModule,

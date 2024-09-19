@@ -1,4 +1,4 @@
-<app-login-register>
+<app-auth>
   <form class="register-form">
     <app-title>Register Account</app-title>
     <div *ngIf="registerError" class="error-message">
@@ -13,4 +13,4 @@
     <p class="isRegistered">Sudah punya akun? <a routerLink="/">Login</a></p>
     <app-blue-button (buttonClick)="onRegister()">Register</app-blue-button>
   </form>
-</app-login-register>
+</app-auth>

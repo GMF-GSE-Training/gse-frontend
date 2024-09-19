@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { BlueButtonComponent } from '../../components/button/blue-button/blue-button.component';
-import { LoginRegisterComponent } from "../../components/login-register/login-register.component";
+import { AuthComponent } from "../../components/auth/auth.component";
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
 import { LoginUserRequest } from '../../shared/model/auth.model';
@@ -14,7 +14,7 @@ import { TitleComponent } from "../../components/title/title.component";
   standalone: true,
   imports: [
     BlueButtonComponent,
-    LoginRegisterComponent,
+    AuthComponent,
     CommonModule,
     HttpClientModule,
     FormsModule,
