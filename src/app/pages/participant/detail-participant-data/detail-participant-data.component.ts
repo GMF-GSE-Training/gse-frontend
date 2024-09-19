@@ -5,7 +5,7 @@ import { BlueButtonComponent } from '../../../components/button/blue-button/blue
 import { DetailedViewComponent } from "../../../components/detailed-view/detailed-view.component";
 import { TableComponent } from "../../../components/table/table.component";
 import { ParticipantService } from '../../../shared/service/participant.service';
-import { Participant } from '../../../shared/model/participant.model';
+import { Participant, ParticipantResponse } from '../../../shared/model/participant.model';
 import { map } from 'rxjs/operators';
 
 @Component({
@@ -49,33 +49,38 @@ export class DetailParticipantDataComponent implements OnInit {
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
-      this.participantService.getParticipantById(id).subscribe(response => {
-        if (response.status === 'OK' && response.code === 200) {
-          this.participant = response.data;
+      this.participantService.getParticipantById(id).subscribe({
+        next: (response) => {
+          if (response.status === 'OK' && response.code === 200) {
+            this.participant = response.data;
 
-          this.leftTableData = [
-            { label: 'Nama Peserta', value: this.participant!.nama },
-            { label: 'Dinas', value: this.participant?.dinas ?? '-'},
-            { label: 'Bidang', value: this.participant?.bidang ?? '-' },
-            { label: 'Perusahaan', value: this.participant!.perusahaan },
-            { label: 'Email', value: this.participant!.email },
-            { label: 'No Telp', value: this.participant!.no_telp }
-          ];
+            this.leftTableData = [
+              { label: 'Nama Peserta', value: this.participant!.nama },
+              { label: 'Dinas', value: this.participant?.dinas ?? '-'},
+              { label: 'Bidang', value: this.participant?.bidang ?? '-' },
+              { label: 'Perusahaan', value: this.participant!.perusahaan },
+              { label: 'Email', value: this.participant!.email },
+              { label: 'No Telp', value: this.participant!.no_telp }
+            ];
 
-          this.rightTableData = [
-            { label: 'Tempat Lahir', value: this.participant!.tempat_lahir },
-            { label: 'Tanggal Lahir', value: this.participant!.tanggal_lahir },
-            { label: 'SIM A', value: '-', link: `/participants/${this.participant!.id}/sim-a` },
-            { label: 'SIM B', value: '-', link: `/participants/${this.participant!.id}/sim-b` },
-            { label: 'KTP', value: '-', link: `/participants/${this.participant!.id}/ktp` },
-            { label: 'Ket Sehat & Buta Warna', value: '-', link: `/participants/${this.participant!.id}/surat-sehat-buta-warna` },
-            { label: 'Ket Bebas Narkoba', value: '-', link: `/participants/${this.participant!.id}/surat-bebas-narkoba` },
-          ];
+            this.rightTableData = [
+              { label: 'Tempat Lahir', value: this.participant!.tempat_lahir },
+              { label: 'Tanggal Lahir', value: this.participant!.tanggal_lahir },
+              { label: 'SIM A', value: '-', link: `/participants/${this.participant!.id}/sim-a` },
+              { label: 'SIM B', value: '-', link: `/participants/${this.participant!.id}/sim-b` },
+              { label: 'KTP', value: '-', link: `/participants/${this.participant!.id}/ktp` },
+              { label: 'Ket Sehat & Buta Warna', value: '-', link: `/participants/${this.participant!.id}/surat-sehat-buta-warna` },
+              { label: 'Ket Bebas Narkoba', value: '-', link: `/participants/${this.participant!.id}/surat-bebas-narkoba` },
+            ];
 
-          this.getFoto(this.participant!.id);
-          this.getQrCode(this.participant!.id);
-        } else {
-          console.error('Failed to load participant data');
+            this.getFoto(this.participant!.id);
+            this.getQrCode(this.participant!.id);
+          } else {
+            console.error('Failed to load participant data');
+          }
+        },
+        error: (error) => {
+          console.log(error);
         }
       });
     }
@@ -83,7 +88,7 @@ export class DetailParticipantDataComponent implements OnInit {
 
   getFoto(id: string): void {
     this.participantService.getFoto(id).pipe(
-      map(response => response.data)
+      map((response) => response.data)
     ).subscribe((foto: string) => {
       this.foto = foto;
     });
