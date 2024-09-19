@@ -1,16 +1,15 @@
 import { Component } from '@angular/core';
-import { BlueButtonComponent } from "../../../elements/button/blue-button/blue-button.component";
+import { BlueButtonComponent } from "../../../components/button/blue-button/blue-button.component";
 import { Router, RouterLink } from '@angular/router';
-import { WhiteButtonComponent } from '../../../elements/button/white-button/white-button.component';
+import { WhiteButtonComponent } from '../../../components/button/white-button/white-button.component';
 import { LoginRegisterComponent } from "../../../components/login-register/login-register.component";
-import { InputTextComponent } from "../../../elements/input/input-text/input-text.component";
-import { InputRoleNikComponent } from "../../../elements/input/input-role-nik/input-role-nik.component";
+import { InputRoleNikComponent } from "../../../components/input/input-role-nik/input-role-nik.component";
 import { CreateUserRequest } from '../../../shared/model/user.model';
 import { UserService } from '../../../shared/service/user.service';
-import { RoleService } from '../../../shared/service/role.service';
 import { FormsModule } from '@angular/forms';
 import { SweetalertService } from '../../../shared/service/sweetaler.service';
 import { TitleComponent } from "../../../components/title/title.component";
+import { BaseInputComponent } from '../../../components/input/base-input/base-input.component';
 
 @Component({
   selector: 'app-add-user',
@@ -20,7 +19,7 @@ import { TitleComponent } from "../../../components/title/title.component";
     RouterLink,
     WhiteButtonComponent,
     LoginRegisterComponent,
-    InputTextComponent,
+    BaseInputComponent,
     InputRoleNikComponent,
     FormsModule,
     TitleComponent

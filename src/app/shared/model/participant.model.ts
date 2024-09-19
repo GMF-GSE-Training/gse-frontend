@@ -24,12 +24,34 @@ export interface Participant {
   gmf_non_gmf?: string;
 }
 
-export interface CreateParticipantModel {
-  no_pegawai: string;
+export interface UpdateParticipant {
+  no_pegawai?: string | null;
   nama: string;
   nik: string;
-  dinas: string;
-  bidang: string;
+  dinas?: string | null;
+  bidang?: string | null;
+  perusahaan: string;
+  email: string;
+  no_telp: string;
+  negara: string;
+  tempat_lahir: string;
+  tanggal_lahir: string;
+  sim_a: File | string | null;
+  sim_b: File | string | null;
+  ktp: File | string | null;
+  foto: File | string | null;
+  surat_sehat_buta_warna: File | string | null;
+  surat_bebas_narkoba: File | string |null;
+  exp_surat_sehat: string;
+  exp_bebas_narkoba: string;
+}
+
+export interface CreateParticipant {
+  no_pegawai?: string | null;
+  nama: string;
+  nik: string;
+  dinas?: string | null;
+  bidang?: string | null;
   perusahaan: string;
   email: string;
   no_telp: string;
@@ -45,29 +67,6 @@ export interface CreateParticipantModel {
   exp_surat_sehat: string;
   exp_bebas_narkoba: string;
   link_qr_code: string;
-  gmf_non_gmf: string;
-}
-
-export interface UpdateParticipantModel {
-  no_pegawai?: string | null;
-  nama?: string;
-  nik?: string;
-  dinas?: string | null;
-  bidang?: string | null;
-  perusahaan?: string;
-  email?: string;
-  no_telp?: string;
-  negara?: string;
-  tempat_lahir?: string;
-  tanggal_lahir?: string;
-  sim_a?: File | null;
-  sim_b?: File | null;
-  ktp?: File | null;
-  foto?: File | null;
-  surat_sehat_buta_warna?: File | null;
-  surat_bebas_narkoba?: File | null;
-  exp_surat_sehat?: string;
-  exp_bebas_narkoba?: string;
   gmf_non_gmf?: string;
 }
 

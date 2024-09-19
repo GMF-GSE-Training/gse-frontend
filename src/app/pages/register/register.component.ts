@@ -1,15 +1,14 @@
 import { Component } from '@angular/core';
-import { BlueButtonComponent } from "../../elements/button/blue-button/blue-button.component";
+import { BlueButtonComponent } from "../../components/button/blue-button/blue-button.component";
 import { LoginRegisterComponent } from "../../components/login-register/login-register.component";
 import { Router, RouterLink } from '@angular/router';
-import { InputTextComponent } from "../../elements/input/input-text/input-text.component";
-import { UserService } from '../../shared/service/user.service';
 import { RegisterUserRequest } from '../../shared/model/user.model';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../shared/service/auth.service';
 import { TitleComponent } from "../../components/title/title.component";
+import { BaseInputComponent } from '../../components/input/base-input/base-input.component';
 
 @Component({
   selector: 'app-register',
@@ -18,7 +17,7 @@ import { TitleComponent } from "../../components/title/title.component";
     BlueButtonComponent,
     LoginRegisterComponent,
     RouterLink,
-    InputTextComponent,
+    BaseInputComponent,
     FormsModule,
     CommonModule,
     HttpClientModule,

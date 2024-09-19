@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { HeaderComponent } from '../../../components/header/header.component';
-import { WhiteButtonComponent } from '../../../elements/button/white-button/white-button.component';
-import { BlueButtonComponent } from '../../../elements/button/blue-button/blue-button.component';
+import { WhiteButtonComponent } from '../../../components/button/white-button/white-button.component';
+import { BlueButtonComponent } from '../../../components/button/blue-button/blue-button.component';
 import { TableComponent } from "../../../components/table/table.component";
 import { ListUserResponse, User, UserResponse } from '../../../shared/model/user.model';
 import { UserService } from '../../../shared/service/user.service';
@@ -25,7 +25,6 @@ import { DataManagementComponent } from "../../../layouts/data-management/data-m
     DataManagementComponent
 ],
   templateUrl: './view-users.component.html',
-  styleUrl: './view-users.component.css'
 })
 export class ViewUsersComponent implements OnInit {
   // Komponen title

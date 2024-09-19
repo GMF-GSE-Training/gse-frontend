@@ -1,0 +1,10 @@
+<label>{{ label }}</label>
+
+<input
+  [type]="type"
+  [inputMode]="inputMode"
+  [placeholder]="placeholder"
+  [name]="name"
+  [(ngModel)]="value"
+  (input)="onValueChange()"
+/>

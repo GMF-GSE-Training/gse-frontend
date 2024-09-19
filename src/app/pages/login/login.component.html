@@ -2,7 +2,7 @@
   <div *ngIf="loginError" class="error-message">
     <p>{{ message }}</p>
   </div>
-  <form class="login-form">
+  <form class="login-form" (submit)="login()">
     <app-title>Login Account</app-title>
     <i class="fa-solid fa-user user-icon"></i>
     <input [(ngModel)]="loginRequest.identifier" type="username" id="username" name="username" placeholder="No Pegawai or Email">
@@ -15,6 +15,6 @@
     <input [(ngModel)]="loginRequest.password" [type]="isPassVisible ? 'password' : 'text'" name="password" id="password" placeholder="Password">
     <a routerLink="" class="forgotPassword">Lupa password?</a>
     <p class="isRegistered">Belum punya akun? <a routerLink="/register">Register</a></p>
-    <app-blue-button (click)="login()">Login</app-blue-button>
+    <app-blue-button label="Login" [type]="'submit'"></app-blue-button>
   </form>
 </app-login-register>

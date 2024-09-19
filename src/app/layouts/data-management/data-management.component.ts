@@ -3,8 +3,8 @@ import { TitleComponent } from "../../components/title/title.component";
 import { SearchComponent } from "../../components/search/search.component";
 import { ViewAllComponent } from "../../components/view-all/view-all.component";
 import { TableComponent } from "../../components/table/table.component";
-import { WhiteButtonComponent } from "../../elements/button/white-button/white-button.component";
-import { BlueButtonComponent } from "../../elements/button/blue-button/blue-button.component";
+import { WhiteButtonComponent } from "../../components/button/white-button/white-button.component";
+import { BlueButtonComponent } from "../../components/button/blue-button/blue-button.component";
 import { PaginationComponent } from "../../components/pagination/pagination.component";
 
 @Component({

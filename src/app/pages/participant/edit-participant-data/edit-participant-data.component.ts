@@ -1,46 +1,44 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { InputDateComponent } from "../../../elements/input/input-date/input-date.component";
-import { InputFileComponent } from "../../../elements/input/input-file/input-file.component";
-import { WhiteButtonComponent } from "../../../elements/button/white-button/white-button.component";
-import { BlueButtonComponent } from "../../../elements/button/blue-button/blue-button.component";
-import { InputTextComponent } from "../../../elements/input/input-text/input-text.component";
-import { InputCompanyComponent } from "../../../elements/input/input-company/input-company.component";
+import { FileInputComponent } from "../../../components/input/file-input/file-input.component";
+import { WhiteButtonComponent } from "../../../components/button/white-button/white-button.component";
+import { BlueButtonComponent } from "../../../components/button/blue-button/blue-button.component";
 import { HeaderComponent } from "../../../components/header/header.component";
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { UpdateParticipantModel } from '../../../shared/model/participant.model';
+import { UpdateParticipant } from '../../../shared/model/participant.model';
 import { ParticipantService } from '../../../shared/service/participant.service';
 import { FormsModule } from '@angular/forms';
 import { SweetalertService } from '../../../shared/service/sweetaler.service';
 import { TitleComponent } from "../../../components/title/title.component";
+import { BaseInputComponent } from '../../../components/input/base-input/base-input.component';
+import { CompanyInputComponent } from '../../../components/input/company-input/company-input.component';
+import { ParticipantFormComponent } from '../../../layouts/participant-form/participant-form.component';
 
 @Component({
   selector: 'app-edit-participant-data',
   standalone: true,
   imports: [
-    InputDateComponent,
-    InputFileComponent,
+    FileInputComponent,
+    CompanyInputComponent,
     WhiteButtonComponent,
     BlueButtonComponent,
-    InputTextComponent,
-    InputCompanyComponent,
+    BaseInputComponent,
     HeaderComponent,
     RouterLink,
     FormsModule,
-    TitleComponent
+    TitleComponent,
+    ParticipantFormComponent,
 ],
   templateUrl: './edit-participant-data.component.html',
-  styleUrl: './edit-participant-data.component.css'
 })
-export class EditParticipantDataComponent implements OnInit{
-  @ViewChild(InputCompanyComponent) inputCompanyComponent!: InputCompanyComponent;
+export class EditParticipantDataComponent implements OnInit {
+  @ViewChild(CompanyInputComponent) companyInputComponent!: CompanyInputComponent;
 
-  currentParticipant: any = {
-    id: '',
-    no_pegawai: null,
+  updateParticipant: UpdateParticipant = {
+    no_pegawai: '',
     nama: '',
     nik: '',
-    dinas: null,
-    bidang: null,
+    dinas: '',
+    bidang: '',
     perusahaan: '',
     email: '',
     no_telp: '',
@@ -55,96 +53,77 @@ export class EditParticipantDataComponent implements OnInit{
     surat_bebas_narkoba: null,
     exp_surat_sehat: '',
     exp_bebas_narkoba: '',
-    gmf_non_gmf: ''
   };
 
-  updateParticipant: Partial<UpdateParticipantModel> = {};
+  participantId = this.route.snapshot.paramMap.get('id');
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private participantService: ParticipantService,
     private sweetalertService: SweetalertService,
-  ) {}
-
-  ngOnInit() {
-    const participantId = this.route.snapshot.paramMap.get('id');
-    if (participantId) {
-      this.participantService.getParticipantById(participantId).subscribe({
-        next: (response) => {
-          this.currentParticipant = {
-            ...response.data,
-            tanggal_lahir: this.convertToDateFormat(response.data.tanggal_lahir),
-            exp_bebas_narkoba: this.convertToDateFormat(response.data.exp_bebas_narkoba),
-            exp_surat_sehat: this.convertToDateFormat(response.data.exp_surat_sehat)
-          };
-          if(!this.currentParticipant.perusahaan.toLowerCase().includes('gmf')) {
-            this.inputCompanyComponent.selectedCompany = 'Non GMF';
-            this.inputCompanyComponent.showCompanyInput = true
-            this.inputCompanyComponent.companyName = this.currentParticipant.perusahaan;
-          }
-        },
-        error: (error) => {
-          console.error('Error loading currentParticipant data:', error);
-        }
-      });
-    }
+  ) {
   }
 
-  onUpdate() {
-    const formData = new FormData();
-    let isUpdated = false;
+  ngOnInit(): void {
+    this.loadParticipant();
+  }
 
-    this.currentParticipant.no_pegawai === '' ? this.updateParticipant.no_pegawai = "null" : this.updateParticipant;
-    this.currentParticipant.dinas === '' ? this.updateParticipant.dinas = "null" : this.updateParticipant;
-    this.currentParticipant.bidang === '' ? this.updateParticipant.bidang = "null" : this.updateParticipant;
-
-    if(this.currentParticipant.perusahaan !== this.inputCompanyComponent.getCompanyName() && this.inputCompanyComponent.getCompanyName() !== '') {
-      this.updateParticipant.perusahaan = this.inputCompanyComponent.getCompanyName();
-    }
-
-    // Menambahkan hanya data yang berubah ke FormData
-    for (const key in this.updateParticipant) {
-      if (this.updateParticipant) {
-        isUpdated = true; // Ada perubahan data
-        const value = this.updateParticipant[key as keyof UpdateParticipantModel];
-        if (value instanceof File) {
-          formData.append(key, value);
-        } else if (value) {
-          formData.append(key, value as any);
-        }
-      }
-    }
-
-    if (!isUpdated) {
-      this.sweetalertService.alert(true, 'Diperbarui!', 'Gagal memperbarui data peserta, tidak ada data yang diubah', 'error');
-      return;
-    }
-
-    this.participantService.updateParticipant(this.currentParticipant.id, formData).subscribe({
-      next: async (response) => {
-        await this.sweetalertService.alert(true, 'Diperbarui!', 'Data peserta berhasil diperbarui', 'success');
-        this.router.navigateByUrl(`/participants/${response.data.id}/view`);
-      },
-      error: (error) => {
-        console.error('Error updating participant:', error.error.errors);
-        this.sweetalertService.alert(false, 'Gagal!', 'Gagal memperbarui data peserta', 'error');
+  loadParticipant(): void {
+    this.participantService.getParticipantById(this.participantId!).subscribe({
+      next: (response) => {
+        this.updateParticipant = response.data;
+        this.updateParticipant.sim_a = 'sim_a';
+        this.updateParticipant.sim_b = 'sim_b';
+        this.updateParticipant.ktp = 'ktp';
+        this.updateParticipant.foto = 'foto';
+        this.updateParticipant.surat_sehat_buta_warna = 'surat_sehat_buta_warna';
+        this.updateParticipant.surat_bebas_narkoba = 'surat_bebas_narkoba';
+        this.updateParticipant.tanggal_lahir = this.formatDateToISO(response.data.tanggal_lahir);
+        this.updateParticipant.exp_surat_sehat = this.formatDateToISO(response.data.exp_surat_sehat);
+        this.updateParticipant.exp_bebas_narkoba = this.formatDateToISO(response.data.exp_bebas_narkoba);
       }
     });
   }
 
-  onFileChange(property: keyof UpdateParticipantModel, file: File | null): void {
+  onUpdate(participant: any) {
+    const formData = this.prepareFormData(participant);
+
+    this.participantService.updateParticipant(this.participantId!, formData).subscribe({
+      next: async (response) => {
+        await this.sweetalertService.alert(true, 'Diperbarui!', 'Peserta berhasil diperbarui', 'success');
+        this.router.navigateByUrl(`/participants/${response.data.id}/view`);
+      },
+      error: (error) => {
+        console.log(error.error.errors);
+        this.sweetalertService.alert(false, 'Gagal!', 'Gagal memperbarui peserta', 'error');
+      }
+    });
+  }
+
+  onFileChange(property: string, file: File | null): void {
     if (file) {
       (this.updateParticipant as any)[property] = file;
     }
   }
 
-  onDateChange(date: string): void {
-    this.updateParticipant.tanggal_lahir = date;
+  private prepareFormData(participant: any): FormData {
+    const formData = new FormData();
+    for (const key in participant) {
+      if (participant.hasOwnProperty(key)) {
+        const value = participant[key];
+        if (value instanceof File) {
+          formData.append(key, value);
+        } else if (value) {
+          formData.append(key, value);
+        }
+      }
+    }
+    return formData;
   }
 
-  convertToDateFormat(dateString: string): string {
+  private formatDateToISO(dateString: string): string {
     const [day, month, year] = dateString.split('-');
-    return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
+    return `${year}-${month}-${day}`;
   }
 }

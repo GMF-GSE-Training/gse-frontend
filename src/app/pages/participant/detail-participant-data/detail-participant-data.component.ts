@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { HeaderComponent } from '../../../components/header/header.component';
-import { BlueButtonComponent } from '../../../elements/button/blue-button/blue-button.component';
+import { BlueButtonComponent } from '../../../components/button/blue-button/blue-button.component';
 import { DetailedViewComponent } from "../../../components/detailed-view/detailed-view.component";
 import { TableComponent } from "../../../components/table/table.component";
 import { ParticipantService } from '../../../shared/service/participant.service';

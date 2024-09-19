@@ -1,14 +1,14 @@
 import { Component } from '@angular/core';
 import { HeaderComponent } from '../../../components/header/header.component';
-import { InputTextComponent } from "../../../elements/input/input-text/input-text.component";
-import { WhiteButtonComponent } from "../../../elements/button/white-button/white-button.component";
+import { WhiteButtonComponent } from "../../../components/button/white-button/white-button.component";
+import { BaseInputComponent } from '../../../components/input/base-input/base-input.component';
 
 @Component({
   selector: 'app-add-curriculum',
   standalone: true,
   imports: [
     HeaderComponent,
-    InputTextComponent,
+    BaseInputComponent,
     WhiteButtonComponent,
   ],
   templateUrl: './add-curriculum.component.html',

@@ -1,15 +1,15 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { BlueButtonComponent } from "../../../elements/button/blue-button/blue-button.component";
-import { WhiteButtonComponent } from '../../../elements/button/white-button/white-button.component';
-import { InputTextComponent } from "../../../elements/input/input-text/input-text.component";
+import { BlueButtonComponent } from "../../../components/button/blue-button/blue-button.component";
+import { WhiteButtonComponent } from '../../../components/button/white-button/white-button.component';
 import { UpdateUserRequest } from '../../../shared/model/user.model';
 import { UserService } from '../../../shared/service/user.service';
 import { SweetalertService } from '../../../shared/service/sweetaler.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { InputRoleNikComponent } from "../../../elements/input/input-role-nik/input-role-nik.component";
+import { InputRoleNikComponent } from "../../../components/input/input-role-nik/input-role-nik.component";
 import { TitleComponent } from "../../../components/title/title.component";
+import { BaseInputComponent } from '../../../components/input/base-input/base-input.component';
 
 @Component({
   selector: 'app-edit-user',
@@ -18,7 +18,7 @@ import { TitleComponent } from "../../../components/title/title.component";
     RouterLink,
     BlueButtonComponent,
     WhiteButtonComponent,
-    InputTextComponent,
+    BaseInputComponent,
     FormsModule,
     CommonModule,
     InputRoleNikComponent,

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BlueButtonComponent } from '../../elements/button/blue-button/blue-button.component';
+import { BlueButtonComponent } from '../../components/button/blue-button/blue-button.component';
 import { LoginRegisterComponent } from "../../components/login-register/login-register.component";
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
@@ -44,9 +44,10 @@ export class LoginComponent {
 
   login() {
     this.authService.login(this.loginRequest).subscribe({
-      next: () => {
+      next: (response) => {
+        console.log(response);
         this.loginError = false;
-        this.router.navigate(['/home']);
+        this.router.navigateByUrl('/home');
       },
       error: (error) => {
         console.log(error)

@@ -15,7 +15,6 @@ import { DataManagementComponent } from "../../../layouts/data-management/data-m
     DataManagementComponent
 ],
   templateUrl: './view-participant-data.component.html',
-  styleUrl: './view-participant-data.component.css'
 })
 export class ViewParticipantDataComponent implements OnInit {
   // Komponen title

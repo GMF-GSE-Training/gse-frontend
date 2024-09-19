@@ -1,39 +1,40 @@
 import { Component, ViewChild } from '@angular/core';
-import { HeaderComponent } from '../../../components/header/header.component';
 import { Router, RouterLink } from '@angular/router';
-import { WhiteButtonComponent } from '../../../elements/button/white-button/white-button.component';
-import { BlueButtonComponent } from '../../../elements/button/blue-button/blue-button.component';
-import { InputFileComponent } from "../../../elements/input/input-file/input-file.component";
-import { InputTextComponent } from '../../../elements/input/input-text/input-text.component';
-import { InputDateComponent } from "../../../elements/input/input-date/input-date.component";
-import { InputCompanyComponent } from "../../../elements/input/input-company/input-company.component";
+import { WhiteButtonComponent } from '../../../components/button/white-button/white-button.component';
+import { BlueButtonComponent } from '../../../components/button/blue-button/blue-button.component';
 import { ParticipantService } from '../../../shared/service/participant.service';
-import { environment } from '../../../../environments/environment.development';
-import { CreateParticipantModel } from '../../../shared/model/participant.model';
-import { SweetalertService } from '../../../shared/service/sweetaler.service';
 import { TitleComponent } from "../../../components/title/title.component";
+import { BaseInputComponent } from '../../../components/input/base-input/base-input.component';
+import { CreateParticipant } from '../../../shared/model/participant.model';
+import { FormsModule } from '@angular/forms';
+import { environment } from '../../../../environments/environment.development';
+import { SweetalertService } from '../../../shared/service/sweetaler.service';
+import { CompanyInputComponent } from '../../../components/input/company-input/company-input.component';
+import { FileInputComponent } from '../../../components/input/file-input/file-input.component';
+import { ParticipantFormComponent } from '../../../layouts/participant-form/participant-form.component';
 
 @Component({
   selector: 'app-add-participant-data',
   standalone: true,
   imports: [
     RouterLink,
-    HeaderComponent,
     BlueButtonComponent,
     WhiteButtonComponent,
-    InputFileComponent,
-    InputTextComponent,
-    InputDateComponent,
-    InputCompanyComponent,
-    TitleComponent
-],
+    BaseInputComponent,
+    FileInputComponent,
+    CompanyInputComponent,
+    TitleComponent,
+    BaseInputComponent,
+    FormsModule,
+    ParticipantFormComponent,
+  ],
   templateUrl: './add-participant-data.component.html',
-  styleUrl: './add-participant-data.component.css'
 })
 export class AddParticipantDataComponent {
-  @ViewChild(InputCompanyComponent) inputCompanyComponent!: InputCompanyComponent;
 
-  createParticipant: CreateParticipantModel = {
+  @ViewChild(CompanyInputComponent) companyInputComponent!: CompanyInputComponent;
+
+  createParticipant: CreateParticipant = {
     no_pegawai: '',
     nama: '',
     nik: '',
@@ -63,33 +64,39 @@ export class AddParticipantDataComponent {
     private sweetalertService: SweetalertService,
   ) {}
 
-  onCreate() {
-    const formData = new FormData();
-    this.createParticipant.perusahaan = this.inputCompanyComponent.getCompanyName();
-
-    for (const key in this.createParticipant) {
-      if (this.createParticipant.hasOwnProperty(key)) {
-        const value = this.createParticipant[key as keyof CreateParticipantModel];
-        if (value !== '' && value !== null) {
-          formData.append(key, value as any);
-        }
-      }
-    }
+  onCreate(participant: any) {
+    const formData = this.prepareFormData(participant);
 
     this.participantService.createParticipant(formData).subscribe({
       next: async (response) => {
         await this.sweetalertService.alert(true, 'Ditambahkan!', 'Peserta berhasil ditambahkan', 'success');
-        this.router.navigateByUrl(`/participant/${response.data.id}/view`);
+        this.router.navigateByUrl(`/participants/${response.data.id}/view`);
       },
       error: (error) => {
-        const e = error.error.errors;
-        console.log(e)
+        console.log(error.error.errors);
         this.sweetalertService.alert(false, 'Gagal!', 'Gagal menambahkan peserta', 'error');
       }
     });
   }
 
-  onFileChange(property: keyof CreateParticipantModel, file: File | null): void {
-    (this.createParticipant as any)[property] = file;
+  onFileChange(property: string, file: File | null): void {
+    if (file) {
+      (this.createParticipant as any)[property] = file;
+    }
+  }
+
+  private prepareFormData(participant: any): FormData {
+    const formData = new FormData();
+    for (const key in participant) {
+      if (participant.hasOwnProperty(key)) {
+        const value = participant[key];
+        if (value instanceof File) {
+          formData.append(key, value);
+        } else if (value) {
+          formData.append(key, value);
+        }
+      }
+    }
+    return formData;
   }
 }

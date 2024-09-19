@@ -6,20 +6,22 @@ import { catchError, map } from 'rxjs/operators';
 
 export const authGuard: CanActivateFn = (route, state) => {
   const router = inject(Router);
-  const authService = inject(AuthService)
+  const authService = inject(AuthService);
 
   return authService.me().pipe(
     map((response: any) => {
-        if (response.code === 200 || response.status === 'OK') {
-            return true;
-        } else {
-            router.navigateByUrl('/login');
-            return false;
-        }
+      if (response.code === 200 || response.status === 'OK') {
+          return true;
+      } else {
+          router.navigateByUrl('/login');
+          console.log('HEllo')
+          return false;
+      }
     }),
     catchError(() => {
-        router.navigateByUrl('/login');
-        return of(false);
+      console.log('ERROR DI AUTH GUARD')
+      router.navigateByUrl('/login');
+      return of(false);
     })
   );
 };

@@ -1,0 +1,154 @@
+<app-title [pageTitle]="pageTitle"></app-title>
+
+<form #form="ngForm" (ngSubmit)="onSubmit()">
+  <div class="form-container">
+    <div class="left-column">
+      <app-base-input
+        [(ngModel)]="participant.no_pegawai"
+        name="no_pegawai"
+        label="No Pegawai"
+        type="text"
+        inputMode="tel">
+      </app-base-input>
+
+      <app-base-input
+        [(ngModel)]="participant.nama"
+        name="nama"
+        label="Nama *"
+        type="text"
+        inputMode="text">
+      </app-base-input>
+
+      <app-base-input
+        [(ngModel)]="participant.nik"
+        name="nik"
+        label="NIK *"
+        type="text"
+        inputMode="text">
+      </app-base-input>
+
+      <app-base-input
+        [(ngModel)]="participant.dinas"
+        name="dinas"
+        label="Dinas" t
+        ype="text"
+        inputMode="text">
+      </app-base-input>
+
+      <app-base-input
+        [(ngModel)]="participant.bidang"
+        name="bidang"
+        label="Bidang"
+        type="text"
+        inputMode="text">
+      </app-base-input>
+
+      <app-company-input>
+      </app-company-input>
+
+      <app-base-input
+        [(ngModel)]="participant.email"
+        name="email"
+        label="Email *"
+        type="email"
+        inputMode="text">
+      </app-base-input>
+
+      <app-base-input
+        [(ngModel)]="participant.no_telp"
+        name="no_telp"
+        label="Nomor Telpon *"
+        type="tel"
+        inputMode="tel">
+      </app-base-input>
+
+      <app-base-input
+        [(ngModel)]="participant.negara"
+        name="negara"
+        label="Kewarganegaraan *"
+        type="text"
+        inputMode="text">
+      </app-base-input>
+    </div>
+    <div class="right-column">
+      <app-base-input
+        [(ngModel)]="participant.tempat_lahir"
+        name="tempat_lahir"
+        label="Tempat Lahir *"
+        type="text"
+        inputMode="text">
+      </app-base-input>
+
+      <app-base-input
+        [(ngModel)]="participant.tanggal_lahir"
+        name="tanggal_lahir"
+        label="Tanggal Lahir *"
+        type="date"
+        inputmode="date">
+      </app-base-input>
+
+      <app-file-input
+        idInput="sim_a_input"
+        (valueChange)="onFileChange('sim_a', $event)"
+        label="SIM A *"
+        [fileName]="participant.sim_a">
+      </app-file-input>
+
+      <app-file-input
+        idInput="sim_b_input"
+        (valueChange)="onFileChange('sim_b', $event)"
+        label="SIM B *"
+        [fileName]="participant.sim_b">
+      </app-file-input>
+
+      <app-file-input
+        idInput="ktp_input"
+        (valueChange)="onFileChange('ktp', $event)"
+        label="KTP *"
+        [fileName]="participant.ktp">
+      </app-file-input>
+
+      <app-file-input
+        idInput="foto_input"
+        (valueChange)="onFileChange('foto', $event)"
+        label="Foto *"
+        [fileName]="participant.foto">
+      </app-file-input>
+
+      <app-file-input
+        idInput="surat_sehat_input"
+        (valueChange)="onFileChange('surat_sehat_buta_warna', $event)"
+        label="Surat Ket Sehat & Buta Warna *"
+        [fileName]="participant.surat_sehat_buta_warna">
+      </app-file-input>
+
+      <app-base-input
+        [(ngModel)]="participant.exp_surat_sehat"
+        name="exp_surat_sehat"
+        label="Exp Surat Ket Sehat & Buta Wwarna"
+        type="date"
+        inputmode="date">
+      </app-base-input>
+
+      <app-file-input
+        idInput="surat_bebas_narkoba_input"
+        (valueChange)="onFileChange('surat_bebas_narkoba', $event)"
+        label="Surat Ket Bebas Narkoba *"
+        [fileName]="participant.surat_bebas_narkoba">
+      </app-file-input>
+
+      <app-base-input
+        [(ngModel)]="participant.exp_bebas_narkoba"
+        name="exp_bebas_narkoba"
+        label="Exp Surat Ket Bebas Narkoba"
+        type="date"
+        inputmode="date">
+      </app-base-input>
+    </div>
+  </div>
+
+  <div class="container-button">
+    <app-white-button label="Back" type="button" routerLink="/participants"></app-white-button>
+    <app-blue-button label="Save" type="submit"></app-blue-button>
+  </div>
+</form>

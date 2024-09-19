@@ -13,7 +13,7 @@ export class ParticipantService {
 
   constructor(private http: HttpClient) {}
 
-  createParticipant<T>(request: FormData): Observable<any> {
+  createParticipant<T>(request: any): Observable<any> {
     return this.http.post<T>(`${this.apiUrl}/${this.endpoints.base}`, request, { withCredentials: true });
   }
 

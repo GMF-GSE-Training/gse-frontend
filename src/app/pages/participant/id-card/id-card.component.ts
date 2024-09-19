@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HeaderComponent } from '../../../components/header/header.component';
-import { WhiteButtonComponent } from '../../../elements/button/white-button/white-button.component';
-import { BlueButtonComponent } from '../../../elements/button/blue-button/blue-button.component';
+import { WhiteButtonComponent } from '../../../components/button/white-button/white-button.component';
+import { BlueButtonComponent } from '../../../components/button/blue-button/blue-button.component';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { ParticipantService } from '../../../shared/service/participant.service';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
