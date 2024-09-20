@@ -5,11 +5,13 @@ import { InputRoleNikComponent } from "../../components/input/input-role-nik/inp
 import { WhiteButtonComponent } from "../../components/button/white-button/white-button.component";
 import { BlueButtonComponent } from "../../components/button/blue-button/blue-button.component";
 import { FormsModule, NgForm } from '@angular/forms';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-user-form',
   standalone: true,
   imports: [
+    RouterLink,
     TitleComponent,
     BaseInputComponent,
     InputRoleNikComponent,
