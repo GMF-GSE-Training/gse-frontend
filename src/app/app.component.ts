@@ -16,11 +16,14 @@ import { CommonModule } from '@angular/common';
 })
 export class AppComponent {
   title = 'GMF Aeroasia';
-  isLoginRegisterRoute: boolean = false;
+  isAuthRoute: boolean = false;
 
   constructor(private router: Router) {
     this.router.events.subscribe(() => {
-      this.isLoginRegisterRoute = this.router.url.includes('/login') || this.router.url.includes('/register') || this.router.url.includes('/users/add');
+      this.isAuthRoute = this.router.url === '/login' ||
+      this.router.url === '/register' ||
+      this.router.url === '/users/add' ||
+      this.router.url.includes('/users') && this.router.url.includes('/edit');
     });
   }
 }
