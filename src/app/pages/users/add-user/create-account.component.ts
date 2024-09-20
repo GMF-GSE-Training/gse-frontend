@@ -29,7 +29,17 @@ export class AddUserComponent {
     private router: Router,
     private userService: UserService,
     private sweetalertService: SweetalertService,
-  ) {}
+  ) {
+    const navigation = this.router.getCurrentNavigation();
+    const state = navigation?.extras.state;
+
+    if (state) {
+      this.createUser.no_pegawai = state['no_pegawai'] || '';
+      this.createUser.nik = state['nik'] || '';
+      this.createUser.email = state['email'] || '';
+      this.createUser.name = state['name'] || '';
+    }
+  }
 
   onCreate(user: CreateUserRequest): void {
     this.cleanEmptyFields(user);
