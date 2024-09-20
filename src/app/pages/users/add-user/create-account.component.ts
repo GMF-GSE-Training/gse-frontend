@@ -10,6 +10,7 @@ import { FormsModule } from '@angular/forms';
 import { SweetalertService } from '../../../shared/service/sweetaler.service';
 import { TitleComponent } from "../../../components/title/title.component";
 import { BaseInputComponent } from '../../../components/input/base-input/base-input.component';
+import { UserFormComponent } from "../../../layouts/user-form/user-form.component";
 
 @Component({
   selector: 'app-add-user',
@@ -22,7 +23,8 @@ import { BaseInputComponent } from '../../../components/input/base-input/base-in
     BaseInputComponent,
     InputRoleNikComponent,
     FormsModule,
-    TitleComponent
+    TitleComponent,
+    UserFormComponent
 ],
   templateUrl: './create-account.component.html',
   styleUrl: './create-account.component.css'
@@ -45,52 +47,44 @@ export class AddUserComponent {
     private sweetalertService: SweetalertService,
   ) {}
 
-  onRoleIdChange(roleId: string): void {
-    this.createUser.roleId = roleId;
-  }
+  onCreate(user: CreateUserRequest): void {
+    this.cleanEmptyFields(user);
 
-  onNikChange(nik: string): void {
-    this.createUser.nik = nik;
-  }
-
-  onCreate(): void {
-    this.cleanEmptyFields(this.createUser);
-
-    if (this.createUser.roleId === 'user' && !this.createUser.nik) {
+    // Periksa apakah role user dan NIK diperlukan
+    if (user.roleId === 'user' && !user.nik) {
       alert('NIK is required for role user.');
       return;
     }
 
-    console.log(this.createUser)
+    console.log(user);
 
-    this.userService.createUser(this.createUser).subscribe(
+    // Panggil service untuk membuat user
+    this.userService.createUser(user).subscribe(
       async () => {
         await this.sweetalertService.alert(true, 'Ditambahkan!', 'Pengguna berhasil ditambahkan', 'success');
         this.router.navigateByUrl('/users');
       },
       error => {
-        const e = error.error.errors;
-
-        // Periksa apakah 'e' adalah objek dan bukan null
-        const isObject = (obj: any) => obj !== null && typeof obj === 'object' && !Array.isArray(obj);
-
-        // Periksa apakah 'e' adalah array
-        const isArray = Array.isArray(e);
-        console.log(error)
-
-        if (isObject(e) || isArray) {
-          if(e.message) {
-            this.sweetalertService.alert(false, 'Gagal!', e.message, 'error');
-          } else {
-            if(e.email || e.name || e.password || e.roleId || e.nik) {
-              this.sweetalertService.alert(false, 'Gagal!', 'field dengan tanda bintang wajib diisi dengan benar', 'error');
-            }
-          }
-        } else {
-          this.sweetalertService.alert(false, 'Gagal!', e, 'error');
-        }
+        this.handleError(error);
       }
     );
+  }
+
+  private handleError(error: any): void {
+    const e = error.error.errors;
+    const isObject = (obj: any) => obj !== null && typeof obj === 'object' && !Array.isArray(obj);
+    const isArray = Array.isArray(e);
+    console.log(error);
+
+    if (isObject(e) || isArray) {
+      if (e.message) {
+        this.sweetalertService.alert(false, 'Gagal!', e.message, 'error');
+      } else if (e.email || e.name || e.password || e.roleId || e.nik) {
+        this.sweetalertService.alert(false, 'Gagal!', 'field dengan tanda bintang wajib diisi dengan benar', 'error');
+      }
+    } else {
+      this.sweetalertService.alert(false, 'Gagal!', e, 'error');
+    }
   }
 
   private cleanEmptyFields(object: any): void {
@@ -98,13 +92,6 @@ export class AddUserComponent {
       if (object.hasOwnProperty(key) && object[key] === '') {
         object[key] = null;  // Atau bisa diubah menjadi undefined
       }
-    }
-  }
-
-  onEnterKey(event: Event): void {
-    const keyboardEvent = event as KeyboardEvent;
-    if (keyboardEvent.key === 'Enter') {
-      keyboardEvent.preventDefault();
     }
   }
 }

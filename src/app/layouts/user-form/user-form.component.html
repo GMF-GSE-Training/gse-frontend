@@ -1,10 +1,4 @@
-<app-user-form
-  [pageTitle]="'Add Participant Data'"
-  [user]="createUser"
-  (formSubmit)="onCreate($event)">
-</app-user-form>
-
-<!-- <div class="create-container">
+<div class="create-container">
   <img
   class="brand-logo"
   src="../assets/image/logo-GMF.png"
@@ -20,8 +14,8 @@
   </div>
 
   <div class="form-container">
-    <form class="create-form" (keydown.enter)="onEnterKey($event)">
-      <app-title label="Create Account"></app-title>
+    <form #form="ngForm" (ngSubmit)="onSubmit()" class="create-form">
+      <app-title [pageTitle]="pageTitle"></app-title>
 
       <app-base-input
         class="input"
@@ -29,14 +23,14 @@
         inputMode="tel"
         placeholder="No Pegawai"
         name="no_pegawai"
-        [(ngModel)]="createUser.no_pegawai"
+        [(ngModel)]="user.no_pegawai"
       ></app-base-input>
 
       <app-input-role-nik
         class="input"
+        [nik]="user.nik"
         (roleIdChange)="onRoleIdChange($event)"
-        (nikChange)="onNikChange($event)"
-        [(ngModel)]="createUser.nik">
+        (nikChange)="onNikChange($event)">
       </app-input-role-nik>
 
       <app-base-input
@@ -45,7 +39,7 @@
         inputMode="text"
         placeholder="Name"
         name="name"
-        [(ngModel)]="createUser.name"
+        [(ngModel)]="user.name"
       ></app-base-input>
 
       <app-base-input
@@ -54,7 +48,7 @@
         inputMode="email"
         placeholder="Email"
         name="email"
-        [(ngModel)]="createUser.email"
+        [(ngModel)]="user.email"
       ></app-base-input>
 
       <app-base-input
@@ -63,7 +57,7 @@
         inputMode="text"
         placeholder="Password"
         name="password"
-        [(ngModel)]="createUser.password"
+        [(ngModel)]="user.password"
       ></app-base-input>
 
       <app-base-input
@@ -72,13 +66,13 @@
         inputMode="text"
         placeholder="Dinas"
         name="dinas"
-        [(ngModel)]="createUser.dinas"
+        [(ngModel)]="user.dinas"
       ></app-base-input>
 
       <div class="buttons">
         <app-white-button label="Cancel" type="button" routerLink="/users"></app-white-button>
-        <app-blue-button label="Save" type="submit" (click)="onCreate()"></app-blue-button>
+        <app-blue-button label="Save" type="submit"></app-blue-button>
       </div>
     </form>
   </div>
-</div> -->
+</div>

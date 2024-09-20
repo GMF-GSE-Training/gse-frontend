@@ -1,5 +1,6 @@
-<app-title pageTitle="Edit Participant Data"></app-title>
+<!-- <app-title ></app-title> -->
 <app-participant-form
+  [pageTitle]="'Edit Participant Data'"
   [participant]="updateParticipant"
   (formSubmit)="onUpdate($event)"
   (fileChange)="onFileChange($event.property, $event.file)">

@@ -14,7 +14,7 @@ import { RoleService } from '../../../shared/service/role.service';
   styleUrl: './input-role-nik.component.css'
 })
 export class InputRoleNikComponent {
-  @Input() selectedRole: string | null = null;
+  selectedRole: string | null = null;
   @Input() nik: string = '';
   @Output() roleIdChange = new EventEmitter<string>(); // Emit roleId ke parent
   @Output() nikChange = new EventEmitter<string>();
