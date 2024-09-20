@@ -1,15 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FileInputComponent } from "../../../components/input/file-input/file-input.component";
-import { WhiteButtonComponent } from "../../../components/button/white-button/white-button.component";
-import { BlueButtonComponent } from "../../../components/button/blue-button/blue-button.component";
-import { HeaderComponent } from "../../../components/header/header.component";
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { UpdateParticipant } from '../../../shared/model/participant.model';
 import { ParticipantService } from '../../../shared/service/participant.service';
-import { FormsModule } from '@angular/forms';
 import { SweetalertService } from '../../../shared/service/sweetaler.service';
-import { TitleComponent } from "../../../components/title/title.component";
-import { BaseInputComponent } from '../../../components/input/base-input/base-input.component';
 import { CompanyInputComponent } from '../../../components/input/company-input/company-input.component';
 import { ParticipantFormComponent } from '../../../layouts/participant-form/participant-form.component';
 
@@ -17,15 +10,6 @@ import { ParticipantFormComponent } from '../../../layouts/participant-form/part
   selector: 'app-edit-participant-data',
   standalone: true,
   imports: [
-    FileInputComponent,
-    CompanyInputComponent,
-    WhiteButtonComponent,
-    BlueButtonComponent,
-    BaseInputComponent,
-    HeaderComponent,
-    RouterLink,
-    FormsModule,
-    TitleComponent,
     ParticipantFormComponent,
 ],
   templateUrl: './edit-participant-data.component.html',

@@ -1,30 +1,17 @@
 import { Component, ViewChild } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
-import { WhiteButtonComponent } from '../../../components/button/white-button/white-button.component';
-import { BlueButtonComponent } from '../../../components/button/blue-button/blue-button.component';
+import { Router } from '@angular/router';
 import { ParticipantService } from '../../../shared/service/participant.service';
-import { TitleComponent } from "../../../components/title/title.component";
-import { BaseInputComponent } from '../../../components/input/base-input/base-input.component';
-import { CreateParticipant, ParticipantResponse } from '../../../shared/model/participant.model';
+import { CreateParticipant } from '../../../shared/model/participant.model';
 import { FormsModule } from '@angular/forms';
 import { environment } from '../../../../environments/environment.development';
 import { SweetalertService } from '../../../shared/service/sweetaler.service';
 import { CompanyInputComponent } from '../../../components/input/company-input/company-input.component';
-import { FileInputComponent } from '../../../components/input/file-input/file-input.component';
 import { ParticipantFormComponent } from '../../../layouts/participant-form/participant-form.component';
 
 @Component({
   selector: 'app-add-participant-data',
   standalone: true,
   imports: [
-    RouterLink,
-    BlueButtonComponent,
-    WhiteButtonComponent,
-    BaseInputComponent,
-    FileInputComponent,
-    CompanyInputComponent,
-    TitleComponent,
-    BaseInputComponent,
     FormsModule,
     ParticipantFormComponent,
   ],

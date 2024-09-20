@@ -1,29 +1,14 @@
 import { Component } from '@angular/core';
-import { BlueButtonComponent } from "../../../components/button/blue-button/blue-button.component";
-import { Router, RouterLink } from '@angular/router';
-import { WhiteButtonComponent } from '../../../components/button/white-button/white-button.component';
-import { AuthComponent } from "../../../components/auth/auth.component";
-import { InputRoleNikComponent } from "../../../components/input/input-role-nik/input-role-nik.component";
+import { Router } from '@angular/router';
 import { CreateUserRequest } from '../../../shared/model/user.model';
 import { UserService } from '../../../shared/service/user.service';
-import { FormsModule } from '@angular/forms';
 import { SweetalertService } from '../../../shared/service/sweetaler.service';
-import { TitleComponent } from "../../../components/title/title.component";
-import { BaseInputComponent } from '../../../components/input/base-input/base-input.component';
 import { UserFormComponent } from "../../../layouts/user-form/user-form.component";
 
 @Component({
   selector: 'app-add-user',
   standalone: true,
   imports: [
-    BlueButtonComponent,
-    RouterLink,
-    WhiteButtonComponent,
-    AuthComponent,
-    BaseInputComponent,
-    InputRoleNikComponent,
-    FormsModule,
-    TitleComponent,
     UserFormComponent
 ],
   templateUrl: './create-account.component.html',
