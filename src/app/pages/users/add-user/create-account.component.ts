@@ -12,7 +12,6 @@ import { UserFormComponent } from "../../../layouts/user-form/user-form.componen
     UserFormComponent
 ],
   templateUrl: './create-account.component.html',
-  styleUrl: './create-account.component.css'
 })
 export class AddUserComponent {
   createUser: CreateUserRequest = {

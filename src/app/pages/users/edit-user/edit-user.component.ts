@@ -1,15 +1,8 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { BlueButtonComponent } from "../../../components/button/blue-button/blue-button.component";
-import { WhiteButtonComponent } from '../../../components/button/white-button/white-button.component';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { UpdateUserRequest } from '../../../shared/model/user.model';
 import { UserService } from '../../../shared/service/user.service';
 import { SweetalertService } from '../../../shared/service/sweetaler.service';
-import { FormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
-import { InputRoleNikComponent } from "../../../components/input/input-role-nik/input-role-nik.component";
-import { TitleComponent } from "../../../components/title/title.component";
-import { BaseInputComponent } from '../../../components/input/base-input/base-input.component';
 import { UserFormComponent } from "../../../layouts/user-form/user-form.component";
 
 @Component({
@@ -19,7 +12,6 @@ import { UserFormComponent } from "../../../layouts/user-form/user-form.componen
     UserFormComponent
 ],
   templateUrl: './edit-user.component.html',
-  styleUrl: './edit-user.component.css'
 })
 export class EditUserComponent implements OnInit {
   updateUser: UpdateUserRequest = {
