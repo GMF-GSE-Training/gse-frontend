@@ -51,12 +51,6 @@ export class EditUserComponent implements OnInit {
   onUpdate(user: UpdateUserRequest): void {
     this.cleanEmptyFields(user);
 
-    // Periksa apakah role user dan NIK diperlukan
-    if (user.roleId === 'user' && !user.nik) {
-      alert('NIK is required for role user.');
-      return;
-    }
-
     console.log(user);
 
     // Panggil service untuk membuat user
