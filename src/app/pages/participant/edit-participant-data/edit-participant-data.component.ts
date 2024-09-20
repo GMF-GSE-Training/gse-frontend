@@ -66,6 +66,9 @@ export class EditParticipantDataComponent implements OnInit {
         this.updateParticipant.tanggal_lahir = this.formatDateToISO(response.data.tanggal_lahir);
         this.updateParticipant.exp_surat_sehat = this.formatDateToISO(response.data.exp_surat_sehat);
         this.updateParticipant.exp_bebas_narkoba = this.formatDateToISO(response.data.exp_bebas_narkoba);
+      },
+      error: (error) => {
+        console.log(error);
       }
     });
   }

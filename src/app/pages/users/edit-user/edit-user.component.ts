@@ -10,25 +10,19 @@ import { CommonModule } from '@angular/common';
 import { InputRoleNikComponent } from "../../../components/input/input-role-nik/input-role-nik.component";
 import { TitleComponent } from "../../../components/title/title.component";
 import { BaseInputComponent } from '../../../components/input/base-input/base-input.component';
+import { UserFormComponent } from "../../../layouts/user-form/user-form.component";
 
 @Component({
   selector: 'app-edit-user',
   standalone: true,
   imports: [
-    RouterLink,
-    BlueButtonComponent,
-    WhiteButtonComponent,
-    BaseInputComponent,
-    FormsModule,
-    CommonModule,
-    InputRoleNikComponent,
-    TitleComponent
+    UserFormComponent
 ],
   templateUrl: './edit-user.component.html',
   styleUrl: './edit-user.component.css'
 })
 export class EditUserComponent implements OnInit {
-  currentUser: any = {
+  updateUser: UpdateUserRequest = {
     no_pegawai: '',
     nik: '',
     email: '',
@@ -37,63 +31,76 @@ export class EditUserComponent implements OnInit {
     roleId: ''
   }
 
-  updateUser: UpdateUserRequest = {};
-  initialUser: any = {};  // Untuk menyimpan data awal user untuk membandingkan
+  userId = this.route.snapshot.paramMap.get('id');
+
+  roles: any[] = [];
 
   constructor(
-    private userService: UserService,
-    private router: Router,
-    private sweetalertService: SweetalertService,
     private route: ActivatedRoute,
+    private router: Router,
+    private userService: UserService,
+    private sweetalertService: SweetalertService,
   ) {}
 
   ngOnInit(): void {
-    const userId = this.route.snapshot.paramMap.get('id');
-    console.log(userId)
-    if (userId) {
-      this.userService.get(userId).subscribe({
-        next: (response) => {
-          console.log(response);
-          this.currentUser = { ...response.data };
-          this.initialUser = { ...response.data };  // Simpan data awal
-        },
-        error: (error) => {
-          console.error('Error loading currentUser data:', error);
-        }
-      });
-    }
+    this.loadParticipant();
   }
 
-  onUpdate() {
-    let isUpdated = false;
+  loadParticipant(): void {
+    this.userService.get(this.userId!).subscribe({
+      next: (response) => {
+        this.updateUser = {
+          ...response.data,
+        };
+      }
+    });
+  }
 
-    if(this.updateUser) {
-      // Lakukan update ke server jika ada perubahan
-      this.userService.updateUser(this.initialUser.id, this.updateUser).subscribe({
-        next: (response) => {
-          console.log(response);
-        },
-        error: (error) => {
-          console.error('Error loading currentUser data:', error);
-        }
-      });
+  onUpdate(user: UpdateUserRequest): void {
+    this.cleanEmptyFields(user);
+
+    // Periksa apakah role user dan NIK diperlukan
+    if (user.roleId === 'user' && !user.nik) {
+      alert('NIK is required for role user.');
+      return;
+    }
+
+    console.log(user);
+
+    // Panggil service untuk membuat user
+    this.userService.updateUser(this.userId!, user).subscribe({
+      next: async () => {
+        await this.sweetalertService.alert(true, 'Ditambahkan!', 'Pengguna berhasil diperbarui', 'success');
+        this.router.navigateByUrl('/users');
+      },
+      error: (error) => {
+        this.handleError(error);
+      }
+    });
+  }
+
+  private handleError(error: any): void {
+    const e = error.error.errors;
+    const isObject = (obj: any) => obj !== null && typeof obj === 'object' && !Array.isArray(obj);
+    const isArray = Array.isArray(e);
+    console.log(error);
+
+    if (isObject(e) || isArray) {
+      if (e.message) {
+        this.sweetalertService.alert(false, 'Gagal!', e.message, 'error');
+      } else if (e.email || e.name || e.password || e.roleId || e.nik) {
+        this.sweetalertService.alert(false, 'Gagal!', 'field dengan tanda bintang wajib diisi dengan benar', 'error');
+      }
     } else {
-      this.sweetalertService.alert(false, 'Gagal!', 'tidak ada data yang diubah', 'error');
+      this.sweetalertService.alert(false, 'Gagal!', e, 'error');
     }
   }
 
-  onRoleIdChange(newRoleId: string): void {
-    this.updateUser.roleId = newRoleId;  // Perbarui roleId berdasarkan perubahan
-  }
-
-  onNikChange(newNik: string): void {
-    this.updateUser.nik = newNik;  // Perbarui nik berdasarkan perubahan
-  }
-
-  onEnterKey(event: Event): void {
-    const keyboardEvent = event as KeyboardEvent;
-    if (keyboardEvent.key === 'Enter') {
-      keyboardEvent.preventDefault();
+  private cleanEmptyFields(object: any): void {
+    for (const key in object) {
+      if (object.hasOwnProperty(key) && object[key] === '') {
+        object[key] = null;  // Atau bisa diubah menjadi undefined
+      }
     }
   }
 }
