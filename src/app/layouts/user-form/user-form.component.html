@@ -18,7 +18,7 @@
       <app-title [pageTitle]="pageTitle"></app-title>
 
       <app-base-input
-        class="input"
+        [ngClass]="isNotRegisterPage ? 'input-create' : 'input-register'"
         type="text"
         inputMode="tel"
         placeholder="No Pegawai"
@@ -28,7 +28,7 @@
 
       <app-input-role-nik
         *ngIf="isCreateUser"
-        class="input"
+        [ngClass]="isNotRegisterPage ? 'input-create' : 'input-register'"
         [nik]="user.nik"
         (roleIdChange)="onRoleIdChange($event)"
         (nikChange)="onNikChange($event)">
@@ -36,7 +36,7 @@
 
       <app-base-input
         *ngIf="isRegister"
-        class="input"
+        [ngClass]="isNotRegisterPage ? 'input-create' : 'input-register'"
         type="text"
         inputMode="tel"
         placeholder="NIK *"
@@ -45,7 +45,7 @@
       ></app-base-input>
 
       <app-base-input
-        class="input"
+        [ngClass]="isNotRegisterPage ? 'input-create' : 'input-register'"
         type="text"
         inputMode="text"
         placeholder="Name"
@@ -54,7 +54,7 @@
       ></app-base-input>
 
       <app-base-input
-        class="input"
+        [ngClass]="isNotRegisterPage ? 'input-create' : 'input-register'"
         type="email"
         inputMode="email"
         placeholder="Email"
@@ -63,7 +63,7 @@
       ></app-base-input>
 
       <app-base-input
-        class="input"
+        [ngClass]="isNotRegisterPage ? 'input-create' : 'input-register'"
         type="password"
         inputMode="text"
         placeholder="Password"
@@ -72,7 +72,7 @@
       ></app-base-input>
 
       <app-base-input
-        class="input"
+        [ngClass]="isNotRegisterPage ? 'input-create' : 'input-register'"
         type="text"
         inputMode="text"
         placeholder="Dinas"
@@ -80,9 +80,11 @@
         [(ngModel)]="user.dinas"
       ></app-base-input>
 
+      <p *ngIf="saveLabel === 'Register'" class="isRegistered">Belum punya akun? <a routerLink="/login">Login</a></p>
+
       <div class="buttons">
-        <app-white-button label="Cancel" type="button" routerLink="/users"></app-white-button>
-        <app-blue-button label="Save" type="submit"></app-blue-button>
+        <app-white-button *ngIf="isNotRegisterPage" label="Cancel" type="button" routerLink="/home"></app-white-button>
+        <app-blue-button [label]="saveLabel" type="submit"></app-blue-button>
       </div>
     </form>
   </div>

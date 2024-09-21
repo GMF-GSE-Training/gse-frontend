@@ -25,8 +25,7 @@ import { UserFormComponent } from '../../layouts/user-form/user-form.component';
     TitleComponent,
     UserFormComponent,
 ],
-  templateUrl: './register.component.html',
-  styleUrl: './register.component.css'
+  templateUrl: './register.component.html'
 })
 export class RegisterComponent {
   registerUserRequest: RegisterUserRequest = {

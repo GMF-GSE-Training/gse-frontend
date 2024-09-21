@@ -57,6 +57,20 @@ app-blue-button {
   margin-left: 50px;
 }
 
-.input {
+.input-register {
+  width: 200%;
+}
+
+.input-create {
   width: 100%;
+}
+
+.isRegistered {
+  margin-top: 25px;
+  font-family: 'Petrona', sans-serif;
+  font-weight: bold;
+}
+
+.isRegistered a {
+  color: #02507E;
 }

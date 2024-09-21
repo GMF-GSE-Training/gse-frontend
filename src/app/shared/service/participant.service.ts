@@ -21,6 +21,10 @@ export class ParticipantService {
     return this.http.get<ParticipantResponse>(`${this.apiUrl}/${this.endpoints.base}/${id}`, { withCredentials: true });
   }
 
+  getParticipantByNik(): Observable<ParticipantResponse> {
+    return this.http.get<ParticipantResponse>(`${this.apiUrl}/${this.endpoints.base}/get/profile`, { withCredentials: true });
+  }
+
   updateParticipant(id: string, request: FormData): Observable<ParticipantResponse> {
     return this.http.patch<ParticipantResponse>(`${this.apiUrl}/${this.endpoints.base}/${id}`, request, { withCredentials: true });
   }

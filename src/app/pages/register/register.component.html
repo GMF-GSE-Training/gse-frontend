@@ -1,23 +1,6 @@
 <app-user-form
   [isRegister]="true"
-  [pageTitle]="'Edit Account'"
+  [pageTitle]="'Create Account'"
   [user]="registerUserRequest"
   (formSubmit)="onRegister($event)">
 </app-user-form>
-
-<!-- <app-auth>
-  <form (submit)="onRegister()" class="register-form">
-    <app-title pageTitle="Create Account"></app-title>
-    <div *ngIf="registerError" class="error-message">
-      <p>{{ message }}</p>
-    </div>
-    <app-base-input [type]="'text'" name="nik" placeholder="NIK *"></app-base-input>
-    <app-base-input [type]="'text'" name="no_pegawai" placeholder="No Pegawai"></app-base-input>
-    <app-base-input [type]="'text'" name="email" placeholder="Email *"></app-base-input>
-    <app-base-input [type]="'text'" placeholder="Name *" name="name"></app-base-input>
-    <app-base-input [type]="'password'" name="password" placeholder="Password *"></app-base-input>
-    <app-base-input [type]="'text'" name="dinas" placeholder="Dinas"></app-base-input>
-    <p class="isRegistered">Sudah punya akun? <a routerLink="/login">Login</a></p>
-    <app-blue-button label="Register"></app-blue-button>
-  </form>
-</app-auth> -->

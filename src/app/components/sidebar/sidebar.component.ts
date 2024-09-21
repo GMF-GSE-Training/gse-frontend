@@ -3,6 +3,7 @@ import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { RoleBasedAccessDirective } from '../../shared/directive/role-based-access.directive';
 import { AuthService } from '../../shared/service/auth.service';
+import { ParticipantService } from '../../shared/service/participant.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -49,15 +50,35 @@ export class SidebarComponent {
       name: 'Curriculum & Syllabus',
       routerLink: "/curriculum"
     },
-  ]
+  ];
+
+  currentUserRole: string = '';
 
   constructor(
     private authService: AuthService,
+    private participantService: ParticipantService,
     private router: Router,
   ) {}
 
   @Input() isMenuVisible: boolean = false;
   @Output() menuClose = new EventEmitter<void>();
+
+  ngOnInit(): void {
+    this.authService.me().subscribe(response => {
+      this.currentUserRole = response.data.role.role;
+      console.log(response.data);
+
+      if(this.currentUserRole.toLocaleLowerCase() === 'user') {
+        this.generalMenu[1].name = 'Profil';
+        this.participantService.getParticipantByNik().subscribe({
+          next: (response) => {
+            console.log(response);
+            this.generalMenu[1].routerLink = `/participants/${response.data}/view`;
+          }
+        })
+      }
+    });
+  }
 
   closeMenu() {
     this.isMenuVisible = false;

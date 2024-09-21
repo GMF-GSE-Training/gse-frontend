@@ -7,6 +7,7 @@ import { TableComponent } from "../../../components/table/table.component";
 import { ParticipantService } from '../../../shared/service/participant.service';
 import { Participant, ParticipantResponse } from '../../../shared/model/participant.model';
 import { map } from 'rxjs/operators';
+import { RoleBasedAccessDirective } from '../../../shared/directive/role-based-access.directive';
 
 @Component({
   selector: 'app-detail-participant-data',
@@ -16,7 +17,8 @@ import { map } from 'rxjs/operators';
     HeaderComponent,
     BlueButtonComponent,
     DetailedViewComponent,
-    TableComponent
+    TableComponent,
+    RoleBasedAccessDirective,
 ],
   templateUrl: './detail-participant-data.component.html',
   styleUrl: './detail-participant-data.component.css'
@@ -27,6 +29,7 @@ export class DetailParticipantDataComponent implements OnInit {
   rightTableData: any[] = [];
   qr_code: string | undefined;
   foto: string | undefined;
+  editLink: string = '';
 
   constructor(
     private route: ActivatedRoute,
@@ -53,6 +56,7 @@ export class DetailParticipantDataComponent implements OnInit {
         next: (response) => {
           if (response.status === 'OK' && response.code === 200) {
             this.participant = response.data;
+            this.editLink = `/participants/${this.participant.id}/edit`;
 
             this.leftTableData = [
               { label: 'Nama Peserta', value: this.participant!.nama },

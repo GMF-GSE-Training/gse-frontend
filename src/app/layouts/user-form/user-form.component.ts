@@ -5,7 +5,7 @@ import { InputRoleNikComponent } from "../../components/input/input-role-nik/inp
 import { WhiteButtonComponent } from "../../components/button/white-button/white-button.component";
 import { BlueButtonComponent } from "../../components/button/blue-button/blue-button.component";
 import { FormsModule, NgForm } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -29,9 +29,24 @@ export class UserFormComponent {
   @Input() user: any = {};
   @Input() isRegister: boolean = false;
   @Input() isCreateUser: boolean = false;
+  isNotRegisterPage: boolean = true;
+  saveLabel: string = '';
 
   @Output() formSubmit = new EventEmitter<any>();
   @ViewChild('form') form!: NgForm;
+
+  constructor(
+    private router: Router,
+  ) {}
+
+  ngOnInit(): void {
+    if(this.router.url === '/register') {
+      this.isNotRegisterPage = false;
+      this.saveLabel = 'Register';
+    } else {
+      this.saveLabel = 'Save';
+    }
+  }
 
   onSubmit() {
     if (this.form.valid) {
