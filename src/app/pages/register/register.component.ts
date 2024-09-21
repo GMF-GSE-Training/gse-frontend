@@ -9,6 +9,7 @@ import { CommonModule } from '@angular/common';
 import { AuthService } from '../../shared/service/auth.service';
 import { TitleComponent } from "../../components/title/title.component";
 import { BaseInputComponent } from '../../components/input/base-input/base-input.component';
+import { UserFormComponent } from '../../layouts/user-form/user-form.component';
 
 @Component({
   selector: 'app-register',
@@ -21,7 +22,8 @@ import { BaseInputComponent } from '../../components/input/base-input/base-input
     FormsModule,
     CommonModule,
     HttpClientModule,
-    TitleComponent
+    TitleComponent,
+    UserFormComponent,
 ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css'
@@ -43,13 +45,15 @@ export class RegisterComponent {
     private authService: AuthService,
   ){ }
 
-  onRegister() {
+  onRegister(user: RegisterUserRequest) {
+    user = this.registerUserRequest;
     this.authService.register(this.registerUserRequest).subscribe({
       next: () => {
         this.registerError = false;
         this.router.navigateByUrl('/');
       },
       error: (error) => {
+        console.log(error);
         this.registerError = true;
         const e = error.error.errors
         if (error.error.code === 400) {
@@ -71,4 +75,11 @@ export class RegisterComponent {
     });
   }
 
+  private cleanEmptyFields(object: any): void {
+    for (const key in object) {
+      if (object.hasOwnProperty(key) && object[key] === '') {
+        object[key] = null;  // Atau bisa diubah menjadi undefined
+      }
+    }
+  }
 }

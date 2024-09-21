@@ -6,6 +6,7 @@ import { WhiteButtonComponent } from "../../components/button/white-button/white
 import { BlueButtonComponent } from "../../components/button/blue-button/blue-button.component";
 import { FormsModule, NgForm } from '@angular/forms';
 import { RouterLink } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-user-form',
@@ -18,6 +19,7 @@ import { RouterLink } from '@angular/router';
     WhiteButtonComponent,
     BlueButtonComponent,
     FormsModule,
+    CommonModule,
   ],
   templateUrl: './user-form.component.html',
   styleUrl: './user-form.component.css'
@@ -25,6 +27,8 @@ import { RouterLink } from '@angular/router';
 export class UserFormComponent {
   @Input() pageTitle: string = '';
   @Input() user: any = {};
+  @Input() isRegister: boolean = false;
+  @Input() isCreateUser: boolean = false;
 
   @Output() formSubmit = new EventEmitter<any>();
   @ViewChild('form') form!: NgForm;

@@ -27,11 +27,22 @@
       ></app-base-input>
 
       <app-input-role-nik
+        *ngIf="isCreateUser"
         class="input"
         [nik]="user.nik"
         (roleIdChange)="onRoleIdChange($event)"
         (nikChange)="onNikChange($event)">
       </app-input-role-nik>
+
+      <app-base-input
+        *ngIf="isRegister"
+        class="input"
+        type="text"
+        inputMode="tel"
+        placeholder="NIK *"
+        name="nik"
+        [(ngModel)]="user.nik"
+      ></app-base-input>
 
       <app-base-input
         class="input"
