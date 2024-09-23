@@ -8,6 +8,7 @@ import { ParticipantService } from '../../../shared/service/participant.service'
 import { Participant, ParticipantResponse } from '../../../shared/model/participant.model';
 import { map } from 'rxjs/operators';
 import { RoleBasedAccessDirective } from '../../../shared/directive/role-based-access.directive';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-detail-participant-data',
@@ -19,6 +20,7 @@ import { RoleBasedAccessDirective } from '../../../shared/directive/role-based-a
     DetailedViewComponent,
     TableComponent,
     RoleBasedAccessDirective,
+    CommonModule,
 ],
   templateUrl: './detail-participant-data.component.html',
   styleUrl: './detail-participant-data.component.css'
@@ -30,6 +32,7 @@ export class DetailParticipantDataComponent implements OnInit {
   qr_code: string | undefined;
   foto: string | undefined;
   editLink: string = '';
+  photoType: string = '';
 
   constructor(
     private route: ActivatedRoute,
@@ -92,8 +95,13 @@ export class DetailParticipantDataComponent implements OnInit {
 
   getFoto(id: string): void {
     this.participantService.getFoto(id).pipe(
-      map((response) => response.data)
+      map((response) => {
+        console.log('API Response:', response); // Log respons lengkap
+        return response.data;
+      })
     ).subscribe((foto: string) => {
+      console.log('Received foto:', foto); // Tambahkan log ini
+      this.photoType = this.getMediaType(foto);
       this.foto = foto;
     });
   }
@@ -110,5 +118,15 @@ export class DetailParticipantDataComponent implements OnInit {
     if (this.participant && this.participant.id) {
       this.router.navigate([`/participants/${this.participant.id}/id-card`]); // Navigasi ke halaman id-card
     }
+  }
+
+  private getMediaType(base64String: string): string {
+    const header = base64String.slice(0, 4);
+    console.log('Header:', header); // Log header
+    if (header === 'iVBO') return 'image/png';
+    if (header === '\uFFFD\uD8FF') return 'image/jpeg';
+    if (header === 'JVBE') return 'application/pdf';
+
+    return ''; // Unknown type
   }
 }

@@ -1,7 +1,8 @@
 <main>
   <div class="section">
     <div class="profile-section">
-      <img src="data:image/png;base64,{{ foto }}" alt="Profile Picture">
+      <img *ngIf="photoType === 'image/png'" src="data:{{ photoType }}/;base64,{{ foto }}" alt="Profile Picture">
+      <iframe *ngIf="photoType === 'application/pdf'" src="data:{{ photoType }};base64,{{ foto }}" alt="Profile Picture"></iframe>
       <h2>Heri Susanto</h2>
     </div>
     <div class="qr-section">

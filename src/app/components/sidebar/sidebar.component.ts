@@ -74,8 +74,11 @@ export class SidebarComponent {
           next: (response) => {
             console.log(response);
             this.generalMenu[1].routerLink = `/participants/${response.data}/view`;
+          },
+          error: () => {
+            this.generalMenu[1].routerLink = `/participants/add`;
           }
-        })
+        });
       }
     });
   }
@@ -88,6 +91,7 @@ export class SidebarComponent {
   logout() {
     this.authService.logout().subscribe({
       next: () => {
+        localStorage.removeItem('currentUserRole');
         this.router.navigateByUrl('/login');
       },
       error: (error) => {

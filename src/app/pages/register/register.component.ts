@@ -45,11 +45,13 @@ export class RegisterComponent {
   ){ }
 
   onRegister(user: RegisterUserRequest) {
-    user = this.registerUserRequest;
-    this.authService.register(this.registerUserRequest).subscribe({
-      next: () => {
+    this.cleanEmptyFields(user);
+    console.log(user);
+    this.authService.register(user).subscribe({
+      next: (response) => {
         this.registerError = false;
-        this.router.navigateByUrl('/');
+        console.log(response);
+        // this.router.navigateByUrl('/login');
       },
       error: (error) => {
         console.log(error);

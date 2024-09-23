@@ -59,7 +59,7 @@ export class AddUserComponent {
         this.router.navigateByUrl('/users');
       },
       error => {
-        this.handleError(error);
+        this.handleError(error.error);
       }
     );
   }

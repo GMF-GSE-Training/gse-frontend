@@ -27,7 +27,7 @@ import { ViewCurriculumSyllabusComponent } from './pages/curriculum-syllabus/vie
 import { AddCurriculumCapabilityComponent } from './pages/capability/add-curriculum-capability/add-curriculum-capability.component';
 import { AddCurriculumComponent } from './pages/curriculum-syllabus/add-curriculum/add-curriculum.component';
 import { RegisterComponent } from './pages/register/register.component';
-import { authGuard } from './shared/guard/auth.guard';
+import { AuthAndRoleGuard } from './shared/guard/auth.guard';
 import { DisplayFilesComponent } from './pages/participant/display-files/display-files.component';
 import { guestGuard } from './shared/guard/guest.guard';
 
@@ -35,7 +35,7 @@ export const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    redirectTo: 'home'
+    redirectTo: 'home',
   },
   {
     path: 'login',
@@ -50,136 +50,163 @@ export const routes: Routes = [
   {
     path: 'home',
     component: HomeComponent,
-    canActivate: [authGuard],
+    canActivate: [AuthAndRoleGuard],
+    data: { roles: ['super admin', 'supervisor', 'lcu', 'user'] }
   },
   {
     path: 'participants',
     component: ViewParticipantDataComponent,
-    canActivate: [authGuard],
+    canActivate: [AuthAndRoleGuard],
+    data: { roles: ['super admin', 'supervisor', 'lcu'] }
   },
   {
     path: 'participants/add',
     component: AddParticipantDataComponent,
-    canActivate: [authGuard],
+    canActivate: [AuthAndRoleGuard],
+    data: { roles: ['super admin', 'lcu', 'user'] }
   },
   {
     path: 'participants/:id/view',
     component: DetailParticipantDataComponent,
-    canActivate: [authGuard]
+    canActivate: [AuthAndRoleGuard],
+    data: { roles: ['super admin', 'supervisor', 'lcu', 'user'] }
   },
   {
     path: 'participants/:id/id-card',
     component: IdCardComponent,
-    canActivate: [authGuard],
+    canActivate: [AuthAndRoleGuard],
+    data: { roles: ['super admin', 'supervisor', 'lcu', 'user'] }
   },
   {
     path: 'participants/:id/edit',
     component: EditParticipantDataComponent,
-    canActivate: [authGuard],
+    canActivate: [AuthAndRoleGuard],
+    data: { roles: ['super admin', 'lcu', 'user'] }
   },
   {
     path: 'participants/:id/:file-name',
     component: DisplayFilesComponent,
-    canActivate: [authGuard],
+    canActivate: [AuthAndRoleGuard],
+    data: { roles: ['super admin', 'supervisor', 'lcu', 'user'] }
   },
   {
     path: 'capability',
     component: ViewCapabilityComponent,
-    canActivate: [authGuard],
+    canActivate: [AuthAndRoleGuard],
+    data: { roles: ['super admin', 'supervisor', 'lcu', 'user'] }
   },
   {
     path: 'capability/add',
     component: AddCapabilityComponent,
-    canActivate: [authGuard],
+    canActivate: [AuthAndRoleGuard],
+    data: { roles: ['super admin'] }
   },
   {
     path: 'capability/:id/edit',
     component: EditCapabilityComponent,
-    canActivate: [authGuard],
+    canActivate: [AuthAndRoleGuard],
+    data: { roles: ['super admin'] }
   },
   {
     path: 'cot',
     component: ViewCotComponent,
-    canActivate: [authGuard],
+    canActivate: [AuthAndRoleGuard],
+    data: { roles: ['super admin', 'supervisor', 'lcu', 'user'] }
   },
   {
     path: 'cot/add',
     component: AddCotComponent,
-    canActivate: [authGuard],
+    canActivate: [AuthAndRoleGuard],
+    data: { roles: ['super admin'] }
   },
   {
     path: 'cot/:id/edit',
     component: EditCotComponent,
-    canActivate: [authGuard],
+    canActivate: [AuthAndRoleGuard],
+    data: { roles: ['super admin'] }
   },
   {
     path: 'cot/:id/view',
     component: DetailCotComponent,
-    canActivate: [authGuard],
+    canActivate: [AuthAndRoleGuard],
+    data: { roles: ['super admin', 'supervisor', 'lcu', 'user'] }
   },
   {
     path: 'cot/finish',
     component: CotFinishComponent,
-    canActivate: [authGuard],
+    canActivate: [AuthAndRoleGuard],
+    data: { roles: ['super admin', 'supervisor', 'lcu', 'user'] }
   },
   {
     path: 'participant-cot/add',
     component: AddParticipantCotComponent,
-    canActivate: [authGuard],
+    canActivate: [AuthAndRoleGuard],
+    data: { roles: ['super admin', 'lcu'] }
   },
   {
     path: 'sertifikat',
     component: CreateSertifikatComponent,
-    canActivate: [authGuard],
+    canActivate: [AuthAndRoleGuard],
+    data: { roles: ['super admin', 'supervisor', 'lcu', 'user'] }
   },
   {
     path: 'sertifikat/download',
     component: DownloadSertifikatComponent,
-    canActivate: [authGuard],
+    canActivate: [AuthAndRoleGuard],
+    data: { roles: ['super admin', 'supervisor', 'lcu', 'user'] }
   },
   {
     path: 'users',
     component: ViewUsersComponent,
-    canActivate: [authGuard],
+    canActivate: [AuthAndRoleGuard],
+    data: { roles: ['super admin', 'supervisor', 'lcu'] }
   },
   {
     path: 'users/add',
     component: AddUserComponent,
-    canActivate: [authGuard],
+    canActivate: [AuthAndRoleGuard],
+    data: { roles: ['super admin', 'lcu'] }
   },
   {
     path: 'users/:id/edit',
     component: EditUserComponent,
-    canActivate: [authGuard],
+    canActivate: [AuthAndRoleGuard],
+    data: { roles: ['super admin', 'lcu'] }
   },
   {
     path: 'sign/add',
     component: AddSignComponent,
-    canActivate: [authGuard],
+    canActivate: [AuthAndRoleGuard],
+    data: { roles: ['super admin'] }
   },
   {
     path: 'sign',
     component: ViewSignComponent,
-    canActivate: [authGuard],
+    canActivate: [AuthAndRoleGuard],
+    data: { roles: ['super admin', 'supervisor', 'lcu'] }
   },
   {
     path: 'sign/:id/edit',
     component: EditSignComponent,
-    canActivate: [authGuard],
+    canActivate: [AuthAndRoleGuard],
+    data: { roles: ['super admin'] }
   },
   {
     path: 'curriculum',
     component: ViewCurriculumSyllabusComponent,
-    canActivate: [authGuard],
+    canActivate: [AuthAndRoleGuard],
+    data: { roles: ['super admin'] }
   },
   {
     path: 'curriculum/capability',
     component: AddCurriculumCapabilityComponent,
-    canActivate: [authGuard],
+    canActivate: [AuthAndRoleGuard],
+    data: { roles: ['super admin', 'supervisor', 'lcu'] }
   },
   {
     path: 'curriculum/add',
     component: AddCurriculumComponent,
-    canActivate: [authGuard],
+    canActivate: [AuthAndRoleGuard],
+    data: { roles: ['super admin'] }
   }
 ];

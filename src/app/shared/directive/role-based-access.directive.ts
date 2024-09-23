@@ -15,14 +15,27 @@ export class RoleBasedAccessDirective {
     private viewContainer: ViewContainerRef,
     private authService: AuthService
   ) {
-    this.authService.me().subscribe(user => {
-      this.currentUserRole = user.data.role.role;
-      this.updateView();
-    });
+    this.loadRoleFromCache();
   }
 
   @Input() set appRoleBasedAccess(allowedRoles: string[]) {
     this.allowedRoles = allowedRoles;
+    this.updateView();
+  }
+
+  // Load role from cache if available
+  private loadRoleFromCache(): void {
+    const cachedRole = localStorage.getItem('currentUserRole');
+    if (cachedRole) {
+      this.currentUserRole = cachedRole;
+      this.updateView();
+    } else {
+      this.authService.me().subscribe(user => {
+        this.currentUserRole = user.data.role.role;
+        localStorage.setItem('currentUserRole', this.currentUserRole); // Save to cache
+        this.updateView();
+      });
+    }
   }
 
   private updateView(): void {
