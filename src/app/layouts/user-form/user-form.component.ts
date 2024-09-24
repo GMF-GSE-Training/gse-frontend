@@ -31,7 +31,8 @@ export class UserFormComponent {
   @Input() isCreateUser: boolean = false;
   @Input() submitError: boolean = false;
   @Input() registerSuccess: boolean = false;
-  @Input() message: string = '';
+  @Input() registerMessage: string = '';
+  message: string = '';
   isSubmitted: boolean = false;
   isNotRegisterPage: boolean = true;
   saveLabel: string = '';
@@ -77,9 +78,15 @@ export class UserFormComponent {
     if (nikControl?.invalid) {
       if (nikControl.errors?.['required']) {
         this.submitError = true;
+        this.registerSuccess = false;
+        console.log(this.registerSuccess);
+        console.log(this.submitError);
         return 'NIK wajib diisi';
       } else if (nikControl.errors?.['minlength'] || nikControl.errors?.['maxlength']) {
+        this.registerSuccess = false;
         this.submitError = true;
+        console.log(this.registerSuccess);
+        console.log(this.submitError);
         return 'NIK harus berjumlah 16 karakter';
       }
     }
@@ -88,9 +95,11 @@ export class UserFormComponent {
     const nameControl = this.form.controls['name'];
     if (nameControl?.invalid) {
       if (nameControl.errors?.['required']) {
+        this.registerSuccess = false;
         this.submitError = true;
         return 'Nama wajib diisi';
       } else if (nameControl.errors?.['pattern']) {
+        this.registerSuccess = false;
         this.submitError = true;
         return 'Nama hanya boleh berisi huruf';
       }
@@ -100,9 +109,11 @@ export class UserFormComponent {
     const emailControl = this.form.controls['email'];
     if (emailControl?.invalid) {
       if (emailControl.errors?.['required']) {
+        this.registerSuccess = false;
         this.submitError = true;
         return 'Email wajib diisi';
       } else if (emailControl.errors?.['email']) {
+        this.registerSuccess = false;
         this.submitError = true;
         return 'Email tidak valid';
       }
@@ -112,9 +123,11 @@ export class UserFormComponent {
     const passwordControl = this.form.controls['password'];
     if (passwordControl?.invalid) {
       if (passwordControl.errors?.['required']) {
+        this.registerSuccess = false;
         this.submitError = true;
         return 'Password wajib diisi';
       } else if (passwordControl.errors?.['minlength']) {
+        this.registerSuccess = false;
         this.submitError = true;
         return 'Password harus minimal 8 karakter kombinasi huruf besar kecil dan angka';
       }
@@ -122,6 +135,7 @@ export class UserFormComponent {
 
     this.submitError = false;
     this.registerSuccess = true;
-    return this.message; // Jika tidak ada error
+
+    return this.registerMessage || '';
   }
 }
