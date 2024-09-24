@@ -17,6 +17,10 @@
     <form #form="ngForm" (ngSubmit)="onSubmit()" class="create-form">
       <app-title [pageTitle]="pageTitle"></app-title>
 
+      <div *ngIf="isSubmitted && getMessage()" [ngClass]="submitError ? 'error-message' : 'success-message'">
+        <p class="error">{{ getMessage() }}</p>
+      </div>
+
       <app-base-input
         [ngClass]="isNotRegisterPage ? 'input-create' : 'input-register'"
         type="text"
@@ -24,6 +28,7 @@
         placeholder="No Pegawai"
         name="no_pegawai"
         [(ngModel)]="user.no_pegawai"
+        #noPegawai="ngModel"
       ></app-base-input>
 
       <app-input-role-nik
@@ -31,8 +36,8 @@
         [ngClass]="isNotRegisterPage ? 'input-create' : 'input-register'"
         [nik]="user.nik"
         (roleIdChange)="onRoleIdChange($event)"
-        (nikChange)="onNikChange($event)">
-      </app-input-role-nik>
+        (nikChange)="onNikChange($event)"
+      ></app-input-role-nik>
 
       <app-base-input
         *ngIf="isRegister"
@@ -42,33 +47,46 @@
         placeholder="NIK *"
         name="nik"
         [(ngModel)]="user.nik"
+        #nik="ngModel"
+        required
+        minlength="16"
+        maxlength="16"
       ></app-base-input>
 
       <app-base-input
         [ngClass]="isNotRegisterPage ? 'input-create' : 'input-register'"
         type="text"
         inputMode="text"
-        placeholder="Name"
+        placeholder="Nama *"
         name="name"
         [(ngModel)]="user.name"
+        #name="ngModel"
+        required
+        pattern="^[a-zA-Z ]+$"
       ></app-base-input>
 
       <app-base-input
         [ngClass]="isNotRegisterPage ? 'input-create' : 'input-register'"
         type="email"
         inputMode="email"
-        placeholder="Email"
+        placeholder="Email *"
         name="email"
         [(ngModel)]="user.email"
+        [(ngModel)]="user.email"
+        #email="ngModel"
+        required
+        email
       ></app-base-input>
 
       <app-base-input
         [ngClass]="isNotRegisterPage ? 'input-create' : 'input-register'"
         type="password"
         inputMode="text"
-        placeholder="Password"
+        placeholder="Password *"
         name="password"
         [(ngModel)]="user.password"
+        #password="ngModel"
+        required
       ></app-base-input>
 
       <app-base-input

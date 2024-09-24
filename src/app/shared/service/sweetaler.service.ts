@@ -41,4 +41,20 @@ export class SweetalertService {
       });
     }
   }
+
+  loading(title: string, html: string): void {
+    Swal.fire({
+      title: title,
+      html: html,
+      allowOutsideClick: false,
+      showConfirmButton: false,
+      willOpen: () => {
+        Swal.showLoading()
+      },
+    });
+  }
+
+  close(): void {
+    Swal.close();
+  }
 }

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { BlueButtonComponent } from "../../components/button/blue-button/blue-button.component";
 import { AuthComponent } from "../../components/auth/auth.component";
-import { Router, RouterLink } from '@angular/router';
+import { RouterLink } from '@angular/router';
 import { RegisterUserRequest } from '../../shared/model/user.model';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
@@ -10,6 +10,7 @@ import { AuthService } from '../../shared/service/auth.service';
 import { TitleComponent } from "../../components/title/title.component";
 import { BaseInputComponent } from '../../components/input/base-input/base-input.component';
 import { UserFormComponent } from '../../layouts/user-form/user-form.component';
+import { SweetalertService } from '../../shared/service/sweetaler.service';
 
 @Component({
   selector: 'app-register',
@@ -36,42 +37,34 @@ export class RegisterComponent {
     password: '',
     dinas: '',
   };
-  registerError: boolean = false;
+  submitError: boolean = false;
+  registerSuccess: boolean = false;
   message: string = '';
 
   constructor(
-    private router: Router,
     private authService: AuthService,
+    private readonly sweetalertService: SweetalertService,
   ){ }
 
   onRegister(user: RegisterUserRequest) {
     this.cleanEmptyFields(user);
+    this.sweetalertService.loading('Mohon tunggu', 'Proses...');
     console.log(user);
+
     this.authService.register(user).subscribe({
       next: (response) => {
-        this.registerError = false;
+        this.submitError = false;
+        this.registerSuccess = true;
+        this.sweetalertService.close();
+        this.message = 'Register berhasil, silahkan verifikasi email anda';
         console.log(response);
-        // this.router.navigateByUrl('/login');
       },
       error: (error) => {
         console.log(error);
-        this.registerError = true;
-        const e = error.error.errors
-        if (error.error.code === 400) {
-          if(e.nik || e.email || e.name || e.password) {
-            if(e.email == 'Invalid email') {
-              this.message = 'Alamat email tidak valid'
-            } else {
-              this.message = 'NIK, Email, Name, dan Password wajib diisi';
-            }
-          } else {
-            this.message = e;
-          }
-        } else if (error.error.code === 401) {
-          this.message = 'Informasi login tidak valid. Silakan periksa kembali email atau nomor pegawai dan password Anda';
-        } else {
-          this.message = 'Terjadi kesalahan pada server. Silakan coba lagi nanti.';
-        }
+        this.submitError = true;
+        this.registerSuccess = false;
+        this.sweetalertService.close();
+        this.message = error.error.errors || 'Terjadi kesalahan pada registrasi';
       },
     });
   }
@@ -79,7 +72,7 @@ export class RegisterComponent {
   private cleanEmptyFields(object: any): void {
     for (const key in object) {
       if (object.hasOwnProperty(key) && object[key] === '') {
-        object[key] = null;  // Atau bisa diubah menjadi undefined
+        object[key] = undefined;  // Atau bisa diubah menjadi undefined
       }
     }
   }
