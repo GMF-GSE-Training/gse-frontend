@@ -33,11 +33,14 @@ export class UserFormComponent {
   @Input() isCreateUser: boolean = false;
   @Input() submitError: boolean = false;
   @Input() registerSuccess: boolean = false;
-  @Input() registerMessage: string = '';
+  @Input() parrentMessage: string = '';
+  @Input() isForgotPassword: boolean = false;
+  @Input() isResetPassword: boolean = false;
   message: string = '';
   isSubmitted: boolean = false;
   isNotRegisterPage: boolean = true;
   saveLabel: string = '';
+  validationMessage: string = '';
 
   @Output() formSubmit = new EventEmitter<any>();
   @ViewChild('form') form!: NgForm;
@@ -74,6 +77,11 @@ export class UserFormComponent {
 
   getMessage(): string {
     if (!this.form) return '';
+
+    // Role-NIK
+    if(this.validationMessage) {
+      return this.validationMessage;
+    }
 
     // NIK
     const nikControl = this.form.controls['nik'];
@@ -135,9 +143,30 @@ export class UserFormComponent {
       }
     }
 
+    // New Password
+    const newPasswordControl = this.form.controls['newPassword'];
+    if (newPasswordControl?.invalid) {
+      if (newPasswordControl.errors?.['required']) {
+        this.registerSuccess = false;
+        this.submitError = true;
+        return 'Password baru wajib diisi';
+      } else if (newPasswordControl.errors?.['minlength']) {
+        this.registerSuccess = false;
+        this.submitError = true;
+        return 'Password harus minimal 8 karakter kombinasi huruf besar kecil dan angka';
+      }
+    } else if (this.user.newPassword !== this.user.confirmNewPassword) {
+      this.submitError = true; // Tandai sebagai kesalahan
+      return 'Data konfirmasi password tidak sama'; // Pesan kesalahan
+    }
+
     this.submitError = false;
     this.registerSuccess = true;
+    return this.parrentMessage || '';
+  }
 
-    return this.registerMessage || '';
+  onValidationMessage(message: string): void {
+    this.validationMessage = message;
+    this.submitError = !!message; // Set true jika ada pesan error
   }
 }

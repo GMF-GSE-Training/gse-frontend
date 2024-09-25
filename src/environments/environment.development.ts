@@ -5,7 +5,9 @@ export const environment = {
     auth: {
       base: 'auth/current',
       login: 'auth/login',
-      register: 'auth/register'
+      register: 'auth/register',
+      requestResetPassword: 'auth/request-reset-password',
+      resetPassword: 'auth/reset-password',
     },
     user: {
       base: 'users',

@@ -1,15 +1,28 @@
+import { User } from "./user.model";
+
 export interface LoginUserRequest {
   identifier: string;
   password: string;
 }
 
-export interface AuthResponse {
-  id: number;
+export interface RegisterUserRequest {
   no_pegawai?: string;
-  nik?: string;
+  nik: string;
   email: string;
   name: string;
-  dinasId?: number;
-  roleId: number;
-  token?: string;
+  password: string;
+  dinas?: string;
+}
+
+export interface ResetPassword {
+  token: string;
+  newPassword: string;
+  confirmNewPassword: string;
+}
+
+export interface AuthResponse {
+  code: number;
+  status: string;
+  data?: User;
+  errors: any;
 }

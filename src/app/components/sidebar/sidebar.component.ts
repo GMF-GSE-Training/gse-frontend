@@ -64,23 +64,18 @@ export class SidebarComponent {
   @Output() menuClose = new EventEmitter<void>();
 
   ngOnInit(): void {
-    this.authService.me().subscribe(response => {
-      this.currentUserRole = response.data.role.role;
-      console.log(response.data);
-
-      if(this.currentUserRole.toLocaleLowerCase() === 'user') {
-        this.generalMenu[1].name = 'Profil';
-        this.participantService.getParticipantByNik().subscribe({
-          next: (response) => {
-            console.log(response);
-            this.generalMenu[1].routerLink = `/participants/${response.data}/view`;
-          },
-          error: () => {
-            this.generalMenu[1].routerLink = `/participants/add`;
-          }
-        });
-      }
-    });
+    if(this.currentUserRole.toLocaleLowerCase() === 'user') {
+      this.generalMenu[1].name = 'Profil';
+      this.participantService.getParticipantByNik().subscribe({
+        next: (response) => {
+          console.log(response);
+          this.generalMenu[1].routerLink = `/participants/${response.data}/view`;
+        },
+        error: () => {
+          this.generalMenu[1].routerLink = `/participants/add`;
+        }
+      });
+    }
   }
 
   closeMenu() {

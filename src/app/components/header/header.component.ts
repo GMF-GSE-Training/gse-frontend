@@ -37,6 +37,9 @@ export class HeaderComponent implements OnInit {
       this.shouldShowNavbar = !(
         currentRoute === '/login' ||
         currentRoute === '/register' ||
+        currentRoute === '/reset-password' ||
+        currentRoute === '/passwordreset' ||
+        currentRoute.includes('/reset') ||
         (currentRoute.includes('/users') && currentRoute.includes('/edit')) ||
         (currentRoute.includes('/users') && currentRoute.includes('/add'))
       );

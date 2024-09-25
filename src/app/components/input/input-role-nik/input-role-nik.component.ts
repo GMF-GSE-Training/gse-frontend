@@ -18,6 +18,7 @@ export class InputRoleNikComponent {
   @Input() nik: string = '';
   @Output() roleIdChange = new EventEmitter<string>(); // Emit roleId ke parent
   @Output() nikChange = new EventEmitter<string>();
+  @Output() validationMessage = new EventEmitter<string>();
 
   roles: any[] = [];
   showNikInput: boolean = false;
@@ -38,16 +39,23 @@ export class InputRoleNikComponent {
   toggleNikInput(): void {
     const selectedRole = this.roles.find(role => role.role === this.selectedRole);
     this.showNikInput = selectedRole && selectedRole.role === 'user';
-    console.log(selectedRole);
 
     // Emit roleId ke parent
     if (selectedRole) {
       this.roleIdChange.emit(selectedRole.id); // Mengirim roleId
-      console.log(selectedRole);
     }
 
     if (this.showNikInput && this.nik) {
       this.nikChange.emit(this.nik); // Emit nik jika showNikInput true
+    }
+
+    // Validasi role dan nik
+    if (!this.selectedRole) {
+      this.validationMessage.emit('Role harus diisi');
+    } else if (this.showNikInput && !this.nik) {
+      this.validationMessage.emit('NIK harus diisi untuk role user');
+    } else {
+      this.validationMessage.emit(''); // Clear error jika validasi sukses
     }
   }
 }

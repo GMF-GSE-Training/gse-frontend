@@ -23,6 +23,9 @@ export class AppComponent {
       this.isAuthRoute = this.router.url === '/login' ||
       this.router.url === '/register' ||
       this.router.url === '/users/add' ||
+      this.router.url === '/reset-password' ||
+      this.router.url === '/passwordreset' ||
+      this.router.url.includes('/reset')  ||
       this.router.url.includes('/users') && this.router.url.includes('/edit');
     });
   }

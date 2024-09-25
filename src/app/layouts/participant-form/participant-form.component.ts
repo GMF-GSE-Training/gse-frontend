@@ -24,7 +24,7 @@ import { FormsModule, NgForm } from '@angular/forms';
     TitleComponent
   ],
   templateUrl: './participant-form.component.html',
-  styleUrl: './participant-form.component.css'
+  styleUrl: './participant-form.component.css',
 })
 export class ParticipantFormComponent {
   @Input() pageTitle: string = '';

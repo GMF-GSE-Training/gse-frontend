@@ -58,12 +58,12 @@ export class EditParticipantDataComponent implements OnInit {
     this.participantService.getParticipantById(this.participantId!).subscribe({
       next: (response) => {
         this.updateParticipant = response.data;
-        this.updateParticipant.sim_a = 'sim_a';
-        this.updateParticipant.sim_b = 'sim_b';
-        this.updateParticipant.ktp = 'ktp';
-        this.updateParticipant.foto = 'foto';
-        this.updateParticipant.surat_sehat_buta_warna = 'surat_sehat_buta_warna';
-        this.updateParticipant.surat_bebas_narkoba = 'surat_bebas_narkoba';
+        this.updateParticipant.sim_a_name = 'sim_a';
+        this.updateParticipant.sim_b_name = 'sim_b';
+        this.updateParticipant.ktp_name = 'ktp';
+        this.updateParticipant.foto_name = 'foto';
+        this.updateParticipant.surat_sehat_buta_warna_name = 'surat_sehat_buta_warna';
+        this.updateParticipant.surat_bebas_narkoba_name = 'surat_bebas_narkoba';
         this.updateParticipant.tanggal_lahir = this.formatDateToISO(response.data.tanggal_lahir);
         this.updateParticipant.exp_surat_sehat = this.formatDateToISO(response.data.exp_surat_sehat);
         this.updateParticipant.exp_bebas_narkoba = this.formatDateToISO(response.data.exp_bebas_narkoba);
@@ -79,8 +79,8 @@ export class EditParticipantDataComponent implements OnInit {
     console.log(participant)
 
     this.participantService.updateParticipant(this.participantId!, formData).subscribe({
-      next: async (response) => {
-        await this.sweetalertService.alert(true, 'Diperbarui!', 'Peserta berhasil diperbarui', 'success');
+      next: (response) => {
+        this.sweetalertService.alert(true, 'Diperbarui!', 'Peserta berhasil diperbarui', 'success');
         this.router.navigateByUrl(`/participants/${response.data.id}/view`);
       },
       error: (error) => {

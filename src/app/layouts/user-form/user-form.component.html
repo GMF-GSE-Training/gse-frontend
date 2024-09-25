@@ -1,112 +1,162 @@
-<!-- <div class="create-container">
-  <img
-  class="brand-logo"
-  src="../assets/image/logo-GMF.png"
-  alt="logo"
-  aria-hidden="true"
-  >
-
-  <div class="create-description">
-    <h1>Enter Your</h1>
-    <h1>Account</h1>
-    <h1>Information</h1>
-    <h1>to Proceed</h1>
-  </div>
-
-
-</div> -->
-
 <app-auth>
   <div class="form-container">
-    <form #form="ngForm" (ngSubmit)="onSubmit()" class="create-form">
+    <form *ngIf="isCreateUser || isRegister" #form="ngForm" (ngSubmit)="onSubmit()" class="form">
       <app-title [pageTitle]="pageTitle"></app-title>
 
       <div *ngIf="isSubmitted && getMessage()" [ngClass]="submitError ? 'error-message' : 'success-message'">
         <p class="error">{{ getMessage() }}</p>
       </div>
 
-      <app-base-input
-        [ngClass]="isNotRegisterPage ? 'input-create' : 'input-register'"
-        type="text"
-        inputMode="tel"
-        placeholder="No Pegawai"
-        name="no_pegawai"
-        [(ngModel)]="user.no_pegawai"
-        #noPegawai="ngModel"
-      ></app-base-input>
+      <div class="input-container">
+        <app-base-input
+          [ngClass]="isNotRegisterPage ? 'input-create' : 'input-register'"
+          type="text"
+          inputMode="tel"
+          placeholder="No Pegawai"
+          name="no_pegawai"
+          [(ngModel)]="user.no_pegawai"
+          #noPegawai="ngModel"
+        ></app-base-input>
 
-      <app-input-role-nik
-        *ngIf="isCreateUser"
-        [ngClass]="isNotRegisterPage ? 'input-create' : 'input-register'"
-        [nik]="user.nik"
-        (roleIdChange)="onRoleIdChange($event)"
-        (nikChange)="onNikChange($event)"
-      ></app-input-role-nik>
+        <app-input-role-nik
+          *ngIf="isCreateUser"
+          [ngClass]="isNotRegisterPage ? 'input-create' : 'input-register'"
+          [nik]="user.nik"
+          (roleIdChange)="onRoleIdChange($event)"
+          (nikChange)="onNikChange($event)"
+          (validationMessage)="onValidationMessage($event)"
+        ></app-input-role-nik>
 
-      <app-base-input
-        *ngIf="isRegister"
-        [ngClass]="isNotRegisterPage ? 'input-create' : 'input-register'"
-        type="text"
-        inputMode="tel"
-        placeholder="NIK *"
-        name="nik"
-        [(ngModel)]="user.nik"
-        #nik="ngModel"
-        required
-        minlength="16"
-        maxlength="16"
-      ></app-base-input>
+        <app-base-input
+          *ngIf="isRegister"
+          [ngClass]="isNotRegisterPage ? 'input-create' : 'input-register'"
+          type="text"
+          inputMode="tel"
+          placeholder="NIK *"
+          name="nik"
+          [(ngModel)]="user.nik"
+          #nik="ngModel"
+          required
+          minlength="16"
+          maxlength="16">
+          <p>Masukkan NIK sesuai KTP</p>
+        </app-base-input>
 
-      <app-base-input
-        [ngClass]="isNotRegisterPage ? 'input-create' : 'input-register'"
-        type="text"
-        inputMode="text"
-        placeholder="Nama *"
-        name="name"
-        [(ngModel)]="user.name"
-        #name="ngModel"
-        required
-        pattern="^[a-zA-Z ]+$"
-      ></app-base-input>
+        <app-base-input
+          [ngClass]="isNotRegisterPage ? 'input-create' : 'input-register'"
+          type="text"
+          inputMode="text"
+          placeholder="Nama Lengkap *"
+          name="name"
+          [(ngModel)]="user.name"
+          #name="ngModel"
+          required
+          pattern="^[a-zA-Z ]+$">
+          <p>Masukkan nama asli, nama akan digunakan pada data sertifikat</p>
+        </app-base-input>
 
-      <app-base-input
-        [ngClass]="isNotRegisterPage ? 'input-create' : 'input-register'"
-        type="email"
-        inputMode="email"
-        placeholder="Email *"
-        name="email"
-        [(ngModel)]="user.email"
-        [(ngModel)]="user.email"
-        #email="ngModel"
-        required
-        email
-      ></app-base-input>
+        <app-base-input
+          [ngClass]="isNotRegisterPage ? 'input-create' : 'input-register'"
+          type="email"
+          inputMode="email"
+          placeholder="Email *"
+          name="email"
+          [(ngModel)]="user.email"
+          [(ngModel)]="user.email"
+          #email="ngModel"
+          required
+          email>
+          <p>Gunakan alamat email aktif</p>
+        </app-base-input>
 
-      <app-base-input
-        [ngClass]="isNotRegisterPage ? 'input-create' : 'input-register'"
-        type="password"
-        inputMode="text"
-        placeholder="Password *"
-        name="password"
-        [(ngModel)]="user.password"
-        #password="ngModel"
-        required
-      ></app-base-input>
+        <app-base-input
+          [ngClass]="isNotRegisterPage ? 'input-create' : 'input-register'"
+          type="password"
+          inputMode="text"
+          placeholder="Password *"
+          name="password"
+          [(ngModel)]="user.password"
+          #password="ngModel"
+          required>
+          <p>Gunakan minimal 8 karakter dengan kombinasi huruf dan angka</p>
+        </app-base-input>
 
-      <app-base-input
-        [ngClass]="isNotRegisterPage ? 'input-create' : 'input-register'"
-        type="text"
-        inputMode="text"
-        placeholder="Dinas"
-        name="dinas"
-        [(ngModel)]="user.dinas"
-      ></app-base-input>
+        <app-base-input
+          [ngClass]="isNotRegisterPage ? 'input-create' : 'input-register'"
+          type="text"
+          inputMode="text"
+          placeholder="Dinas"
+          name="dinas"
+          [(ngModel)]="user.dinas"
+        ></app-base-input>
+      </div>
 
       <p *ngIf="saveLabel === 'Register'" class="isRegistered">Belum punya akun? <a routerLink="/login">Login</a></p>
 
       <div class="buttons">
         <app-white-button *ngIf="isNotRegisterPage" label="Cancel" type="button" routerLink="/home"></app-white-button>
-        <app-blue-button [label]="saveLabel" type="submit"></app-blue-button>
+        <app-blue-button [label]="saveLabel" type="submit" [ngClass]="isRegister ? 'submit' : ''"></app-blue-button>
+      </div>
+    </form>
+
+    <form *ngIf="isForgotPassword" #form="ngForm" (ngSubmit)="onSubmit()" class="form" [ngClass]="'forgot-password-form'">
+      <app-title pageTitle="Forgot the password"></app-title>
+
+      <div *ngIf="isSubmitted && getMessage()" [ngClass]="submitError ? 'error-message' : 'success-message'">
+        <p class="error">{{ getMessage() }}</p>
+      </div>
+
+      <div class="input-container" [ngClass]="'input-forgot-password'">
+        <app-base-input
+          type="email"
+          inputMode="email"
+          placeholder="Email"
+          name="email"
+          [(ngModel)]="user.email"
+          #email="ngModel"
+          required
+          email
+        ></app-base-input>
+      </div>
+
+      <div class="buttons">
+        <app-white-button label="Back" type="button" routerLink="/login"></app-white-button>
+        <app-blue-button class="submit" label="Send" type="submit"></app-blue-button>
+      </div>
+    </form>
+
+    <form *ngIf="isResetPassword" #form="ngForm" (ngSubmit)="onSubmit()" class="form" [ngClass]="'forgot-password-form'">
+      <app-title pageTitle="Reset Password"></app-title>
+
+      <div *ngIf="isSubmitted && getMessage()" [ngClass]="submitError ? 'error-message' : 'success-message'">
+        <p class="error">{{ getMessage() }}</p>
+      </div>
+
+      <div class="input-container" [ngClass]="'input-forgot-password'">
+        <app-base-input
+          type="password"
+          inputMode="text"
+          placeholder="New Password"
+          name="newPassword"
+          [(ngModel)]="user.newPassword"
+          #newPassword="ngModel"
+          required
+        ></app-base-input>
+
+        <app-base-input
+          type="password"
+          inputMode="text"
+          placeholder="Confirm New Password"
+          name="confirmNewPassword"
+          [(ngModel)]="user.confirmNewPassword"
+          #confirmNewPassword="ngModel"
+          required
+        ></app-base-input>
+      </div>
+
+      <div class="buttons">
+        <app-white-button label="Back" type="button" routerLink="/login"></app-white-button>
+        <app-blue-button class="submit" label="Reset" type="submit"></app-blue-button>
       </div>
     </form>
   </div>

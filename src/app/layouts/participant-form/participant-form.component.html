@@ -91,35 +91,35 @@
         idInput="sim_a_input"
         (valueChange)="onFileChange('sim_a', $event)"
         label="SIM A *"
-        [fileName]="participant.sim_a">
+        [fileName]="participant.sim_a_name">
       </app-file-input>
 
       <app-file-input
         idInput="sim_b_input"
         (valueChange)="onFileChange('sim_b', $event)"
         label="SIM B *"
-        [fileName]="participant.sim_b">
+        [fileName]="participant.sim_b_name">
       </app-file-input>
 
       <app-file-input
         idInput="ktp_input"
         (valueChange)="onFileChange('ktp', $event)"
         label="KTP *"
-        [fileName]="participant.ktp">
+        [fileName]="participant.ktp_name">
       </app-file-input>
 
       <app-file-input
         idInput="foto_input"
         (valueChange)="onFileChange('foto', $event)"
         label="Foto *"
-        [fileName]="participant.foto">
+        [fileName]="participant.foto_name">
       </app-file-input>
 
       <app-file-input
         idInput="surat_sehat_input"
         (valueChange)="onFileChange('surat_sehat_buta_warna', $event)"
         label="Surat Ket Sehat & Buta Warna *"
-        [fileName]="participant.surat_sehat_buta_warna">
+        [fileName]="participant.surat_sehat_buta_warna_name">
       </app-file-input>
 
       <app-base-input
@@ -134,7 +134,7 @@
         idInput="surat_bebas_narkoba_input"
         (valueChange)="onFileChange('surat_bebas_narkoba', $event)"
         label="Surat Ket Bebas Narkoba *"
-        [fileName]="participant.surat_bebas_narkoba">
+        [fileName]="participant.surat_bebas_narkoba_name">
       </app-file-input>
 
       <app-base-input

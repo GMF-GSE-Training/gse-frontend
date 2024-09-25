@@ -1,16 +1,16 @@
 import { Component } from '@angular/core';
-import { BlueButtonComponent } from "../../components/button/blue-button/blue-button.component";
-import { AuthComponent } from "../../components/auth/auth.component";
+import { BlueButtonComponent } from "../../../components/button/blue-button/blue-button.component";
+import { AuthComponent } from "../../../components/auth/auth.component";
 import { RouterLink } from '@angular/router';
-import { RegisterUserRequest } from '../../shared/model/user.model';
+import { RegisterUserRequest } from '../../../shared/model/auth.model';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
-import { AuthService } from '../../shared/service/auth.service';
-import { TitleComponent } from "../../components/title/title.component";
-import { BaseInputComponent } from '../../components/input/base-input/base-input.component';
-import { UserFormComponent } from '../../layouts/user-form/user-form.component';
-import { SweetalertService } from '../../shared/service/sweetaler.service';
+import { AuthService } from '../../../shared/service/auth.service';
+import { TitleComponent } from "../../../components/title/title.component";
+import { BaseInputComponent } from '../../../components/input/base-input/base-input.component';
+import { UserFormComponent } from '../../../layouts/user-form/user-form.component';
+import { SweetalertService } from '../../../shared/service/sweetaler.service';
 
 @Component({
   selector: 'app-register',

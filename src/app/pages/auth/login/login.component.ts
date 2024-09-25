@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
-import { BlueButtonComponent } from '../../components/button/blue-button/blue-button.component';
-import { AuthComponent } from "../../components/auth/auth.component";
+import { BlueButtonComponent } from '../../../components/button/blue-button/blue-button.component';
+import { AuthComponent } from "../../../components/auth/auth.component";
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
-import { LoginUserRequest } from '../../shared/model/auth.model';
+import { LoginUserRequest } from '../../../shared/model/auth.model';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
-import { AuthService } from '../../shared/service/auth.service';
-import { TitleComponent } from "../../components/title/title.component";
+import { AuthService } from '../../../shared/service/auth.service';
+import { TitleComponent } from "../../../components/title/title.component";
 
 @Component({
   selector: 'app-login',
