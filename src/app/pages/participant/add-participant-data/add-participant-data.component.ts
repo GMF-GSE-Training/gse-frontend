@@ -41,8 +41,6 @@ export class AddParticipantDataComponent {
     surat_bebas_narkoba: null,
     exp_surat_sehat: '',
     exp_bebas_narkoba: '',
-    link_qr_code: environment.link_qr_code,
-    gmf_non_gmf: ''
   };
 
   constructor(

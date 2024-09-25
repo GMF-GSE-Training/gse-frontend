@@ -5,6 +5,7 @@ import { ParticipantService } from '../../../shared/service/participant.service'
 import { SweetalertService } from '../../../shared/service/sweetaler.service';
 import { CompanyInputComponent } from '../../../components/input/company-input/company-input.component';
 import { ParticipantFormComponent } from '../../../layouts/participant-form/participant-form.component';
+import { environment } from '../../../../environments/environment.development';
 
 @Component({
   selector: 'app-edit-participant-data',
@@ -75,6 +76,7 @@ export class EditParticipantDataComponent implements OnInit {
 
   onUpdate(participant: any) {
     const formData = this.prepareFormData(participant);
+    console.log(participant)
 
     this.participantService.updateParticipant(this.participantId!, formData).subscribe({
       next: async (response) => {

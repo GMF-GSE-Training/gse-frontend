@@ -1,6 +1,5 @@
 export const environment = {
   production: false,
-  link_qr_code: `${window.location.protocol}//${window.location.hostname}:4200/participant/{id}/view`,
   apiUrl: `${window.location.protocol}//${window.location.hostname}:3000`,
   endpoints: {
     auth: {

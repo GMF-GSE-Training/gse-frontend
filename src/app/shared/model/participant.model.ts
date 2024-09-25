@@ -66,8 +66,6 @@ export interface CreateParticipant {
   surat_bebas_narkoba: File | null;
   exp_surat_sehat: string;
   exp_bebas_narkoba: string;
-  link_qr_code: string;
-  gmf_non_gmf?: string;
 }
 
 type ActionAccessRigts = {

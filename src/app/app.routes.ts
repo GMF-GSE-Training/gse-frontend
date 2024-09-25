@@ -30,6 +30,7 @@ import { RegisterComponent } from './pages/register/register.component';
 import { AuthAndRoleGuard } from './shared/guard/auth.guard';
 import { DisplayFilesComponent } from './pages/participant/display-files/display-files.component';
 import { guestGuard } from './shared/guard/guest.guard';
+import { ResetPasswordComponent } from './layouts/reset-password/reset-password.component';
 
 export const routes: Routes = [
   {
@@ -46,6 +47,10 @@ export const routes: Routes = [
     path: 'register',
     component: RegisterComponent,
     canActivate: [guestGuard],
+  },
+  {
+    path: 'reset-password',
+    component: ResetPasswordComponent,
   },
   {
     path: 'home',

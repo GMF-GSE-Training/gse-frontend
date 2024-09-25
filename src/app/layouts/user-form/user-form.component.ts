@@ -7,6 +7,7 @@ import { BlueButtonComponent } from "../../components/button/blue-button/blue-bu
 import { FormsModule, NgForm } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { AuthComponent } from "../../components/auth/auth.component";
 
 @Component({
   selector: 'app-user-form',
@@ -20,7 +21,8 @@ import { CommonModule } from '@angular/common';
     BlueButtonComponent,
     FormsModule,
     CommonModule,
-  ],
+    AuthComponent
+],
   templateUrl: './user-form.component.html',
   styleUrl: './user-form.component.css'
 })
