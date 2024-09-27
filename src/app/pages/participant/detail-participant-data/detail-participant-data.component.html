@@ -1,29 +1,30 @@
-<main>
-  <div class="section">
-    <div class="profile-section">
-      <img *ngIf="photoType === 'image/png'" src="data:{{ photoType }}/;base64,{{ foto }}" alt="Profile Picture">
-      <iframe *ngIf="photoType === 'application/pdf'" src="data:{{ photoType }};base64,{{ foto }}" alt="Profile Picture"></iframe>
+<div class="section">
+  <div class="profile-section">
+    <div class="me">
+      <img *ngIf="photoType === 'image/png'" src="data:{{ photoType }}/;base64,{{ foto }}" alt="Profile Picture" class="file">
+      <iframe *ngIf="photoType === 'application/pdf'" src="data:{{ photoType }};base64,{{ foto }}" alt="Profile Picture" class="file"></iframe>
+    </div>
+    <div>
       <h2>Heri Susanto</h2>
     </div>
-    <div class="qr-section">
-      <div class="print">
-        <img src="data:image/png;base64,{{ qr_code }}" alt="QR Code">
-      </div>
-      <div class="print">
-        <p *appRoleBasedAccess="['super admin', 'supervisor', 'lcu']"><a (click)="cetakKartuPeserta()">Cetak Kartu Peserta</a></p>
-        <p><a>Dow'nload</a></p>
-      </div>
+  </div>
+  <div class="qr-section">
+    <div class="print">
+      <img src="data:image/png;base64,{{ qr_code }}" alt="QR Code" class="file">
+    </div>
+    <div class="print">
+      <p *appRoleBasedAccess="['super admin', 'supervisor', 'lcu']"><a (click)="cetakKartuPeserta()">Cetak Kartu Peserta</a></p>
+      <p><a>Dow'nload</a></p>
     </div>
   </div>
+</div>
 
-  <app-detailed-view [leftTableData]="leftTableData" [rightTableData]="rightTableData"></app-detailed-view>
+<app-detailed-view [leftTableData]="leftTableData" [rightTableData]="rightTableData"></app-detailed-view>
 
-  <div class="container">
-    <app-table [columns]="columns" [data]="data"></app-table>
-  </div>
+<div class="container">
+  <app-table [columns]="columns" [data]="data"></app-table>
+</div>
 
-  <div class="container-button">
-    <app-blue-button label="Edit" [routerLink]="editLink"></app-blue-button>
-  </div>
-
-</main>
+<div class="container-button">
+  <app-blue-button label="Edit" [routerLink]="editLink"></app-blue-button>
+</div>

@@ -8,10 +8,9 @@
   text-align: center;
 }
 
-.profile-section img,
-.profile-section iframe {
-  width: 100px;
-  height: 133px;
+.me {
+  max-width: 148px;
+  max-height: 100%;
 }
 
 .qr-section {
@@ -21,9 +20,9 @@
   gap: 30px;
 }
 
-.qr-section img {
-  width: 100px;
-  height: 100px;
+.file {
+  max-width: 100%;
+  max-height: 100%;
 }
 
 .print {
