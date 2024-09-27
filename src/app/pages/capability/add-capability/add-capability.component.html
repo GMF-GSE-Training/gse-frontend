@@ -6,22 +6,22 @@
   <form>
     <div class="form-container">
       <div class="left-column">
-        <app-base-input type="text" inputMode="text">Kode Rating</app-base-input>
-        <app-base-input type="text" inputMode="text">Kode Training</app-base-input>
-        <app-base-input type="text" inputMode="text">Nama Training</app-base-input>
+        <app-base-input label="Kode Rating" type="text" inputMode="text"></app-base-input>
+        <app-base-input label="Kode Training" type="text" inputMode="text"></app-base-input>
+        <app-base-input label="Nama Training" type="text" inputMode="text"></app-base-input>
       </div>
       <div class="right-column">
-        <app-base-input type="tel" inputMode="tel">Durasi Materi Regulasi GSE</app-base-input>
-        <app-base-input type="tel" inputMode="tel">Durasi Materi Rating</app-base-input>
-        <app-base-input type="tel" inputMode="tel">Total Durasi Training</app-base-input>
+        <app-base-input label="Durasi Materi Regulasi GSE" type="tel" inputMode="tel"></app-base-input>
+        <app-base-input label="Durasi Materi Rating" type="tel" inputMode="tel"></app-base-input>
+        <app-base-input label="Total Durasi Training" type="tel" inputMode="tel"></app-base-input>
         <button routerLink="/curriculum/capability">Pilih Kurikulum & Silabus</button>
       </div>
     </div>
   </form>
 
   <div class="container-button">
-    <app-white-button routerLink="/home">Back</app-white-button>
-    <app-blue-button routerLink="/capability">Save</app-blue-button>
+    <app-white-button label="Back" routerLink="/home"></app-white-button>
+    <app-blue-button label="Save" routerLink="/capability"></app-blue-button>
   </div>
 
 </main>

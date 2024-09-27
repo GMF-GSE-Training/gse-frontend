@@ -18,9 +18,9 @@ export class AuthService {
     private cookieService: CookieService,
   ) {}
 
-  getToken(): string | undefined {
-    return this.cookieService.get('access_token');
-  }
+  // getToken(): string | undefined {
+  //   return this.cookieService.get('access_token');
+  // }
 
   register<T>(request: any): Observable<any > {
     return this.http.post<T>(`${this.apiUrl}/${this.endpoint.register}`, request);

@@ -1,29 +1,9 @@
-<main>
-  <div class="title-container">
-    <h1 class="title">View Capability</h1>
-  </div>
-
-  <div class="search-container">
-    <form action="">
-      <input type="text" placeholder="Search Capability">
-      <i class="fa-solid fa-magnifying-glass"></i>
-    </form>
-  </div>
-
-  <div class="container">
-    <app-table [columns]="columns" [data]="paginatedData"></app-table>
-  </div>
-
-  <div class="nav">
-    <div class="nav-pagination">
-      <p (click)="previousPage()">&lt; Preview</p>
-      <p>{{ currentPage }} / {{ totalPages }}</p>
-      <p (click)="nextPage()">Next &gt;</p>
-    </div>
-  </div>
-
-  <div class="container-button">
-    <app-white-button routerLink="/home" id="back-app-white-button">Back</app-white-button>
-    <app-blue-button routerLink="/capability/add">Add</app-blue-button>
-  </div>
-</main>
+<app-data-management
+  [pageTitle]="pageTitle"
+  [columns]="columns" [data]="capability"
+  [totalPages]="totalPages" [currentPage]="currentPage" (pageChange)="onPageChanged($event)"
+  [placeHolder]="placeHolder"
+  (viewAllChange)="viewAll()"
+  (whiteButtonClick)="onWhiteButtonClick()"
+  (blueButtonClick)="onBlueButtonClick()"
+></app-data-management>

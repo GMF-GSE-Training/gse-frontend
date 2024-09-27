@@ -1,10 +1,13 @@
 import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { HeaderComponent } from '../../../components/header/header.component';
 import { WhiteButtonComponent } from '../../../components/button/white-button/white-button.component';
 import { BlueButtonComponent } from '../../../components/button/blue-button/blue-button.component';
 import { TableComponent } from "../../../components/table/table.component";
 import { SearchComponent } from "../../../components/search/search.component";
+import { DataManagementComponent } from "../../../layouts/data-management/data-management.component";
+import { SweetalertService } from '../../../shared/service/sweetaler.service';
+import { CapabilityService } from '../../../shared/service/capability.service';
 
 @Component({
   selector: 'app-view-capability',
@@ -16,11 +19,14 @@ import { SearchComponent } from "../../../components/search/search.component";
     BlueButtonComponent,
     TableComponent,
     SearchComponent,
+    DataManagementComponent
 ],
   templateUrl: './view-capability.component.html',
   styleUrl: './view-capability.component.css'
 })
 export class ViewCapabilityComponent {
+  pageTitle: string = "View Capability";
+
   columns = [
     { header: 'Kode Rating', field: 'kodeRating' },
     { header: 'Kode Training', field: 'kodeTraining' },
@@ -32,75 +38,90 @@ export class ViewCapabilityComponent {
     { header: 'Action', field: 'action' }
   ];
 
-  data = [
-    { kodeRating: 'BTT', kodeTraining: 'TCT - 0535', namaTraining: 'Baggage Towing Tractor', durasiMateriRegulasGSE: 23, durasiMateriRating: 25, totalDurasi: 48, editLink: '/capability/edit', deleteMethod: () => this.deleteCapability('BTT') },
-    { kodeRating: 'FLT', kodeTraining: 'TCT - 0536', namaTraining: 'Forklift', durasiMateriRegulasGSE: 23, durasiMateriRating: 25, totalDurasi: 48, action: '' },
-    { kodeRating: 'RDS', kodeTraining: 'TCT - 0534', namaTraining: 'Refueling Defueling System', durasiMateriRegulasGSE: 24, durasiMateriRating: 40, totalDurasi: 64, action: '' },
-    { kodeRating: 'GPS', kodeTraining: 'TCT - 0526', namaTraining: 'Ground Power System', durasiMateriRegulasGSE: 23, durasiMateriRating: 25, totalDurasi: 48, action: '' },
-    { kodeRating: 'ACS', kodeTraining: 'TCT - 0528', namaTraining: 'Air Conditioning System', durasiMateriRegulasGSE: 23, durasiMateriRating: 25, totalDurasi: 48, action: '' },
-    { kodeRating: 'ATT', kodeTraining: 'TCT - 0555', namaTraining: 'Aircraft Towing Tractor', durasiMateriRegulasGSE: 23, durasiMateriRating: 41, totalDurasi: 64, action: '' },
-    { kodeRating: 'LSS', kodeTraining: 'TCT - 0530', namaTraining: 'Lavatory Service System', durasiMateriRegulasGSE: 23, durasiMateriRating: 25, totalDurasi: 48, action: '' },
-    { kodeRating: 'WSS', kodeTraining: 'TCT - 0529', namaTraining: 'Water Service System', durasiMateriRegulasGSE: 23, durasiMateriRating: 25, totalDurasi: 48, action: '' },
-    { kodeRating: 'ASS', kodeTraining: 'TCT - 0527', namaTraining: 'Air Starter System', durasiMateriRegulasGSE: 23, durasiMateriRating: 25, totalDurasi: 48, action: '' },
-    { kodeRating: 'MUV', kodeTraining: 'TCT - 0537', namaTraining: 'Maintenance Unit Vehicle', durasiMateriRegulasGSE: 23, durasiMateriRating: 25, totalDurasi: 48, action: '' },
-    { kodeRating: 'BTT', kodeTraining: 'TCT - 0535', namaTraining: 'Baggage Towing Tractor', durasiMateriRegulasGSE: 25, durasiMateriRating: 25, totalDurasi: 48, action: '' },
-    { kodeRating: 'FLT', kodeTraining: 'TCT - 0536', namaTraining: 'Forklift', durasiMateriRegulasGSE: 25, durasiMateriRating: 25, totalDurasi: 48, action: '' },
-    { kodeRating: 'RDS', kodeTraining: 'TCT - 0534', namaTraining: 'Refueling Defueling System', durasiMateriRegulasGSE: 24, durasiMateriRating: 40, totalDurasi: 64, action: '' },
-    { kodeRating: 'GPS', kodeTraining: 'TCT - 0526', namaTraining: 'Ground Power System', durasiMateriRegulasGSE: 25, durasiMateriRating: 25, totalDurasi: 48, action: '' },
-    { kodeRating: 'ACS', kodeTraining: 'TCT - 0528', namaTraining: 'Air Conditioning System', durasiMateriRegulasGSE: 25, durasiMateriRating: 25, totalDurasi: 48, action: '' },
-    { kodeRating: 'ATT', kodeTraining: 'TCT - 0555', namaTraining: 'Aircraft Towing Tractor', durasiMateriRegulasGSE: 25, durasiMateriRating: 41, totalDurasi: 64, action: '' },
-    { kodeRating: 'LSS', kodeTraining: 'TCT - 0530', namaTraining: 'Lavatory Service System', durasiMateriRegulasGSE: 25, durasiMateriRating: 25, totalDurasi: 48, action: '' },
-    { kodeRating: 'WSS', kodeTraining: 'TCT - 0529', namaTraining: 'Water Service System', durasiMateriRegulasGSE: 25, durasiMateriRating: 25, totalDurasi: 48, action: '' },
-    { kodeRating: 'ASS', kodeTraining: 'TCT - 0527', namaTraining: 'Air Starter System', durasiMateriRegulasGSE: 25, durasiMateriRating: 25, totalDurasi: 48, action: '' },
-    { kodeRating: 'MUV', kodeTraining: 'TCT - 0537', namaTraining: 'Maintenance Unit Vehicle', durasiMateriRegulasGSE: 25, durasiMateriRating: 25, totalDurasi: 48, action: '' },
-    { kodeRating: 'BTT', kodeTraining: 'TCT - 0535', namaTraining: 'Baggage Towing Tractor', durasiMateriRegulasGSE: 27, durasiMateriRating: 25, totalDurasi: 48, action: '' },
-    { kodeRating: 'FLT', kodeTraining: 'TCT - 0536', namaTraining: 'Forklift', durasiMateriRegulasGSE: 27, durasiMateriRating: 25, totalDurasi: 48, action: '' },
-    { kodeRating: 'RDS', kodeTraining: 'TCT - 0534', namaTraining: 'Refueling Defueling System', durasiMateriRegulasGSE: 24, durasiMateriRating: 40, totalDurasi: 64, action: '' },
-    { kodeRating: 'GPS', kodeTraining: 'TCT - 0526', namaTraining: 'Ground Power System', durasiMateriRegulasGSE: 27, durasiMateriRating: 25, totalDurasi: 48, action: '' },
-    { kodeRating: 'ACS', kodeTraining: 'TCT - 0528', namaTraining: 'Air Conditioning System', durasiMateriRegulasGSE: 27, durasiMateriRating: 25, totalDurasi: 48, action: '' },
-    { kodeRating: 'ATT', kodeTraining: 'TCT - 0555', namaTraining: 'Aircraft Towing Tractor', durasiMateriRegulasGSE: 27, durasiMateriRating: 41, totalDurasi: 64, action: '' },
-    { kodeRating: 'LSS', kodeTraining: 'TCT - 0530', namaTraining: 'Lavatory Service System', durasiMateriRegulasGSE: 27, durasiMateriRating: 25, totalDurasi: 48, action: '' },
-    { kodeRating: 'WSS', kodeTraining: 'TCT - 0529', namaTraining: 'Water Service System', durasiMateriRegulasGSE: 27, durasiMateriRating: 25, totalDurasi: 48, action: '' },
-    { kodeRating: 'ASS', kodeTraining: 'TCT - 0527', namaTraining: 'Air Starter System', durasiMateriRegulasGSE: 27, durasiMateriRating: 25, totalDurasi: 48, action: '' },
-    { kodeRating: 'MUV', kodeTraining: 'TCT - 0537', namaTraining: 'Maintenance Unit Vehicle', durasiMateriRegulasGSE: 27, durasiMateriRating: 25, totalDurasi: 48, action: '' },
-    { kodeRating: 'BTT', kodeTraining: 'TCT - 0535', namaTraining: 'Baggage Towing Tractor', durasiMateriRegulasGSE: 29, durasiMateriRating: 25, totalDurasi: 48, action: '' },
-    { kodeRating: 'FLT', kodeTraining: 'TCT - 0536', namaTraining: 'Forklift', durasiMateriRegulasGSE: 29, durasiMateriRating: 25, totalDurasi: 48, action: '' },
-    { kodeRating: 'RDS', kodeTraining: 'TCT - 0534', namaTraining: 'Refueling Defueling System', durasiMateriRegulasGSE: 24, durasiMateriRating: 40, totalDurasi: 64, action: '' },
-    { kodeRating: 'GPS', kodeTraining: 'TCT - 0526', namaTraining: 'Ground Power System', durasiMateriRegulasGSE: 29, durasiMateriRating: 25, totalDurasi: 48, action: '' },
-    { kodeRating: 'ACS', kodeTraining: 'TCT - 0528', namaTraining: 'Air Conditioning System', durasiMateriRegulasGSE: 29, durasiMateriRating: 25, totalDurasi: 48, action: '' },
-    { kodeRating: 'ATT', kodeTraining: 'TCT - 0555', namaTraining: 'Aircraft Towing Tractor', durasiMateriRegulasGSE: 29, durasiMateriRating: 41, totalDurasi: 64, action: '' },
-    { kodeRating: 'LSS', kodeTraining: 'TCT - 0530', namaTraining: 'Lavatory Service System', durasiMateriRegulasGSE: 29, durasiMateriRating: 25, totalDurasi: 48, action: '' },
-    { kodeRating: 'WSS', kodeTraining: 'TCT - 0529', namaTraining: 'Water Service System', durasiMateriRegulasGSE: 29, durasiMateriRating: 25, totalDurasi: 48, action: '' },
-    { kodeRating: 'ASS', kodeTraining: 'TCT - 0527', namaTraining: 'Air Starter System', durasiMateriRegulasGSE: 29, durasiMateriRating: 25, totalDurasi: 48, action: '' },
-    { kodeRating: 'MUV', kodeTraining: 'TCT - 0537', namaTraining: 'Maintenance Unit Vehicle', durasiMateriRegulasGSE: 29, durasiMateriRating: 25, totalDurasi: 48, action: '' }
-  ];
+  capability: any[] = [];
 
-  currentPage = 1;
-  itemsPerPage = 10;
+  // Komponen pagination
+  currentPage: number = 1;
+  totalPages: number = 1;
+  itemsPerPage: number = 10;
+  searchQuery: string = '';
 
-  get paginatedData() {
-    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
-    const endIndex = startIndex + this.itemsPerPage;
-    return this.data.slice(startIndex, endIndex);
+  // Komponen Search
+  placeHolder: string = 'Search Capability';
+
+  constructor(
+    private capabilityService: CapabilityService,
+    private sweetalertService: SweetalertService,
+    private router: Router,
+    private route: ActivatedRoute,
+  ) {}
+
+  ngOnInit(): void {
+    this.route.queryParams.subscribe(params => {
+      this.searchQuery = params['q'] || '';
+      this.currentPage =+ params['page'] || 1;
+      if (this.searchQuery) {
+        // this.getSearchParticipants(this.searchQuery, this.currentPage, this.itemsPerPage);
+      } else {
+        this.getListParticipants(this.currentPage, this.itemsPerPage);
+      }
+    });
   }
 
-  get totalPages() {
-    return Math.ceil(this.data.length / this.itemsPerPage);
+  getListParticipants(page: number, size: number): void {
+    this.capabilityService.listCapability(page, size).subscribe((response: any) => {
+      if (response.code === 200 && response.status === 'OK') {
+        console.log('List Response', response);
+        this.capability = response.data.map((capability: any) => {
+          const totalDurasiRegulasiGSE = capability.curriculums.regulasiGSEs.reduce((total: number, regulasi: any) => {
+            return total + regulasi.durasi_teori + regulasi.durasi_praktek;
+          }, 0);
+
+          const totalDurasiKompetensi = capability.curriculums.kompetensis.reduce((total: number, kompetensi: any) => {
+            return total + kompetensi.durasi_teori + kompetensi.durasi_praktek;
+          }, 0);
+
+          return {
+            kodeRating: capability.kode_rating,
+            kodeTraining: capability.kode_training,
+            namaTraining: capability.nama_training,
+            durasiMateriRegulasGSE: totalDurasiRegulasiGSE,
+            durasiMateriRating: totalDurasiKompetensi,
+            totalDurasi: capability.curriculums.total_durasi,
+            kurikulumSilabus: capability.curriculums.id,
+            action: response.actions // atau Anda bisa membuat ikon berdasarkan canEdit, canDelete, dll.
+          };
+        });
+        this.totalPages = response.paging.total_page;
+      } else {
+        this.capability = [];
+      }
+    });
   }
 
-  nextPage() {
-    if ((this.currentPage * this.itemsPerPage) < this.data.length) {
-      this.currentPage++;
-    }
+  onPageChanged(page: number): void {
+    this.router.navigate([], {
+      queryParams: { page },
+      queryParamsHandling: 'merge',
+    });
   }
 
-  previousPage() {
-    if (this.currentPage > 1) {
-      this.currentPage--;
-    }
+  viewAll(): void {
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: { q: null, page: null },
+      queryParamsHandling: 'merge',
+    });
+
+    this.searchQuery = '';
   }
 
-  deleteCapability(kodeRating: string) {
-    alert(`Delete capability with kode rating: ${kodeRating}`);
+  onBlueButtonClick() {
+    this.router.navigateByUrl('/capability/add');
   }
+
+  onWhiteButtonClick() {
+    this.router.navigateByUrl('/home');
+  }
+
 }
