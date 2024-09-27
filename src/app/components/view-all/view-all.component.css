@@ -6,7 +6,6 @@
   border: none;
   background-color: none;
   border-radius: 50px;
-  font-family: 'Petrona', sans-serif;
   display: flex;
   align-items: center;
   padding-left: 70px;
@@ -31,5 +30,5 @@ i {
 
 button:active i {
   transition: transform 0.3s ease, color 0.3s ease;
-  transform: rotate(180deg);  
+  transform: rotate(180deg);
 }
