@@ -1,7 +1,7 @@
 .section {
   display: flex;
   justify-content: center;
-  gap: 30%;
+  gap: 40%;
 }
 
 .profile-section {
@@ -11,6 +11,10 @@
 .me {
   max-width: 148px;
   max-height: 100%;
+}
+
+.name {
+  margin-top: 10px;
 }
 
 .qr-section {
@@ -33,14 +37,14 @@
 }
 
 .print a {
-  color: #000;
   font-size: 20px;
   font-weight: bold;
-  border-bottom: 2px solid #000;
+  text-decoration: underline;
 }
 
 a:hover {
   cursor: pointer;
+  color: #266E99;
 }
 
 .container {

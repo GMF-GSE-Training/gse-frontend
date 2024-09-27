@@ -4,7 +4,7 @@
       <img *ngIf="photoType === 'image/png'" src="data:{{ photoType }}/;base64,{{ foto }}" alt="Profile Picture" class="file">
       <iframe *ngIf="photoType === 'application/pdf'" src="data:{{ photoType }};base64,{{ foto }}" alt="Profile Picture" class="file"></iframe>
     </div>
-    <div>
+    <div class="name">
       <h2>Heri Susanto</h2>
     </div>
   </div>
@@ -14,7 +14,7 @@
     </div>
     <div class="print">
       <p *appRoleBasedAccess="['super admin', 'supervisor', 'lcu']"><a (click)="cetakKartuPeserta()">Cetak Kartu Peserta</a></p>
-      <p><a>Dow'nload</a></p>
+      <p><a>Download</a></p>
     </div>
   </div>
 </div>
