@@ -1,39 +1,3 @@
-.container {
-  width: 95%;
-  height: 90vh;
-  margin: 40px;
-  border-radius: 25px;
-  border: 4px #02507E solid;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 5em;
-  overflow: hidden;
-}
-
-.card {
-  display: flex;
-  gap: 25px;
-  box-sizing: border-box;
-}
-
-.header {
-  display: flex;
-  justify-content: center;
-  width: 100%;
-  margin: 0;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  border-bottom: 3px solid #5E8EAA;
-}
-
-.buttons-container {
-  display: flex;
-  flex-direction: column;
-  gap: 50px;
-  margin-top: 20px;
-}
-
 .button {
   width: 190px;
   height: 45px;

@@ -1,0 +1,9 @@
+<app-title [pageTitle]="pageTitle" (click)="$event.stopPropagation()"></app-title>
+
+<div class="back" [routerLink]="navigationLinks">
+  <i class="fa-solid fa-arrow-left"></i>
+</div>
+
+<div class="display-container" (click)="$event.stopPropagation()">
+  <ng-content></ng-content>
+</div>

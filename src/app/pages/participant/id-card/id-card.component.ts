@@ -6,6 +6,7 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 import { ParticipantService } from '../../../shared/service/participant.service';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { saveAs } from 'file-saver';
+import { DisplayFilesComponent } from "../../../layouts/display-files/display-files.component";
 
 @Component({
   selector: 'app-id-card',
@@ -15,13 +16,15 @@ import { saveAs } from 'file-saver';
     WhiteButtonComponent,
     BlueButtonComponent,
     RouterLink,
-  ],
+    DisplayFilesComponent
+],
   templateUrl: './id-card.component.html',
   styleUrls: ['./id-card.component.css'],
 })
 export class IdCardComponent implements OnInit {
   id_card: SafeHtml = '';
   id = this.route.snapshot.paramMap.get('id');
+  navigationLink: string = `/participants/${this.id}/view`;
 
   constructor(
     private route: ActivatedRoute,

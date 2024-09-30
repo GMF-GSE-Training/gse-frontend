@@ -28,7 +28,7 @@ import { AddCurriculumCapabilityComponent } from './pages/capability/add-curricu
 import { AddCurriculumComponent } from './pages/curriculum-syllabus/add-curriculum/add-curriculum.component';
 import { RegisterComponent } from './pages/auth/register/register.component';
 import { AuthAndRoleGuard } from './shared/guard/auth.guard';
-import { DisplayFilesComponent } from './pages/participant/display-files/display-files.component';
+import { DisplayFilesParticipantsComponent } from './pages/participant/display-files-participants/display-files-participants.component';
 import { guestGuard } from './shared/guard/guest.guard';
 import { ResetPasswordComponent } from './pages/auth/reset-password/reset-password.component';
 import { ForgotPasswordComponent } from './pages/auth/forgot-password/forgot-password.component';
@@ -95,7 +95,7 @@ export const routes: Routes = [
   },
   {
     path: 'participants/:id/:file-name',
-    component: DisplayFilesComponent,
+    component: DisplayFilesParticipantsComponent,
     canActivate: [AuthAndRoleGuard],
     data: { roles: ['super admin', 'supervisor', 'lcu', 'user'] }
   },

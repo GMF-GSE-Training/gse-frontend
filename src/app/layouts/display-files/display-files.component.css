@@ -1,0 +1,39 @@
+.display-container {
+  width: 95%;
+  height: 82vh;
+  margin: 30px;
+  padding: 0;
+  border-radius: 25px;
+  border: 4px #02507E solid;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5em;
+  overflow: hidden;
+}
+
+.back {
+  border: 3px solid #000;
+  border-radius: 50%;
+  padding: 5px;
+  width: 25px;
+  height: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  position: absolute;
+  top: 270px;
+  left: 60px;
+}
+
+.back:hover {
+  color: #02507E;
+  border-color: #02507E;
+  background-color: #d8dadb;
+  cursor: pointer;
+}
+
+.back:active {
+  background-color: #fff;
+}

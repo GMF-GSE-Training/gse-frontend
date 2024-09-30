@@ -1,10 +1,7 @@
-<main>
-  <div class="container">
-    <div id="idCard" class="card" [innerHTML]="id_card">
-    </div>
-    <div class="buttons-container">
-      <app-blue-button (click)="downloadIdCard()" class="button">Download</app-blue-button>
-      <app-white-button routerLink="/home" class="button">Back</app-white-button>
-    </div>
-  </div>
-</main>
+<app-display-files
+  pageTitle="ID Card"
+  [routerLink]="navigationLink"
+>
+  <div id="idCard" class="card" [innerHTML]="id_card"></div>
+  <app-blue-button (click)="downloadIdCard()" class="button">Download</app-blue-button>
+</app-display-files>
