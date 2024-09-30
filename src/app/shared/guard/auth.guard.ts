@@ -11,6 +11,7 @@ export const AuthAndRoleGuard: CanActivateFn = (route, state) => {
   return authService.me().pipe(
     map((response: any) => {
       if (response.code === 200 || response.status === 'OK') {
+        localStorage.setItem('currentUserRole', response.data.role.role);
         const userRole = response.data.role.role.toLowerCase(); // Ambil role dari response
         const allowedRoles = (route.data['roles'] as Array<string>).map(role => role.toLowerCase());
 

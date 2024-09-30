@@ -27,9 +27,14 @@
   border-bottom: 3px solid #5E8EAA;
 }
 
-.buttons {
+.buttons-container {
   display: flex;
   flex-direction: column;
   gap: 50px;
   margin-top: 20px;
+}
+
+.button {
+  width: 190px;
+  height: 45px;
 }

@@ -24,6 +24,7 @@ export class BaseInputComponent {
   @Input() placeholder: string = '';
   @Input() name: string = '';
   @Input() value: string = '';
+  @Input() disabled: boolean = false; 
 
   @Output() valueChange = new EventEmitter<string>();
 

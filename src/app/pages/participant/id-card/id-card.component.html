@@ -2,9 +2,9 @@
   <div class="container">
     <div id="idCard" class="card" [innerHTML]="id_card">
     </div>
-    <div class="buttons">
-      <app-blue-button (click)="downloadIdCard()">Download</app-blue-button>
-      <app-white-button routerLink="/home">Back</app-white-button>
+    <div class="buttons-container">
+      <app-blue-button (click)="downloadIdCard()" class="button">Download</app-blue-button>
+      <app-white-button routerLink="/home" class="button">Back</app-white-button>
     </div>
   </div>
 </main>

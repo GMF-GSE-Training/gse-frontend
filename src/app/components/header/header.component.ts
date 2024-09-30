@@ -19,7 +19,7 @@ import { CommonModule } from '@angular/common';
 })
 export class HeaderComponent implements OnInit {
   isMenuVisible: boolean = false;
-  shouldShowNavbar = true;
+  shouldShowHeader = true;
 
   constructor(private router: Router) {}
 
@@ -34,7 +34,7 @@ export class HeaderComponent implements OnInit {
   ngOnInit() {
     this.router.events.subscribe(() => {
       const currentRoute = this.router.url;
-      this.shouldShowNavbar = !(
+      this.shouldShowHeader = !(
         currentRoute === '/login' ||
         currentRoute === '/register' ||
         currentRoute === '/reset-password' ||

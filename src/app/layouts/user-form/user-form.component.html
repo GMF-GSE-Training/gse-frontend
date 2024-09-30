@@ -94,8 +94,8 @@
       <p *ngIf="saveLabel === 'Register'" class="isRegistered">Belum punya akun? <a routerLink="/login">Login</a></p>
 
       <div class="buttons">
-        <app-white-button *ngIf="isNotRegisterPage" label="Cancel" type="button" routerLink="/home"></app-white-button>
-        <app-blue-button [label]="saveLabel" type="submit" [ngClass]="isRegister ? 'submit' : ''"></app-blue-button>
+        <app-white-button *ngIf="isNotRegisterPage" type="button" routerLink="/home">Cancel</app-white-button>
+        <app-blue-button type="submit" [ngClass]="isRegister ? 'submit' : ''">{{ saveLabel }}</app-blue-button>
       </div>
     </form>
 
@@ -120,8 +120,8 @@
       </div>
 
       <div class="buttons">
-        <app-white-button label="Back" type="button" routerLink="/login"></app-white-button>
-        <app-blue-button class="submit" label="Send" type="submit"></app-blue-button>
+        <app-white-button type="button" routerLink="/login">Back</app-white-button>
+        <app-blue-button class="submit" type="submit">submit</app-blue-button>
       </div>
     </form>
 
@@ -155,8 +155,8 @@
       </div>
 
       <div class="buttons">
-        <app-white-button label="Back" type="button" routerLink="/login"></app-white-button>
-        <app-blue-button class="submit" label="Reset" type="submit"></app-blue-button>
+        <app-white-button type="button" routerLink="/login">Back</app-white-button>
+        <app-blue-button class="submit" type="submit">Reset</app-blue-button>
       </div>
     </form>
   </div>

@@ -1,27 +1,48 @@
 <main>
-  <div class="title-container">
-    <h1 class="title">Capability</h1>
-  </div>
+  <app-title pageTitle="Add Capability"></app-title>
 
-  <form>
+  <form #form="ngForm" (submit)="onSubmit(capability)">
     <div class="form-container">
       <div class="left-column">
-        <app-base-input label="Kode Rating" type="text" inputMode="text"></app-base-input>
-        <app-base-input label="Kode Training" type="text" inputMode="text"></app-base-input>
-        <app-base-input label="Nama Training" type="text" inputMode="text"></app-base-input>
+        <app-base-input
+          label="Kode Rating"
+          type="text"
+          inputMode="text"
+          name="kode_rating"
+          [(ngModel)]="capability.kode_rating"
+          #kodeRating="ngModel">
+        </app-base-input>
+
+        <app-base-input
+          label="Kode Training"
+          type="text"
+          inputMode="text"
+          name="kode_training"
+          [(ngModel)]="capability.kode_training"
+          #kodeTraining="ngModel">
+        </app-base-input>
+
+        <app-base-input
+          label="Nama Training"
+          type="text"
+          inputMode="text"
+          name="nama_training"
+          [(ngModel)]="capability.nama_training"
+          #namaTraining="ngModel">
+        </app-base-input>
       </div>
-      <div class="right-column">
+      <!-- <div class="right-column">
         <app-base-input label="Durasi Materi Regulasi GSE" type="tel" inputMode="tel"></app-base-input>
         <app-base-input label="Durasi Materi Rating" type="tel" inputMode="tel"></app-base-input>
         <app-base-input label="Total Durasi Training" type="tel" inputMode="tel"></app-base-input>
         <button routerLink="/curriculum/capability">Pilih Kurikulum & Silabus</button>
-      </div>
+      </div> -->
+    </div>
+
+    <div class="container-button">
+      <app-white-button type="button" routerLink="/home" class="button">Back</app-white-button>
+      <app-blue-button type="submit" class="button">Save</app-blue-button>
     </div>
   </form>
-
-  <div class="container-button">
-    <app-white-button label="Back" routerLink="/home"></app-white-button>
-    <app-blue-button label="Save" routerLink="/capability"></app-blue-button>
-  </div>
 
 </main>

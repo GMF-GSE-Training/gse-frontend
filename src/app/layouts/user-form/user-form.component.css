@@ -36,15 +36,23 @@
 }
 
 .buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 100%;
   margin-top: 25px;
 }
 
 app-white-button {
   margin-right: 50px;
+  width: 190px;
+  height: 45px;
 }
 
 app-blue-button {
   margin-left: 50px;
+  width: 190px;
+  height: 45px;
 }
 
 .input-register,
@@ -84,4 +92,6 @@ app-blue-button {
 
 .submit {
   margin: 0;
+  width: 190px;
+  height: 45px;
 }

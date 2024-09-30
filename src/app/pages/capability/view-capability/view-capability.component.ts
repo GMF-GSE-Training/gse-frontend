@@ -73,13 +73,14 @@ export class ViewCapabilityComponent {
       if (response.code === 200 && response.status === 'OK') {
         console.log('List Response', response);
         this.capability = response.data.map((capability: any) => {
-          const totalDurasiRegulasiGSE = capability.curriculums.regulasiGSEs.reduce((total: number, regulasi: any) => {
+          const totalDurasiRegulasiGSE = capability.curriculums ? capability.curriculums.regulasiGSEs.reduce((total: number, regulasi: any) => {
             return total + regulasi.durasi_teori + regulasi.durasi_praktek;
-          }, 0);
+          }, 0) : "-";
 
-          const totalDurasiKompetensi = capability.curriculums.kompetensis.reduce((total: number, kompetensi: any) => {
+          const totalDurasiKompetensi = capability.curriculums ? capability.curriculums.kompetensis.reduce((total: number, kompetensi: any) => {
             return total + kompetensi.durasi_teori + kompetensi.durasi_praktek;
-          }, 0);
+          }, 0) : "-";
+          console.log("Capability: ", capability)
 
           return {
             kodeRating: capability.kode_rating,
@@ -87,8 +88,8 @@ export class ViewCapabilityComponent {
             namaTraining: capability.nama_training,
             durasiMateriRegulasGSE: totalDurasiRegulasiGSE,
             durasiMateriRating: totalDurasiKompetensi,
-            totalDurasi: capability.curriculums.total_durasi,
-            kurikulumSilabus: capability.curriculums.id,
+            totalDurasi: capability.curriculums?.total_durasi || "-",
+            kurikulumSilabus: capability.curriculums?.id || "-",
             action: response.actions // atau Anda bisa membuat ikon berdasarkan canEdit, canDelete, dll.
           };
         });

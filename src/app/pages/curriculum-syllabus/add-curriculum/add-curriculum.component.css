@@ -1,42 +1,59 @@
-.title-container {
-  display: flex;
-  justify-content: center;
-  margin-top: 10px;
-}
-
-.title {
-  border-bottom: 4px solid #000;
-  font-size: 25px;
-}
-
-.form-container {
+.top-form-container,
+.bottom-form-container {
   max-width: 100%;
   display: flex;
   justify-content: center;
-  gap: 10%;
   margin-top: 25px;
-  margin-left: 100px;
-  margin-right: 100px;
+  margin-left: 25px;
+  margin-right: 25px;
+}
+
+.top-form-container {
+  gap: 30%;
+}
+
+.bottom-form-container {
+  gap: 1%;
 }
 
 .form-section {
   display: flex;
   flex-direction: column;
-  width: 48%;
+  width: 100%;
+  gap: 20px;
 }
 
 .input-group {
+  display: grid;
+  grid-template-columns: 50% 20% 20%;
+  gap: 1rem;
+  /* width: 100%; */
+}
+
+.add-button {
+  margin-right: 25px;
+  margin-left: auto;
+  width: 125px;
+}
+
+.dividing-line {
+  border-right: 3px solid grey;
+  border-left: 3px solid grey;
+  opacity: 30%;
+  width: 5px;
+}
+
+.container-button {
+  display: flex;
+  justify-content: center;
+  gap: 10em;
+  width: 90%;
+  margin-top: 50px;
   margin-bottom: 15px;
+  margin-left: 4em;
 }
 
-.durasi-group {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+.button {
+  width: 190px;
+  height: 45px;
 }
-
-.durasi-inputs {
-  display: flex;
-  gap: 10px;
-}
-

@@ -26,5 +26,5 @@
 </div>
 
 <div class="container-button">
-  <app-blue-button label="Edit" [routerLink]="editLink"></app-blue-button>
+  <app-blue-button *appRoleBasedAccess="['user']" [routerLink]="editLink" class="button">Edit</app-blue-button>
 </div>

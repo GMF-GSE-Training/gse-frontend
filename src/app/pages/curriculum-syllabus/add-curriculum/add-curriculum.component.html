@@ -1,52 +1,98 @@
-<main>
-  <div class="title-container">
-    <h1 class="title">Capability</h1>
+<app-title pageTitle="Add Curriculum & Syllabus"></app-title>
+
+<form #form="ngForm" (submit)="onSubmit()">
+  <div class="top-form-container">
+    <div class="form-section">
+      <app-base-input
+        label="Kode Rating"
+        [(ngModel)]="capability.kode_rating"
+        name="kode_rating"
+        [disabled]="true">
+      </app-base-input>
+    </div>
+    <div class="form-section">
+      <app-base-input
+        label="Nama Training"
+        type="text"
+        [(ngModel)]="capability.nama_training"
+        name="nama_training"
+        [disabled]="true">
+      </app-base-input>
+    </div>
   </div>
 
-  <div class="form-container">
+  <div class="bottom-form-container">
     <div class="form-section">
       <div class="input-group">
-        <app-base-input>Kode Rating</app-base-input>
+        <!-- Dynamic inputs for first group -->
+        <ng-container *ngFor="let input of regulasiGSEs; let i = index">
+          <app-base-input
+            [(ngModel)]="regulasiGSEs[i].reg_gse"
+            name="reg_gse_{{i}}"
+            label="Regulasi GSE"
+            type="text">
+          </app-base-input>
+          <app-base-input
+            [(ngModel)]="regulasiGSEs[i].durasi_teori"
+            name="durasi_teori_{{i}}"
+            label="Durasi Teori"
+            type="number"
+            inputMode="tel">
+          </app-base-input>
+          <app-base-input
+            [(ngModel)]="regulasiGSEs[i].durasi_praktek"
+            name="durasi_praktek_{{i}}"
+            label="Durasi Praktik"
+            type="number"
+            inputMode="tel">
+          </app-base-input>
+        </ng-container>
+      </div>
+      <div class="add-button">
+        <app-white-button (whiteButtonClick)="addInput('group1')" type="button">
+          <i class="fa-solid fa-plus"></i>
+        </app-white-button>
       </div>
     </div>
+
+    <div class="dividing-line"></div>
+
     <div class="form-section">
       <div class="input-group">
-        <app-base-input type="text">Nama Training</app-base-input>
+        <!-- Dynamic inputs for second group -->
+        <ng-container *ngFor="let input of kompetensis; let i = index">
+          <app-base-input
+            [(ngModel)]="kompetensis[i].kompetensi"
+            name="kompetensi_{{i}}"
+            label="Kompetensi"
+            type="text">
+          </app-base-input>
+          <app-base-input
+            [(ngModel)]="kompetensis[i].durasi_teori"
+            name="durasi_teori_kompetensi_{{i}}"
+            label="Durasi Teori"
+            type="number"
+            inputMode="tel">
+          </app-base-input>
+          <app-base-input
+            [(ngModel)]="kompetensis[i].durasi_praktek"
+            name="durasi_praktek_kompetensi_{{i}}"
+            label="Durasi Praktik"
+            type="number"
+            inputMode="tel">
+          </app-base-input>
+        </ng-container>
+      </div>
+      <div class="add-button">
+        <app-white-button (whiteButtonClick)="addInput('group2')" type="button">
+          <i class="fa-solid fa-plus"></i>
+        </app-white-button>
       </div>
     </div>
   </div>
 
-  <div class="form-container">
-    <div class="form-section">
-      <div class="input-group">
-        <app-base-input type="text">Regulasi GSE</app-base-input>
-      </div>
-      <div class="input-group durasi-group">
-        <div>
-          <label>Durasi</label>
-          <div class="durasi-inputs">
-            <app-base-input type="tel" inputMode="tel" placeholder="Teori"></app-base-input>
-            <app-base-input type="tel" inputMode="tel" placeholder="Praktik"></app-base-input>
-          </div>
-        </div>
-        <app-white-button><i class="fa-solid fa-plus"></i></app-white-button>
-      </div>
-    </div>
-
-    <div class="form-section">
-      <div class="input-group">
-        <app-base-input>Kompetensi</app-base-input>
-      </div>
-      <div class="input-group durasi-group">
-        <div>
-          <label>Durasi</label>
-          <div class="durasi-inputs">
-            <app-base-input type="tel" inputMode="tel" placeholder="Teori"></app-base-input>
-            <app-base-input type="tel" inputMode="tel" placeholder="Praktik"></app-base-input>
-          </div>
-        </div>
-        <app-white-button><i class="fa-solid fa-plus"></i></app-white-button>
-      </div>
-    </div>
+  <div class="container-button">
+    <app-white-button routerLink="/participants" class="button">Back</app-white-button>
+    <app-blue-button type="submit" class="button">Save</app-blue-button>
   </div>
-</main>
+</form>

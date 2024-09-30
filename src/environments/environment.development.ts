@@ -24,6 +24,14 @@ export const environment = {
       download_id_card: 'id-card/download',
       list: 'participants/list/result',
       search: 'participants/search/result'
+    },
+    capability: {
+      base: 'capability',
+      list: 'capability/list/result',
+    },
+    curriculumSyllabus: {
+      base: 'curriculum-syllabus',
+      list: 'curriculum-syllabus/list/result',
     }
   },
 };

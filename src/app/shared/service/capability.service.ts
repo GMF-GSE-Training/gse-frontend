@@ -8,12 +8,17 @@ import { Observable } from "rxjs";
 })
 export class CapabilityService {
   private apiUrl = environment.apiUrl;
+  private endpoint = environment.endpoints.capability;
 
   constructor(
     private http: HttpClient,
   ) {}
 
+  createCapability(request: any): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/${this.endpoint.base}`, request, { withCredentials: true });
+  }
+
   listCapability(page: number = 1, size: number = 10): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/capability/list/result?page=${page}&size=${size}`, { withCredentials: true });
+    return this.http.get<any>(`${this.apiUrl}/${this.endpoint.list}?page=${page}&size=${size}`, { withCredentials: true });
   }
 }

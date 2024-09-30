@@ -202,7 +202,7 @@ export const routes: Routes = [
     data: { roles: ['super admin'] }
   },
   {
-    path: 'curriculum',
+    path: 'curriculum-syllabus',
     component: ViewCurriculumSyllabusComponent,
     canActivate: [AuthAndRoleGuard],
     data: { roles: ['super admin'] }
@@ -214,7 +214,7 @@ export const routes: Routes = [
     data: { roles: ['super admin', 'supervisor', 'lcu'] }
   },
   {
-    path: 'curriculum/add',
+    path: 'curriculum-syllabus/add',
     component: AddCurriculumComponent,
     canActivate: [AuthAndRoleGuard],
     data: { roles: ['super admin'] }

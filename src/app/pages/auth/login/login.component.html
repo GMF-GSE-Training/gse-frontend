@@ -14,6 +14,6 @@
     <input [(ngModel)]="loginRequest.password" [type]="isPassVisible ? 'password' : 'text'" name="password" id="password" placeholder="Password">
     <a routerLink="/passwordreset" class="forgotPassword">Forgot the password?</a>
     <p class="isRegistered">Belum punya akun? <a routerLink="/register">Register</a></p>
-    <app-blue-button label="Login" [type]="'submit'"></app-blue-button>
+    <app-blue-button [type]="'submit'" class="button">Login</app-blue-button>
   </form>
 </app-auth>

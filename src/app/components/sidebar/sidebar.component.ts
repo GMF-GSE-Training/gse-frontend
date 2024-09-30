@@ -48,11 +48,11 @@ export class SidebarComponent {
     },
     {
       name: 'Curriculum & Syllabus',
-      routerLink: "/curriculum"
+      routerLink: "/curriculum-syllabus"
     },
   ];
 
-  currentUserRole: string = '';
+  currentUserRole: string | null = localStorage.getItem('currentUserRole');
 
   constructor(
     private authService: AuthService,
@@ -64,7 +64,8 @@ export class SidebarComponent {
   @Output() menuClose = new EventEmitter<void>();
 
   ngOnInit(): void {
-    if(this.currentUserRole.toLocaleLowerCase() === 'user') {
+    console.log(this.currentUserRole)
+    if(this.currentUserRole?.toLocaleLowerCase() === 'user') {
       this.generalMenu[1].name = 'Profil';
       this.participantService.getParticipantByNik().subscribe({
         next: (response) => {
