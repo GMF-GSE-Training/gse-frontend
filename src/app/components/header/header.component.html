@@ -1,11 +1,11 @@
-<nav *ngIf="shouldShowHeader" class="navbar">
+<header *ngIf="shouldShowHeader" class="header">
   <img
-    routerLink="/"
-    class="brand-logo"
+    routerLink="/home"
+    class="logo"
     src="/assets/image/logo-GMF.png"
     alt="logo"
     aria-hidden="true"
   >
   <h1 class="menu" (click)="toggleMenu()">Menu <i class="fa-solid" [ngClass]="isMenuVisible ? 'fa-x' : 'fa-bars'"></i></h1>
-  <app-sidebar [isMenuVisible]="isMenuVisible" (menuClose)="onMenuClose()"></app-sidebar>
-</nav>
+</header>
+<app-sidebar [isMenuVisible]="isMenuVisible" (menuClose)="onMenuClose()"></app-sidebar>
