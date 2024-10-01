@@ -7,11 +7,11 @@
     <i class="fa-solid fa-user user-icon"></i>
     <input [(ngModel)]="loginRequest.identifier" type="username" id="username" name="username" placeholder="No Pegawai or Email">
     <i class="fa-solid fa-lock pass-icon"></i>
-    <i
-      (click)="passVisible()"
-      [ngClass]="isPassVisible ? 'fa-solid fa-eye-slash' : 'fa-solid fa-eye'">
-    </i>
-    <input [(ngModel)]="loginRequest.password" [type]="isPassVisible ? 'password' : 'text'" name="password" id="password" placeholder="Password">
+    <app-toggle-password-visibility
+      [isPassVisible]="isPassVisible"
+      (togglePassClick)="passVisible()">
+    </app-toggle-password-visibility>
+    <input [(ngModel)]="loginRequest.password" [type]="isPassVisible ? 'text' : 'password'" name="password" id="password" placeholder="Password">
     <a routerLink="/passwordreset" class="forgotPassword">Forgot password?</a>
     <p class="isRegistered">Don't have an account? <a routerLink="/register">Register</a></p>
     <app-blue-button [type]="'submit'" class="button">Login</app-blue-button>

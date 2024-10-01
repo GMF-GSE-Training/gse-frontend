@@ -8,6 +8,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../../shared/service/auth.service';
 import { TitleComponent } from "../../../components/title/title.component";
+import { TogglePasswordVisibilityComponent } from '../../../components/toggle-password-visibility/toggle-password-visibility.component';
 
 @Component({
   selector: 'app-login',
@@ -19,13 +20,14 @@ import { TitleComponent } from "../../../components/title/title.component";
     HttpClientModule,
     FormsModule,
     RouterLink,
-    TitleComponent
+    TitleComponent,
+    TogglePasswordVisibilityComponent,
 ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
-  isPassVisible: boolean = true;
+  isPassVisible: boolean = false;
   loginRequest: LoginUserRequest = {
     identifier: '',
     password: '',

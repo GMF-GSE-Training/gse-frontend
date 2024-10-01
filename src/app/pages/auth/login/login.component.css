@@ -6,11 +6,6 @@
   gap: 100px;
 }
 
-.login-title {
-  border-bottom: 4px solid #000;
-  font-size: 35px;
-}
-
 .login-form input {
   font-size: 20px;
   font-family: 'Petrona', sans-serif;
@@ -41,7 +36,8 @@ i {
   right: 680px;
 }
 
-.fa-eye, .fa-eye-slash {
+app-toggle-password-visibility {
+  position: absolute;
   bottom: 268px;
   right: 270px;
   cursor: pointer;
