@@ -1,6 +1,6 @@
 export const environment = {
   production: false,
-  apiUrl: `${window.location.protocol}//${window.location.hostname}:3000`,
+  apiUrl: `http://localhost:3000`,
   endpoints: {
     auth: {
       base: 'auth/current',

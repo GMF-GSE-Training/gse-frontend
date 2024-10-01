@@ -12,8 +12,8 @@
       [ngClass]="isPassVisible ? 'fa-solid fa-eye-slash' : 'fa-solid fa-eye'">
     </i>
     <input [(ngModel)]="loginRequest.password" [type]="isPassVisible ? 'password' : 'text'" name="password" id="password" placeholder="Password">
-    <a routerLink="/passwordreset" class="forgotPassword">Forgot the password?</a>
-    <p class="isRegistered">Belum punya akun? <a routerLink="/register">Register</a></p>
+    <a routerLink="/passwordreset" class="forgotPassword">Forgot password?</a>
+    <p class="isRegistered">Don't have an account? <a routerLink="/register">Register</a></p>
     <app-blue-button [type]="'submit'" class="button">Login</app-blue-button>
   </form>
 </app-auth>
