@@ -9,7 +9,7 @@
 
       <div class="input-container">
         <app-base-input
-          [ngClass]="isNotRegisterPage ? 'input-create' : 'input-register'"
+          class="input-create-account"
           type="text"
           inputMode="tel"
           placeholder="No Pegawai"
@@ -20,7 +20,7 @@
 
         <app-input-role-nik
           *ngIf="isCreateUser"
-          [ngClass]="isNotRegisterPage ? 'input-create' : 'input-register'"
+          class="input-create-account"
           [nik]="user.nik"
           (roleIdChange)="onRoleIdChange($event)"
           (nikChange)="onNikChange($event)"
@@ -29,21 +29,19 @@
 
         <app-base-input
           *ngIf="isRegister"
-          [ngClass]="isNotRegisterPage ? 'input-create' : 'input-register'"
+          class="input-create-account"
           type="text"
           inputMode="tel"
           placeholder="NIK *"
           name="nik"
           [(ngModel)]="user.nik"
           #nik="ngModel"
-          required
-          minlength="16"
-          maxlength="16">
+          required>
           <p>Masukkan NIK sesuai KTP</p>
         </app-base-input>
 
         <app-base-input
-          [ngClass]="isNotRegisterPage ? 'input-create' : 'input-register'"
+          class="input-create-account"
           type="text"
           inputMode="text"
           placeholder="Nama Lengkap *"
@@ -56,7 +54,7 @@
         </app-base-input>
 
         <app-base-input
-          [ngClass]="isNotRegisterPage ? 'input-create' : 'input-register'"
+          class="input-create-account"
           type="email"
           inputMode="email"
           placeholder="Email *"
@@ -70,8 +68,10 @@
         </app-base-input>
 
         <app-base-input
-          [ngClass]="isNotRegisterPage ? 'input-create' : 'input-register'"
+          class="input-create-account"
           [type]="isPassVisible ? 'text' : 'password'"
+          [isPassVisible]="isPassVisible"
+          (togglePassClick)="passVisible()"
           inputMode="text"
           placeholder="Password *"
           name="password"
@@ -82,7 +82,7 @@
         </app-base-input>
 
         <app-base-input
-          [ngClass]="isNotRegisterPage ? 'input-create' : 'input-register'"
+          class="input-create-account"
           type="text"
           inputMode="text"
           placeholder="Dinas"
@@ -91,22 +91,22 @@
         ></app-base-input>
       </div>
 
-      <p *ngIf="saveLabel === 'Register'" class="isRegistered">Already have account? <a routerLink="/login">Login</a></p>
+      <p *ngIf="blueButtonLabel === 'Register'" class="isRegistered">Already have account? <a routerLink="/login">Login</a></p>
 
       <div class="buttons">
-        <app-white-button *ngIf="isNotRegisterPage" type="button" routerLink="/home">Cancel</app-white-button>
-        <app-blue-button type="submit" [ngClass]="isRegister ? 'submit' : ''">{{ saveLabel }}</app-blue-button>
+        <app-white-button *ngIf="isCreateUser" type="button" routerLink="/home">Cancel</app-white-button>
+        <app-blue-button type="submit" [ngClass]="isRegister ? 'submit' : ''">{{ blueButtonLabel }}</app-blue-button>
       </div>
     </form>
 
-    <form *ngIf="isForgotPassword" #form="ngForm" (ngSubmit)="onSubmit()" class="form" [ngClass]="'forgot-password-form'">
-      <app-title pageTitle="Forgot the password"></app-title>
+    <form *ngIf="isForgotPassword" #form="ngForm" (ngSubmit)="onSubmit()" class="form">
+      <app-title pageTitle="Forgot password"></app-title>
 
       <div *ngIf="isSubmitted && getMessage()" [ngClass]="submitError ? 'error-message' : 'success-message'">
         <p class="error">{{ getMessage() }}</p>
       </div>
 
-      <div class="input-container" [ngClass]="'input-forgot-password'">
+      <div class="input-container" ngClass="email">
         <app-base-input
           type="email"
           inputMode="email"
@@ -115,8 +115,8 @@
           [(ngModel)]="user.email"
           #email="ngModel"
           required
-          email
-        ></app-base-input>
+          email>
+        </app-base-input>
       </div>
 
       <div class="buttons">
@@ -125,33 +125,39 @@
       </div>
     </form>
 
-    <form *ngIf="isResetPassword" #form="ngForm" (ngSubmit)="onSubmit()" class="form" [ngClass]="'forgot-password-form'">
+    <form *ngIf="isResetPassword" #form="ngForm" (ngSubmit)="onSubmit()" class="form">
       <app-title pageTitle="Reset Password"></app-title>
 
       <div *ngIf="isSubmitted && getMessage()" [ngClass]="submitError ? 'error-message' : 'success-message'">
         <p class="error">{{ getMessage() }}</p>
       </div>
 
-      <div class="input-container" [ngClass]="'input-forgot-password'">
+      <div class="input-container">
         <app-base-input
           [type]="isPassVisible ? 'text' : 'password'"
+          [isPassVisible]="isPassVisible"
+          (togglePassClick)="passVisible()"
           inputMode="text"
           placeholder="New Password"
           name="newPassword"
           [(ngModel)]="user.newPassword"
           #newPassword="ngModel"
-          required
-        ></app-base-input>
+          required>
+          <p>Gunakan minimal 8 karakter dengan kombinasi huruf dan angka</p>
+        </app-base-input>
 
         <app-base-input
           [type]="isPassVisible ? 'text' : 'password'"
+          [isPassVisible]="isPassVisible"
+          (togglePassClick)="passVisible()"
           inputMode="text"
           placeholder="Confirm New Password"
           name="confirmNewPassword"
           [(ngModel)]="user.confirmNewPassword"
           #confirmNewPassword="ngModel"
-          required
-        ></app-base-input>
+          required>
+          <p>Gunakan minimal 8 karakter dengan kombinasi huruf dan angka</p>
+        </app-base-input>
       </div>
 
       <div class="buttons">
@@ -160,9 +166,4 @@
       </div>
     </form>
   </div>
-
-  <app-toggle-password-visibility
-    [isPassVisible]="isPassVisible"
-    (togglePassClick)="passVisible()"
-  ></app-toggle-password-visibility>
 </app-auth>

@@ -19,3 +19,13 @@ label {
 div {
   font-size: 15px;
 }
+
+app-toggle-password-visibility {
+  position: relative;
+  left: 430px;
+  bottom: 50px;
+}
+
+.container {
+  margin-bottom: -25px;
+}

@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, forwardRef, Input, Output } from '@angular/core';
 import { FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { TogglePasswordVisibilityComponent } from "../../toggle-password-visibility/toggle-password-visibility.component";
 
 @Component({
   selector: 'app-base-input',
@@ -13,7 +14,8 @@ import { FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
   imports: [
     FormsModule,
     CommonModule,
-  ],
+    TogglePasswordVisibilityComponent
+],
   templateUrl: './base-input.component.html',
   styleUrl: './base-input.component.css'
 })
@@ -24,7 +26,15 @@ export class BaseInputComponent {
   @Input() placeholder: string = '';
   @Input() name: string = '';
   @Input() value: string = '';
-  @Input() disabled: boolean = false; 
+  @Input() disabled: boolean = false;
+
+  // Komponen toggle-password-visibility
+  @Input() isPassVisible: boolean = false;
+  @Output() togglePassClick = new EventEmitter<void>();
+
+  passVisible() {
+    this.togglePassClick.emit();
+  }
 
   @Output() valueChange = new EventEmitter<string>();
 

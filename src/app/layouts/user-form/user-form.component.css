@@ -22,16 +22,6 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-}
-
-.forgot-password-form {
-  width: 100%;
-}
-
-.input-forgot-password {
-  width: 40%;
-}
-.input-forgot-password app-base-input {
   width: 100%;
 }
 
@@ -55,8 +45,7 @@ app-blue-button {
   height: 45px;
 }
 
-.input-register,
-.input-create {
+.input-create-account {
   width: 100%;
 }
 
@@ -94,11 +83,4 @@ app-blue-button {
   margin: 0;
   width: 190px;
   height: 45px;
-}
-
-app-toggle-password-visibility {
-  position: absolute;
-  bottom: 275px;
-  right: 290px;
-  cursor: pointer;
 }

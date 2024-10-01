@@ -40,13 +40,10 @@ export class UserFormComponent {
   @Input() isResetPassword: boolean = false;
   message: string = '';
   isSubmitted: boolean = false;
-  isNotRegisterPage: boolean = true;
-  saveLabel: string = '';
+  blueButtonLabel: string = '';
   validationMessage: string = '';
 
-  // Komponen toggle-password-visibility
-  @Input() isPassVisible: boolean = false;
-
+  isPassVisible: boolean = false;
   passVisible() {
     this.isPassVisible = !this.isPassVisible;
   }
@@ -60,10 +57,9 @@ export class UserFormComponent {
 
   ngOnInit(): void {
     if(this.router.url === '/register') {
-      this.isNotRegisterPage = false;
-      this.saveLabel = 'Register';
+      this.blueButtonLabel = 'Register';
     } else {
-      this.saveLabel = 'Save';
+      this.blueButtonLabel = 'Save';
     }
   }
 
@@ -101,12 +97,6 @@ export class UserFormComponent {
         console.log(this.registerSuccess);
         console.log(this.submitError);
         return 'NIK wajib diisi';
-      } else if (nikControl.errors?.['minlength'] || nikControl.errors?.['maxlength']) {
-        this.registerSuccess = false;
-        this.submitError = true;
-        console.log(this.registerSuccess);
-        console.log(this.submitError);
-        return 'NIK harus berjumlah 16 karakter';
       }
     }
 
