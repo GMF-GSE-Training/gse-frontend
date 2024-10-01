@@ -71,7 +71,7 @@
 
         <app-base-input
           [ngClass]="isNotRegisterPage ? 'input-create' : 'input-register'"
-          type="password"
+          [type]="isPassVisible ? 'text' : 'password'"
           inputMode="text"
           placeholder="Password *"
           name="password"
@@ -134,7 +134,7 @@
 
       <div class="input-container" [ngClass]="'input-forgot-password'">
         <app-base-input
-          type="password"
+          [type]="isPassVisible ? 'text' : 'password'"
           inputMode="text"
           placeholder="New Password"
           name="newPassword"
@@ -144,7 +144,7 @@
         ></app-base-input>
 
         <app-base-input
-          type="password"
+          [type]="isPassVisible ? 'text' : 'password'"
           inputMode="text"
           placeholder="Confirm New Password"
           name="confirmNewPassword"
@@ -160,4 +160,9 @@
       </div>
     </form>
   </div>
+
+  <app-toggle-password-visibility
+    [isPassVisible]="isPassVisible"
+    (togglePassClick)="passVisible()"
+  ></app-toggle-password-visibility>
 </app-auth>

@@ -8,6 +8,7 @@ import { FormsModule, NgForm } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { AuthComponent } from "../../components/auth/auth.component";
+import { TogglePasswordVisibilityComponent } from "../../components/toggle-password-visibility/toggle-password-visibility.component";
 
 @Component({
   selector: 'app-user-form',
@@ -21,7 +22,8 @@ import { AuthComponent } from "../../components/auth/auth.component";
     BlueButtonComponent,
     FormsModule,
     CommonModule,
-    AuthComponent
+    AuthComponent,
+    TogglePasswordVisibilityComponent
 ],
   templateUrl: './user-form.component.html',
   styleUrl: './user-form.component.css'
@@ -41,6 +43,13 @@ export class UserFormComponent {
   isNotRegisterPage: boolean = true;
   saveLabel: string = '';
   validationMessage: string = '';
+
+  // Komponen toggle-password-visibility
+  @Input() isPassVisible: boolean = false;
+
+  passVisible() {
+    this.isPassVisible = !this.isPassVisible;
+  }
 
   @Output() formSubmit = new EventEmitter<any>();
   @ViewChild('form') form!: NgForm;

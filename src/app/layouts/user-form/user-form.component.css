@@ -95,3 +95,10 @@ app-blue-button {
   width: 190px;
   height: 45px;
 }
+
+app-toggle-password-visibility {
+  position: absolute;
+  bottom: 275px;
+  right: 290px;
+  cursor: pointer;
+}
