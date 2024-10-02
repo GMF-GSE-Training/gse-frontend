@@ -6,6 +6,7 @@ import { TableComponent } from "../../components/table/table.component";
 import { WhiteButtonComponent } from "../../components/button/white-button/white-button.component";
 import { BlueButtonComponent } from "../../components/button/blue-button/blue-button.component";
 import { PaginationComponent } from "../../components/pagination/pagination.component";
+import { RoleBasedAccessDirective } from '../../shared/directive/role-based-access.directive';
 
 @Component({
   selector: 'app-data-management',
@@ -17,7 +18,8 @@ import { PaginationComponent } from "../../components/pagination/pagination.comp
     TableComponent,
     WhiteButtonComponent,
     BlueButtonComponent,
-    PaginationComponent
+    PaginationComponent,
+    RoleBasedAccessDirective,
   ],
   templateUrl: './data-management.component.html',
   styleUrl: './data-management.component.css'
@@ -69,4 +71,7 @@ export class DataManagementComponent {
   onWhiteButtonClick() {
     this.whiteButtonClick.emit();
   }
+
+  // Role Based Access
+  @Input() roleBassedAccess: string[] = [];
 }

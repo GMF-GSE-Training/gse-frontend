@@ -23,5 +23,5 @@
 
 <div class="container-button">
   <app-white-button (whiteButtonClick)="onWhiteButtonClick()" class="button">Back</app-white-button>
-  <app-blue-button (blueButtonClick)="onBlueButtonClick()" class="button">Add</app-blue-button>
+  <app-blue-button *appRoleBasedAccess="roleBassedAccess" (blueButtonClick)="onBlueButtonClick()" class="button">Add</app-blue-button>
 </div>

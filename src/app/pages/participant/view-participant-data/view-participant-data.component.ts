@@ -41,6 +41,9 @@ export class ViewParticipantDataComponent implements OnInit {
   // Komponen Search
   placeHolder: string = 'Search Participant';
 
+  // Role Bassed Access
+  roleBassedAccess: string[] = ['super admin'];
+
   constructor(
     private participantService: ParticipantService,
     private sweetalertService: SweetalertService,
