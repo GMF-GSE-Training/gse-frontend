@@ -17,6 +17,8 @@ import { ParticipantService } from '../../shared/service/participant.service';
   styleUrl: './sidebar.component.css'
 })
 export class SidebarComponent {
+  currentUserRole: string = localStorage.getItem('currentUserRole')!;
+  id: string = '';
 
   generalMenu = [
     {
@@ -24,8 +26,8 @@ export class SidebarComponent {
       routerLink: ""
     },
     {
-      name: 'Participants Data',
-      routerLink: "/participants"
+      name: this.currentUserRole?.toLocaleLowerCase() === 'user' ? 'Profil' : 'Participants Data',
+      routerLink: this.currentUserRole?.toLocaleLowerCase() === 'user' ? `/participants/${this.id}/view` : "/participants"
     },
     {
       name: 'Capability',
@@ -35,7 +37,7 @@ export class SidebarComponent {
       name: 'COT',
       routerLink: "/cot"
     },
-  ]
+  ];
 
   optionalMenu = [
     {
@@ -52,32 +54,44 @@ export class SidebarComponent {
     },
   ];
 
-  currentUserRole: string | null = localStorage.getItem('currentUserRole');
-
   constructor(
     private authService: AuthService,
     private participantService: ParticipantService,
     private router: Router,
-  ) {}
-
-  @Input() isMenuVisible: boolean = false;
-  @Output() menuClose = new EventEmitter<void>();
-
-  ngOnInit(): void {
-    console.log(this.currentUserRole)
+  ) {
     if(this.currentUserRole?.toLocaleLowerCase() === 'user') {
-      this.generalMenu[1].name = 'Profil';
       this.participantService.getParticipantByNik().subscribe({
         next: (response) => {
-          console.log(response);
-          this.generalMenu[1].routerLink = `/participants/${response.data}/view`;
+          this.id = response.data;
+          this.updateGeneralMenu();
         },
-        error: () => {
-          this.generalMenu[1].routerLink = `/participants/add`;
-        }
       });
     }
   }
+
+  updateGeneralMenu() {
+    this.generalMenu = [
+      {
+        name: 'Home',
+        routerLink: ""
+      },
+      {
+        name: 'Profil',
+        routerLink: `/participants/${this.id}/view`
+      },
+      {
+        name: 'Capability',
+        routerLink: "/capability"
+      },
+      {
+        name: 'COT',
+        routerLink: "/cot"
+      },
+    ];
+  }
+
+  @Input() isMenuVisible: boolean = false;
+  @Output() menuClose = new EventEmitter<void>();
 
   closeMenu() {
     this.isMenuVisible = false;
