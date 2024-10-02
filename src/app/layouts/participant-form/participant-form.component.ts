@@ -29,6 +29,7 @@ import { FormsModule, NgForm } from '@angular/forms';
 export class ParticipantFormComponent {
   @Input() pageTitle: string = '';
   @Input() participant: any = {};
+  @Input() isUpdate: boolean = false;
   @Output() formSubmit = new EventEmitter<any>();
   @Output() fileChange = new EventEmitter<{ property: string, file: File | null }>();
 
@@ -38,7 +39,12 @@ export class ParticipantFormComponent {
   onSubmit() {
     if (this.form.valid) {
       this.participant.perusahaan = this.companyInputComponent.getCompanyName();
-      this.formSubmit.emit(this.participant);
+      if(this.isUpdate) {
+        this.participant.email = null;
+        this.formSubmit.emit(this.participant);
+      } else {
+        this.formSubmit.emit(this.participant);
+      }
     }
   }
 

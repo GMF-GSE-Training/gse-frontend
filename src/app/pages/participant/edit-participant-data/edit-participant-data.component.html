@@ -2,5 +2,6 @@
   [pageTitle]="'Edit Participant Data'"
   [participant]="updateParticipant"
   (formSubmit)="onUpdate($event)"
-  (fileChange)="onFileChange($event.property, $event.file)">
+  (fileChange)="onFileChange($event.property, $event.file)"
+  [isUpdate]="isUpdate">
 </app-participant-form>

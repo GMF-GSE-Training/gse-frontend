@@ -18,6 +18,8 @@ import { environment } from '../../../../environments/environment.development';
 export class EditParticipantDataComponent implements OnInit {
   @ViewChild(CompanyInputComponent) companyInputComponent!: CompanyInputComponent;
 
+  isUpdate: boolean = true;
+
   updateParticipant: UpdateParticipant = {
     no_pegawai: '',
     nama: '',
