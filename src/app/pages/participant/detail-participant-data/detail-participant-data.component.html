@@ -5,7 +5,7 @@
       <iframe *ngIf="photoType === 'application/pdf'" src="data:{{ photoType }};base64,{{ foto }}" alt="Profile Picture" class="file"></iframe>
     </div>
     <div class="name">
-      <h2>Heri Susanto</h2>
+      <h2>{{ participant?.nama }}</h2>
     </div>
   </div>
   <div class="qr-section">
