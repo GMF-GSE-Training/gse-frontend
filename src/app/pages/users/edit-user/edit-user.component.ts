@@ -55,8 +55,8 @@ export class EditUserComponent implements OnInit {
 
     // Panggil service untuk membuat user
     this.userService.updateUser(this.userId!, user).subscribe({
-      next: async () => {
-        await this.sweetalertService.alert(true, 'Ditambahkan!', 'Pengguna berhasil diperbarui', 'success');
+      next: () => {
+        this.sweetalertService.alert(true, 'Ditambahkan!', 'Pengguna berhasil diperbarui', 'success');
         this.router.navigateByUrl('/users');
       },
       error: (error) => {

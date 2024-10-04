@@ -4,6 +4,7 @@ import { TableComponent } from '../../../components/table/table.component';
 import { RouterLink } from '@angular/router';
 import { WhiteButtonComponent } from '../../../components/button/white-button/white-button.component';
 import { BlueButtonComponent } from '../../../components/button/blue-button/blue-button.component';
+import { RoleBasedAccessDirective } from '../../../shared/directive/role-based-access.directive';
 
 @Component({
   selector: 'app-view-cot',
@@ -14,6 +15,7 @@ import { BlueButtonComponent } from '../../../components/button/blue-button/blue
     RouterLink,
     WhiteButtonComponent,
     BlueButtonComponent,
+    RoleBasedAccessDirective
   ],
   templateUrl: './view-cot.component.html',
   styleUrl: './view-cot.component.css',

@@ -7,8 +7,8 @@ import { CommonModule } from '@angular/common';
 import { BlueButtonComponent } from "../../../components/button/blue-button/blue-button.component";
 import { Router, RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { Competency, CurriculumSyllabusRequest, RegulationGSE } from '../../../shared/model/curriculum-syllabus.model';
 import { CurriculumSyllabusService } from '../../../shared/service/curriculum-syllabus.service';
+import { CreateCurriculumSyllabus } from '../../../shared/model/curriculum-syllabus.model';
 
 @Component({
   selector: 'app-add-curriculum',
@@ -22,46 +22,36 @@ import { CurriculumSyllabusService } from '../../../shared/service/curriculum-sy
     BlueButtonComponent,
     RouterLink,
     FormsModule,
-],
+  ],
   templateUrl: './add-curriculum.component.html',
   styleUrl: './add-curriculum.component.css'
 })
 export class AddCurriculumComponent {
   capability = {
-    id: '',
+    id:'',
     kode_rating: '',
-    nama_training: '',
-  };
+    kode_training: '',
+    nama_training: ''
+  }
 
-  curriculumSyllabusRequest: CurriculumSyllabusRequest = {
+  curriculum_syllabus: CreateCurriculumSyllabus = {
+    curriculum_syllabus: []
+  }
+
+  regulasiGSEs: Array<{ capabilityId: string; nama: string; durasi_teori: number; durasi_praktek: number; type: string }> = [{
     capabilityId: '',
-    total_durasi: 0,
-    regulasiGSEs: [],
-    kompetensis: []
-  };
-
-  newRegulationGSE: RegulationGSE = {
-    reg_gse: '',
+    nama: '',
     durasi_teori: 0,
-    durasi_praktek: 0
-  };
-
-  newCompetency: Competency = {
-    kompetensi: '',
-    durasi_teori: 0,
-    durasi_praktek: 0
-  };
-
-  regulasiGSEs: RegulationGSE[] = [{
-    reg_gse: '',
-    durasi_teori: 0,
-    durasi_praktek: 0
+    durasi_praktek: 0,
+    type: 'Regulasi GSE'
   }];
 
-  kompetensis: Competency[] = [{
-    kompetensi: '',
+  kompetensis: Array<{ capabilityId: string; nama: string; durasi_teori: number; durasi_praktek: number; type: string }> = [{
+    capabilityId: '',
+    nama: '',
     durasi_teori: 0,
-    durasi_praktek: 0
+    durasi_praktek: 0,
+    type: 'Kompetensi'
   }];
 
   constructor(
@@ -76,7 +66,10 @@ export class AddCurriculumComponent {
       this.capability.id = state.id || '';
       this.capability.kode_rating = state.kode_rating || '';
       this.capability.nama_training = state.nama_training || '';
-      this.curriculumSyllabusRequest.capabilityId = state.id || '';
+
+      // Assign capabilityId to the initial dynamic inputs
+      this.regulasiGSEs[0].capabilityId = this.capability.id;
+      this.kompetensis[0].capabilityId = this.capability.id;
     }
   }
 
@@ -89,60 +82,57 @@ export class AddCurriculumComponent {
       event.stopPropagation();
     }
 
+    const capabilityId = this.capability.id; // Assuming capabilityId is the same as capability.id
+
     if (group === 'group1') {
       this.regulasiGSEs.push({
-        reg_gse: '',
+        capabilityId,
+        nama: '', // Add name for this item
         durasi_teori: 0,
-        durasi_praktek: 0
+        durasi_praktek: 0,
+        type: 'Regulasi GSE' // Set default type
       });
     } else if (group === 'group2') {
       this.kompetensis.push({
-        kompetensi: '',
+        capabilityId,
+        nama: '', // Add name for this item
         durasi_teori: 0,
-        durasi_praktek: 0
+        durasi_praktek: 0,
+        type: 'Kompetensi' // Set default type
       });
     }
   }
 
   onSubmit() {
-    this.curriculumSyllabusRequest = {
-      capabilityId: this.capability.id,
-      total_durasi: this.calculateTotalDuration(),
-      regulasiGSEs: this.regulasiGSEs.map(item => ({
-        ...item,
-        durasi_teori: Number(item.durasi_teori),
-        durasi_praktek: Number(item.durasi_praktek)
-      })),
-      kompetensis: this.kompetensis.map(item => ({
-        ...item,
-        durasi_teori: Number(item.durasi_teori),
-        durasi_praktek: Number(item.durasi_praktek)
-      }))
-    };
+    // Parse input group 1 (Regulasi GSEs) to ensure numbers are correct
+    this.regulasiGSEs = this.regulasiGSEs.map(item => ({
+      ...item,
+      durasi_teori: Number(item.durasi_teori),  // Konversi ke number
+      durasi_praktek: Number(item.durasi_praktek),  // Konversi ke number
+    }));
 
-    console.log(this.curriculumSyllabusRequest);
+    // Parse input group 2 (Kompetensis) to ensure numbers are correct
+    this.kompetensis = this.kompetensis.map(item => ({
+      ...item,
+      durasi_teori: Number(item.durasi_teori),  // Konversi ke number
+      durasi_praktek: Number(item.durasi_praktek),  // Konversi ke number
+    }));
 
-    this.curriculumSyllabusService.createCurriculumSyllabus(this.curriculumSyllabusRequest).subscribe({
-      next: (response) => {
-        console.log(response);
-      },
-      error: (error) => {
-        console.log(error);
-      }
+    // Gabungkan semua data ke dalam curriculum_syllabus
+    const curriculumSyllabusData = [
+      ...this.regulasiGSEs,
+      ...this.kompetensis
+    ];
+
+    // Panggil service untuk mengirim data ke backend
+    this.curriculumSyllabusService.createCurriculumSyllabus({
+      curriculum_syllabus: curriculumSyllabusData
+    }).subscribe(response => {
+      // Handle response
+      console.log('Curriculum & Syllabus saved successfully', response);
+    }, error => {
+      // Handle error
+      console.error('Error saving Curriculum & Syllabus', error);
     });
-  }
-
-  calculateTotalDuration(): number {
-    let total = 0;
-
-    this.regulasiGSEs.forEach(item => {
-      total += Number(item.durasi_teori) + Number(item.durasi_praktek);
-    });
-
-    this.kompetensis.forEach(item => {
-      total += Number(item.durasi_teori) + Number(item.durasi_praktek);
-    });
-
-    return total;
   }
 }

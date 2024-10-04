@@ -4,6 +4,7 @@ import { HeaderComponent } from "../../../components/header/header.component";
 import { WhiteButtonComponent } from "../../../components/button/white-button/white-button.component";
 import { BlueButtonComponent } from "../../../components/button/blue-button/blue-button.component";
 import { BaseInputComponent } from '../../../components/input/base-input/base-input.component';
+import { TitleComponent } from "../../../components/title/title.component";
 
 @Component({
   selector: 'app-edit-capability',
@@ -14,7 +15,8 @@ import { BaseInputComponent } from '../../../components/input/base-input/base-in
     BaseInputComponent,
     WhiteButtonComponent,
     BlueButtonComponent,
-  ],
+    TitleComponent
+],
   templateUrl: './edit-capability.component.html',
   styleUrl: './edit-capability.component.css'
 })

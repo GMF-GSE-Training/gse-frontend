@@ -2,7 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { environment } from "../../../environments/environment.development";
 import { Observable } from "rxjs";
-import { CurriculumSyllabusRequest } from "../model/curriculum-syllabus.model";
+import { CreateCurriculumSyllabus } from "../model/curriculum-syllabus.model";
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +15,7 @@ export class CurriculumSyllabusService {
   private readonly apiUrl = environment.apiUrl;
   private readonly endpoints = environment.endpoints.curriculumSyllabus;
 
-  createCurriculumSyllabus(request: CurriculumSyllabusRequest): Observable<any> {
+  createCurriculumSyllabus(request: CreateCurriculumSyllabus): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/${this.endpoints.base}`, request, { withCredentials: true });
   }
 }

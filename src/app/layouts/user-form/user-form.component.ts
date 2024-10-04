@@ -42,6 +42,7 @@ export class UserFormComponent {
   isSubmitted: boolean = false;
   blueButtonLabel: string = '';
   validationMessage: string = '';
+  @Input() isCreate: boolean = false;
 
   isPassVisible: boolean = false;
   passVisible() {
@@ -129,16 +130,18 @@ export class UserFormComponent {
     }
 
     // Password
-    const passwordControl = this.form.controls['password'];
-    if (passwordControl?.invalid) {
-      if (passwordControl.errors?.['required']) {
-        this.registerSuccess = false;
-        this.submitError = true;
-        return 'Password wajib diisi';
-      } else if (passwordControl.errors?.['minlength']) {
-        this.registerSuccess = false;
-        this.submitError = true;
-        return 'Password harus minimal 8 karakter kombinasi huruf besar kecil dan angka';
+    if(this.isCreate) {
+      const passwordControl = this.form.controls['password'];
+      if (passwordControl?.invalid) {
+        if (passwordControl.errors?.['required']) {
+          this.registerSuccess = false;
+          this.submitError = true;
+          return 'Password wajib diisi';
+        } else if (passwordControl.errors?.['minlength']) {
+          this.registerSuccess = false;
+          this.submitError = true;
+          return 'Password harus minimal 8 karakter kombinasi huruf besar kecil dan angka';
+        }
       }
     }
 

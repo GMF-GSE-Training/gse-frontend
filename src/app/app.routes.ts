@@ -23,7 +23,6 @@ import { AddSignComponent } from './pages/sign/add-sign/view-sign.component';
 import { EditUserComponent } from './pages/users/edit-user/edit-user.component';
 import { ViewSignComponent } from './pages/sign/view-sign/view-sign.component';
 import { EditSignComponent } from './pages/sign/edit-sign/edit-sign.component';
-import { ViewCurriculumSyllabusComponent } from './pages/curriculum-syllabus/view-curriculum-syllabus/view-curriculum-syllabus.component';
 import { AddCurriculumCapabilityComponent } from './pages/capability/add-curriculum-capability/add-curriculum-capability.component';
 import { AddCurriculumComponent } from './pages/curriculum-syllabus/add-curriculum/add-curriculum.component';
 import { RegisterComponent } from './pages/auth/register/register.component';
@@ -198,12 +197,6 @@ export const routes: Routes = [
   {
     path: 'sign/:id/edit',
     component: EditSignComponent,
-    canActivate: [AuthAndRoleGuard],
-    data: { roles: ['super admin'] }
-  },
-  {
-    path: 'curriculum-syllabus',
-    component: ViewCurriculumSyllabusComponent,
     canActivate: [AuthAndRoleGuard],
     data: { roles: ['super admin'] }
   },

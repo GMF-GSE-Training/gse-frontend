@@ -90,7 +90,9 @@ export class ViewCapabilityComponent {
             durasiMateriRating: totalDurasiKompetensi,
             totalDurasi: capability.curriculums?.total_durasi || "-",
             kurikulumSilabus: capability.curriculums?.id || "-",
-            action: response.actions // atau Anda bisa membuat ikon berdasarkan canEdit, canDelete, dll.
+            editLink: response.actions.canEdit ? `/capability/${capability.id}/edit` : null,
+            detailLink: response.actions.canView ? `/capability/${capability.id}/view` : null,
+            deleteMethod: response.actions.canDelete ? () => this.deleteCapability(capability) : null,
           };
         });
         this.totalPages = response.paging.total_page;
@@ -98,6 +100,10 @@ export class ViewCapabilityComponent {
         this.capability = [];
       }
     });
+  }
+
+  deleteCapability(capability: any) {
+    throw new Error('Method not implemented.');
   }
 
   onPageChanged(page: number): void {

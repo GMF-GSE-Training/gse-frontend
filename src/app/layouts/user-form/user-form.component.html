@@ -77,7 +77,7 @@
           name="password"
           [(ngModel)]="user.password"
           #password="ngModel"
-          required>
+          [required]="isCreate">
           <p>Gunakan minimal 8 karakter dengan kombinasi huruf dan angka</p>
         </app-base-input>
 

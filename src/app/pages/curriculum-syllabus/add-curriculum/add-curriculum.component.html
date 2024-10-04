@@ -27,7 +27,7 @@
         <!-- Dynamic inputs for first group -->
         <ng-container *ngFor="let input of regulasiGSEs; let i = index">
           <app-base-input
-            [(ngModel)]="regulasiGSEs[i].reg_gse"
+            [(ngModel)]="regulasiGSEs[i].nama"
             name="reg_gse_{{i}}"
             label="Regulasi GSE"
             type="text">
@@ -36,14 +36,14 @@
             [(ngModel)]="regulasiGSEs[i].durasi_teori"
             name="durasi_teori_{{i}}"
             label="Durasi Teori"
-            type="number"
+            type="text"
             inputMode="tel">
           </app-base-input>
           <app-base-input
             [(ngModel)]="regulasiGSEs[i].durasi_praktek"
             name="durasi_praktek_{{i}}"
             label="Durasi Praktik"
-            type="number"
+            type="text"
             inputMode="tel">
           </app-base-input>
         </ng-container>
@@ -62,7 +62,7 @@
         <!-- Dynamic inputs for second group -->
         <ng-container *ngFor="let input of kompetensis; let i = index">
           <app-base-input
-            [(ngModel)]="kompetensis[i].kompetensi"
+            [(ngModel)]="kompetensis[i].nama"
             name="kompetensi_{{i}}"
             label="Kompetensi"
             type="text">
@@ -71,14 +71,14 @@
             [(ngModel)]="kompetensis[i].durasi_teori"
             name="durasi_teori_kompetensi_{{i}}"
             label="Durasi Teori"
-            type="number"
+            type="text"
             inputMode="tel">
           </app-base-input>
           <app-base-input
             [(ngModel)]="kompetensis[i].durasi_praktek"
             name="durasi_praktek_kompetensi_{{i}}"
             label="Durasi Praktik"
-            type="number"
+            type="text"
             inputMode="tel">
           </app-base-input>
         </ng-container>

@@ -48,10 +48,6 @@ export class SidebarComponent {
       name: 'E-Sign',
       routerLink: "/sign"
     },
-    {
-      name: 'Curriculum & Syllabus',
-      routerLink: "/curriculum-syllabus"
-    },
   ];
 
   constructor(
