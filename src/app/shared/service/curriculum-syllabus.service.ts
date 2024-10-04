@@ -18,4 +18,8 @@ export class CurriculumSyllabusService {
   createCurriculumSyllabus(request: CreateCurriculumSyllabus): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/${this.endpoints.base}`, request, { withCredentials: true });
   }
+
+  getCurriculumSyllabus(capabilityId: string): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/${this.endpoints.base}/${capabilityId}`, { withCredentials: true });
+  }
 }

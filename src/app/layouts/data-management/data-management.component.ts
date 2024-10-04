@@ -31,6 +31,7 @@ export class DataManagementComponent {
   // Komponen tabel
   @Input() columns: { header: string, field: string }[] = [];
   @Input() data: any[] = [];
+  @Input() viewCurriculumSyllabusLink: string = '';
 
   // Komponen pagination
   @Input() totalPages: number = 0;

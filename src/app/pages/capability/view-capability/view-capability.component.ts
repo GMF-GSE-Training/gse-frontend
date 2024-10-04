@@ -71,7 +71,6 @@ export class ViewCapabilityComponent {
   getListParticipants(page: number, size: number): void {
     this.capabilityService.listCapability(page, size).subscribe((response: any) => {
       if (response.code === 200 && response.status === 'OK') {
-        console.log('List Response', response);
         this.capability = response.data.map((capability: any) => {
           const totalDurasiRegulasiGSE = capability.curriculums ? capability.curriculums.regulasiGSEs.reduce((total: number, regulasi: any) => {
             return total + regulasi.durasi_teori + regulasi.durasi_praktek;
@@ -80,7 +79,6 @@ export class ViewCapabilityComponent {
           const totalDurasiKompetensi = capability.curriculums ? capability.curriculums.kompetensis.reduce((total: number, kompetensi: any) => {
             return total + kompetensi.durasi_teori + kompetensi.durasi_praktek;
           }, 0) : "-";
-          console.log("Capability: ", capability)
 
           return {
             kodeRating: capability.kode_rating,
@@ -89,7 +87,7 @@ export class ViewCapabilityComponent {
             durasiMateriRegulasGSE: totalDurasiRegulasiGSE,
             durasiMateriRating: totalDurasiKompetensi,
             totalDurasi: capability.curriculums?.total_durasi || "-",
-            kurikulumSilabus: capability.curriculums?.id || "-",
+            kurikulumSilabus: `/capability-curriculum-syllabus/${response.data.id}`,
             editLink: response.actions.canEdit ? `/capability/${capability.id}/edit` : null,
             detailLink: response.actions.canView ? `/capability/${capability.id}/view` : null,
             deleteMethod: response.actions.canDelete ? () => this.deleteCapability(capability) : null,

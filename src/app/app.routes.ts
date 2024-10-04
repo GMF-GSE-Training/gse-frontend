@@ -23,7 +23,6 @@ import { AddSignComponent } from './pages/sign/add-sign/view-sign.component';
 import { EditUserComponent } from './pages/users/edit-user/edit-user.component';
 import { ViewSignComponent } from './pages/sign/view-sign/view-sign.component';
 import { EditSignComponent } from './pages/sign/edit-sign/edit-sign.component';
-import { AddCurriculumCapabilityComponent } from './pages/capability/add-curriculum-capability/add-curriculum-capability.component';
 import { AddCurriculumComponent } from './pages/curriculum-syllabus/add-curriculum/add-curriculum.component';
 import { RegisterComponent } from './pages/auth/register/register.component';
 import { AuthAndRoleGuard } from './shared/guard/auth.guard';
@@ -31,6 +30,7 @@ import { DisplayFilesParticipantsComponent } from './pages/participant/display-f
 import { guestGuard } from './shared/guard/guest.guard';
 import { ResetPasswordComponent } from './pages/auth/reset-password/reset-password.component';
 import { ForgotPasswordComponent } from './pages/auth/forgot-password/forgot-password.component';
+import { ViewCapabilityCurriculumSyllabusComponent } from './pages/capability/view-capability-curriculum-syllabus/add-curriculum.component';
 
 export const routes: Routes = [
   {
@@ -117,6 +117,12 @@ export const routes: Routes = [
     data: { roles: ['super admin'] }
   },
   {
+    path: 'capability-curriculum-syllabus/:id/view',
+    component: ViewCapabilityCurriculumSyllabusComponent,
+    canActivate: [AuthAndRoleGuard],
+    data: { roles: ['super admin', 'supervisor'] }
+  },
+  {
     path: 'cot',
     component: ViewCotComponent,
     canActivate: [AuthAndRoleGuard],
@@ -201,15 +207,9 @@ export const routes: Routes = [
     data: { roles: ['super admin'] }
   },
   {
-    path: 'curriculum/capability',
-    component: AddCurriculumCapabilityComponent,
-    canActivate: [AuthAndRoleGuard],
-    data: { roles: ['super admin', 'supervisor', 'lcu'] }
-  },
-  {
     path: 'curriculum-syllabus/add',
     component: AddCurriculumComponent,
     canActivate: [AuthAndRoleGuard],
     data: { roles: ['super admin'] }
-  }
+  },
 ];
