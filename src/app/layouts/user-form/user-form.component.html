@@ -9,7 +9,7 @@
 
       <div class="input-container">
         <app-base-input
-          class="input-create-account"
+          class="input"
           type="text"
           inputMode="tel"
           placeholder="No Pegawai"
@@ -20,7 +20,7 @@
 
         <app-input-role-nik
           *ngIf="isCreateUser"
-          class="input-create-account"
+          class="input"
           [nik]="user.nik"
           (roleIdChange)="onRoleIdChange($event)"
           (nikChange)="onNikChange($event)"
@@ -29,7 +29,7 @@
 
         <app-base-input
           *ngIf="isRegister"
-          class="input-create-account"
+          class="input"
           type="text"
           inputMode="tel"
           placeholder="NIK *"
@@ -41,7 +41,7 @@
         </app-base-input>
 
         <app-base-input
-          class="input-create-account"
+          class="input"
           type="text"
           inputMode="text"
           placeholder="Nama Lengkap *"
@@ -54,7 +54,7 @@
         </app-base-input>
 
         <app-base-input
-          class="input-create-account"
+          class="input"
           type="email"
           inputMode="email"
           placeholder="Email *"
@@ -68,7 +68,7 @@
         </app-base-input>
 
         <app-base-input
-          class="input-create-account"
+          class="input"
           [type]="isPassVisible ? 'text' : 'password'"
           [isPassVisible]="isPassVisible"
           (togglePassClick)="passVisible()"
@@ -80,11 +80,11 @@
           [required]="isCreate"
           minlength="8"
           pattern="^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}$">
-          <p>Gunakan minimal 8 karakter dengan kombinasi huruf besar, huruf kecil dan angka</p>
+          <p>Gunakan minimal 8 karakter dengan kombinasi huruf besar, huruf kecil, dan angka</p>
         </app-base-input>
 
         <app-base-input
-          class="input-create-account"
+          class="input"
           type="text"
           inputMode="text"
           placeholder="Dinas"
@@ -110,6 +110,7 @@
 
       <div class="input-container" ngClass="email">
         <app-base-input
+          class="input"
           type="email"
           inputMode="email"
           placeholder="Email"
@@ -136,24 +137,24 @@
 
       <div class="input-container">
         <app-base-input
+          class="input"
           [type]="isPassVisible ? 'text' : 'password'"
-          [isPassVisible]="isPassVisible"
-          (togglePassClick)="passVisible()"
           inputMode="text"
           placeholder="Password baru"
           name="newPassword"
           [(ngModel)]="user.newPassword"
           #newPassword="ngModel"
+          [isPassVisible]="isPassVisible"
+          (togglePassClick)="passVisible()"
           required
           minlength="8"
           pattern="^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}$">
-          <p>Gunakan minimal 8 karakter dengan kombinasi huruf dan angka</p>
+          <p>Gunakan minimal 8 karakter dengan kombinasi huruf besar, huruf kecil, dan angka</p>
         </app-base-input>
 
         <app-base-input
+          class="input"
           [type]="isPassVisible ? 'text' : 'password'"
-          [isPassVisible]="isPassVisible"
-          (togglePassClick)="passVisible()"
           inputMode="text"
           placeholder="Konfirmasi password baru"
           name="confirmNewPassword"
@@ -162,7 +163,6 @@
           required
           minlength="8"
           pattern="^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}$">
-          <p>Gunakan minimal 8 karakter dengan kombinasi huruf dan angka</p>
         </app-base-input>
       </div>
 

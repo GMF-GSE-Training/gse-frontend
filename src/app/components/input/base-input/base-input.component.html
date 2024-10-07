@@ -16,7 +16,7 @@
   </div>
 
   <app-toggle-password-visibility
-    *ngIf="name === 'password'"
+    *ngIf="name === 'password' || name === 'newPassword'"
     [isPassVisible]="isPassVisible"
     (togglePassClick)="passVisible()"
   ></app-toggle-password-visibility>
