@@ -46,22 +46,21 @@ export class AddUserComponent {
 
     // Periksa apakah role user dan NIK diperlukan
     if (user.roleId === 'user' && !user.nik) {
-      alert('NIK is required for role user.');
+      this.sweetalertService.alert(false, 'Gagal!', 'NIK diperlukan untuk role user', 'error');
       return;
     }
 
-    console.log(user);
-
     // Panggil service untuk membuat user
-    this.userService.createUser(user).subscribe(
-      async () => {
-        await this.sweetalertService.alert(true, 'Ditambahkan!', 'Pengguna berhasil ditambahkan', 'success');
+    this.userService.createUser(user).subscribe({
+      next: () => {
+        this.sweetalertService.alert(true, 'Ditambahkan!', 'Pengguna berhasil ditambahkan', 'success');
         this.router.navigateByUrl('/users');
       },
-      error => {
+      error: (error) => {
         this.handleError(error.error);
+        console.log(error)
       }
-    );
+    });
   }
 
   private handleError(error: any): void {
