@@ -39,7 +39,7 @@ export class ViewParticipantDataComponent implements OnInit {
   searchQuery: string = '';
 
   // Komponen Search
-  placeHolder: string = 'Search Participant';
+  placeHolder: string = 'Cari Participant';
 
   // Role Bassed Access
   roleBassedAccess: string[] = ['super admin'];

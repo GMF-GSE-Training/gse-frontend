@@ -91,10 +91,10 @@
         ></app-base-input>
       </div>
 
-      <p *ngIf="blueButtonLabel === 'Register'" class="isRegistered">Already have account? <a routerLink="/login">Login</a></p>
+      <p *ngIf="isRegister" class="isRegistered">Sudah punya akun? <a routerLink="/login">Masuk</a></p>
 
       <div class="buttons">
-        <app-white-button *ngIf="isCreateUser" type="button" routerLink="/home">Cancel</app-white-button>
+        <app-white-button *ngIf="isCreateUser" type="button" routerLink="/users">Kembali</app-white-button>
         <app-blue-button type="submit" [ngClass]="isRegister ? 'submit' : ''">{{ blueButtonLabel }}</app-blue-button>
       </div>
     </form>
@@ -120,8 +120,8 @@
       </div>
 
       <div class="buttons">
-        <app-white-button type="button" routerLink="/login">Back</app-white-button>
-        <app-blue-button class="submit" type="submit">submit</app-blue-button>
+        <app-white-button type="button" routerLink="/login">Kembali</app-white-button>
+        <app-blue-button class="submit" type="submit">Kirim</app-blue-button>
       </div>
     </form>
 
@@ -138,7 +138,7 @@
           [isPassVisible]="isPassVisible"
           (togglePassClick)="passVisible()"
           inputMode="text"
-          placeholder="New Password"
+          placeholder="Password baru"
           name="newPassword"
           [(ngModel)]="user.newPassword"
           #newPassword="ngModel"
@@ -151,7 +151,7 @@
           [isPassVisible]="isPassVisible"
           (togglePassClick)="passVisible()"
           inputMode="text"
-          placeholder="Confirm New Password"
+          placeholder="Konfirmasi password baru"
           name="confirmNewPassword"
           [(ngModel)]="user.confirmNewPassword"
           #confirmNewPassword="ngModel"
@@ -161,8 +161,8 @@
       </div>
 
       <div class="buttons">
-        <app-white-button type="button" routerLink="/login">Back</app-white-button>
-        <app-blue-button class="submit" type="submit">Reset</app-blue-button>
+        <app-white-button type="button" routerLink="/login">Kembali</app-white-button>
+        <app-blue-button class="submit" type="submit">Simpan</app-blue-button>
       </div>
     </form>
   </div>

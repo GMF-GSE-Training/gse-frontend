@@ -47,7 +47,7 @@ export class ViewCapabilityComponent {
   searchQuery: string = '';
 
   // Komponen Search
-  placeHolder: string = 'Search Capability';
+  placeHolder: string = 'Cari Capability';
 
   constructor(
     private capabilityService: CapabilityService,

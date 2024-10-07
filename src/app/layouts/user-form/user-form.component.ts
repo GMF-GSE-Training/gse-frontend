@@ -58,9 +58,9 @@ export class UserFormComponent {
 
   ngOnInit(): void {
     if(this.router.url === '/register') {
-      this.blueButtonLabel = 'Register';
+      this.blueButtonLabel = 'Daftar';
     } else {
-      this.blueButtonLabel = 'Save';
+      this.blueButtonLabel = 'Simpan';
     }
   }
 

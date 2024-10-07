@@ -49,7 +49,7 @@ export class ViewUsersComponent implements OnInit {
   searchQuery: string = '';
 
   // Komponen Search
-  placeHolder: string = 'Search User';
+  placeHolder: string = 'Cari User';
 
   constructor(
     private userService: UserService,
