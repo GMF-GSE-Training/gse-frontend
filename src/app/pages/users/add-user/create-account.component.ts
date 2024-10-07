@@ -57,8 +57,7 @@ export class AddUserComponent {
         this.router.navigateByUrl('/users');
       },
       error: (error) => {
-        this.handleError(error.error);
-        console.log(error)
+        this.handleError(error);
       }
     });
   }
@@ -67,7 +66,6 @@ export class AddUserComponent {
     const e = error.error.errors;
     const isObject = (obj: any) => obj !== null && typeof obj === 'object' && !Array.isArray(obj);
     const isArray = Array.isArray(e);
-    console.log(error);
 
     if (isObject(e) || isArray) {
       if (e.message) {

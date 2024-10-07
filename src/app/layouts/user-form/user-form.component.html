@@ -36,7 +36,7 @@
           name="nik"
           [(ngModel)]="user.nik"
           #nik="ngModel"
-          required>
+          [required]="isRegister">
           <p>Masukkan NIK sesuai KTP</p>
         </app-base-input>
 
@@ -79,7 +79,7 @@
           #password="ngModel"
           [required]="isCreate"
           minlength="8"
-          pattern="/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/">
+          pattern="^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}$">
           <p>Gunakan minimal 8 karakter dengan kombinasi huruf besar, huruf kecil dan angka</p>
         </app-base-input>
 
@@ -146,7 +146,7 @@
           #newPassword="ngModel"
           required
           minlength="8"
-          pattern="/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/">
+          pattern="^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}$">
           <p>Gunakan minimal 8 karakter dengan kombinasi huruf dan angka</p>
         </app-base-input>
 
@@ -161,7 +161,7 @@
           #confirmNewPassword="ngModel"
           required
           minlength="8"
-          pattern="/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/">
+          pattern="^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}$">
           <p>Gunakan minimal 8 karakter dengan kombinasi huruf dan angka</p>
         </app-base-input>
       </div>

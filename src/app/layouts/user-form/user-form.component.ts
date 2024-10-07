@@ -66,6 +66,7 @@ export class UserFormComponent {
 
   onSubmit() {
     this.isSubmitted = true;
+
     if (this.form.valid) {
       this.formSubmit.emit(this.user);
     } else {
@@ -95,8 +96,6 @@ export class UserFormComponent {
       if (nikControl.errors?.['required']) {
         this.submitError = true;
         this.registerSuccess = false;
-        console.log(this.registerSuccess);
-        console.log(this.submitError);
         return 'NIK wajib diisi';
       }
     }
@@ -137,7 +136,7 @@ export class UserFormComponent {
           this.registerSuccess = false;
           this.submitError = true;
           return 'Password wajib diisi';
-        } else if (passwordControl.errors?.['minlength']) {
+        } else if (passwordControl.errors?.['minlength'] || passwordControl.errors?.['pattern']) {
           this.registerSuccess = false;
           this.submitError = true;
           return 'Password harus minimal 8 karakter kombinasi huruf besar kecil dan angka';
@@ -152,11 +151,7 @@ export class UserFormComponent {
         this.registerSuccess = false;
         this.submitError = true;
         return 'Password baru wajib diisi';
-      } else if (newPasswordControl.errors?.['minlength']) {
-        this.registerSuccess = false;
-        this.submitError = true;
-        return 'Password harus minimal 8 karakter kombinasi huruf besar kecil dan angka';
-      } else if (newPasswordControl.errors?.['pattern']) {
+      } else if (newPasswordControl.errors?.['minlength'] || newPasswordControl.errors?.['pattern']) {
         this.registerSuccess = false;
         this.submitError = true;
         return 'Password harus minimal 8 karakter kombinasi huruf besar kecil dan angka';
@@ -168,7 +163,7 @@ export class UserFormComponent {
 
     this.submitError = false;
     this.registerSuccess = true;
-    return this.parrentMessage || '';
+    return this.parrentMessage || 'Hello';
   }
 
   onValidationMessage(message: string): void {
