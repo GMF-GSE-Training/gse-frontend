@@ -77,8 +77,10 @@
           name="password"
           [(ngModel)]="user.password"
           #password="ngModel"
-          [required]="isCreate">
-          <p>Gunakan minimal 8 karakter dengan kombinasi huruf dan angka</p>
+          [required]="isCreate"
+          minlength="8"
+          pattern="/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/">
+          <p>Gunakan minimal 8 karakter dengan kombinasi huruf besar, huruf kecil dan angka</p>
         </app-base-input>
 
         <app-base-input
@@ -142,7 +144,9 @@
           name="newPassword"
           [(ngModel)]="user.newPassword"
           #newPassword="ngModel"
-          required>
+          required
+          minlength="8"
+          pattern="/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/">
           <p>Gunakan minimal 8 karakter dengan kombinasi huruf dan angka</p>
         </app-base-input>
 
@@ -155,7 +159,9 @@
           name="confirmNewPassword"
           [(ngModel)]="user.confirmNewPassword"
           #confirmNewPassword="ngModel"
-          required>
+          required
+          minlength="8"
+          pattern="/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/">
           <p>Gunakan minimal 8 karakter dengan kombinasi huruf dan angka</p>
         </app-base-input>
       </div>

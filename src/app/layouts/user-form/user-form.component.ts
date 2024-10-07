@@ -145,7 +145,7 @@ export class UserFormComponent {
       }
     }
 
-    // New Password
+    // Reset Password
     const newPasswordControl = this.form.controls['newPassword'];
     if (newPasswordControl?.invalid) {
       if (newPasswordControl.errors?.['required']) {
@@ -153,6 +153,10 @@ export class UserFormComponent {
         this.submitError = true;
         return 'Password baru wajib diisi';
       } else if (newPasswordControl.errors?.['minlength']) {
+        this.registerSuccess = false;
+        this.submitError = true;
+        return 'Password harus minimal 8 karakter kombinasi huruf besar kecil dan angka';
+      } else if (newPasswordControl.errors?.['pattern']) {
         this.registerSuccess = false;
         this.submitError = true;
         return 'Password harus minimal 8 karakter kombinasi huruf besar kecil dan angka';
