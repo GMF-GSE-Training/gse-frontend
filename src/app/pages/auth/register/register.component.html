@@ -1,9 +1,9 @@
 <app-user-form
   [isRegister]="true"
+  [isCreate]="true"
   [pageTitle]="'Create Account'"
   [user]="registerUserRequest"
   [submitError]="submitError"
-  [registerSuccess]="registerSuccess"
   [parrentMessage]="message"
   (formSubmit)="onRegister($event)">
 </app-user-form>

@@ -38,7 +38,6 @@ export class RegisterComponent {
     dinas: '',
   };
   submitError: boolean = false;
-  registerSuccess: boolean = false;
   message: string = '';
 
   constructor(
@@ -54,7 +53,6 @@ export class RegisterComponent {
     this.authService.register(user).subscribe({
       next: (response) => {
         this.submitError = false;
-        this.registerSuccess = true;
         this.sweetalertService.close();
         this.message = 'Register berhasil, silahkan verifikasi email anda';
         console.log(response);
@@ -62,9 +60,8 @@ export class RegisterComponent {
       error: (error) => {
         console.log(error);
         this.submitError = true;
-        this.registerSuccess = false;
         this.sweetalertService.close();
-        this.message = error.error.errors || 'Terjadi kesalahan pada registrasi';
+        this.handleError(error);
       },
     });
   }
@@ -74,6 +71,22 @@ export class RegisterComponent {
       if (object.hasOwnProperty(key) && object[key] === '') {
         object[key] = undefined;  // Atau bisa diubah menjadi undefined
       }
+    }
+  }
+
+  private handleError(error: any): void {
+    const e = error.error.errors;
+    const isObject = (obj: any) => obj !== null && typeof obj === 'object' && !Array.isArray(obj);
+    const isArray = Array.isArray(e);
+
+    if (isObject(e) || isArray) {
+      if (e.message) {
+        this.message = e.message;
+      } else if (e.email || e.name || e.password || e.roleId || e.nik) {
+        this.message = 'field dengan tanda bintang wajib diisi dengan benar';
+      }
+    } else {
+      this.message = e;
     }
   }
 }
