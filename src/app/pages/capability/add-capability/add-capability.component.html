@@ -3,7 +3,7 @@
 
   <form #form="ngForm" (submit)="onSubmit(capability)">
     <div class="form-container">
-      <div class="left-column">
+      <div class="input-column">
         <app-base-input
           label="Kode Rating"
           type="text"
@@ -31,12 +31,6 @@
           #namaTraining="ngModel">
         </app-base-input>
       </div>
-      <!-- <div class="right-column">
-        <app-base-input label="Durasi Materi Regulasi GSE" type="tel" inputMode="tel"></app-base-input>
-        <app-base-input label="Durasi Materi Rating" type="tel" inputMode="tel"></app-base-input>
-        <app-base-input label="Total Durasi Training" type="tel" inputMode="tel"></app-base-input>
-        <button routerLink="/curriculum/capability">Pilih Kurikulum & Silabus</button>
-      </div> -->
     </div>
 
     <div class="container-button">
