@@ -35,10 +35,10 @@ export class EditUserComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.loadParticipant();
+    this.loadUsers();
   }
 
-  loadParticipant(): void {
+  loadUsers(): void {
     this.userService.get(this.userId!).subscribe({
       next: (response) => {
         this.updateUser = {
