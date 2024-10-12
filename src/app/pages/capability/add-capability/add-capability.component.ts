@@ -26,9 +26,9 @@ import { TitleComponent } from "../../../components/title/title.component";
 export class AddCapabilityComponent {
   capability = {
     id: '',
-    kode_rating: '',
-    kode_training: '',
-    nama_training: '',
+    kodeRating: '',
+    kodeTraining: '',
+    namaTraining: '',
   };
 
   constructor(
@@ -44,8 +44,8 @@ export class AddCapabilityComponent {
         this.router.navigateByUrl('/curriculum-syllabus/add', {
           state: {
             id: capability.id,
-            kode_rating: capability.kode_rating,
-            nama_training: capability.nama_training,
+            kodeRating: capability.kodeRating,
+            namaTraining: capability.namaTraining,
           }
         });
       },
