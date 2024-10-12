@@ -26,5 +26,6 @@
 </div>
 
 <div class="container-button">
-  <app-blue-button *appRoleBasedAccess="['user']" [routerLink]="editLink" class="button">Edit</app-blue-button>
+  <app-white-button *appRoleBasedAccess="['super admin', 'lcu', 'supervisor']" routerLink="/participants" class="button">Kembali</app-white-button>
+  <app-blue-button *appRoleBasedAccess="['super admin', 'lcu', 'user']" [routerLink]="editLink" class="button">Edit</app-blue-button>
 </div>

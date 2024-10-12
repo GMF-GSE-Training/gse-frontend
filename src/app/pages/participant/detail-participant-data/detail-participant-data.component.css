@@ -59,6 +59,7 @@ a:hover {
 .container-button {
   display: flex;
   justify-content: center;
+  gap: 4em;
   width: 90%;
   margin-top: 15px;
   margin-bottom: 15px;

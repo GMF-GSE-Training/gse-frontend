@@ -9,6 +9,7 @@ import { Participant, ParticipantResponse } from '../../../shared/model/particip
 import { map } from 'rxjs/operators';
 import { RoleBasedAccessDirective } from '../../../shared/directive/role-based-access.directive';
 import { CommonModule } from '@angular/common';
+import { WhiteButtonComponent } from "../../../components/button/white-button/white-button.component";
 
 @Component({
   selector: 'app-detail-participant-data',
@@ -21,6 +22,7 @@ import { CommonModule } from '@angular/common';
     TableComponent,
     RoleBasedAccessDirective,
     CommonModule,
+    WhiteButtonComponent
 ],
   templateUrl: './detail-participant-data.component.html',
   styleUrl: './detail-participant-data.component.css'
