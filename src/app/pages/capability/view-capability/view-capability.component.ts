@@ -6,7 +6,6 @@ import { BlueButtonComponent } from '../../../components/button/blue-button/blue
 import { TableComponent } from "../../../components/table/table.component";
 import { SearchComponent } from "../../../components/search/search.component";
 import { DataManagementComponent } from "../../../layouts/data-management/data-management.component";
-import { SweetalertService } from '../../../shared/service/sweetaler.service';
 import { CapabilityService } from '../../../shared/service/capability.service';
 
 @Component({
@@ -51,7 +50,6 @@ export class ViewCapabilityComponent {
 
   constructor(
     private capabilityService: CapabilityService,
-    private sweetalertService: SweetalertService,
     private router: Router,
     private route: ActivatedRoute,
   ) {}
