@@ -117,7 +117,7 @@ export const routes: Routes = [
     data: { roles: ['super admin'] }
   },
   {
-    path: 'capability-curriculum-syllabus/:id/view',
+    path: 'capability-curriculum-syllabus/:id',
     component: ViewCapabilityCurriculumSyllabusComponent,
     canActivate: [AuthAndRoleGuard],
     data: { roles: ['super admin', 'supervisor'] }

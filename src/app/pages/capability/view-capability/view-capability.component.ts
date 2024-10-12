@@ -30,8 +30,8 @@ export class ViewCapabilityComponent {
     { header: 'Kode Rating', field: 'kodeRating' },
     { header: 'Kode Training', field: 'kodeTraining' },
     { header: 'Nama Training', field: 'namaTraining' },
-    { header: 'Durasi Materi Regulas GSE', field: 'durasiMateriRegulasGSE' },
-    { header: 'Durasi Materi Rating', field: 'durasiMateriRating' },
+    { header: 'Durasi Materi Regulasi GSE', field: 'durasiMateriRegulasGSE' },
+    { header: 'Durasi Materi Kompetensi', field: 'durasiMateriRating' },
     { header: 'Total Durasi', field: 'totalDurasi' },
     { header: 'Kurikulum & Silabus', field: 'kurikulumSilabus' },
     { header: 'Action', field: 'action' }
@@ -71,13 +71,11 @@ export class ViewCapabilityComponent {
       next: (response: any) => {
         if (response.code === 200 && response.status === 'OK') {
           this.capability = response.data.map((capability: any) => {
-            const totalDurasiRegulasiGSE = capability.curriculums ? capability.curriculums.regulasiGSEs.reduce((total: number, regulasi: any) => {
-              return total + regulasi.durasi_teori + regulasi.durasi_praktek;
-            }, 0) : "-";
+            const totalDurasiRegulasiGSE = capability.totalDurasiTeoriRegGse + capability.totalDurasiPraktekRegGse || '-';
 
-            const totalDurasiKompetensi = capability.curriculums ? capability.curriculums.kompetensis.reduce((total: number, kompetensi: any) => {
-              return total + kompetensi.durasi_teori + kompetensi.durasi_praktek;
-            }, 0) : "-";
+            const totalDurasiKompetensi = capability.totalDurasiTeoriKompetensi + capability.totalDurasiPraktekKompetensi || '-';
+
+            console.log(capability)
 
             return {
               kodeRating: capability.kodeRating,
@@ -85,8 +83,8 @@ export class ViewCapabilityComponent {
               namaTraining: capability.namaTraining,
               durasiMateriRegulasGSE: totalDurasiRegulasiGSE,
               durasiMateriRating: totalDurasiKompetensi,
-              totalDurasi: capability.curriculums?.total_durasi || "-",
-              kurikulumSilabus: `/capability-curriculum-syllabus/${response.data.id}`,
+              totalDurasi: capability.totalDurasi || "-",
+              kurikulumSilabus: `/capability-curriculum-syllabus/${capability.id}`,
               editLink: response.actions.canEdit ? `/capability/${capability.id}/edit` : null,
               detailLink: response.actions.canView ? `/capability/${capability.id}/view` : null,
               deleteMethod: response.actions.canDelete ? () => this.deleteCapability(capability) : null,

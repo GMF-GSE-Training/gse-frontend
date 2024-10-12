@@ -1,12 +1,12 @@
 <app-title pageTitle="View Curriculum & Syllabus"></app-title>
 
-<form #form="ngForm" (submit)="onSubmit()">
+<form>
   <div class="top-form-container">
     <div class="form-section">
       <app-base-input
         label="Kode Rating"
-        [(ngModel)]="capability.kode_rating"
-        name="kode_rating"
+        [(ngModel)]="capability.kodeRating"
+        name="kodeRating"
         [disabled]="true">
       </app-base-input>
     </div>
@@ -14,8 +14,8 @@
       <app-base-input
         label="Nama Training"
         type="text"
-        [(ngModel)]="capability.nama_training"
-        name="nama_training"
+        [(ngModel)]="capability.namaTraining"
+        name="namaTraining"
         [disabled]="true">
       </app-base-input>
     </div>
@@ -28,30 +28,28 @@
         <ng-container *ngFor="let input of regulasiGSEs; let i = index">
           <app-base-input
             [(ngModel)]="regulasiGSEs[i].nama"
-            name="reg_gse_{{i}}"
+            name="regGSE{{i}}"
             label="Regulasi GSE"
-            type="text">
+            type="text"
+            [disabled]="true">
           </app-base-input>
           <app-base-input
             [(ngModel)]="regulasiGSEs[i].durasiTeori"
-            name="durasi_teori_{{i}}"
+            name="durasiTeori{{i}}"
             label="Durasi Teori"
             type="text"
-            inputMode="tel">
+            inputMode="tel"
+            [disabled]="true">
           </app-base-input>
           <app-base-input
             [(ngModel)]="regulasiGSEs[i].durasiPraktek"
-            name="durasi_praktek_{{i}}"
+            name="durasiPraktek{{i}}"
             label="Durasi Praktik"
             type="text"
-            inputMode="tel">
+            inputMode="tel"
+            [disabled]="true">
           </app-base-input>
         </ng-container>
-      </div>
-      <div class="add-button">
-        <app-white-button (whiteButtonClick)="addInput('group1')" type="button">
-          <i class="fa-solid fa-plus"></i>
-        </app-white-button>
       </div>
     </div>
 
@@ -63,36 +61,34 @@
         <ng-container *ngFor="let input of kompetensis; let i = index">
           <app-base-input
             [(ngModel)]="kompetensis[i].nama"
-            name="kompetensi_{{i}}"
+            name="kompetensi{{i}}"
             label="Kompetensi"
-            type="text">
+            type="text"
+            [disabled]="true">
           </app-base-input>
           <app-base-input
             [(ngModel)]="kompetensis[i].durasiTeori"
-            name="durasi_teori_kompetensi_{{i}}"
+            name="durasiTeoriKompetensi{{i}}"
             label="Durasi Teori"
             type="text"
-            inputMode="tel">
+            inputMode="tel"
+            [disabled]="true">
           </app-base-input>
           <app-base-input
             [(ngModel)]="kompetensis[i].durasiPraktek"
-            name="durasi_praktek_kompetensi_{{i}}"
+            name="durasiPraktekKompetensi{{i}}"
             label="Durasi Praktik"
             type="text"
-            inputMode="tel">
+            inputMode="tel"
+            [disabled]="true">
           </app-base-input>
         </ng-container>
-      </div>
-      <div class="add-button">
-        <app-white-button (whiteButtonClick)="addInput('group2')" type="button">
-          <i class="fa-solid fa-plus"></i>
-        </app-white-button>
       </div>
     </div>
   </div>
 
   <div class="container-button">
     <app-white-button routerLink="/participants" class="button">Back</app-white-button>
-    <app-blue-button type="submit" class="button">Save</app-blue-button>
+    <app-blue-button routerLink="" class="button">Edit</app-blue-button>
   </div>
 </form>

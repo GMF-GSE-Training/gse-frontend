@@ -29,9 +29,9 @@ import { CreateCurriculumSyllabus } from '../../../shared/model/curriculum-sylla
 export class ViewCapabilityCurriculumSyllabusComponent {
   capability = {
     id:'',
-    kode_rating: '',
-    kode_training: '',
-    nama_training: ''
+    kodeRating: '',
+    kodeTraining: '',
+    namaTraining: ''
   }
 
   curriculumSyllabus: CreateCurriculumSyllabus = {
@@ -59,13 +59,13 @@ export class ViewCapabilityCurriculumSyllabusComponent {
     private readonly curriculumSyllabusService: CurriculumSyllabusService,
   ) {
     const navigation = this.router.getCurrentNavigation();
-    const state = navigation?.extras.state as { id?: string, kode_rating?: string, nama_training?: string } | undefined;
+    const state = navigation?.extras.state as { id?: string, kodeRating?: string, namaTraining?: string } | undefined;
     console.log(state)
 
     if (state) {
       this.capability.id = state.id || '';
-      this.capability.kode_rating = state.kode_rating || '';
-      this.capability.nama_training = state.nama_training || '';
+      this.capability.kodeRating = state.kodeRating || '';
+      this.capability.namaTraining = state.namaTraining || '';
 
       // Assign capabilityId to the initial dynamic inputs
       this.regulasiGSEs[0].capabilityId = this.capability.id;
@@ -75,33 +75,6 @@ export class ViewCapabilityCurriculumSyllabusComponent {
 
   inputGroup1: Array<any> = [];
   inputGroup2: Array<any> = [];
-
-  addInput(group: string, event?: Event) {
-    if (event) {
-      event.preventDefault();
-      event.stopPropagation();
-    }
-
-    const capabilityId = this.capability.id; // Assuming capabilityId is the same as capability.id
-
-    if (group === 'group1') {
-      this.regulasiGSEs.push({
-        capabilityId,
-        nama: '', // Add name for this item
-        durasiTeori: 0,
-        durasiPraktek: 0,
-        type: 'Regulasi GSE' // Set default type
-      });
-    } else if (group === 'group2') {
-      this.kompetensis.push({
-        capabilityId,
-        nama: '', // Add name for this item
-        durasiTeori: 0,
-        durasiPraktek: 0,
-        type: 'Kompetensi' // Set default type
-      });
-    }
-  }
 
   onSubmit() {
     // Parse input group 1 (Regulasi GSEs) to ensure numbers are correct
