@@ -37,20 +37,20 @@ export interface UpdateParticipant {
   tempatLahir: string;
   tanggalLahir: string;
   simA: File | null;
-  simAName?: string;
+  simAFileName?: string;
   simB: File | null;
-  simBName?: string;
+  simBFileName?: string;
   ktp: File | null;
-  ktpName?: string;
+  ktpFileName?: string;
   foto: File | null;
-  fotoName?: string;
+  fotoFileName?: string;
   suratSehatButaWarna: File | null;
-  suratSehatButaWarnaName?: string;
+  suratSehatButaWarnaFileName?: string;
   suratBebasNarkoba: File |null;
-  suratBebasNarkobaName?: string;
+  suratBebasNarkobaFileName?: string;
   expSuratSehatButaWarna: string;
   expSuratBebasNarkoba: string;
-}
+} 
 
 export interface CreateParticipant {
   noPegawai?: string | null;
@@ -65,6 +65,7 @@ export interface CreateParticipant {
   tempatLahir: string;
   tanggalLahir: string;
   simA: File | null;
+  simAFileName?: string;
   simB: File | null;
   ktp: File | null;
   foto: File | null;

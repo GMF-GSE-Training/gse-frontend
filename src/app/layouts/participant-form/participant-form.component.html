@@ -4,8 +4,8 @@
   <div class="form-container">
     <div class="left-column">
       <app-base-input
-        [(ngModel)]="participant.no_pegawai"
-        name="no_pegawai"
+        [(ngModel)]="participant.noPegawai"
+        name="noPegawai"
         label="No Pegawai"
         type="text"
         inputMode="tel">
@@ -56,8 +56,8 @@
       </app-base-input>
 
       <app-base-input
-        [(ngModel)]="participant.no_telp"
-        name="no_telp"
+        [(ngModel)]="participant.noTelp"
+        name="noTelp"
         label="Nomor Telpon *"
         type="tel"
         inputMode="tel">
@@ -73,16 +73,16 @@
     </div>
     <div class="right-column">
       <app-base-input
-        [(ngModel)]="participant.tempat_lahir"
-        name="tempat_lahir"
+        [(ngModel)]="participant.tempatLahir"
+        name="tempatLahir"
         label="Tempat Lahir *"
         type="text"
         inputMode="text">
       </app-base-input>
 
       <app-base-input
-        [(ngModel)]="participant.tanggal_lahir"
-        name="tanggal_lahir"
+        [(ngModel)]="participant.tanggalLahir"
+        name="tanggalLahir"
         label="Tanggal Lahir *"
         type="date"
         inputmode="date">
@@ -90,42 +90,42 @@
 
       <app-file-input
         idInput="sim_a_input"
-        (valueChange)="onFileChange('sim_a', $event)"
+        (valueChange)="onFileChange('simA', $event)"
         label="SIM A *"
-        [fileName]="participant.sim_a_name">
+        [fileName]="participant.simAFileName">
       </app-file-input>
 
       <app-file-input
         idInput="sim_b_input"
-        (valueChange)="onFileChange('sim_b', $event)"
+        (valueChange)="onFileChange('simB', $event)"
         label="SIM B *"
-        [fileName]="participant.sim_b_name">
+        [fileName]="participant.simBFileName">
       </app-file-input>
 
       <app-file-input
         idInput="ktp_input"
         (valueChange)="onFileChange('ktp', $event)"
         label="KTP *"
-        [fileName]="participant.ktp_name">
+        [fileName]="participant.ktpFileName">
       </app-file-input>
 
       <app-file-input
         idInput="foto_input"
         (valueChange)="onFileChange('foto', $event)"
         label="Foto *"
-        [fileName]="participant.foto_name">
+        [fileName]="participant.fotoFileName">
       </app-file-input>
 
       <app-file-input
         idInput="surat_sehat_input"
-        (valueChange)="onFileChange('surat_sehat_buta_warna', $event)"
+        (valueChange)="onFileChange('suratSehatButaWarna', $event)"
         label="Surat Ket Sehat & Buta Warna *"
-        [fileName]="participant.surat_sehat_buta_warna_name">
+        [fileName]="participant.suratSehatButaWarnaFileName">
       </app-file-input>
 
       <app-base-input
-        [(ngModel)]="participant.exp_surat_sehat"
-        name="exp_surat_sehat"
+        [(ngModel)]="participant.expSuratSehatButaWarna"
+        name="expSuratSehatButaWarna"
         label="Tanggal Pembuatan Surat Ket Sehat & Buta Warna"
         type="date"
         inputmode="date">
@@ -133,14 +133,14 @@
 
       <app-file-input
         idInput="surat_bebas_narkoba_input"
-        (valueChange)="onFileChange('surat_bebas_narkoba', $event)"
+        (valueChange)="onFileChange('suratBebasNarkoba', $event)"
         label="Surat Ket Bebas Narkoba *"
-        [fileName]="participant.surat_bebas_narkoba_name">
+        [fileName]="participant.suratBebasNarkobaFileName">
       </app-file-input>
 
       <app-base-input
-        [(ngModel)]="participant.exp_bebas_narkoba"
-        name="exp_bebas_narkoba"
+        [(ngModel)]="participant.expSuratBebasNarkoba"
+        name="expSuratBebasNarkoba"
         label="Tanggal Pembuatan Surat Ket Bebas Narkoba"
         type="date"
         inputmode="date">

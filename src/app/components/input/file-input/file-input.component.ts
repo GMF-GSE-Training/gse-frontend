@@ -23,22 +23,7 @@ export class FileInputComponent {
   @Output() valueChange = new EventEmitter<File | null>();
 
   get displayFileName(): string {
-    return this.fileName || 'Tidak ada file dipilih';
-  }
-
-  private onChange = (file: File | null) => {};
-  private onTouched = () => {};
-
-  writeValue(file: File | null): void {
-    this.fileName = file ? file.name : null;
-  }
-
-  registerOnChange(fn: (file: File | null) => void): void {
-    this.onChange = fn;
-  }
-
-  registerOnTouched(fn: () => void): void {
-    this.onTouched = fn;
+    return this.fileName || 'Unggah file maksimal 2 MB dengan format png, jpg, jpeg, atau pdf';
   }
 
   onFileSelected(event: Event): void {

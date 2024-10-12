@@ -33,11 +33,17 @@ export class EditParticipantDataComponent implements OnInit {
     tempatLahir: '',
     tanggalLahir: '',
     simA: null,
+    simAFileName: '',
     simB: null,
+    simBFileName: '',
     ktp: null,
+    ktpFileName: '',
     foto: null,
+    fotoFileName: '',
     suratSehatButaWarna: null,
+    suratSehatButaWarnaFileName: '',
     suratBebasNarkoba: null,
+    suratBebasNarkobaFileName: '',
     expSuratSehatButaWarna: '',
     expSuratBebasNarkoba: '',
   };
@@ -59,13 +65,8 @@ export class EditParticipantDataComponent implements OnInit {
   loadParticipant(): void {
     this.participantService.getParticipantById(this.participantId!).subscribe({
       next: (response) => {
+        console.log(response)
         this.updateParticipant = response.data;
-        this.updateParticipant.simAName = 'simA';
-        this.updateParticipant.simBName = 'simB';
-        this.updateParticipant.ktpName = 'ktp';
-        this.updateParticipant.fotoName = 'foto';
-        this.updateParticipant.suratSehatButaWarnaName = 'surat_sehat_buta_warna';
-        this.updateParticipant.suratBebasNarkobaName = 'surat_bebas_narkoba';
         this.updateParticipant.tanggalLahir = this.formatDateToISO(response.data.tanggalLahir);
         this.updateParticipant.expSuratSehatButaWarna = this.formatDateToISO(response.data.expSuratSehatButaWarna);
         this.updateParticipant.expSuratBebasNarkoba = this.formatDateToISO(response.data.expSuratBebasNarkoba);
@@ -76,7 +77,7 @@ export class EditParticipantDataComponent implements OnInit {
     });
   }
 
-  onUpdate(participant: any) {
+  onUpdate(participant: UpdateParticipant) {
     const formData = this.prepareFormData(participant);
     console.log(participant)
 
@@ -86,7 +87,7 @@ export class EditParticipantDataComponent implements OnInit {
         this.router.navigateByUrl(`/participants/${response.data.id}/view`);
       },
       error: (error) => {
-        console.log(error.error.errors);
+        console.log(error);
         this.sweetalertService.alert(false, 'Gagal!', 'Gagal memperbarui peserta', 'error');
       }
     });
@@ -95,6 +96,9 @@ export class EditParticipantDataComponent implements OnInit {
   onFileChange(property: string, file: File | null): void {
     if (file) {
       (this.updateParticipant as any)[property] = file;
+      const fileNameProperty = `${property}FileName`;
+      // Mengisi nama file ke property yang sesuai
+      (this.updateParticipant as any)[fileNameProperty] = file.name;
     }
   }
 
