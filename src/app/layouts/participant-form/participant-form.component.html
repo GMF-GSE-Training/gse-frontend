@@ -14,7 +14,7 @@
       <app-base-input
         [(ngModel)]="participant.nama"
         name="nama"
-        label="Nama *"
+        [label]="isUpdate ? 'Nama' : 'Nama *'"
         type="text"
         inputMode="text">
       </app-base-input>
@@ -22,7 +22,7 @@
       <app-base-input
         [(ngModel)]="participant.nik"
         name="nik"
-        label="NIK *"
+        [label]="isUpdate ? 'NIK' : 'NIK *'"
         type="text"
         inputMode="text">
       </app-base-input>
@@ -30,8 +30,8 @@
       <app-base-input
         [(ngModel)]="participant.dinas"
         name="dinas"
-        label="Dinas" t
-        ype="text"
+        label="Dinas"
+        type="text"
         inputMode="text">
       </app-base-input>
 
@@ -49,7 +49,7 @@
       <app-base-input
         [(ngModel)]="participant.email"
         name="email"
-        label="Email *"
+        [label]="isUpdate ? 'Email' : 'Email *'"
         type="email"
         inputMode="text"
         [disabled]="isUpdate">
@@ -58,7 +58,7 @@
       <app-base-input
         [(ngModel)]="participant.noTelp"
         name="noTelp"
-        label="Nomor Telpon *"
+        [label]="isUpdate ? 'Nomor Telpon' : 'Nomor Telpon *'"
         type="tel"
         inputMode="tel">
       </app-base-input>
@@ -66,7 +66,7 @@
       <app-base-input
         [(ngModel)]="participant.negara"
         name="negara"
-        label="Kewarganegaraan *"
+        [label]="isUpdate ? 'Kewarganegaraan' : 'Kewarganegaraan *'"
         type="text"
         inputMode="text">
       </app-base-input>
@@ -75,7 +75,7 @@
       <app-base-input
         [(ngModel)]="participant.tempatLahir"
         name="tempatLahir"
-        label="Tempat Lahir *"
+        [label]="isUpdate ? 'Tempat Lahir' : 'Tempat Lahir *'"
         type="text"
         inputMode="text">
       </app-base-input>
@@ -83,7 +83,7 @@
       <app-base-input
         [(ngModel)]="participant.tanggalLahir"
         name="tanggalLahir"
-        label="Tanggal Lahir *"
+        [label]="isUpdate ? 'Tanggal lahir' : 'Tanggal lahir *'"
         type="date"
         inputmode="date">
       </app-base-input>
@@ -91,42 +91,42 @@
       <app-file-input
         idInput="sim_a_input"
         (valueChange)="onFileChange('simA', $event)"
-        label="SIM A *"
+        [label]="isUpdate ? 'Sim A' : 'Sim A *'"
         [fileName]="participant.simAFileName">
       </app-file-input>
 
       <app-file-input
         idInput="sim_b_input"
         (valueChange)="onFileChange('simB', $event)"
-        label="SIM B *"
+        label="SIM B"
         [fileName]="participant.simBFileName">
       </app-file-input>
 
       <app-file-input
         idInput="ktp_input"
         (valueChange)="onFileChange('ktp', $event)"
-        label="KTP *"
+        [label]="isUpdate ? 'KTP' : 'KTP *'"
         [fileName]="participant.ktpFileName">
       </app-file-input>
 
       <app-file-input
         idInput="foto_input"
         (valueChange)="onFileChange('foto', $event)"
-        label="Foto *"
+        [label]="isUpdate ? 'Foto' : 'Foto *'"
         [fileName]="participant.fotoFileName">
       </app-file-input>
 
       <app-file-input
         idInput="surat_sehat_input"
         (valueChange)="onFileChange('suratSehatButaWarna', $event)"
-        label="Surat Ket Sehat & Buta Warna *"
+        [label]="isUpdate ? 'Surat Ket Sehat & Buta Warna' : 'Surat Ket Sehat & Buta Warna *'"
         [fileName]="participant.suratSehatButaWarnaFileName">
       </app-file-input>
 
       <app-base-input
         [(ngModel)]="participant.expSuratSehatButaWarna"
         name="expSuratSehatButaWarna"
-        label="Tanggal Pembuatan Surat Ket Sehat & Buta Warna"
+        [label]="isUpdate ? 'Tanggal Pembuatan Surat Ket Sehat & Buta Warna' : 'Tanggal Pembuatan Surat Ket Sehat & Buta Warna *'"
         type="date"
         inputmode="date">
       </app-base-input>
@@ -134,14 +134,14 @@
       <app-file-input
         idInput="surat_bebas_narkoba_input"
         (valueChange)="onFileChange('suratBebasNarkoba', $event)"
-        label="Surat Ket Bebas Narkoba *"
+        [label]="isUpdate ? 'Surat Ket Bebas Narkoba' : 'Surat Ket Bebas Narkoba *'"
         [fileName]="participant.suratBebasNarkobaFileName">
       </app-file-input>
 
       <app-base-input
         [(ngModel)]="participant.expSuratBebasNarkoba"
         name="expSuratBebasNarkoba"
-        label="Tanggal Pembuatan Surat Ket Bebas Narkoba"
+        [label]="isUpdate ? 'Tanggal Pembuatan Surat Ket Bebas Narkoba' : 'Tanggal Pembuatan Surat Ket Bebas Narkoba *'"
         type="date"
         inputmode="date">
       </app-base-input>
