@@ -29,7 +29,7 @@ export class DetailParticipantDataComponent implements OnInit {
   participant: Participant | null = null;
   leftTableData: any[] = [];
   rightTableData: any[] = [];
-  qr_code: string | undefined;
+  qrCode: string | undefined;
   foto: string | undefined;
   editLink: string = '';
   photoType: string = '';
@@ -110,7 +110,7 @@ export class DetailParticipantDataComponent implements OnInit {
     this.participantService.getQrCode(id).pipe(
       map(response => response.data)
     ).subscribe((qrCode: string) => {
-      this.qr_code = qrCode;
+      this.qrCode = qrCode;
     });
   }
 
