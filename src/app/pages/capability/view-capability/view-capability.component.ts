@@ -69,32 +69,38 @@ export class ViewCapabilityComponent {
   }
 
   getListParticipants(page: number, size: number): void {
-    this.capabilityService.listCapability(page, size).subscribe((response: any) => {
-      if (response.code === 200 && response.status === 'OK') {
-        this.capability = response.data.map((capability: any) => {
-          const totalDurasiRegulasiGSE = capability.curriculums ? capability.curriculums.regulasiGSEs.reduce((total: number, regulasi: any) => {
-            return total + regulasi.durasi_teori + regulasi.durasi_praktek;
-          }, 0) : "-";
+    this.capabilityService.listCapability(page, size).subscribe({
+      next: (response: any) => {
+        if (response.code === 200 && response.status === 'OK') {
+          this.capability = response.data.map((capability: any) => {
+            const totalDurasiRegulasiGSE = capability.curriculums ? capability.curriculums.regulasiGSEs.reduce((total: number, regulasi: any) => {
+              return total + regulasi.durasi_teori + regulasi.durasi_praktek;
+            }, 0) : "-";
 
-          const totalDurasiKompetensi = capability.curriculums ? capability.curriculums.kompetensis.reduce((total: number, kompetensi: any) => {
-            return total + kompetensi.durasi_teori + kompetensi.durasi_praktek;
-          }, 0) : "-";
+            const totalDurasiKompetensi = capability.curriculums ? capability.curriculums.kompetensis.reduce((total: number, kompetensi: any) => {
+              return total + kompetensi.durasi_teori + kompetensi.durasi_praktek;
+            }, 0) : "-";
 
-          return {
-            kodeRating: capability.kode_rating,
-            kodeTraining: capability.kode_training,
-            namaTraining: capability.nama_training,
-            durasiMateriRegulasGSE: totalDurasiRegulasiGSE,
-            durasiMateriRating: totalDurasiKompetensi,
-            totalDurasi: capability.curriculums?.total_durasi || "-",
-            kurikulumSilabus: `/capability-curriculum-syllabus/${response.data.id}`,
-            editLink: response.actions.canEdit ? `/capability/${capability.id}/edit` : null,
-            detailLink: response.actions.canView ? `/capability/${capability.id}/view` : null,
-            deleteMethod: response.actions.canDelete ? () => this.deleteCapability(capability) : null,
-          };
-        });
-        this.totalPages = response.paging.total_page;
-      } else {
+            return {
+              kodeRating: capability.kodeRating,
+              kodeTraining: capability.kodeTraining,
+              namaTraining: capability.namaTraining,
+              durasiMateriRegulasGSE: totalDurasiRegulasiGSE,
+              durasiMateriRating: totalDurasiKompetensi,
+              totalDurasi: capability.curriculums?.total_durasi || "-",
+              kurikulumSilabus: `/capability-curriculum-syllabus/${response.data.id}`,
+              editLink: response.actions.canEdit ? `/capability/${capability.id}/edit` : null,
+              detailLink: response.actions.canView ? `/capability/${capability.id}/view` : null,
+              deleteMethod: response.actions.canDelete ? () => this.deleteCapability(capability) : null,
+            };
+          });
+          this.totalPages = response.paging.totalPage;
+        } else {
+          this.capability = [];
+        }
+      },
+      error: (error) => {
+        console.log(error)
         this.capability = [];
       }
     });
