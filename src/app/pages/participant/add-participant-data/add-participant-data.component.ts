@@ -7,6 +7,7 @@ import { environment } from '../../../../environments/environment.development';
 import { SweetalertService } from '../../../shared/service/sweetaler.service';
 import { CompanyInputComponent } from '../../../components/input/company-input/company-input.component';
 import { ParticipantFormComponent } from '../../../layouts/participant-form/participant-form.component';
+import { ErrorHandlerService } from '../../../shared/service/error-handler.service';
 
 @Component({
   selector: 'app-add-participant-data',
@@ -49,10 +50,16 @@ export class AddParticipantDataComponent {
     expSuratBebasNarkoba: '',
   };
 
+  requiredFields = ['nama', 'perusahaan', 'email', 'noTelp', 'kewarganegaraan',
+                    'tempatLahir', 'tanggalLahir', 'simA', 'ktp', 'foto',
+                    'suratSehatButaWarna', 'expSuratSehatButaWarna',
+                    'suratBebasNarkoba', 'expSuratSehatBebasNarkoba'];
+
   constructor(
     private router: Router,
     private participantService: ParticipantService,
     private sweetalertService: SweetalertService,
+    private errorHandlerService: ErrorHandlerService,
   ) {}
 
   onCreate(participant: any) {
@@ -72,8 +79,7 @@ export class AddParticipantDataComponent {
         });
       },
       error: (error) => {
-        console.log(error.error.errors);
-        this.sweetalertService.alert(false, 'Gagal!', 'Gagal menambahkan peserta', 'error');
+        this.errorHandlerService.handleError(error, this.requiredFields);
       }
     });
   }
