@@ -30,7 +30,7 @@ import { SweetalertService } from '../../../shared/service/sweetaler.service';
 })
 export class RegisterComponent {
   registerUserRequest: RegisterUserRequest = {
-    no_pegawai: '',
+    noPegawai: '',
     nik: '',
     email: '',
     name: '',

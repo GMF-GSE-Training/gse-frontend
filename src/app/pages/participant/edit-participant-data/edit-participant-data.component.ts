@@ -21,25 +21,25 @@ export class EditParticipantDataComponent implements OnInit {
   isUpdate: boolean = true;
 
   updateParticipant: UpdateParticipant = {
-    no_pegawai: '',
+    noPegawai: '',
     nama: '',
     nik: '',
     dinas: '',
     bidang: '',
     perusahaan: '',
     email: '',
-    no_telp: '',
+    noTelp: '',
     negara: '',
-    tempat_lahir: '',
-    tanggal_lahir: '',
-    sim_a: null,
-    sim_b: null,
+    tempatLahir: '',
+    tanggalLahir: '',
+    simA: null,
+    simB: null,
     ktp: null,
     foto: null,
-    surat_sehat_buta_warna: null,
-    surat_bebas_narkoba: null,
-    exp_surat_sehat: '',
-    exp_bebas_narkoba: '',
+    suratSehatButaWarna: null,
+    suratBebasNarkoba: null,
+    expSuratSehatButaWarna: '',
+    expSuratBebasNarkoba: '',
   };
 
   participantId = this.route.snapshot.paramMap.get('id');
@@ -60,15 +60,15 @@ export class EditParticipantDataComponent implements OnInit {
     this.participantService.getParticipantById(this.participantId!).subscribe({
       next: (response) => {
         this.updateParticipant = response.data;
-        this.updateParticipant.sim_a_name = 'sim_a';
-        this.updateParticipant.sim_b_name = 'sim_b';
-        this.updateParticipant.ktp_name = 'ktp';
-        this.updateParticipant.foto_name = 'foto';
-        this.updateParticipant.surat_sehat_buta_warna_name = 'surat_sehat_buta_warna';
-        this.updateParticipant.surat_bebas_narkoba_name = 'surat_bebas_narkoba';
-        this.updateParticipant.tanggal_lahir = this.formatDateToISO(response.data.tanggal_lahir);
-        this.updateParticipant.exp_surat_sehat = this.formatDateToISO(response.data.exp_surat_sehat);
-        this.updateParticipant.exp_bebas_narkoba = this.formatDateToISO(response.data.exp_bebas_narkoba);
+        this.updateParticipant.simAName = 'simA';
+        this.updateParticipant.simBName = 'simB';
+        this.updateParticipant.ktpName = 'ktp';
+        this.updateParticipant.fotoName = 'foto';
+        this.updateParticipant.suratSehatButaWarnaName = 'surat_sehat_buta_warna';
+        this.updateParticipant.suratBebasNarkobaName = 'surat_bebas_narkoba';
+        this.updateParticipant.tanggalLahir = this.formatDateToISO(response.data.tanggalLahir);
+        this.updateParticipant.expSuratSehatButaWarna = this.formatDateToISO(response.data.expSuratSehatButaWarna);
+        this.updateParticipant.expSuratBebasNarkoba = this.formatDateToISO(response.data.expSuratBebasNarkoba);
       },
       error: (error) => {
         console.log(error);

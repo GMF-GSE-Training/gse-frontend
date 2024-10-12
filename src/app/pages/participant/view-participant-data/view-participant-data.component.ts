@@ -22,7 +22,7 @@ export class ViewParticipantDataComponent implements OnInit {
 
   // Komponen tabel
   columns = [
-    { header: 'No Pegawai', field: 'no_pegawai' },
+    { header: 'No Pegawai', field: 'noPegawai' },
     { header: 'Nama', field: 'nama' },
     { header: 'Dinas', field: 'dinas' },
     { header: 'Bidang', field: 'bidang' },
@@ -70,7 +70,7 @@ export class ViewParticipantDataComponent implements OnInit {
         this.participants = response.data.map((participant: Participant) => {
           return {
             ...participant,
-            no_pegawai: participant.no_pegawai ?? '-',
+            noPegawai: participant.noPegawai ?? '-',
             dinas: participant.dinas ?? '-',
             bidang: participant.bidang ?? '-',
             editLink: response.actions.canEdit ? `/participants/${participant.id}/edit` : null,
@@ -78,7 +78,7 @@ export class ViewParticipantDataComponent implements OnInit {
             deleteMethod: response.actions.canDelete ? () => this.deleteParticipant(participant) : null,
           };
         });
-        this.totalPages = response.paging.total_page;
+        this.totalPages = response.paging.totalPage;
       } else {
         this.participants = [];
       }
@@ -107,7 +107,7 @@ export class ViewParticipantDataComponent implements OnInit {
         this.participants = response.data.map((participant: Participant) => {
           return {
             ...participant,
-            no_pegawai: participant.no_pegawai ?? '-',
+            noPegawai: participant.noPegawai ?? '-',
             dinas: participant.dinas ?? '-',
             bidang: participant.bidang ?? '-',
             editLink: response.actions.canEdit ? `/participants/${participant.id}/edit` : null,
@@ -115,7 +115,7 @@ export class ViewParticipantDataComponent implements OnInit {
             deleteMethod: response.actions.canDelete ? () => this.deleteParticipant(participant) : null,
           };
         });
-        this.totalPages = response.paging.total_page;
+        this.totalPages = response.paging.totalPage;
       } else {
         this.participants = [];
       }

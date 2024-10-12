@@ -5,8 +5,8 @@
     <div class="form-section">
       <app-base-input
         label="Kode Rating"
-        [(ngModel)]="capability.kode_rating"
-        name="kode_rating"
+        [(ngModel)]="capability.kodeRating"
+        name="kodeRating"
         [disabled]="true">
       </app-base-input>
     </div>
@@ -14,8 +14,8 @@
       <app-base-input
         label="Nama Training"
         type="text"
-        [(ngModel)]="capability.nama_training"
-        name="nama_training"
+        [(ngModel)]="capability.namaTraining"
+        name="namaTraining"
         [disabled]="true">
       </app-base-input>
     </div>
@@ -33,14 +33,14 @@
             type="text">
           </app-base-input>
           <app-base-input
-            [(ngModel)]="regulasiGSEs[i].durasi_teori"
+            [(ngModel)]="regulasiGSEs[i].durasiTeori"
             name="durasi_teori_{{i}}"
             label="Durasi Teori"
             type="text"
             inputMode="tel">
           </app-base-input>
           <app-base-input
-            [(ngModel)]="regulasiGSEs[i].durasi_praktek"
+            [(ngModel)]="regulasiGSEs[i].durasiPraktek"
             name="durasi_praktek_{{i}}"
             label="Durasi Praktik"
             type="text"
@@ -68,14 +68,14 @@
             type="text">
           </app-base-input>
           <app-base-input
-            [(ngModel)]="kompetensis[i].durasi_teori"
+            [(ngModel)]="kompetensis[i].durasiTeori"
             name="durasi_teori_kompetensi_{{i}}"
             label="Durasi Teori"
             type="text"
             inputMode="tel">
           </app-base-input>
           <app-base-input
-            [(ngModel)]="kompetensis[i].durasi_praktek"
+            [(ngModel)]="kompetensis[i].durasiPraktek"
             name="durasi_praktek_kompetensi_{{i}}"
             label="Durasi Praktik"
             type="text"

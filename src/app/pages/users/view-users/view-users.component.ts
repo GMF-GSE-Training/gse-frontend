@@ -32,7 +32,7 @@ export class ViewUsersComponent implements OnInit {
 
   // Komponen tabel
   columns = [
-    { header: 'No Pegawai', field: 'no_pegawai' },
+    { header: 'No Pegawai', field: 'noPegawai' },
     { header: 'Nama', field: 'name' },
     { header: 'Dinas', field: 'dinas' },
     { header: 'Role', field: 'roleName' },
@@ -77,14 +77,14 @@ export class ViewUsersComponent implements OnInit {
         this.users = response.data.map((user: User) => {
           return {
             ...user,
-            no_pegawai: user.no_pegawai ?? '-',
+            noPegawai: user.noPegawai ?? '-',
             dinas: user.dinas ?? '-',
             roleName: user.role.role,
             editLink: response.actions.canEdit ? `/users/${user.id}/edit` : null,
             deleteMethod: response.actions.canDelete ? () => this.deleteParticipant(user) : null,
           };
         });
-        this.totalPages = response.paging.total_page;
+        this.totalPages = response.paging.totalPage;
       } else {
         this.users = [];
       }
@@ -92,7 +92,7 @@ export class ViewUsersComponent implements OnInit {
   }
 
   async deleteParticipant(user: User): Promise<void> {
-    const isConfirmed = await this.sweetalertService.confirm('Anda Yakin?', `Apakah anda ingin menghapus peserta ini : ${user.no_pegawai}?`, 'warning', 'Ya, hapus!');
+    const isConfirmed = await this.sweetalertService.confirm('Anda Yakin?', `Apakah anda ingin menghapus peserta ini : ${user.noPegawai}?`, 'warning', 'Ya, hapus!');
     if (isConfirmed) {
       this.userService.deleteUser(user.id).subscribe({
         next: () => {
@@ -113,14 +113,14 @@ export class ViewUsersComponent implements OnInit {
         this.users = response.data.map((user: User) => {
           return {
             ...user,
-            no_pegawai: user.no_pegawai ?? '-',
+            noPegawai: user.noPegawai ?? '-',
             dinas: user.dinas ?? '-',
             editLink: response.actions.canEdit ? `/users/${user.id}/edit` : null,
             detailLink: response.actions.canView ? `/users/${user.id}/view` : null,
             deleteMethod: response.actions.canDelete ? () => this.deleteParticipant(user) : null,
           };
         });
-        this.totalPages = response.paging.total_page;
+        this.totalPages = response.paging.totalPage;
       } else {
         this.users = [];
       }

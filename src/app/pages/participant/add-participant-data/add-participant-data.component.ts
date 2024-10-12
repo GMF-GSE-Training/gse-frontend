@@ -22,25 +22,25 @@ export class AddParticipantDataComponent {
   @ViewChild(CompanyInputComponent) companyInputComponent!: CompanyInputComponent;
 
   createParticipant: CreateParticipant = {
-    no_pegawai: '',
+    noPegawai: '',
     nama: '',
     nik: '',
     dinas: '',
     bidang: '',
     perusahaan: '',
     email: '',
-    no_telp: '',
+    noTelp: '',
     negara: '',
-    tempat_lahir: '',
-    tanggal_lahir: '',
-    sim_a: null,
-    sim_b: null,
+    tempatLahir: '',
+    tanggalLahir: '',
+    simA: null,
+    simB: null,
     ktp: null,
     foto: null,
-    surat_sehat_buta_warna: null,
-    surat_bebas_narkoba: null,
-    exp_surat_sehat: '',
-    exp_bebas_narkoba: '',
+    suratSehatButaWarna: null,
+    suratBebasNarkoba: null,
+    expSuratSehatButaWarna: '',
+    expSuratBebasNarkoba: '',
   };
 
   constructor(
@@ -57,7 +57,7 @@ export class AddParticipantDataComponent {
         this.sweetalertService.alert(true, 'Ditambahkan!', 'Peserta berhasil ditambahkan', 'success');
         this.router.navigateByUrl(`/users/add`, {
           state: {
-            no_pegawai: this.createParticipant.no_pegawai,
+            noPegawai: this.createParticipant.noPegawai,
             nik: this.createParticipant.nik,
             email: this.createParticipant.email,
             name: this.createParticipant.nama,

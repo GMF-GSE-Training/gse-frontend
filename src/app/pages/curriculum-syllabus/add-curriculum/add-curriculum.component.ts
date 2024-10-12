@@ -29,28 +29,28 @@ import { CreateCurriculumSyllabus } from '../../../shared/model/curriculum-sylla
 export class AddCurriculumComponent {
   capability = {
     id:'',
-    kode_rating: '',
-    kode_training: '',
-    nama_training: ''
+    kodeRating: '',
+    kodeTraining: '',
+    namaTraining: ''
   }
 
-  curriculum_syllabus: CreateCurriculumSyllabus = {
-    curriculum_syllabus: []
+  curriculumSyllabus: CreateCurriculumSyllabus = {
+    curriculumSyllabus: []
   }
 
-  regulasiGSEs: Array<{ capabilityId: string; nama: string; durasi_teori: number; durasi_praktek: number; type: string }> = [{
+  regulasiGSEs: Array<{ capabilityId: string; nama: string; durasiTeori: number; durasiPraktek: number; type: string }> = [{
     capabilityId: '',
     nama: '',
-    durasi_teori: 0,
-    durasi_praktek: 0,
+    durasiTeori: 0,
+    durasiPraktek: 0,
     type: 'Regulasi GSE'
   }];
 
-  kompetensis: Array<{ capabilityId: string; nama: string; durasi_teori: number; durasi_praktek: number; type: string }> = [{
+  kompetensis: Array<{ capabilityId: string; nama: string; durasiTeori: number; durasiPraktek: number; type: string }> = [{
     capabilityId: '',
     nama: '',
-    durasi_teori: 0,
-    durasi_praktek: 0,
+    durasiTeori: 0,
+    durasiPraktek: 0,
     type: 'Kompetensi'
   }];
 
@@ -59,13 +59,13 @@ export class AddCurriculumComponent {
     private readonly curriculumSyllabusService: CurriculumSyllabusService,
   ) {
     const navigation = this.router.getCurrentNavigation();
-    const state = navigation?.extras.state as { id?: string, kode_rating?: string, nama_training?: string } | undefined;
+    const state = navigation?.extras.state as { id?: string, kodeRating?: string, namaTraining?: string } | undefined;
     console.log(state)
 
     if (state) {
       this.capability.id = state.id || '';
-      this.capability.kode_rating = state.kode_rating || '';
-      this.capability.nama_training = state.nama_training || '';
+      this.capability.kodeRating = state.kodeRating || '';
+      this.capability.namaTraining = state.namaTraining || '';
 
       // Assign capabilityId to the initial dynamic inputs
       this.regulasiGSEs[0].capabilityId = this.capability.id;
@@ -88,16 +88,16 @@ export class AddCurriculumComponent {
       this.regulasiGSEs.push({
         capabilityId,
         nama: '', // Add name for this item
-        durasi_teori: 0,
-        durasi_praktek: 0,
+        durasiTeori: 0,
+        durasiPraktek: 0,
         type: 'Regulasi GSE' // Set default type
       });
     } else if (group === 'group2') {
       this.kompetensis.push({
         capabilityId,
         nama: '', // Add name for this item
-        durasi_teori: 0,
-        durasi_praktek: 0,
+        durasiTeori: 0,
+        durasiPraktek: 0,
         type: 'Kompetensi' // Set default type
       });
     }
@@ -107,18 +107,18 @@ export class AddCurriculumComponent {
     // Parse input group 1 (Regulasi GSEs) to ensure numbers are correct
     this.regulasiGSEs = this.regulasiGSEs.map(item => ({
       ...item,
-      durasi_teori: Number(item.durasi_teori),  // Konversi ke number
-      durasi_praktek: Number(item.durasi_praktek),  // Konversi ke number
+      durasiTeori: Number(item.durasiTeori),  // Konversi ke number
+      durasiPraktek: Number(item.durasiPraktek),  // Konversi ke number
     }));
 
     // Parse input group 2 (Kompetensis) to ensure numbers are correct
     this.kompetensis = this.kompetensis.map(item => ({
       ...item,
-      durasi_teori: Number(item.durasi_teori),  // Konversi ke number
-      durasi_praktek: Number(item.durasi_praktek),  // Konversi ke number
+      durasiTeori: Number(item.durasiTeori),  // Konversi ke number
+      durasiPraktek: Number(item.durasiPraktek),  // Konversi ke number
     }));
 
-    // Gabungkan semua data ke dalam curriculum_syllabus
+    // Gabungkan semua data ke dalam curriculumSyllabus
     const curriculumSyllabusData = [
       ...this.regulasiGSEs,
       ...this.kompetensis
@@ -126,7 +126,7 @@ export class AddCurriculumComponent {
 
     // Panggil service untuk mengirim data ke backend
     this.curriculumSyllabusService.createCurriculumSyllabus({
-      curriculum_syllabus: curriculumSyllabusData
+      curriculumSyllabus: curriculumSyllabusData
     }).subscribe(response => {
       // Handle response
       console.log('Curriculum & Syllabus saved successfully', response);

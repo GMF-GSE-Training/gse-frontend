@@ -15,7 +15,7 @@ import { UserFormComponent } from "../../../layouts/user-form/user-form.componen
 })
 export class EditUserComponent implements OnInit {
   updateUser: UpdateUserRequest = {
-    no_pegawai: '',
+    noPegawai: '',
     nik: '',
     email: '',
     name: '',

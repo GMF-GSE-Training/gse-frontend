@@ -15,7 +15,7 @@ import { UserFormComponent } from "../../../layouts/user-form/user-form.componen
 })
 export class AddUserComponent {
   createUser: CreateUserRequest = {
-    no_pegawai: '',
+    noPegawai: '',
     nik: '',
     email: '',
     name: '',
@@ -34,7 +34,7 @@ export class AddUserComponent {
     const state = navigation?.extras.state;
 
     if (state) {
-      this.createUser.no_pegawai = state['no_pegawai'] || '';
+      this.createUser.noPegawai = state['noPegawai'] || '';
       this.createUser.nik = state['nik'] || '';
       this.createUser.email = state['email'] || '';
       this.createUser.name = state['name'] || '';

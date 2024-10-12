@@ -1,77 +1,77 @@
 export interface Participant {
   id: string;
-  no_pegawai?: string;
+  noPegawai?: string;
   nama: string;
   nik: string;
   dinas?: string;
   bidang?: string;
   perusahaan: string;
   email: string;
-  no_telp: string;
+  noTelp: string;
   negara: string;
-  tempat_lahir: string;
-  tanggal_lahir: string;
-  sim_a: File | null;
-  sim_b: File | null;
+  tempatLahir: string;
+  tanggalLahir: string;
+  simA: File | null;
+  simB: File | null;
   ktp: File | null;
   foto: File | null;
-  surat_sehat_buta_warna: File | null;
-  exp_surat_sehat: string;
-  surat_bebas_narkoba: File | null;
-  exp_bebas_narkoba: string;
-  link_qr_code?: string;
-  qr_code?: string | File;
-  gmf_non_gmf?: string;
+  suratSehatButaWarna: File | null;
+  expSuratSehatButaWarna: string;
+  suratBebasNarkoba: File | null;
+  expSuratBebasNarkoba: string;
+  linkQrCode?: string;
+  qrCode?: string | File;
+  gmfNonGmf?: string;
 }
 
 export interface UpdateParticipant {
-  no_pegawai?: string | null;
+  noPegawai?: string | null;
   nama: string;
   nik: string;
   dinas?: string | null;
   bidang?: string | null;
   perusahaan: string;
   email: string;
-  no_telp: string;
+  noTelp: string;
   negara: string;
-  tempat_lahir: string;
-  tanggal_lahir: string;
-  sim_a: File | null;
-  sim_a_name?: string;
-  sim_b: File | null;
-  sim_b_name?: string;
+  tempatLahir: string;
+  tanggalLahir: string;
+  simA: File | null;
+  simAName?: string;
+  simB: File | null;
+  simBName?: string;
   ktp: File | null;
-  ktp_name?: string;
+  ktpName?: string;
   foto: File | null;
-  foto_name?: string;
-  surat_sehat_buta_warna: File | null;
-  surat_sehat_buta_warna_name?: string;
-  surat_bebas_narkoba: File |null;
-  surat_bebas_narkoba_name?: string;
-  exp_surat_sehat: string;
-  exp_bebas_narkoba: string;
+  fotoName?: string;
+  suratSehatButaWarna: File | null;
+  suratSehatButaWarnaName?: string;
+  suratBebasNarkoba: File |null;
+  suratBebasNarkobaName?: string;
+  expSuratSehatButaWarna: string;
+  expSuratBebasNarkoba: string;
 }
 
 export interface CreateParticipant {
-  no_pegawai?: string | null;
+  noPegawai?: string | null;
   nama: string;
   nik: string;
   dinas?: string | null;
   bidang?: string | null;
   perusahaan: string;
   email: string;
-  no_telp: string;
+  noTelp: string;
   negara: string;
-  tempat_lahir: string;
-  tanggal_lahir: string;
-  sim_a: File | null;
-  sim_b: File | null;
+  tempatLahir: string;
+  tanggalLahir: string;
+  simA: File | null;
+  simB: File | null;
   ktp: File | null;
   foto: File | null;
-  surat_sehat_buta_warna: File | null;
-  surat_bebas_narkoba: File | null;
-  exp_surat_sehat: string;
-  exp_bebas_narkoba: string;
+  suratSehatButaWarna: File | null;
+  suratBebasNarkoba: File | null;
+  expSuratSehatButaWarna: string;
+  expSuratBebasNarkoba: string;
 }
 
 type ActionAccessRigts = {
@@ -81,8 +81,8 @@ type ActionAccessRigts = {
 }
 
 type Paging = {
-  current_page: number;
-  total_page: number;
+  currentPage: number;
+  totalPage: number;
   size: number;
 }
 

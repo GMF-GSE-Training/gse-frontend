@@ -6,7 +6,7 @@ export interface LoginUserRequest {
 }
 
 export interface RegisterUserRequest {
-  no_pegawai?: string;
+  noPegawai?: string;
   nik: string;
   email: string;
   name: string;

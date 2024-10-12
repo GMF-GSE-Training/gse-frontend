@@ -1,5 +1,5 @@
 export interface CreateUserRequest {
-  no_pegawai?: string;
+  noPegawai?: string;
   nik?: string;
   email: string;
   name: string;
@@ -9,7 +9,7 @@ export interface CreateUserRequest {
 }
 
 export interface UpdateUserRequest {
-  no_pegawai?: string;
+  noPegawai?: string;
   nik?: string;
   email?: string;
   name?: string;
@@ -20,7 +20,7 @@ export interface UpdateUserRequest {
 
 export interface User {
   id: string;
-  no_pegawai?: string;
+  noPegawai?: string;
   nik: string;
   email: string;
   name: string;
@@ -34,8 +34,8 @@ export interface User {
 }
 
 type Paging = {
-  current_page: number;
-  total_page: number;
+  currentPage: number;
+  totalPage: number;
   size: number;
 }
 
