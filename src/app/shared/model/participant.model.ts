@@ -50,7 +50,7 @@ export interface UpdateParticipant {
   suratBebasNarkobaFileName?: string;
   expSuratSehatButaWarna: string;
   expSuratBebasNarkoba: string;
-} 
+}
 
 export interface CreateParticipant {
   noPegawai?: string | null;
@@ -67,10 +67,15 @@ export interface CreateParticipant {
   simA: File | null;
   simAFileName?: string;
   simB: File | null;
+  simBFileName?: string;
   ktp: File | null;
+  ktpFileName?: string;
   foto: File | null;
+  fotoFileName?: string;
   suratSehatButaWarna: File | null;
+  suratSehatButaWarnaFileName?: string;
   suratBebasNarkoba: File | null;
+  suratBebasNarkobaFileName: string;
   expSuratSehatButaWarna: string;
   expSuratBebasNarkoba: string;
 }

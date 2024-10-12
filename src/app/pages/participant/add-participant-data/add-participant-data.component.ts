@@ -34,11 +34,17 @@ export class AddParticipantDataComponent {
     tempatLahir: '',
     tanggalLahir: '',
     simA: null,
+    simAFileName: '',
     simB: null,
+    simBFileName: '',
     ktp: null,
+    ktpFileName: '',
     foto: null,
+    fotoFileName: '',
     suratSehatButaWarna: null,
+    suratSehatButaWarnaFileName: '',
     suratBebasNarkoba: null,
+    suratBebasNarkobaFileName: '',
     expSuratSehatButaWarna: '',
     expSuratBebasNarkoba: '',
   };
@@ -75,6 +81,9 @@ export class AddParticipantDataComponent {
   onFileChange(property: string, file: File | null): void {
     if (file) {
       (this.createParticipant as any)[property] = file;
+      const fileNameProperty = `${property}FileName`;
+      // Mengisi nama file ke property yang sesuai
+      (this.createParticipant as any)[fileNameProperty] = file.name;
     }
   }
 
