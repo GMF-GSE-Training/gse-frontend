@@ -43,6 +43,7 @@ export class UserFormComponent {
   isSubmitted: boolean = false;
   blueButtonLabel: string = '';
   @Input() isCreate: boolean = false;
+  @Input() isUpdate: boolean = false;
 
   // role-input
   @Input() selectedRole: string | null = null;

@@ -62,7 +62,8 @@
           [(ngModel)]="user.email"
           #email="ngModel"
           required
-          email>
+          email
+          [disabled]="isUpdate">
           <p>Gunakan alamat email aktif</p>
         </app-base-input>
 
