@@ -24,8 +24,6 @@ export class AddUserComponent {
     roleId: ''
   }
 
-  roles: any[] = [];
-
   requiredFields = ['name', 'nik', 'email', 'roleId', 'password'];
 
   constructor(
@@ -47,12 +45,6 @@ export class AddUserComponent {
 
   onCreate(user: CreateUserRequest): void {
     this.cleanEmptyFields(user);
-
-    // Periksa apakah role user dan NIK diperlukan
-    if (user.roleId === 'user' && !user.nik) {
-      this.sweetalertService.alert(false, 'Gagal!', 'NIK diperlukan untuk role user', 'error');
-      return;
-    }
 
     // Panggil service untuk membuat user
     this.userService.createUser(user).subscribe({

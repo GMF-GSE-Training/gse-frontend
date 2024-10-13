@@ -18,18 +18,10 @@
           #noPegawai="ngModel"
         ></app-base-input>
 
-        <!-- <app-input-role-nik
-          *ngIf="isCreateUser"
-          class="input"
-          [nik]="user.nik"
-          (roleIdChange)="onRoleIdChange($event)"
-          (nikChange)="onNikChange($event)"
-          (validationMessage)="onValidationMessage($event)"
-        ></app-input-role-nik> -->
-
         <app-role-input
           *ngIf="isCreateUser"
           class="input"
+          [selectedRole]="selectedRole"
           (roleChange)="onRoleChange($event)"
           required
         ></app-role-input>

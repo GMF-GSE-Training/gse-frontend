@@ -1,4 +1,4 @@
 <select id="role-select" [(ngModel)]="selectedRole" (change)="onRoleChange()" required>
-  <option>--- Pilih Role ---</option>
-  <option *ngFor="let role of roles" [ngValue]="role">{{ role.role }}</option>
+  <option [ngValue]="null">--- Pilih Role ---</option> <!-- Opsi pertama selalu tersedia -->
+  <option *ngFor="let role of roles" [ngValue]="role.role">{{ role.role }}</option>
 </select>

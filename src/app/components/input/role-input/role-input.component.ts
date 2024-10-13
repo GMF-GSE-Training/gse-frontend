@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { RoleService } from '../../../shared/service/role.service';
 import { FormsModule } from '@angular/forms';
 
@@ -14,12 +14,9 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './role-input.component.css'
 })
 export class RoleInputComponent {
-  selectedRole = {
-    id: '',
-    role: '',
-  };
+  @Input() selectedRole: any = null;
 
-  @Output() roleChange = new EventEmitter<{ id: string, role: string }>(); // Emit roleId ke parent
+  @Output() roleChange = new EventEmitter<{ id: string, role: string }>(); // Emit role ke parent
   @Output() validationMessage = new EventEmitter<string>();
 
   roles: { id: string, role: string }[] = [];

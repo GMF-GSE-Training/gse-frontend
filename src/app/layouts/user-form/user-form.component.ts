@@ -42,11 +42,10 @@ export class UserFormComponent {
   message: string = '';
   isSubmitted: boolean = false;
   blueButtonLabel: string = '';
-  validationMessage: string = '';
   @Input() isCreate: boolean = false;
 
   // role-input
-  selectedRole: string | null = null;
+  @Input() selectedRole: string | null = null;
 
   isPassVisible: boolean = false;
   passVisible() {
@@ -82,10 +81,6 @@ export class UserFormComponent {
   onRoleChange(role: {id: string, role: string}): void {
     this.selectedRole = role.role;
     this.user.roleId = role.id;
-  }
-
-  onNikChange(nik: string): void {
-    this.user.nik = nik;
   }
 
   getMessage(): string {
@@ -160,10 +155,5 @@ export class UserFormComponent {
     }
 
     return this.parrentMessage;
-  }
-
-  onValidationMessage(message: string): void {
-    this.validationMessage = message;
-    this.submitError = !!message; // Set true jika ada pesan error
   }
 }

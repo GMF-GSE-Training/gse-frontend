@@ -26,7 +26,7 @@ export class EditUserComponent implements OnInit {
 
   userId = this.route.snapshot.paramMap.get('id');
 
-  roles: any[] = [];
+  selectedRole: string | undefined = undefined;
 
   constructor(
     private route: ActivatedRoute,
@@ -46,14 +46,13 @@ export class EditUserComponent implements OnInit {
         this.updateUser = {
           ...response.data,
         };
+        this.selectedRole = response.data?.role.role;
       }
     });
   }
 
   onUpdate(user: UpdateUserRequest): void {
     this.cleanEmptyFields(user);
-
-    console.log(user);
 
     // Panggil service untuk membuat user
     this.userService.updateUser(this.userId!, user).subscribe({
