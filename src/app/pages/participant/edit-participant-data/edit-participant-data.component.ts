@@ -65,21 +65,20 @@ export class EditParticipantDataComponent implements OnInit {
   loadParticipant(): void {
     this.participantService.getParticipantById(this.participantId!).subscribe({
       next: (response) => {
-        console.log(response)
         this.updateParticipant = response.data;
         this.updateParticipant.tanggalLahir = this.formatDateToISO(response.data.tanggalLahir);
         this.updateParticipant.expSuratSehatButaWarna = this.formatDateToISO(response.data.expSuratSehatButaWarna);
         this.updateParticipant.expSuratBebasNarkoba = this.formatDateToISO(response.data.expSuratBebasNarkoba);
       },
       error: (error) => {
-        console.log(error);
+        console.log(error.error);
       }
     });
   }
 
   onUpdate(participant: UpdateParticipant) {
-    const formData = this.prepareFormData(participant);
     console.log(participant)
+    const formData = this.prepareFormData(participant);
 
     this.participantService.updateParticipant(this.participantId!, formData).subscribe({
       next: (response) => {
@@ -109,7 +108,7 @@ export class EditParticipantDataComponent implements OnInit {
         const value = participant[key];
         if (value instanceof File) {
           formData.append(key, value);
-        } else if (value) {
+        } else if (value !== undefined && value !== null) { // Menambahkan nilai kosong
           formData.append(key, value);
         }
       }

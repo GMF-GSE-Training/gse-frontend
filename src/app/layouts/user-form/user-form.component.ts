@@ -9,6 +9,7 @@ import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { AuthComponent } from "../../components/auth/auth.component";
 import { TogglePasswordVisibilityComponent } from "../../components/toggle-password-visibility/toggle-password-visibility.component";
+import { RoleInputComponent } from "../../components/input/role-input/role-input.component";
 
 @Component({
   selector: 'app-user-form',
@@ -24,6 +25,7 @@ import { TogglePasswordVisibilityComponent } from "../../components/toggle-passw
     CommonModule,
     AuthComponent,
     TogglePasswordVisibilityComponent,
+    RoleInputComponent
 ],
   templateUrl: './user-form.component.html',
   styleUrl: './user-form.component.css'
@@ -42,6 +44,9 @@ export class UserFormComponent {
   blueButtonLabel: string = '';
   validationMessage: string = '';
   @Input() isCreate: boolean = false;
+
+  // role-input
+  selectedRole: string | null = null;
 
   isPassVisible: boolean = false;
   passVisible() {
@@ -65,6 +70,7 @@ export class UserFormComponent {
 
   onSubmit() {
     this.isSubmitted = true;
+    console.log(this.user)
 
     if (this.form.valid) {
       this.formSubmit.emit(this.user);
@@ -73,8 +79,9 @@ export class UserFormComponent {
     }
   }
 
-  onRoleIdChange(roleId: string): void {
-    this.user.roleId = roleId;
+  onRoleChange(role: {id: string, role: string}): void {
+    this.selectedRole = role.role;
+    this.user.roleId = role.id;
   }
 
   onNikChange(nik: string): void {
@@ -83,11 +90,6 @@ export class UserFormComponent {
 
   getMessage(): string {
     if (!this.form) return '';
-
-    // Role-NIK
-    // if(this.validationMessage) {
-    //   return this.validationMessage;
-    // }
 
     // NIK
     const nikControl = this.form.controls['nik'];

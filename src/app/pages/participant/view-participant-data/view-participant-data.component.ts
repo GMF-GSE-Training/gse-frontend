@@ -101,22 +101,29 @@ export class ViewParticipantDataComponent implements OnInit {
   }
 
   getSearchParticipants(query: string, page: number, size: number) {
-    this.participantService.searchParticipant(query, page, size).subscribe((response: ListParticipantsResponse) => {
-      if (response.code === 200 && response.status === 'OK') {
-        console.log('Search Response', response);
-        this.participants = response.data.map((participant: Participant) => {
-          return {
-            ...participant,
-            noPegawai: participant.noPegawai ?? '-',
-            dinas: participant.dinas ?? '-',
-            bidang: participant.bidang ?? '-',
-            editLink: response.actions.canEdit ? `/participants/${participant.id}/edit` : null,
-            detailLink: response.actions.canView ? `/participants/${participant.id}/view` : null,
-            deleteMethod: response.actions.canDelete ? () => this.deleteParticipant(participant) : null,
-          };
-        });
-        this.totalPages = response.paging.totalPage;
-      } else {
+    this.participantService.searchParticipant(query, page, size).subscribe({
+      next: (response: ListParticipantsResponse) => {
+        if (response?.code === 200 && response?.status === 'OK') {
+          console.log('Search Response', response);
+          this.participants = response.data.map((participant: Participant) => {
+            return {
+              ...participant,
+              noPegawai: participant.noPegawai ?? '-',
+              dinas: participant.dinas ?? '-',
+              bidang: participant.bidang ?? '-',
+              editLink: response.actions.canEdit ? `/participants/${participant.id}/edit` : null,
+              detailLink: response.actions.canView ? `/participants/${participant.id}/view` : null,
+              deleteMethod: response.actions.canDelete ? () => this.deleteParticipant(participant) : null,
+            };
+          });
+          this.totalPages = response.paging.totalPage;
+        } else {
+          console.warn('Data tidak ditemukan');
+          this.participants = [];
+        }
+      },
+      error: (error) => {
+        console.error('Error fetching users:', error);
         this.participants = [];
       }
     });

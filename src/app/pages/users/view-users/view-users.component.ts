@@ -107,21 +107,26 @@ export class ViewUsersComponent implements OnInit {
   }
 
   getSearchUsers(query: string, page: number, size: number) {
-    this.userService.searchUser(query, page, size).subscribe((response: ListUserResponse) => {
-      if (response.code === 200 && response.status === 'OK') {
-        console.log('Search Response', response);
-        this.users = response.data.map((user: User) => {
-          return {
+    this.userService.searchUser(query, page, size).subscribe({
+      next: (response: ListUserResponse) => {
+        if (response?.code === 200 && response.status === 'OK') {
+          console.log('Search Response', response);
+          this.users = response.data.map((user: User) => ({
             ...user,
             noPegawai: user.noPegawai ?? '-',
             dinas: user.dinas ?? '-',
             editLink: response.actions.canEdit ? `/users/${user.id}/edit` : null,
             detailLink: response.actions.canView ? `/users/${user.id}/view` : null,
             deleteMethod: response.actions.canDelete ? () => this.deleteParticipant(user) : null,
-          };
-        });
-        this.totalPages = response.paging.totalPage;
-      } else {
+          }));
+          this.totalPages = response.paging.totalPage;
+        } else {
+          console.warn('Data tidak ditemukan');
+          this.users = [];
+        }
+      },
+      error: (err) => {
+        console.error('Error fetching users:', err);
         this.users = [];
       }
     });

@@ -60,6 +60,7 @@ export class DetailParticipantDataComponent implements OnInit {
       this.participantService.getParticipantById(id).subscribe({
         next: (response) => {
           if (response.status === 'OK' && response.code === 200) {
+            console.log('Detail : ', response.data)
             this.participant = response.data;
             this.editLink = `/participants/${this.participant.id}/edit`;
 
@@ -98,11 +99,9 @@ export class DetailParticipantDataComponent implements OnInit {
   getFoto(id: string): void {
     this.participantService.getFoto(id).pipe(
       map((response) => {
-        console.log('API Response:', response); // Log respons lengkap
         return response.data;
       })
     ).subscribe((foto: string) => {
-      console.log('Received foto:', foto); // Tambahkan log ini
       this.photoType = this.getMediaType(foto);
       this.foto = foto;
     });
@@ -124,7 +123,6 @@ export class DetailParticipantDataComponent implements OnInit {
 
   private getMediaType(base64String: string): string {
     const header = base64String.slice(0, 4);
-    console.log('Header:', header); // Log header
     if (header === 'iVBO') return 'image/png';
     if (header === '\uFFFD\uD8FF') return 'image/jpeg';
     if (header === 'JVBE') return 'application/pdf';
