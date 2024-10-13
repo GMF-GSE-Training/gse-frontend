@@ -23,7 +23,7 @@ import { TogglePasswordVisibilityComponent } from "../../components/toggle-passw
     FormsModule,
     CommonModule,
     AuthComponent,
-    TogglePasswordVisibilityComponent
+    TogglePasswordVisibilityComponent,
 ],
   templateUrl: './user-form.component.html',
   styleUrl: './user-form.component.css'
@@ -85,9 +85,9 @@ export class UserFormComponent {
     if (!this.form) return '';
 
     // Role-NIK
-    if(this.validationMessage) {
-      return this.validationMessage;
-    }
+    // if(this.validationMessage) {
+    //   return this.validationMessage;
+    // }
 
     // NIK
     const nikControl = this.form.controls['nik'];

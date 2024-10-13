@@ -4,6 +4,7 @@ import { UpdateUserRequest } from '../../../shared/model/user.model';
 import { UserService } from '../../../shared/service/user.service';
 import { SweetalertService } from '../../../shared/service/sweetaler.service';
 import { UserFormComponent } from "../../../layouts/user-form/user-form.component";
+import { ErrorHandlerService } from '../../../shared/service/error-handler.service';
 
 @Component({
   selector: 'app-edit-user',
@@ -32,6 +33,7 @@ export class EditUserComponent implements OnInit {
     private router: Router,
     private userService: UserService,
     private sweetalertService: SweetalertService,
+    private errorHandlerService: ErrorHandlerService,
   ) {}
 
   ngOnInit(): void {
@@ -60,26 +62,9 @@ export class EditUserComponent implements OnInit {
         this.router.navigateByUrl('/users');
       },
       error: (error) => {
-        this.handleError(error);
+        this.errorHandlerService.handleError(error);
       }
     });
-  }
-
-  private handleError(error: any): void {
-    const e = error.error.errors;
-    const isObject = (obj: any) => obj !== null && typeof obj === 'object' && !Array.isArray(obj);
-    const isArray = Array.isArray(e);
-    console.log(error);
-
-    if (isObject(e) || isArray) {
-      if (e.message) {
-        this.sweetalertService.alert(false, 'Gagal!', e.message, 'error');
-      } else if (e.email || e.name || e.password || e.roleId || e.nik) {
-        this.sweetalertService.alert(false, 'Gagal!', 'field dengan tanda bintang wajib diisi dengan benar', 'error');
-      }
-    } else {
-      this.sweetalertService.alert(false, 'Gagal!', e, 'error');
-    }
   }
 
   private cleanEmptyFields(object: any): void {

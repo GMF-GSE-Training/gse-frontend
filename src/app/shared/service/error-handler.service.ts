@@ -7,7 +7,7 @@ import { SweetalertService } from "./sweetaler.service";
 export class ErrorHandlerService {
   constructor(private sweetalertService: SweetalertService) { }
 
-  handleError(error: any, requiredFields: string[]): void {
+  handleError(error?: any, requiredFields?: string[]): void {
     const e = error.error.errors;
 
     const isObject = (obj: any) => obj !== null && typeof obj === 'object' && !Array.isArray(obj);
@@ -20,7 +20,7 @@ export class ErrorHandlerService {
       if (e.message) {
         console.log(e.message)
         this.sweetalertService.alert(false, 'Gagal!', e.message, 'error');
-      } else if (hasRequiredFields(e, requiredFields)) {
+      } else if (hasRequiredFields(e, requiredFields!)) {
         console.log('Kolom dengan tanda bintang (*) wajib diisi');
         this.sweetalertService.alert(false, 'Gagal!', 'Kolom dengan tanda bintang (*) wajib diisi', 'error');
       }
