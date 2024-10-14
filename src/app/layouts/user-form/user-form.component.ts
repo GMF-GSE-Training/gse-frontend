@@ -46,7 +46,7 @@ export class UserFormComponent {
   @Input() isUpdate: boolean = false;
 
   // role-input
-  @Input() selectedRole: string | null = null;
+  selectedRole: any = null;
 
   isPassVisible: boolean = false;
   passVisible() {
@@ -70,8 +70,6 @@ export class UserFormComponent {
 
   onSubmit() {
     this.isSubmitted = true;
-    console.log(this.user)
-
     if (this.form.valid) {
       this.formSubmit.emit(this.user);
     } else {
@@ -79,8 +77,8 @@ export class UserFormComponent {
     }
   }
 
-  onRoleChange(role: {id: string, role: string}): void {
-    this.selectedRole = role.role;
+  onRoleChange(role: any): void {
+    this.selectedRole = role;
     this.user.roleId = role.id;
   }
 

@@ -26,8 +26,6 @@ export class EditUserComponent implements OnInit {
 
   userId = this.route.snapshot.paramMap.get('id');
 
-  selectedRole: string | undefined = undefined;
-
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -46,7 +44,6 @@ export class EditUserComponent implements OnInit {
         this.updateUser = {
           ...response.data,
         };
-        this.selectedRole = response.data?.role.role;
       }
     });
   }

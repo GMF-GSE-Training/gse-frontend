@@ -14,12 +14,12 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './role-input.component.css'
 })
 export class RoleInputComponent {
-  @Input() selectedRole: any = null;
+  @Input() initialRole: any = null;
+  selectedRole: any = null;
 
-  @Output() roleChange = new EventEmitter<{ id: string, role: string }>(); // Emit role ke parent
-  @Output() validationMessage = new EventEmitter<string>();
+  @Output() roleChange = new EventEmitter<any>(); // Emit role ke parent
 
-  roles: { id: string, role: string }[] = [];
+  roles: any[] = [];
 
   constructor(private roleService: RoleService) {}
 
@@ -30,6 +30,10 @@ export class RoleInputComponent {
   getAllRoleName(): void {
     this.roleService.getAllRoles().subscribe(response => {
       this.roles = response.data;
+      if (this.initialRole) {
+        this.selectedRole = this.roles.find(role => role.id === this.initialRole.id);
+        this.onRoleChange();
+      }
     });
   }
 

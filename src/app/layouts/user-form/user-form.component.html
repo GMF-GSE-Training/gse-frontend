@@ -21,13 +21,13 @@
         <app-role-input
           *ngIf="isCreateUser"
           class="input"
-          [selectedRole]="selectedRole"
+          [initialRole]="user.role"
           (roleChange)="onRoleChange($event)"
           required
         ></app-role-input>
 
         <app-base-input
-          *ngIf="isRegister || selectedRole === 'user'"
+          *ngIf="isRegister || selectedRole?.role === 'user'"
           class="input"
           type="text"
           inputMode="tel"
@@ -35,7 +35,7 @@
           name="nik"
           [(ngModel)]="user.nik"
           #nik="ngModel"
-          [required]="isRegister || selectedRole === 'user'">
+          [required]="isRegister || selectedRole?.role === 'user'">
           <p>Masukkan NIK sesuai KTP</p>
         </app-base-input>
 
