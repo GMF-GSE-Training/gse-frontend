@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { TitleComponent } from "../../components/title/title.component";
 import { BaseInputComponent } from "../../components/input/base-input/base-input.component";
-import { InputRoleNikComponent } from "../../components/input/input-role-nik/input-role-nik.component";
 import { WhiteButtonComponent } from "../../components/button/white-button/white-button.component";
 import { BlueButtonComponent } from "../../components/button/blue-button/blue-button.component";
 import { FormsModule, NgForm } from '@angular/forms';
@@ -18,7 +17,6 @@ import { RoleInputComponent } from "../../components/input/role-input/role-input
     RouterLink,
     TitleComponent,
     BaseInputComponent,
-    InputRoleNikComponent,
     WhiteButtonComponent,
     BlueButtonComponent,
     FormsModule,
