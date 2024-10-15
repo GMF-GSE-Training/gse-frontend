@@ -43,7 +43,11 @@
         inputMode="text">
       </app-base-input>
 
-      <app-company-input>
+      <app-company-input
+        [selectedCompany]="selectedCompany"
+        [companyName]="companyName"
+        [showCompanyInput]="showCompanyInput"
+      >
       </app-company-input>
 
       <app-base-input
@@ -92,35 +96,40 @@
         idInput="sim_a_input"
         (valueChange)="onFileChange('simA', $event)"
         [label]="isUpdate ? 'Sim A' : 'Sim A *'"
-        [fileName]="participant.simAFileName">
+        [fileName]="participant.simAFileName"
+        [fileType]="fileType">
       </app-file-input>
 
       <app-file-input
         idInput="sim_b_input"
         (valueChange)="onFileChange('simB', $event)"
         label="SIM B"
-        [fileName]="participant.simBFileName">
+        [fileName]="participant.simBFileName"
+        [fileType]="fileType">
       </app-file-input>
 
       <app-file-input
         idInput="ktp_input"
         (valueChange)="onFileChange('ktp', $event)"
         [label]="isUpdate ? 'KTP' : 'KTP *'"
-        [fileName]="participant.ktpFileName">
+        [fileName]="participant.ktpFileName"
+        [fileType]="fileType">
       </app-file-input>
 
       <app-file-input
         idInput="foto_input"
         (valueChange)="onFileChange('foto', $event)"
         [label]="isUpdate ? 'Foto' : 'Foto *'"
-        [fileName]="participant.fotoFileName">
+        [fileName]="participant.fotoFileName"
+        [fileType]="fileTypeFoto">
       </app-file-input>
 
       <app-file-input
         idInput="surat_sehat_input"
         (valueChange)="onFileChange('suratSehatButaWarna', $event)"
         [label]="isUpdate ? 'Surat Ket Sehat & Buta Warna' : 'Surat Ket Sehat & Buta Warna *'"
-        [fileName]="participant.suratSehatButaWarnaFileName">
+        [fileName]="participant.suratSehatButaWarnaFileName"
+        [fileType]="fileType">
       </app-file-input>
 
       <app-base-input
@@ -135,7 +144,8 @@
         idInput="surat_bebas_narkoba_input"
         (valueChange)="onFileChange('suratBebasNarkoba', $event)"
         [label]="isUpdate ? 'Surat Ket Bebas Narkoba' : 'Surat Ket Bebas Narkoba *'"
-        [fileName]="participant.suratBebasNarkobaFileName">
+        [fileName]="participant.suratBebasNarkobaFileName"
+        [fileType]="fileType">
       </app-file-input>
 
       <app-base-input

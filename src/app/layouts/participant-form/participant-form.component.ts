@@ -30,8 +30,17 @@ export class ParticipantFormComponent {
   @Input() pageTitle: string = '';
   @Input() participant: any = {};
   @Input() isUpdate: boolean = false;
+
+  fileType: string = '.png, .jpg, .jpeg, .pdf';
+  fileTypeFoto: string = '.png, .jpg, .jpeg';
+
   @Output() formSubmit = new EventEmitter<any>();
   @Output() fileChange = new EventEmitter<{ property: string, file: File | null }>();
+
+  // Company Input
+  @Input() selectedCompany: string = '';
+  @Input() companyName: string = '';
+  @Input() showCompanyInput: boolean = false;
 
   @ViewChild(CompanyInputComponent) companyInputComponent!: CompanyInputComponent;
   @ViewChild('form') form!: NgForm;

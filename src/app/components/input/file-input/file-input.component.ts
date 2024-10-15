@@ -19,6 +19,7 @@ export class FileInputComponent {
   @Input() label: string = '';
   @Input() idInput!: string;
   @Input() fileName: string | null = null;
+  @Input() fileType: string = '';
 
   @Output() valueChange = new EventEmitter<File | null>();
 
