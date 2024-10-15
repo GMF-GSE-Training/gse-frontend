@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UpdateParticipant } from '../../../shared/model/participant.model';
 import { ParticipantService } from '../../../shared/service/participant.service';
@@ -50,6 +50,11 @@ export class EditParticipantDataComponent implements OnInit {
 
   participantId = this.route.snapshot.paramMap.get('id');
 
+  // Company Input
+  @Input() selectedCompany: string = '';
+  @Input() companyName: string = '';
+  @Input() showCompanyInput: boolean = false;
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -65,10 +70,22 @@ export class EditParticipantDataComponent implements OnInit {
   loadParticipant(): void {
     this.participantService.getParticipantById(this.participantId!).subscribe({
       next: (response) => {
+        console.log(response.data);
         this.updateParticipant = response.data;
         this.updateParticipant.tanggalLahir = this.formatDateToISO(response.data.tanggalLahir);
         this.updateParticipant.expSuratSehatButaWarna = this.formatDateToISO(response.data.expSuratSehatButaWarna);
         this.updateParticipant.expSuratBebasNarkoba = this.formatDateToISO(response.data.expSuratBebasNarkoba);
+
+        // Company Input
+        this.selectedCompany = response.data.gmfNonGmf ? response.data.gmfNonGmf : response.data.perusahaan;
+        if(response.data.gmfNonGmf !== 'GMF' || response.data.perusahaan !== 'GMF') {
+          this.companyName = response.data.perusahaan;
+          if(this.companyName !== 'GMF') {
+            this.showCompanyInput = true;
+          } else {
+            this.companyName = '';
+          }
+        }
       },
       error: (error) => {
         console.log(error.error);

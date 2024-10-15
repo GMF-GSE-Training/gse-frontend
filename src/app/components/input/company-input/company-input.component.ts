@@ -13,10 +13,17 @@ import { CommonModule } from '@angular/common';
   styleUrl: './company-input.component.css',
 })
 export class CompanyInputComponent {
-  @Input() selectedCompany: string = 'GMF';
+  @Input() selectedCompany: string = '';
   @Input() showCompanyInput: boolean = false;
   @Input() companyName: string = '';
   @Input() name: string = '';
+
+  ngOnInit(): void {
+    console.log(this.selectedCompany)
+    if(!this.selectedCompany) {
+      this.selectedCompany = 'GMF';
+    }
+  }
 
   toggleCompanyInput() {
     this.showCompanyInput = this.selectedCompany === 'Non GMF';
