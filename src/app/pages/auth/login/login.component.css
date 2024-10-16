@@ -1,9 +1,9 @@
-.login-form {
+  .login-form {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 100px;
+  gap: 1.5em;
 }
 
 .login-form input {
@@ -23,23 +23,23 @@
 
 i {
   font-size: 30px;
-  position: absolute;
+  position: relative;
 }
 
 .user-icon {
-  top: 255px;
-  right: 680px;
+  top: 2em;
+  right: 7em;
 }
 
 .pass-icon {
-  bottom: 268px;
-  right: 680px;
+  top: 3.6em;
+  right: 7em;
 }
 
 app-toggle-password-visibility {
-  position: absolute;
-  bottom: 268px;
-  right: 270px;
+  position: relative;
+  top: 3.6em;
+  left: 13em;
   cursor: pointer;
 }
 
@@ -48,8 +48,8 @@ app-toggle-password-visibility {
 }
 
 .isRegistered {
-  position: absolute;
-  bottom: 190px;
+  position: relative;
+  bottom: 1rem;
   font-family: 'Petrona', sans-serif;
   font-weight: bold;
 }
@@ -61,16 +61,18 @@ app-toggle-password-visibility {
 .forgotPassword {
   font-weight: bold;
   color: #02507E;
-  position: absolute;
-  bottom: 225px;
-  right: 600px;
+  position: relative;
+  bottom: 1rem;
+  right: 10rem;
 }
 
 .error-message {
+  display: flex;
+  justify-content: center;
   background-color: #ffeeba;
   padding: 2px;
-  position: absolute;
-  top: 210px;
+  position: relative;
+  top: 6em;
   color: red;
   font-weight: bold;
 }

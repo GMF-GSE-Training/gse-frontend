@@ -1,5 +1,6 @@
 <app-auth>
-  <div *ngIf="loginError" class="error-message">
+  <div>
+    <div *ngIf="loginError" class="error-message">
     <p>{{ message }}</p>
   </div>
   <form class="login-form" (submit)="login()">
@@ -16,4 +17,5 @@
     <p class="isRegistered">Belum punya akun? <a routerLink="/register">Daftar</a></p>
     <app-blue-button [type]="'submit'" class="button">Masuk</app-blue-button>
   </form>
+  </div>
 </app-auth>
