@@ -18,14 +18,11 @@ export class ErrorHandlerService {
 
     if (isObject(e) || Array.isArray(e)) {
       if (e.message) {
-        console.log(e.message)
         this.sweetalertService.alert(false, 'Gagal!', e.message, 'error');
       } else if (hasRequiredFields(e, requiredFields!)) {
-        console.log('Kolom dengan tanda bintang (*) wajib diisi');
         this.sweetalertService.alert(false, 'Gagal!', 'Kolom dengan tanda bintang (*) wajib diisi', 'error');
       }
     } else {
-      console.log(e);
       this.sweetalertService.alert(false, 'Gagal!', e, 'error');
     }
   }
