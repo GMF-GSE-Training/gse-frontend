@@ -3,6 +3,7 @@
     <div class="me">
       <img *ngIf="photoType === 'image/png'" src="data:{{ photoType }}/;base64,{{ foto }}" alt="Profile Picture" class="file">
       <iframe *ngIf="photoType === 'application/pdf'" src="data:{{ photoType }};base64,{{ foto }}" alt="Profile Picture" class="file"></iframe>
+      <img *ngIf="!foto" src="../../../../assets/image/pas_foto.png" alt="profile picture" class="file">
     </div>
     <div class="name">
       <h2>{{ participant?.nama }}</h2>
@@ -21,7 +22,7 @@
 
 <app-detailed-view [leftTableData]="leftTableData" [rightTableData]="rightTableData"></app-detailed-view>
 
-<div class="container">
+<div class="table-container">
   <app-table [columns]="columns" [data]="data"></app-table>
 </div>
 

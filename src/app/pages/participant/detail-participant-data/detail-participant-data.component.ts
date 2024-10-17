@@ -34,7 +34,7 @@ export class DetailParticipantDataComponent implements OnInit {
   qrCode: string | undefined;
   foto: string | undefined;
   editLink: string = '';
-  photoType: string = '';
+  photoType: string | null = '';
 
   constructor(
     private route: ActivatedRoute,
@@ -97,13 +97,13 @@ export class DetailParticipantDataComponent implements OnInit {
   }
 
   getFoto(id: string): void {
-    this.participantService.getFoto(id).pipe(
-      map((response) => {
-        return response.data;
-      })
-    ).subscribe((foto: string) => {
-      this.photoType = this.getMediaType(foto);
-      this.foto = foto;
+    this.participantService.getFoto(id).subscribe({
+      next: (response) => {
+        if(response) {
+          this.photoType = this.getMediaType(response.data);
+          this.foto = response.data;
+        }
+      }
     });
   }
 

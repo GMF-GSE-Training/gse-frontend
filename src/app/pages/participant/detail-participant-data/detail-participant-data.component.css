@@ -5,7 +5,9 @@
 }
 
 .profile-section {
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .me {
@@ -47,7 +49,7 @@ a:hover {
   color: #266E99;
 }
 
-.container {
+.table-container {
   width: 95%;
   margin-top: 50px;
   padding: 20px;
@@ -60,7 +62,7 @@ a:hover {
   display: flex;
   justify-content: center;
   gap: 4em;
-  width: 90%;
+  width: 100%;
   margin-top: 15px;
   margin-bottom: 15px;
   margin-left: 4em;
