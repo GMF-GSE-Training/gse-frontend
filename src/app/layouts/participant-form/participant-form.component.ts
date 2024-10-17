@@ -49,6 +49,7 @@ export class ParticipantFormComponent {
     if (this.form.valid) {
       this.participant.perusahaan = this.companyInputComponent.getCompanyName();
       if(this.isUpdate) {
+        this.participant.email = null;
         this.formSubmit.emit(this.participant);
       } else {
         this.formSubmit.emit(this.participant);

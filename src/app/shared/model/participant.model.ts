@@ -31,7 +31,6 @@ export interface UpdateParticipant {
   dinas?: string | null;
   bidang?: string | null;
   perusahaan: string;
-  email: string;
   noTelp: string;
   negara: string;
   tempatLahir: string;
