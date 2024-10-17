@@ -35,7 +35,6 @@ export class UserFormComponent {
   @Input() isCreateUser: boolean = false;
   @Input() submitError: boolean = false;
   @Input() parrentMessage: string = '';
-  @Input() isForgotPassword: boolean = false;
   @Input() isResetPassword: boolean = false;
   message: string = '';
   isSubmitted: boolean = false;
@@ -130,21 +129,6 @@ export class UserFormComponent {
           return 'Password harus minimal 8 karakter kombinasi huruf besar kecil dan angka';
         }
       }
-    }
-
-    // Reset Password
-    const newPasswordControl = this.form.controls['newPassword'];
-    if (newPasswordControl?.invalid) {
-      if (newPasswordControl.errors?.['required']) {
-        this.submitError = true;
-        return 'Password baru wajib diisi';
-      } else if (newPasswordControl.errors?.['minlength'] || newPasswordControl.errors?.['pattern']) {
-        this.submitError = true;
-        return 'Password harus minimal 8 karakter kombinasi huruf besar kecil dan angka';
-      }
-    } else if (this.user.newPassword !== this.user.confirmNewPassword) {
-      this.submitError = true; // Tandai sebagai kesalahan
-      return 'Data konfirmasi password tidak sama'; // Pesan kesalahan
     }
 
     if(!this.parrentMessage) {

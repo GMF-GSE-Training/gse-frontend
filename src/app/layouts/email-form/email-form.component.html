@@ -1,1 +1,30 @@
-<p>email-form works!</p>
+<app-auth>
+  <div class="form-container">
+    <form #form="ngForm" (ngSubmit)="onSubmit()" class="form">
+      <app-title pageTitle="Forgot password"></app-title>
+
+      <div *ngIf="isSubmitted && getMessage()" [ngClass]="submitError ? 'error-message' : 'success-message'">
+        <p class="error">{{ getMessage() }}</p>
+      </div>
+
+      <div class="input-container" ngClass="email">
+        <app-base-input
+          class="input"
+          type="email"
+          inputMode="email"
+          placeholder="Email"
+          name="email"
+          [(ngModel)]="data.email"
+          #email="ngModel"
+          required
+          email>
+        </app-base-input>
+      </div>
+
+      <div class="buttons">
+        <app-white-button type="button" routerLink="/login">Kembali</app-white-button>
+        <app-blue-button class="submit" type="submit">Kirim</app-blue-button>
+      </div>
+    </form>
+  </div>
+</app-auth>

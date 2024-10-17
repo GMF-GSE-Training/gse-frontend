@@ -1,19 +1,19 @@
 import { Component } from '@angular/core';
-import { UserFormComponent } from "../../../layouts/user-form/user-form.component";
 import { ResetPassword } from '../../../shared/model/auth.model';
 import { AuthService } from '../../../shared/service/auth.service';
 import { SweetalertService } from '../../../shared/service/sweetaler.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ResetPasswordFormComponent } from "../../../layouts/reset-password-form/reset-password-form.component";
 
 @Component({
   selector: 'app-reset-password',
   standalone: true,
-  imports: [UserFormComponent],
+  imports: [ResetPasswordFormComponent],
   templateUrl: './reset-password.component.html',
   styleUrl: './reset-password.component.css'
 })
 export class ResetPasswordComponent {
-  user = {
+  data = {
     token: this.route.snapshot.paramMap.get('token') || '',
     newPassword: '',
     confirmNewPassword: '',

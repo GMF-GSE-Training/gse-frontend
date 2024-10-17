@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { UserFormComponent } from "../../../layouts/user-form/user-form.component";
 import { AuthService } from '../../../shared/service/auth.service';
 import { SweetalertService } from '../../../shared/service/sweetaler.service';
+import { EmailFormComponent } from "../../../layouts/email-form/email-form.component";
 
 @Component({
   selector: 'app-forgot-password',
   standalone: true,
-  imports: [UserFormComponent],
+  imports: [EmailFormComponent],
   templateUrl: './forgot-password.component.html',
   styleUrl: './forgot-password.component.css'
 })
