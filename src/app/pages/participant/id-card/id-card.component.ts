@@ -2,11 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { HeaderComponent } from '../../../components/header/header.component';
 import { WhiteButtonComponent } from '../../../components/button/white-button/white-button.component';
 import { BlueButtonComponent } from '../../../components/button/blue-button/blue-button.component';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { ParticipantService } from '../../../shared/service/participant.service';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { saveAs } from 'file-saver';
 import { DisplayFilesComponent } from "../../../layouts/display-files/display-files.component";
+import { SweetalertService } from '../../../shared/service/sweetaler.service';
 
 @Component({
   selector: 'app-id-card',
@@ -27,29 +28,33 @@ export class IdCardComponent implements OnInit {
   navigationLink: string = `/participants/${this.id}/view`;
 
   constructor(
-    private route: ActivatedRoute,
-    private participantService: ParticipantService,
-    private sanitizer: DomSanitizer
+    private readonly route: ActivatedRoute,
+    private readonly participantService: ParticipantService,
+    private readonly sanitizer: DomSanitizer,
+    private readonly router: Router,
+    private readonly sweetalertService: SweetalertService,
   ){}
 
   ngOnInit(): void {
-    if(this.id) {
-      this.participantService.viewIdCard(this.id).subscribe({
-        next: (response) => {
-          this.id_card = this.sanitizer.bypassSecurityTrustHtml(response);
-        },
-        error: (error) => {
-          console.log(error)
+    this.participantService.viewIdCard(this.id!).subscribe({
+      next: (response) => {
+        console.log(response);
+        this.id_card = this.sanitizer.bypassSecurityTrustHtml(response);
+      },
+      error: (error) => {
+        const parsingError = JSON.parse(error.error);
+        this.router.navigateByUrl(this.navigationLink ? this.navigationLink : '/participants');
+        if(parsingError.code === 400) {
+          this.sweetalertService.alert(false, 'Data Anda Belum Lengkap', 'Untuk melihat ID Card, pastikan semua data anda telah lengkap.', 'warning');
         }
-      })
-    }
+      }
+    });
   }
 
   downloadIdCard() {
     if (this.id) {
       this.participantService.downloadIdCard(this.id).subscribe({
         next: (response: Blob) => {
-          // Use FileSaver to save the file
           saveAs(response, 'id-card.pdf');
         },
         error: (error) => {
