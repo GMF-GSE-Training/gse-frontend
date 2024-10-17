@@ -50,15 +50,15 @@ export class ParticipantService {
   }
 
   downloadIdCard(id: string): Observable<Blob> {
-    return this.http.get<Blob>(`${this.apiUrl}/${this.endpoints.base}/${id}/${this.endpoints.download_id_card}`, {
+    return this.http.get(`${this.apiUrl}/${this.endpoints.base}/${id}/${this.endpoints.download_id_card}`, {
       withCredentials: true,
-      responseType: 'blob' as 'json' // Set response type to 'blob'
+      responseType: 'blob'
     });
   }
 
   viewIdCard(id: string): Observable<string> {
-      return this.http.get<string>(`${this.apiUrl}/${this.endpoints.base}/${id}/${this.endpoints.id_card}`, {
-          responseType: 'text' as 'json', // Mengatur responseType ke 'text'
+      return this.http.get(`${this.apiUrl}/${this.endpoints.base}/${id}/${this.endpoints.id_card}`, {
+          responseType: 'text', // Mengatur responseType ke 'text'
           withCredentials: true
       });
   }
