@@ -1,6 +1,6 @@
 <app-auth>
   <div class="form-container">
-    <form *ngIf="isCreateUser || isRegister" #form="ngForm" (ngSubmit)="onSubmit()" class="form">
+    <form #form="ngForm" (ngSubmit)="onSubmit()" class="form">
       <app-title [pageTitle]="pageTitle"></app-title>
 
       <div *ngIf="isSubmitted && getMessage()" [ngClass]="submitError ? 'error-message' : 'success-message'">

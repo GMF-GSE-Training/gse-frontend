@@ -63,6 +63,9 @@ export class UserFormComponent {
     } else {
       this.blueButtonLabel = 'Simpan';
     }
+    if(this.user.role) {
+      this.onRoleChange(this.user.role);
+    }
   }
 
   onSubmit() {
@@ -74,7 +77,7 @@ export class UserFormComponent {
     }
   }
 
-  onRoleChange(role: any): void {
+  onRoleChange(role: { id: string, role: string }): void {
     this.selectedRole = role;
     this.user.roleId = role.id;
   }
