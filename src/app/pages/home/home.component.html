@@ -1,10 +1,15 @@
-<main>
+<div class="top-container">
   <div class="chart-container">
     <app-realisasi-cot-chart></app-realisasi-cot-chart>
     <app-data-pemegang-kompetensi-gse-operator></app-data-pemegang-kompetensi-gse-operator>
     <app-data-total-sertifikat-aktif></app-data-total-sertifikat-aktif>
     <app-data-jumlah-pemegang-sertifikat></app-data-jumlah-pemegang-sertifikat>
   </div>
+</div>
 
-  <app-cot-table></app-cot-table>
-</main>
+<div class="bottom-container">
+  <h1>Calendar Of Training</h1>
+  <div class="table-container">
+    <app-table [columns]="columns" [data]="paginatedData"></app-table>
+  </div>
+</div>

@@ -7,7 +7,7 @@ import ChartDataLabels from 'chartjs-plugin-datalabels';
   standalone: true,
   imports: [],
   templateUrl: './data-total-sertifikat-aktif.component.html',
-  styleUrl: './data-total-sertifikat-aktif.component.css'
+  styleUrl: '../chart.component.css'
 })
 export class DataTotalSertifikatAktifComponent implements AfterViewInit {
   @ViewChild('totalSertifikatAktif') private totalSertifikatAktifRef!: ElementRef<HTMLCanvasElement>;
@@ -24,7 +24,7 @@ export class DataTotalSertifikatAktifComponent implements AfterViewInit {
       return;
     }
 
-    const dataValues = [3, 7, 6, 5, 9, 8, 3, 4, 4, 9, 7, 5, 8];
+    const dataValues = [30, 75, 62, 51, 49, 18, 35, 49, 41, 97, 75, 50, 81];
     const totalSertifikatAktif = dataValues.reduce((acc, curr) => acc + curr, 0);
 
     new Chart(ctx, {
@@ -36,24 +36,24 @@ export class DataTotalSertifikatAktifComponent implements AfterViewInit {
             data: dataValues,
             backgroundColor: '#003D61',
             stack: 'Stack 0',
-            barThickness: 35,
+            barThickness: 'flex',
             label: `${totalSertifikatAktif}`,
           }
         ]
       },
       options: {
         responsive: true,
+        maintainAspectRatio: false,
         plugins: {
           legend: {
             display: true,
             labels: {
-              boxWidth: 20,
-              boxHeight: 20,
-              padding: 20,
+              boxWidth: 15,
+              boxHeight: 15,
               color: '#FFFFFF',
               font: {
                 family: 'Petrona',
-                size: 50
+                size: 20
               },
               usePointStyle: true,
               pointStyle: 'circle',
@@ -75,20 +75,17 @@ export class DataTotalSertifikatAktifComponent implements AfterViewInit {
             color: '#FFF',
             font: {
               family: 'Petrona',
-              size: 20
-            }
+              size: 18
+            },
           },
           title: {
             display: true,
             text: 'Total Sertifikat aktif',
             color: '#FFFFFF',
             font: {
-              size: 30,
-              family: 'Petrona'
+              family: 'Petrona',
+              size: 25
             },
-            padding: {
-              bottom: 20
-            }
           }
         },
         scales: {
@@ -97,9 +94,9 @@ export class DataTotalSertifikatAktifComponent implements AfterViewInit {
             ticks: {
               color: '#000',
               font: {
-                size: 15,
-                family: 'Petrona'
-              }
+                family: 'Petrona',
+                size: 15
+              },
             },
             grid: {
               display: false
@@ -112,8 +109,8 @@ export class DataTotalSertifikatAktifComponent implements AfterViewInit {
               stepSize: 1,
               color: '#000',
               font: {
-                size: 15,
-                family: 'Petrona'
+                family: 'Petrona',
+                size: 15
               },
             },
             grid: {

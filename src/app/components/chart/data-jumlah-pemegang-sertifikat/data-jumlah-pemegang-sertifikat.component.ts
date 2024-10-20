@@ -7,7 +7,7 @@ import ChartDataLabels from 'chartjs-plugin-datalabels';
   standalone: true,
   imports: [],
   templateUrl: './data-jumlah-pemegang-sertifikat.component.html',
-  styleUrl: './data-jumlah-pemegang-sertifikat.component.css',
+  styleUrl: '../chart.component.css',
 })
 export class DataJumlahPemegangSertifikatComponent implements AfterViewInit {
   @ViewChild('jumlahPemegangSertifikat')
@@ -48,8 +48,10 @@ export class DataJumlahPemegangSertifikatComponent implements AfterViewInit {
         plugins: {
           legend: {
             display: true,
+            position: 'bottom',
             labels: {
-              color: 'white',
+              padding: 30,
+              color: 'black',
               font: {
                 size: 20,
                 family: 'Petrona',
@@ -80,7 +82,7 @@ export class DataJumlahPemegangSertifikatComponent implements AfterViewInit {
             color: '#FFF',
             font: {
               family: 'Petrona',
-              size: 20
+              size: 25
             },
             display: function(context) {
               return context.dataset.data[context.dataIndex] !== 0;
@@ -91,7 +93,7 @@ export class DataJumlahPemegangSertifikatComponent implements AfterViewInit {
             text: 'Jumlah Pemegang Sertifikat',
             color: '#FFFFFF',
             font: {
-              size: 30,
+              size: 25,
               family: 'Petrona',
             },
           },

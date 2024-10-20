@@ -7,7 +7,7 @@ import ChartDataLabels from 'chartjs-plugin-datalabels';
   standalone: true,
   imports: [],
   templateUrl: './realisasi-cot-chart.component.html',
-  styleUrl: './realisasi-cot-chart.component.css'
+  styleUrl: '../chart.component.css'
 })
 export class RealisasiCotChartComponent implements AfterViewInit {
   @ViewChild('realisasiCotChart') private realisasiCotChartRef!: ElementRef<HTMLCanvasElement>;
@@ -35,39 +35,36 @@ export class RealisasiCotChartComponent implements AfterViewInit {
             label: 'Open',
             data: [3, 5, 6, 2, 6, 4, 7, 2, 8, 6, 5, 9],
             backgroundColor: '#3C6735',
-            stack: 'Stack 0',
-            barThickness: 35
+            barThickness: 'flex',
           },
           {
             label: 'Cancel',
             data: [4, 2, 9, 3, 7, 7, 5, 8, 2, 9, 6, 4],
             backgroundColor: '#FF0000',
-            stack: 'Stack 0',
-            barThickness: 35
+            barThickness: 'flex',
           },
           {
             label: 'Finish',
             data: [3, 2, 6, 4, 7, 8, 6, 3, 8, 5, 7, 9],
             backgroundColor: '#FFB800',
-            stack: 'Stack 0',
-            barThickness: 35,
+            barThickness: 'flex',
           }
         ]
       },
       options: {
         responsive: true,
+        maintainAspectRatio: false,
         plugins: {
           legend: {
             position: 'top',
             labels: {
-              boxWidth: 20,
-              boxHeight: 20,
-              padding: 10,
+              boxWidth: 15,
+              boxHeight: 15,
               color: '#FFFFFF',
               font: {
                 family: 'Petrona',
-                size: 20,
-              }
+                size: 15
+              },
             },
             onClick: (_e, legendItem) => {
               const index = legendItem.datasetIndex;
@@ -103,13 +100,9 @@ export class RealisasiCotChartComponent implements AfterViewInit {
             text: 'Realisasi COT 2024',
             color: '#FFFFFF',
             font: {
-              size: 30,
-              family: 'Petrona'
+              family: 'Petrona',
+              size: 25
             },
-            padding: {
-              top: 5,
-              bottom: 5
-            }
           }
         },
         scales: {
@@ -118,9 +111,9 @@ export class RealisasiCotChartComponent implements AfterViewInit {
             ticks: {
               color: '#000',
               font: {
-                size: 15,
-                family: 'Petrona'
-              }
+                family: 'Petrona',
+                size: 15
+              },
             },
             grid: {
               display: false
@@ -133,8 +126,8 @@ export class RealisasiCotChartComponent implements AfterViewInit {
               stepSize: 1,
               color: '#000',
               font: {
-                size: 15,
-                family: 'Petrona'
+                family: 'Petrona',
+                size: 15
               },
             },
             grid: {

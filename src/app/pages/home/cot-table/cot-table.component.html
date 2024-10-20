@@ -1,8 +1,0 @@
-<div class="container">
-  <h1>Calendar Of Training</h1>
-  <app-table [columns]="columns" [data]="paginatedData"></app-table>
-</div>
-
-<i (click)="previousPage()" class="fa-solid fa-chevron-left"></i>
-<p>{{ currentPage }} / {{ totalPages }}</p>
-<i (click)="nextPage()" class="fa-solid fa-chevron-right"></i>
