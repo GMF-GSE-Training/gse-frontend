@@ -20,7 +20,7 @@ import { RoleBasedAccessDirective } from '../../../shared/directive/role-based-a
   templateUrl: './cot-list.component.html',
   styleUrl: './cot-list.component.css',
 })
-export class ViewCotComponent {
+export class CotListComponent {
   columns = [
     { header: 'Kode COT', field: 'kodeCot' },
     { header: 'Mulai', field: 'mulai' },

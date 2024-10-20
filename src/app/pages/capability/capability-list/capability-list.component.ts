@@ -23,7 +23,7 @@ import { CapabilityService } from '../../../shared/service/capability.service';
   templateUrl: './capability-list.component.html',
   styleUrl: './capability-list.component.css'
 })
-export class ViewCapabilityComponent {
+export class CapabilityListComponent {
   pageTitle: string = "Capability";
 
   columns = [

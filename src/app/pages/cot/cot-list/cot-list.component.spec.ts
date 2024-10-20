@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ViewCotComponent } from './cot-list.component';
+import { CotListComponent } from './cot-list.component';
 
-describe('ViewCotComponent', () => {
-  let component: ViewCotComponent;
-  let fixture: ComponentFixture<ViewCotComponent>;
+describe('CotListComponent', () => {
+  let component: CotListComponent;
+  let fixture: ComponentFixture<CotListComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ViewCotComponent]
+      imports: [CotListComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(ViewCotComponent);
+    fixture = TestBed.createComponent(CotListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
