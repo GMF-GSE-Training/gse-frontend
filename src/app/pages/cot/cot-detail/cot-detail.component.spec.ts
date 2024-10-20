@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DetailCotComponent } from './detail-cot.component';
+import { CotDetailComponent } from './cot-detail.component';
 
-describe('DetailCotComponent', () => {
-  let component: DetailCotComponent;
-  let fixture: ComponentFixture<DetailCotComponent>;
+describe('CotDetailComponent', () => {
+  let component: CotDetailComponent;
+  let fixture: ComponentFixture<CotDetailComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [DetailCotComponent]
+      imports: [CotDetailComponent]
     })
     .compileComponents();
-    
-    fixture = TestBed.createComponent(DetailCotComponent);
+
+    fixture = TestBed.createComponent(CotDetailComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

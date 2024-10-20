@@ -11,7 +11,7 @@ import { CurriculumSyllabusService } from '../../../shared/service/curriculum-sy
 import { CreateCurriculumSyllabus } from '../../../shared/model/curriculum-syllabus.model';
 
 @Component({
-  selector: 'app-add-curriculum',
+  selector: 'app-capability-detail',
   standalone: true,
   imports: [
     HeaderComponent,
@@ -23,10 +23,10 @@ import { CreateCurriculumSyllabus } from '../../../shared/model/curriculum-sylla
     RouterLink,
     FormsModule,
   ],
-  templateUrl: './add-curriculum.component.html',
-  styleUrl: './add-curriculum.component.css'
+  templateUrl: './capability-detail.component.html',
+  styleUrl: './capability-detail.component.css'
 })
-export class ViewCapabilityCurriculumSyllabusComponent {
+export class CapabilityDetailComponent {
   capability = {
     id:'',
     kodeRating: '',

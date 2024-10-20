@@ -4,7 +4,7 @@ import { HomeComponent } from './pages/home/home.component';
 import { ParticipantListComponent } from './pages/participant/participant-list/participant-list.component';
 import { ViewCapabilityComponent } from './pages/capability/capability-list/capability-list.component';
 import { AddParticipantDataComponent } from './pages/participant/add-participant-data/add-participant-data.component';
-import { DetailParticipantDataComponent } from './pages/participant/detail-participant-data/detail-participant-data.component';
+import { ParticipantDetailComponent } from './pages/participant/participant-detail/participant-detail.component';
 import { EditParticipantDataComponent } from './pages/participant/edit-participant-data/edit-participant-data.component';
 import { AddCapabilityComponent } from './pages/capability/add-capability/add-capability.component';
 import { EditCapabilityComponent } from './pages/capability/edit-capability/edit-capability.component';
@@ -12,7 +12,7 @@ import { IdCardComponent } from './pages/participant/id-card/id-card.component';
 import { AddCotComponent } from './pages/cot/add-cot/add-cot.component';
 import { ViewCotComponent } from './pages/cot/cot-list/cot-list.component';
 import { EditCotComponent } from './pages/cot/edit-cot/edit-cot.component';
-import { DetailCotComponent } from './pages/cot/detail-cot/detail-cot.component';
+import { CotDetailComponent } from './pages/cot/cot-detail/cot-detail.component';
 import { CotFinishComponent } from './pages/cot/cot-finish/cot-finish.component';
 import { CreateSertifikatComponent } from './pages/cot/create-sertifikat/create-sertifikat.component';
 import { AddParticipantCotComponent } from './pages/cot/add-participant-cot/add-participant-cot.component';
@@ -30,7 +30,7 @@ import { DisplayFilesParticipantsComponent } from './pages/participant/display-f
 import { guestGuard } from './shared/guard/guest.guard';
 import { ResetPasswordComponent } from './pages/auth/reset-password/reset-password.component';
 import { ForgotPasswordComponent } from './pages/auth/forgot-password/forgot-password.component';
-import { ViewCapabilityCurriculumSyllabusComponent } from './pages/capability/view-capability-curriculum-syllabus/add-curriculum.component';
+import { CapabilityDetailComponent } from './pages/capability/capability-detail/capability-detail.component';
 
 export const routes: Routes = [
   {
@@ -76,7 +76,7 @@ export const routes: Routes = [
   },
   {
     path: 'participants/:id/view',
-    component: DetailParticipantDataComponent,
+    component: ParticipantDetailComponent,
     canActivate: [AuthAndRoleGuard],
     data: { roles: ['super admin', 'supervisor', 'lcu', 'user'] }
   },
@@ -118,7 +118,7 @@ export const routes: Routes = [
   },
   {
     path: 'capability-curriculum-syllabus/:id',
-    component: ViewCapabilityCurriculumSyllabusComponent,
+    component: CapabilityDetailComponent,
     canActivate: [AuthAndRoleGuard],
     data: { roles: ['super admin', 'supervisor'] }
   },
@@ -142,7 +142,7 @@ export const routes: Routes = [
   },
   {
     path: 'cot/:id/view',
-    component: DetailCotComponent,
+    component: CotDetailComponent,
     canActivate: [AuthAndRoleGuard],
     data: { roles: ['super admin', 'supervisor', 'lcu', 'user'] }
   },

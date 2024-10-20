@@ -12,7 +12,7 @@ import { CommonModule } from '@angular/common';
 import { WhiteButtonComponent } from "../../../components/button/white-button/white-button.component";
 
 @Component({
-  selector: 'app-detail-participant-data',
+  selector: 'app-participant-detail',
   standalone: true,
   imports: [
     RouterLink,
@@ -24,10 +24,10 @@ import { WhiteButtonComponent } from "../../../components/button/white-button/wh
     CommonModule,
     WhiteButtonComponent
 ],
-  templateUrl: './detail-participant-data.component.html',
-  styleUrl: './detail-participant-data.component.css'
+  templateUrl: './participant-detail.component.html',
+  styleUrl: './participant-detail.component.css'
 })
-export class DetailParticipantDataComponent implements OnInit {
+export class ParticipantDetailComponent implements OnInit {
   participant: Participant | null = null;
   leftTableData: any[] = [];
   rightTableData: any[] = [];

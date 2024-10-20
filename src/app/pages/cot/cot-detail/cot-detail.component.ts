@@ -7,7 +7,7 @@ import { BlueButtonComponent } from "../../../components/button/blue-button/blue
 import { RouterLink } from '@angular/router';
 
 @Component({
-  selector: 'app-detail-cot',
+  selector: 'app-cot-detail',
   standalone: true,
   imports: [
     HeaderComponent,
@@ -17,10 +17,10 @@ import { RouterLink } from '@angular/router';
     BlueButtonComponent,
     RouterLink,
   ],
-  templateUrl: './detail-cot.component.html',
-  styleUrl: './detail-cot.component.css',
+  templateUrl: './cot-detail.component.html',
+  styleUrl: './cot-detail.component.css',
 })
-export class DetailCotComponent {
+export class CotDetailComponent {
   leftTableData = [
     { label: 'Kode COT', value: 'GSE-REGJAN24-01' },
     { label: 'Kode Rating', value: 'GSE Reg' },
