@@ -84,9 +84,8 @@ export class CapabilityListComponent {
               durasiMateriRegulasGSE: totalDurasiRegulasiGSE,
               durasiMateriRating: totalDurasiKompetensi,
               totalDurasi: capability.totalDurasi || "-",
-              kurikulumSilabus: `/capability-curriculum-syllabus/${capability.id}`,
+              kurikulumSilabus: `/capability/${capability.id}/detail`,
               editLink: response.actions.canEdit ? `/capability/${capability.id}/edit` : null,
-              detailLink: response.actions.canView ? `/capability/${capability.id}/view` : null,
               deleteMethod: response.actions.canDelete ? () => this.deleteCapability(capability) : null,
             };
           });

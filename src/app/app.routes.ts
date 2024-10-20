@@ -75,7 +75,7 @@ export const routes: Routes = [
     data: { roles: ['super admin', 'lcu', 'user'] }
   },
   {
-    path: 'participants/:id/view',
+    path: 'participants/:id/detail',
     component: ParticipantDetailComponent,
     canActivate: [AuthAndRoleGuard],
     data: { roles: ['super admin', 'supervisor', 'lcu', 'user'] }
@@ -117,7 +117,7 @@ export const routes: Routes = [
     data: { roles: ['super admin'] }
   },
   {
-    path: 'capability-curriculum-syllabus/:id',
+    path: 'capability/:id/detail',
     component: CapabilityDetailComponent,
     canActivate: [AuthAndRoleGuard],
     data: { roles: ['super admin', 'supervisor'] }
@@ -141,7 +141,7 @@ export const routes: Routes = [
     data: { roles: ['super admin'] }
   },
   {
-    path: 'cot/:id/view',
+    path: 'cot/:id/detail',
     component: CotDetailComponent,
     canActivate: [AuthAndRoleGuard],
     data: { roles: ['super admin', 'supervisor', 'lcu', 'user'] }

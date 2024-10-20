@@ -38,7 +38,7 @@ export class CotListComponent {
       kodeRating: 'GSE - Reg',
       namaTraining: 'Regulasi GSE',
       editLink: '/cot/edit',
-      detailLink: '/cot/view',
+      detailLink: '/cot/id/detail',
       deleteMethod: () => this.deleteCot('GSE-REGJAN24-01')
     },
     {

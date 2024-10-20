@@ -74,7 +74,7 @@ export class ParticipantListComponent implements OnInit {
             dinas: participant.dinas ?? '-',
             bidang: participant.bidang ?? '-',
             editLink: response.actions.canEdit ? `/participants/${participant.id}/edit` : null,
-            detailLink: response.actions.canView ? `/participants/${participant.id}/view` : null,
+            detailLink: response.actions.canView ? `/participants/${participant.id}/detail` : null,
             deleteMethod: response.actions.canDelete ? () => this.deleteParticipant(participant) : null,
           };
         });
@@ -112,7 +112,7 @@ export class ParticipantListComponent implements OnInit {
               dinas: participant.dinas ?? '-',
               bidang: participant.bidang ?? '-',
               editLink: response.actions.canEdit ? `/participants/${participant.id}/edit` : null,
-              detailLink: response.actions.canView ? `/participants/${participant.id}/view` : null,
+              detailLink: response.actions.canView ? `/participants/${participant.id}/detail` : null,
               deleteMethod: response.actions.canDelete ? () => this.deleteParticipant(participant) : null,
             };
           });

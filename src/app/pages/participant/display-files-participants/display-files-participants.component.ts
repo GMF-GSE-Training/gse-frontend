@@ -19,7 +19,7 @@ export class DisplayFilesParticipantsComponent implements OnInit {
   fileName = this.route.snapshot.paramMap.get('file-name');
   pageTitle: string = this.fileName!.toUpperCase().split('-').join(' ');
   id = this.route.snapshot.paramMap.get('id');
-  navigationLink: string = `/participants/${this.id}/view`;
+  navigationLink: string = `/participants/${this.id}/detail`;
   file: string | undefined;
 
   constructor(
