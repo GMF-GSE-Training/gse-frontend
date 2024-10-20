@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AddSignComponent } from './view-sign.component';
+import { AddSignComponent } from './add-sign.component';
 
 describe('AddSignComponent', () => {
   let component: AddSignComponent;

@@ -19,7 +19,7 @@ import { AddParticipantCotComponent } from './pages/cot/add-participant-cot/add-
 import { DownloadSertifikatComponent } from './pages/cot/download-sertifikat/download-sertifikat.component';
 import { UserListComponent } from './pages/users/user-list/user-list.component';
 import { AddUserComponent } from './pages/users/add-user/create-account.component';
-import { AddSignComponent } from './pages/sign/add-sign/view-sign.component';
+import { AddSignComponent } from './pages/sign/add-sign/add-sign.component';
 import { EditUserComponent } from './pages/users/edit-user/edit-user.component';
 import { SignatureListComponent } from './pages/sign/signature-list/signature-list.component';
 import { EditSignComponent } from './pages/sign/edit-sign/edit-sign.component';

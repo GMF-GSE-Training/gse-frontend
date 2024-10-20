@@ -7,7 +7,7 @@ import { BlueButtonComponent } from '../../../components/button/blue-button/blue
 import { BaseInputComponent } from '../../../components/input/base-input/base-input.component';
 
 @Component({
-  selector: 'app-view-sign',
+  selector: 'app-add-sign',
   standalone: true,
   imports: [
     RouterLink,
@@ -17,8 +17,8 @@ import { BaseInputComponent } from '../../../components/input/base-input/base-in
     WhiteButtonComponent,
     BlueButtonComponent,
 ],
-  templateUrl: './view-sign.component.html',
-  styleUrl: './view-sign.component.css'
+  templateUrl: './add-sign.component.html',
+  styleUrl: './add-sign.component.css'
 })
 export class AddSignComponent {
 
