@@ -7,7 +7,7 @@ import { BlueButtonComponent } from '../../../components/button/blue-button/blue
 import { RoleBasedAccessDirective } from '../../../shared/directive/role-based-access.directive';
 
 @Component({
-  selector: 'app-view-cot',
+  selector: 'app-cot-list',
   standalone: true,
   imports: [
     HeaderComponent,
@@ -17,8 +17,8 @@ import { RoleBasedAccessDirective } from '../../../shared/directive/role-based-a
     BlueButtonComponent,
     RoleBasedAccessDirective
   ],
-  templateUrl: './view-cot.component.html',
-  styleUrl: './view-cot.component.css',
+  templateUrl: './cot-list.component.html',
+  styleUrl: './cot-list.component.css',
 })
 export class ViewCotComponent {
   columns = [

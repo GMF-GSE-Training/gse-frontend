@@ -1,8 +1,8 @@
 import { Routes } from '@angular/router';
 import { LoginComponent } from './pages/auth/login/login.component';
 import { HomeComponent } from './pages/home/home.component';
-import { ViewParticipantDataComponent } from './pages/participant/view-participant-data/view-participant-data.component';
-import { ViewCapabilityComponent } from './pages/capability/view-capability/view-capability.component';
+import { ParticipantListComponent } from './pages/participant/participant-list/participant-list.component';
+import { ViewCapabilityComponent } from './pages/capability/capability-list/capability-list.component';
 import { AddParticipantDataComponent } from './pages/participant/add-participant-data/add-participant-data.component';
 import { DetailParticipantDataComponent } from './pages/participant/detail-participant-data/detail-participant-data.component';
 import { EditParticipantDataComponent } from './pages/participant/edit-participant-data/edit-participant-data.component';
@@ -10,18 +10,18 @@ import { AddCapabilityComponent } from './pages/capability/add-capability/add-ca
 import { EditCapabilityComponent } from './pages/capability/edit-capability/edit-capability.component';
 import { IdCardComponent } from './pages/participant/id-card/id-card.component';
 import { AddCotComponent } from './pages/cot/add-cot/add-cot.component';
-import { ViewCotComponent } from './pages/cot/view-cot/view-cot.component';
+import { ViewCotComponent } from './pages/cot/cot-list/cot-list.component';
 import { EditCotComponent } from './pages/cot/edit-cot/edit-cot.component';
 import { DetailCotComponent } from './pages/cot/detail-cot/detail-cot.component';
 import { CotFinishComponent } from './pages/cot/cot-finish/cot-finish.component';
 import { CreateSertifikatComponent } from './pages/cot/create-sertifikat/create-sertifikat.component';
 import { AddParticipantCotComponent } from './pages/cot/add-participant-cot/add-participant-cot.component';
 import { DownloadSertifikatComponent } from './pages/cot/download-sertifikat/download-sertifikat.component';
-import { ViewUsersComponent } from './pages/users/view-users/view-users.component';
+import { UserListComponent } from './pages/users/user-list/user-list.component';
 import { AddUserComponent } from './pages/users/add-user/create-account.component';
 import { AddSignComponent } from './pages/sign/add-sign/view-sign.component';
 import { EditUserComponent } from './pages/users/edit-user/edit-user.component';
-import { ViewSignComponent } from './pages/sign/view-sign/view-sign.component';
+import { SignatureListComponent } from './pages/sign/signature-list/signature-list.component';
 import { EditSignComponent } from './pages/sign/edit-sign/edit-sign.component';
 import { AddCurriculumComponent } from './pages/curriculum-syllabus/add-curriculum/add-curriculum.component';
 import { RegisterComponent } from './pages/auth/register/register.component';
@@ -64,7 +64,7 @@ export const routes: Routes = [
   },
   {
     path: 'participants',
-    component: ViewParticipantDataComponent,
+    component: ParticipantListComponent,
     canActivate: [AuthAndRoleGuard],
     data: { roles: ['super admin', 'supervisor', 'lcu'] }
   },
@@ -172,7 +172,7 @@ export const routes: Routes = [
   },
   {
     path: 'users',
-    component: ViewUsersComponent,
+    component: UserListComponent,
     canActivate: [AuthAndRoleGuard],
     data: { roles: ['super admin', 'supervisor', 'lcu'] }
   },
@@ -196,7 +196,7 @@ export const routes: Routes = [
   },
   {
     path: 'sign',
-    component: ViewSignComponent,
+    component: SignatureListComponent,
     canActivate: [AuthAndRoleGuard],
     data: { roles: ['super admin', 'supervisor', 'lcu'] }
   },

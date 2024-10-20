@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ViewCotComponent } from './view-cot.component';
+import { SignatureListComponent } from './signature-list.component';
 
-describe('ViewCotComponent', () => {
-  let component: ViewCotComponent;
-  let fixture: ComponentFixture<ViewCotComponent>;
+describe('SignatureListComponent', () => {
+  let component: SignatureListComponent;
+  let fixture: ComponentFixture<SignatureListComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ViewCotComponent]
+      imports: [SignatureListComponent]
     })
     .compileComponents();
-    
-    fixture = TestBed.createComponent(ViewCotComponent);
+
+    fixture = TestBed.createComponent(SignatureListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

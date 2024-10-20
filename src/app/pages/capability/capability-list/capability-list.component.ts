@@ -9,7 +9,7 @@ import { DataManagementComponent } from "../../../layouts/data-management/data-m
 import { CapabilityService } from '../../../shared/service/capability.service';
 
 @Component({
-  selector: 'app-view-capability',
+  selector: 'app-capability-list',
   standalone: true,
   imports: [
     HeaderComponent,
@@ -20,11 +20,11 @@ import { CapabilityService } from '../../../shared/service/capability.service';
     SearchComponent,
     DataManagementComponent
 ],
-  templateUrl: './view-capability.component.html',
-  styleUrl: './view-capability.component.css'
+  templateUrl: './capability-list.component.html',
+  styleUrl: './capability-list.component.css'
 })
 export class ViewCapabilityComponent {
-  pageTitle: string = "View Capability";
+  pageTitle: string = "Capability";
 
   columns = [
     { header: 'Kode Rating', field: 'kodeRating' },

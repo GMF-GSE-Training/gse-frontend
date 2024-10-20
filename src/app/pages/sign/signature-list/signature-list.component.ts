@@ -6,7 +6,7 @@ import { BlueButtonComponent } from '../../../components/button/blue-button/blue
 import { TableComponent } from "../../../components/table/table.component";
 
 @Component({
-  selector: 'app-view-sign',
+  selector: 'app-sign-list',
   standalone: true,
   imports: [
     HeaderComponent,
@@ -15,10 +15,10 @@ import { TableComponent } from "../../../components/table/table.component";
     BlueButtonComponent,
     TableComponent,
   ],
-  templateUrl: './view-sign.component.html',
-  styleUrl: './view-sign.component.css'
+  templateUrl: './signature-list.component.html',
+  styleUrl: './signature-list.component.css'
 })
-export class ViewSignComponent {
+export class SignatureListComponent {
   columns = [
     { header: 'No Pegawai', field: 'noPegawai' },
     { header: 'Role', field: 'role' },

@@ -12,7 +12,7 @@ import { TitleComponent } from "../../../components/title/title.component";
 import { DataManagementComponent } from "../../../layouts/data-management/data-management.component";
 
 @Component({
-  selector: 'app-view-users',
+  selector: 'app-user-list',
   standalone: true,
   imports: [
     HeaderComponent,
@@ -24,11 +24,11 @@ import { DataManagementComponent } from "../../../layouts/data-management/data-m
     TitleComponent,
     DataManagementComponent
 ],
-  templateUrl: './view-users.component.html',
+  templateUrl: './user-list.component.html',
 })
-export class ViewUsersComponent implements OnInit {
+export class UserListComponent implements OnInit {
   // Komponen title
-  pageTitle = 'View Users';
+  pageTitle = 'Users';
 
   // Komponen tabel
   columns = [

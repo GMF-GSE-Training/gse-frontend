@@ -7,18 +7,18 @@ import { FormsModule } from '@angular/forms';
 import { DataManagementComponent } from "../../../layouts/data-management/data-management.component";
 
 @Component({
-  selector: 'app-view-participant-data',
+  selector: 'app-participant-list',
   standalone: true,
   imports: [
     RouterLink,
     FormsModule,
     DataManagementComponent
 ],
-  templateUrl: './view-participant-data.component.html',
+  templateUrl: './participant-list.component.html',
 })
-export class ViewParticipantDataComponent implements OnInit {
+export class ParticipantListComponent implements OnInit {
   // Komponen title
-  pageTitle = 'View Participant Data';
+  pageTitle = 'Participant Data';
 
   // Komponen tabel
   columns = [
