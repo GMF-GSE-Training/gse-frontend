@@ -23,7 +23,7 @@
 
   <div class="bottom-form-container">
     <div class="form-section">
-      <div class="input-group">
+      <div class="left-input-group">
         <!-- Dynamic inputs for first group -->
         <ng-container *ngFor="let input of regulasiGSEs; let i = index">
           <app-base-input
@@ -53,10 +53,8 @@
       </div>
     </div>
 
-    <div class="dividing-line"></div>
-
     <div class="form-section">
-      <div class="input-group">
+      <div class="right-input-group">
         <!-- Dynamic inputs for second group -->
         <ng-container *ngFor="let input of kompetensis; let i = index">
           <app-base-input
@@ -88,7 +86,7 @@
   </div>
 
   <div class="container-button">
-    <app-white-button routerLink="/participants" class="button">Back</app-white-button>
-    <app-blue-button routerLink="" class="button">Edit</app-blue-button>
+    <app-white-button routerLink="/capability" class="button">Back</app-white-button>
+    <app-blue-button [routerLink]="editLink" class="button">Edit</app-blue-button>
   </div>
 </form>

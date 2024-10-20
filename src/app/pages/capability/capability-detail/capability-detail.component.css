@@ -2,7 +2,6 @@
 .bottom-form-container {
   max-width: 100%;
   display: flex;
-  justify-content: center;
   margin-top: 25px;
   margin-left: 25px;
   margin-right: 25px;
@@ -23,24 +22,21 @@
   gap: 20px;
 }
 
-.input-group {
+.left-input-group,
+.right-input-group {
   display: grid;
-  grid-template-columns: 50% 20% 20%;
-  gap: 1rem;
-  /* width: 100%; */
+  grid-template-columns: 50% 22% 22%;
+  gap: 1em;
+}
+
+.left-input-group {
+  border-right: 5px double grey;
 }
 
 .add-button {
   margin-right: 25px;
   margin-left: auto;
   width: 125px;
-}
-
-.dividing-line {
-  border-right: 3px solid grey;
-  border-left: 3px solid grey;
-  opacity: 30%;
-  width: 5px;
 }
 
 .container-button {
