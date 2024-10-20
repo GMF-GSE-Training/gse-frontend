@@ -22,14 +22,13 @@
   gap: 20px;
 }
 
-.left-input-group,
-.right-input-group {
+.input-group {
   display: grid;
   grid-template-columns: 50% 22% 22%;
   gap: 1em;
 }
 
-.left-input-group {
+#reg-gse {
   border-right: 5px double grey;
 }
 
