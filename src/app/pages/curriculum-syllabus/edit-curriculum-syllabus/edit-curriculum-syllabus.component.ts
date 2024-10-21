@@ -3,11 +3,13 @@ import { TitleComponent } from "../../../components/title/title.component";
 import { BaseInputComponent } from "../../../components/input/base-input/base-input.component";
 import { WhiteButtonComponent } from "../../../components/button/white-button/white-button.component";
 import { BlueButtonComponent } from "../../../components/button/blue-button/blue-button.component";
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { CapabilityService } from '../../../shared/service/capability.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { CurriculumSyllabusService } from '../../../shared/service/curriculum-syllabus.service';
+import { UpdateCurriculumSyllabus } from '../../../shared/model/curriculum-syllabus.model';
+import { SweetalertService } from '../../../shared/service/sweetaler.service';
 
 @Component({
   selector: 'app-edit-curriculum-syllabus',
@@ -33,7 +35,8 @@ export class EditCurriculumSyllabusComponent implements OnInit {
     namaTraining: ''
   }
 
-  regulasiGSEs: Array<{ capabilityId: string; nama: string; durasiTeori: number; durasiPraktek: number; type: string; }> = [{
+  regulasiGSEs: Array<{ id: string; capabilityId: string; nama: string; durasiTeori: number; durasiPraktek: number; type: string; }> = [{
+    id: '',
     capabilityId: '',
     nama: '',
     durasiTeori: 0,
@@ -41,7 +44,8 @@ export class EditCurriculumSyllabusComponent implements OnInit {
     type: '',
   }];
 
-  kompetensis: Array<{ capabilityId: string; nama: string; durasiTeori: number; durasiPraktek: number; type: string }> = [{
+  kompetensis: Array<{ id: string, capabilityId: string; nama: string; durasiTeori: number; durasiPraktek: number; type: string }> = [{
+    id: '',
     capabilityId: '',
     nama: '',
     durasiTeori: 0,
@@ -53,19 +57,23 @@ export class EditCurriculumSyllabusComponent implements OnInit {
   inputGroup2: Array<any> = [];
 
   constructor(
+    private readonly router: Router,
     private readonly route: ActivatedRoute,
+    private readonly sweetalertService: SweetalertService,
     private readonly capabilityService: CapabilityService,
     private readonly curriculumSyllabusService: CurriculumSyllabusService,
   ) { }
 
+  capabilityId: string | null = null; // Allow null initially
+
   ngOnInit(): void {
-    const id = this.route.snapshot.paramMap.get('id');
-    if (id) {
-      this.capabilityService.getCapabilityById(id).subscribe({
+    this.capabilityId = this.route.snapshot.paramMap.get('id');
+
+    if (this.capabilityId) {
+      this.capabilityService.getCapabilityById(this.capabilityId).subscribe({
         next: (response) => {
-          if(typeof response.data === 'object') {
+          if (typeof response.data === 'object') {
             const data = response.data;
-            // Update capability data
             this.capability = {
               id: data.id,
               kodeRating: data.kodeRating,
@@ -73,65 +81,63 @@ export class EditCurriculumSyllabusComponent implements OnInit {
               namaTraining: data.namaTraining,
             };
 
-            // Filter and map curriculumSyllabus to regulasiGSEs and kompetensis
-            this.regulasiGSEs = data.curriculumSyllabus!
-              .filter(item => item.type === 'Regulasi GSE')
-              .map(item => ({
-                capabilityId: item.capabilityId,
-                nama: item.nama,
-                durasiTeori: item.durasiTeori,
-                durasiPraktek: item.durasiPraktek,
-                type: item.type,
-              }));
-
-            this.kompetensis = data.curriculumSyllabus!
-              .filter(item => item.type === 'Kompetensi')
-              .map(item => ({
-                capabilityId: item.capabilityId,
-                nama: item.nama,
-                durasiTeori: item.durasiTeori,
-                durasiPraktek: item.durasiPraktek,
-                type: item.type,
-              }));
+            // Mapping curriculumSyllabus to respective arrays
+            this.regulasiGSEs = this.mapSyllabus(data.curriculumSyllabus!, 'Regulasi GSE');
+            this.kompetensis = this.mapSyllabus(data.curriculumSyllabus!, 'Kompetensi');
           }
         },
         error: (error) => {
-          console.log(error);
+          console.log(error.error.errors);
         }
       });
     }
   }
 
+  // Helper function to map syllabus
+  mapSyllabus(syllabus: any[], type: string) {
+    return syllabus
+      .filter(item => item.type === type)
+      .map(item => ({
+        id: item.id,
+        capabilityId: item.capabilityId,
+        nama: item.nama,
+        durasiTeori: item.durasiTeori,
+        durasiPraktek: item.durasiPraktek,
+        type: item.type,
+      }));
+  }
+
   onSubmit() {
-    // Parse input group 1 (Regulasi GSEs) to ensure numbers are correct
+    // Ensure `durasiTeori` and `durasiPraktek` are numbers
     this.regulasiGSEs = this.regulasiGSEs.map(item => ({
       ...item,
-      durasiTeori: Number(item.durasiTeori),  // Konversi ke number
-      durasiPraktek: Number(item.durasiPraktek),  // Konversi ke number
+      durasiTeori: Number(item.durasiTeori),
+      durasiPraktek: Number(item.durasiPraktek),
     }));
 
-    // Parse input group 2 (Kompetensis) to ensure numbers are correct
     this.kompetensis = this.kompetensis.map(item => ({
       ...item,
-      durasiTeori: Number(item.durasiTeori),  // Konversi ke number
-      durasiPraktek: Number(item.durasiPraktek),  // Konversi ke number
+      durasiTeori: Number(item.durasiTeori),
+      durasiPraktek: Number(item.durasiPraktek),
     }));
 
-    // Gabungkan semua data ke dalam curriculumSyllabus
+    // Combine both groups into a single array
     const curriculumSyllabusData = [
       ...this.regulasiGSEs,
       ...this.kompetensis
     ];
 
-    // Panggil service untuk mengirim data ke backend
-    this.curriculumSyllabusService.createCurriculumSyllabus({
-      curriculumSyllabus: curriculumSyllabusData
-    }).subscribe(response => {
-      // Handle response
-      console.log('Curriculum & Syllabus saved successfully', response);
-    }, error => {
-      // Handle error
-      console.error('Error saving Curriculum & Syllabus', error);
+    console.log({ curriculumSyllabus: curriculumSyllabusData });
+
+    // Send the data to the backend using the service
+    this.curriculumSyllabusService.updateCurriculumSyllabus(this.capability.id, { curriculumSyllabus: curriculumSyllabusData }).subscribe({
+      next: (response) => {
+        this.sweetalertService.alert(true, 'Berhasil', response.data, 'success');
+        this.router.navigateByUrl('/capability');
+      },
+      error: (error) => {
+        console.error(error);
+      }
     });
   }
 
@@ -145,6 +151,7 @@ export class EditCurriculumSyllabusComponent implements OnInit {
 
     if (group === 'group1') {
       this.regulasiGSEs.push({
+        id: '',
         capabilityId,
         nama: '', // Add name for this item
         durasiTeori: 0,
@@ -153,6 +160,7 @@ export class EditCurriculumSyllabusComponent implements OnInit {
       });
     } else if (group === 'group2') {
       this.kompetensis.push({
+        id: '',
         capabilityId,
         nama: '', // Add name for this item
         durasiTeori: 0,

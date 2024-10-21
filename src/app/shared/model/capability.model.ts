@@ -38,6 +38,7 @@ export interface CapabilityListResponse {
 }
 
 type CurriculumSyllabus = {
+  id: string;
   capabilityId: string;
   nama: string;
   durasiTeori: number;
