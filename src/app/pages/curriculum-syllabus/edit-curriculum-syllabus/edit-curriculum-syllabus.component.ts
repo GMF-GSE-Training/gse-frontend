@@ -170,16 +170,16 @@ export class EditCurriculumSyllabusComponent implements OnInit {
     }
   }
 
-  deleteInput(group: string, event?: Event) {
+  deleteInput(group: string, indeks: number, event?: Event) {
     if (event) {
       event.preventDefault();
       event.stopPropagation();
     }
 
     if (group === 'group1') {
-      this.regulasiGSEs.splice((this.regulasiGSEs.length - 1), 1); // Hapus item pada indeks yang diberikan untuk regulasiGSEs
+      this.regulasiGSEs.splice(indeks, 1); // Hapus item pada indeks yang diberikan untuk regulasiGSEs
     } else if (group === 'group2') {
-      this.kompetensis.splice((this.kompetensis.length - 1), 1); // Hapus item pada indeks yang diberikan untuk kompetensis
+      this.kompetensis.splice(indeks, 1); // Hapus item pada indeks yang diberikan untuk kompetensis
     }
   }
 }

@@ -23,7 +23,7 @@
 
   <div class="bottom-form-container">
     <div class="form-section">
-      <div class="input-group">
+      <div class="input-group" id="reg-gse">
         <!-- Dynamic inputs for first group -->
         <ng-container *ngFor="let input of regulasiGSEs; let i = index">
           <app-base-input
@@ -46,12 +46,10 @@
             type="text"
             inputMode="tel">
           </app-base-input>
+          <i (click)="deleteInput('group1', i)" class="fa-solid fa-trash-can delete-button"></i>
         </ng-container>
       </div>
       <div class="add-button-container">
-        <app-white-button (whiteButtonClick)="deleteInput('group1')" type="button" class="add-button">
-          <i class="fa-solid fa-trash-can delete-button"></i>
-        </app-white-button>
         <app-white-button (whiteButtonClick)="addInput('group1')" type="button" class="add-button">
           <i class="fa-solid fa-plus"></i>
         </app-white-button>
@@ -82,12 +80,10 @@
             type="text"
             inputMode="tel">
           </app-base-input>
+          <i (click)="deleteInput('group2', i)" class="fa-solid fa-trash-can delete-button"></i>
         </ng-container>
       </div>
       <div class="add-button-container">
-        <app-white-button type="button" (whiteButtonClick)="deleteInput('group2')" class="add-button">
-          <i class="fa-solid fa-trash-can delete-button"></i>
-        </app-white-button>
         <app-white-button (whiteButtonClick)="addInput('group2')" type="button" class="add-button">
           <i class="fa-solid fa-plus"></i>
         </app-white-button>
@@ -96,7 +92,7 @@
   </div>
 
   <div class="container-button">
-    <app-white-button routerLink="/capability" class="button">Kembali</app-white-button>
+    <app-white-button type="button" routerLink="/capability" class="button">Kembali</app-white-button>
     <app-blue-button type="submit" class="button">Simpan</app-blue-button>
   </div>
 </form>

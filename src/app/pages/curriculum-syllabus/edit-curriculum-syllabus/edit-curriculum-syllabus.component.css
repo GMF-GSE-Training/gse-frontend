@@ -24,7 +24,7 @@
 
 .input-group {
   display: grid;
-  grid-template-columns: 50% 22% 22%;
+  grid-template-columns: 50% 20% 20% 1%;
   gap: 1em;
 }
 
@@ -33,8 +33,6 @@
 }
 
 .add-button-container {
-  /* margin-right: 25px;
-  margin-left: auto; */
   display: flex;
   justify-content: end;
   width: 100%;
@@ -46,7 +44,15 @@
 }
 
 i {
+  cursor: pointer;
   font-size: 25px;
+}
+
+.delete-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 30px;
 }
 
 .delete-button {
