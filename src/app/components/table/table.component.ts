@@ -17,5 +17,4 @@ import { IconActionComponent } from "../icon-action/icon-action.component";
 export class  TableComponent {
   @Input() columns: { header: string, field: string }[] = [];
   @Input() data: any[] = [];
-  @Input() viewCurriculumSyllabusLink: string = '';
 }

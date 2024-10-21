@@ -64,38 +64,37 @@ export class CapabilityDetailComponent implements OnInit {
     if (id) {
       this.capabilityService.getCapabilityById(id).subscribe({
         next: (response) => {
-          const data = response.data;
+          if(typeof response.data === 'object') {
+            const data = response.data;
+            // Update capability data
+            this.capability = {
+              id: data.id,
+              kodeRating: data.kodeRating,
+              kodeTraining: data.kodeTraining,
+              namaTraining: data.namaTraining,
+            };
 
-          // Update capability data
-          this.capability = {
-            id: data.id,
-            kodeRating: data.kodeRating,
-            kodeTraining: data.kodeTraining,
-            namaTraining: data.namaTraining,
-          };
+            // Filter and map curriculumSyllabus to regulasiGSEs and kompetensis
+            this.regulasiGSEs = data.curriculumSyllabus!
+              .filter(item => item.type === 'Regulasi GSE')
+              .map(item => ({
+                capabilityId: item.capabilityId,
+                nama: item.nama,
+                durasiTeori: item.durasiTeori,
+                durasiPraktek: item.durasiPraktek,
+                type: item.type,
+              }));
 
-          // Filter and map curriculumSyllabus to regulasiGSEs and kompetensis
-          this.regulasiGSEs = data.curriculumSyllabus!
-            .filter(item => item.type === 'Regulasi GSE')
-            .map(item => ({
-              capabilityId: item.capabilityId,
-              nama: item.nama,
-              durasiTeori: item.durasiTeori,
-              durasiPraktek: item.durasiPraktek,
-              type: item.type,
-            }));
-
-          this.kompetensis = data.curriculumSyllabus!
-            .filter(item => item.type === 'Kompetensi')
-            .map(item => ({
-              capabilityId: item.capabilityId,
-              nama: item.nama,
-              durasiTeori: item.durasiTeori,
-              durasiPraktek: item.durasiPraktek,
-              type: item.type,
-            }));
-
-          console.log(this.capability, this.regulasiGSEs, this.kompetensis);
+            this.kompetensis = data.curriculumSyllabus!
+              .filter(item => item.type === 'Kompetensi')
+              .map(item => ({
+                capabilityId: item.capabilityId,
+                nama: item.nama,
+                durasiTeori: item.durasiTeori,
+                durasiPraktek: item.durasiPraktek,
+                type: item.type,
+              }));
+          }
         },
         error: (error) => {
           console.log(error);

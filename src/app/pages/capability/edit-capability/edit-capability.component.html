@@ -1,27 +1,42 @@
 <main>
-  <div class="title-container">
-    <h1 class="title">Edit Capability</h1>
-  </div>
+  <app-title pageTitle="Add Capability"></app-title>
 
-  <form>
+  <form #form="ngForm" (submit)="onSubmit(capability)">
     <div class="form-container">
-      <div class="left-column">
-        <app-base-input>Kode Rating</app-base-input>
-        <app-base-input>Kode Training</app-base-input>
-        <app-base-input>Nama Training</app-base-input>
-      </div>
-      <div class="right-column">
-        <app-base-input type="tel" inputMode="tel">Durasi Materi Regulasi GSE</app-base-input>
-        <app-base-input type="tel" inputMode="tel">Durasi Materi Rating</app-base-input>
-        <app-base-input type="tel" inputMode="tel">Total Durasi Training</app-base-input>
-        <button routerLink="/home">Pilih Kurikulum & Silabus</button>
+      <div class="input-column">
+        <app-base-input
+          label="Kode Rating"
+          type="text"
+          inputMode="text"
+          name="kodeRating"
+          [(ngModel)]="capability.kodeRating"
+          #kodeRating="ngModel">
+        </app-base-input>
+
+        <app-base-input
+          label="Kode Training"
+          type="text"
+          inputMode="text"
+          name="kodeTraining"
+          [(ngModel)]="capability.kodeTraining"
+          #kodeTraining="ngModel">
+        </app-base-input>
+
+        <app-base-input
+          label="Nama Training"
+          type="text"
+          inputMode="text"
+          name="namaTraining"
+          [(ngModel)]="capability.namaTraining"
+          #namaTraining="ngModel">
+        </app-base-input>
       </div>
     </div>
-  </form>
 
-  <div class="container-button">
-    <app-white-button routerLink="/home">Back</app-white-button>
-    <app-blue-button routerLink="/capability">Save</app-blue-button>
-  </div>
+    <div class="container-button">
+      <app-white-button type="button" routerLink="/capability" class="button">Kembali</app-white-button>
+      <app-blue-button type="submit" class="button">Simpan</app-blue-button>
+    </div>
+  </form>
 
 </main>

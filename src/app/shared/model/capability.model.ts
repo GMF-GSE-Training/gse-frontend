@@ -4,21 +4,29 @@ export interface CreateCapability {
   namaTraining: string;
 }
 
+export interface UpdateCapability {
+  kodeRating?: string;
+  kodeTraining?: string;
+  namaTraining?: string;
+}
+
+type CapabilityData = {
+  id: string;
+  kodeRating: string;
+  kodeTraining: string;
+  namaTraining: string;
+  totalDurasiTeoriRegGse?: string;
+  totalDurasiPraktekRegGse?: string;
+  totalDurasiTeoriKompetensi?: string;
+  totalDurasiPraktekKompetensi?: string;
+  TotalDurasi?: string;
+  curriculumSyllabus?: CurriculumSyllabus[];
+}
+
 export interface CapabilityResponse {
   code: number;
   status: string;
-  data: {
-    id: string;
-    kodeRating: string;
-    kodeTraining: string;
-    namaTraining: string;
-    totalDurasiTeoriRegGse?: string;
-    totalDurasiPraktekRegGse?: string;
-    totalDurasiTeoriKompetensi?: string;
-    totalDurasiPraktekKompetensi?: string;
-    TotalDurasi?: string;
-    curriculumSyllabus?: CurriculumSyllabus[];
-  }
+  data: CapabilityData | string;
 }
 
 export interface CapabilityListResponse {

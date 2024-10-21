@@ -89,6 +89,7 @@ export class CapabilityListComponent {
               deleteMethod: response.actions.canDelete ? () => this.deleteCapability(capability) : null,
             };
           });
+          console.log(this.capability);
           this.totalPages = response.paging.totalPage;
         } else {
           this.capability = [];
