@@ -62,6 +62,9 @@ export class CapabilityDetailComponent implements OnInit {
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
+      this.editLink = `/curriculum-syllabus/${id}/edit`;
+      console.log(this.editLink);
+
       this.capabilityService.getCapabilityById(id).subscribe({
         next: (response) => {
           if(typeof response.data === 'object') {
@@ -100,8 +103,6 @@ export class CapabilityDetailComponent implements OnInit {
           console.log(error);
         }
       });
-
-      this.editLink = `/capability/${id}/edit`;
     }
   }
 }

@@ -1,4 +1,4 @@
-<app-title pageTitle="View Curriculum & Syllabus"></app-title>
+<app-title pageTitle="Edit Curriculum & Syllabus"></app-title>
 
 <form>
   <div class="top-form-container">
@@ -30,26 +30,31 @@
             [(ngModel)]="regulasiGSEs[i].nama"
             name="regGSE{{i}}"
             label="Regulasi GSE"
-            type="text"
-            [disabled]="true">
+            type="text">
           </app-base-input>
           <app-base-input
             [(ngModel)]="regulasiGSEs[i].durasiTeori"
             name="durasiTeori{{i}}"
             label="Durasi Teori"
             type="text"
-            inputMode="tel"
-            [disabled]="true">
+            inputMode="tel">
           </app-base-input>
           <app-base-input
             [(ngModel)]="regulasiGSEs[i].durasiPraktek"
             name="durasiPraktek{{i}}"
             label="Durasi Praktik"
             type="text"
-            inputMode="tel"
-            [disabled]="true">
+            inputMode="tel">
           </app-base-input>
         </ng-container>
+      </div>
+      <div class="add-button-container">
+        <app-white-button (whiteButtonClick)="deleteInput('group1')" type="button" class="add-button">
+          <i class="fa-solid fa-trash-can delete-button"></i>
+        </app-white-button>
+        <app-white-button (whiteButtonClick)="addInput('group1')" type="button" class="add-button">
+          <i class="fa-solid fa-plus"></i>
+        </app-white-button>
       </div>
     </div>
 
@@ -61,32 +66,37 @@
             [(ngModel)]="kompetensis[i].nama"
             name="kompetensi{{i}}"
             label="Kompetensi"
-            type="text"
-            [disabled]="true">
+            type="text">
           </app-base-input>
           <app-base-input
             [(ngModel)]="kompetensis[i].durasiTeori"
             name="durasiTeoriKompetensi{{i}}"
             label="Durasi Teori"
             type="text"
-            inputMode="tel"
-            [disabled]="true">
+            inputMode="tel">
           </app-base-input>
           <app-base-input
             [(ngModel)]="kompetensis[i].durasiPraktek"
             name="durasiPraktekKompetensi{{i}}"
             label="Durasi Praktik"
             type="text"
-            inputMode="tel"
-            [disabled]="true">
+            inputMode="tel">
           </app-base-input>
         </ng-container>
+      </div>
+      <div class="add-button-container">
+        <app-white-button type="button" (whiteButtonClick)="deleteInput('group2')" class="add-button">
+          <i class="fa-solid fa-trash-can delete-button"></i>
+        </app-white-button>
+        <app-white-button (whiteButtonClick)="addInput('group2')" type="button" class="add-button">
+          <i class="fa-solid fa-plus"></i>
+        </app-white-button>
       </div>
     </div>
   </div>
 
   <div class="container-button">
-    <app-white-button routerLink="/capability" class="button">Back</app-white-button>
-    <app-blue-button [title]="editLink" [routerLink]="editLink" class="button">Edit</app-blue-button>
+    <app-white-button routerLink="/capability" class="button">Kembali</app-white-button>
+    <app-blue-button class="button">Simpan</app-blue-button>
   </div>
 </form>

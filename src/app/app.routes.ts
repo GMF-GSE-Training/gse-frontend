@@ -31,6 +31,7 @@ import { guestGuard } from './shared/guard/guest.guard';
 import { ResetPasswordComponent } from './pages/auth/reset-password/reset-password.component';
 import { ForgotPasswordComponent } from './pages/auth/forgot-password/forgot-password.component';
 import { CapabilityDetailComponent } from './pages/capability/capability-detail/capability-detail.component';
+import { EditCurriculumSyllabusComponent } from './pages/curriculum-syllabus/edit-curriculum-syllabus/edit-curriculum-syllabus.component';
 
 export const routes: Routes = [
   {
@@ -212,4 +213,10 @@ export const routes: Routes = [
     canActivate: [AuthAndRoleGuard],
     data: { roles: ['super admin'] }
   },
+  {
+    path: 'curriculum-syllabus/:id/edit',
+    component: EditCurriculumSyllabusComponent,
+    canActivate: [AuthAndRoleGuard],
+    data: { roles: ['super admin'] }
+  }
 ];
