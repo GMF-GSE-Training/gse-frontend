@@ -123,8 +123,7 @@
       >
         <p *ngIf="negara.errors?.['required'] && negara.dirty" class="error-message">Wajib diisi</p>
       </app-base-input>
-    </div>
-    <div class="right-column">
+
       <app-base-input
         [(ngModel)]="participant.tempatLahir"
         name="tempatLahir"
@@ -133,11 +132,15 @@
         placeholder="Isi Tempat Lahir sesuai KTP"
         type="text"
         inputMode="text"
+        #tempatLahir="ngModel"
         required
         [restrictToPattern]="'^[a-zA-Z ]+$'"
+        [errorInput]="tempatLahir.invalid! && (tempatLahir.dirty! || tempatLahir.touched!)"
       >
+        <p *ngIf="tempatLahir.errors?.['required'] && tempatLahir.dirty" class="error-message">Wajib diisi</p>
       </app-base-input>
-
+    </div>
+    <div class="right-column">
       <app-base-input
         [(ngModel)]="participant.tanggalLahir"
         name="tanggalLahir"
