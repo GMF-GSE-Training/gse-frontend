@@ -1,7 +1,11 @@
 <app-data-management
   [pageTitle]="pageTitle"
-  [columns]="columns" [data]="capability"
-  [totalPages]="totalPages" [currentPage]="currentPage" (pageChange)="onPageChanged($event)"
+  [columns]="columns"
+  [data]="capability"
+  [totalPages]="totalPages"
+  [currentPage]="currentPage"
+  (pageChange)="onPageChanged($event)"
+  (searchChange)="onSearchChanged($event)"
   [placeHolder]="placeHolder"
   (viewAllChange)="viewAll()"
   (whiteButtonClick)="onWhiteButtonClick()"

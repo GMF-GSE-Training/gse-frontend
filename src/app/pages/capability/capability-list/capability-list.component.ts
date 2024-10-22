@@ -62,7 +62,7 @@ export class CapabilityListComponent {
       this.searchQuery = params['q'] || '';
       this.currentPage =+ params['page'] || 1;
       if (this.searchQuery) {
-        // this.getSearchParticipants(this.searchQuery, this.currentPage, this.itemsPerPage);
+        this.getSearchCapability(this.searchQuery, this.currentPage, this.itemsPerPage);
       } else {
         this.getListParticipants(this.currentPage, this.itemsPerPage);
       }
@@ -118,6 +118,48 @@ export class CapabilityListComponent {
         }
       });
     }
+  }
+
+  async getSearchCapability(query: string, page: number, size: number) {
+    this.capabilityService.searchCapability(query, page, size).subscribe({
+      next: (response) => {
+        if(response.code === 200 && response.status === 'OK') {
+          this.capability = response.data.map((capability: any) => {
+            const totalDurasiRegulasiGSE = capability.totalDurasiTeoriRegGse + capability.totalDurasiPraktekRegGse || '-';
+            const totalDurasiKompetensi = capability.totalDurasiTeoriKompetensi + capability.totalDurasiPraktekKompetensi || '-';
+
+            return {
+              kodeRating: capability.kodeRating,
+              kodeTraining: capability.kodeTraining,
+              namaTraining: capability.namaTraining,
+              durasiMateriRegulasGSE: totalDurasiRegulasiGSE,
+              durasiMateriRating: totalDurasiKompetensi,
+              totalDurasi: capability.totalDurasi || "-",
+              kurikulumSilabus: `/capability/${capability.id}/detail`,
+              editLink: response.actions.canEdit ? `/capability/${capability.id}/edit` : null,
+              deleteMethod: response.actions.canDelete ? () => this.deleteCapability(capability) : null,
+            };
+          });
+          this.totalPages = response.paging.totalPage;
+        } else {
+          console.warn('Data tidak ditemukan');
+          this.capability = [];
+        }
+      },
+      error: (error) => {
+        console.log(error);
+        this.capability = [];
+      }
+    })
+  }
+
+  onSearchChanged(query: string): void {
+    this.searchQuery = query;
+    this.router.navigate([], {
+      queryParams: { search: query },
+      queryParamsHandling: 'merge',
+    });
+    this.getSearchCapability(query, 1, this.itemsPerPage);
   }
 
   onPageChanged(page: number): void {

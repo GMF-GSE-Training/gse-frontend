@@ -28,6 +28,7 @@ export const environment = {
     capability: {
       base: 'capability',
       list: 'capability/list/result',
+      search: 'capability/search/result',
     },
     curriculumSyllabus: {
       base: 'curriculum-syllabus',

@@ -34,4 +34,10 @@ export class CapabilityService {
   listCapability(page: number = 1, size: number = 10): Observable<CapabilityListResponse> {
     return this.http.get<CapabilityListResponse>(`${this.apiUrl}/${this.endpoint.list}?page=${page}&size=${size}`, { withCredentials: true });
   }
+
+  searchCapability(q: string, page: number = 1, size: number = 10): Observable<CapabilityListResponse> {
+    return this.http.get<CapabilityListResponse>(`${this.apiUrl}/${this.endpoint.search}?q=${q}&page=${page}&size=${size}`,
+      { withCredentials: true }
+    );
+  }
 }

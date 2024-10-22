@@ -103,7 +103,7 @@ export class ParticipantListComponent implements OnInit {
   getSearchParticipants(query: string, page: number, size: number) {
     this.participantService.searchParticipant(query, page, size).subscribe({
       next: (response: ListParticipantsResponse) => {
-        if (response?.code === 200 && response?.status === 'OK') {
+        if (response.code === 200 && response.status === 'OK') {
           console.log('Search Response', response);
           this.participants = response.data.map((participant: Participant) => {
             return {
