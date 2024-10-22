@@ -7,6 +7,7 @@
         [(ngModel)]="participant.noPegawai"
         name="noPegawai"
         label="No Pegawai"
+        placeholder="No Pegawai"
         type="text"
         inputMode="tel">
       </app-base-input>
@@ -16,6 +17,7 @@
         name="nama"
         label="Nama"
         [isRequired]="!isUpdate"
+        placeholder="Masukkan nama asli, nama akan digunakan pada data sertifikat"
         type="text"
         inputMode="text"
         #nama="ngModel"
@@ -23,7 +25,6 @@
         [restrictToPattern]="'^[a-zA-Z ]+$'"
         [errorInput]="nama.invalid! && (nama.dirty! || nama.touched!)"
       >
-        <p *ngIf="!nama.errors || (!nama.dirty && !nama.touched)">Masukkan nama asli, nama akan digunakan pada data sertifikat</p>
         <p *ngIf="nama.errors?.['required'] && nama.dirty" class="error-message">Wajib diisi</p>
       </app-base-input>
 
@@ -32,6 +33,7 @@
         name="nik"
         label="NIK"
         [isRequired]="!isUpdate"
+        placeholder="Masukkan NIK sesuai KTP"
         type="text"
         inputMode="text"
         #nik="ngModel"
@@ -41,15 +43,15 @@
         minlength="16"
         [errorInput]="nik.invalid! && (nik.dirty! || nik.touched!)"
       >
-        <p *ngIf="!nik.errors || (!nik.dirty && !nik.touched)">Masukkan NIK sesuai KTP</p>
         <p *ngIf="nik.errors?.['required'] && nik.dirty" class="error-message">Wajib diisi</p>
-        <p *ngIf="(nik.errors?.['minlength'] || nik.errors?.['maxlength']) && nik.dirty" class="error-message">NIk harus terdiri dari 16 karakter</p>
+        <p *ngIf="(nik.errors?.['minlength'] || nik.errors?.['maxlength']) && nik.dirty" class="error-message"></p>
       </app-base-input>
 
       <app-base-input
         [(ngModel)]="participant.dinas"
         name="dinas"
         label="Dinas"
+        placeholder="Dinas"
         type="text"
         inputMode="text">
       </app-base-input>
@@ -58,6 +60,7 @@
         [(ngModel)]="participant.bidang"
         name="bidang"
         label="Bidang"
+        placeholder="Bidang"
         type="text"
         inputMode="text">
       </app-base-input>
@@ -75,6 +78,7 @@
         name="email"
         label="Email"
         [isRequired]="!isUpdate"
+        placeholder="Gunakan alamat email aktif"
         type="email"
         inputMode="text"
         [disabled]="isUpdate"
@@ -83,7 +87,6 @@
         email
         [errorInput]="email.invalid! && (email.dirty! || email.touched!)"
       >
-        <p *ngIf="!email.errors || (!email.dirty && !email.touched)">Gunakan alamat email aktif</p>
         <p *ngIf="email.errors?.['required'] && email.dirty" class="error-message">Wajib diisi</p>
         <p *ngIf="email.errors?.['email'] && email.dirty" class="error-message">Format email tidak valid</p>
         <p *ngIf="isUpdate">Anda dapat mengubah alamat email <a href="">disini</a></p>
@@ -94,6 +97,7 @@
         name="noTelp"
         label="Nomor Telepon"
         [isRequired]="!isUpdate"
+        placeholder="Gunakan nomor telepon aktif"
         type="tel"
         inputMode="tel"
         #noTelp="ngModel"
@@ -101,7 +105,6 @@
         [restrictToPattern]="'^[0-9-+ ]+$'"
         [errorInput]="noTelp.invalid! && (noTelp.dirty! || noTelp.touched!)"
       >
-        <p *ngIf="!noTelp.errors || (!noTelp.dirty && !noTelp.touched)">Gunakan nomor telepon aktif</p>
         <p *ngIf="noTelp.errors?.['required'] && noTelp.dirty" class="error-message">Wajib diisi</p>
       </app-base-input>
 
@@ -110,6 +113,7 @@
         name="negara"
         label="Kewarganegaraan"
         [isRequired]="!isUpdate"
+        placeholder="Isi kewarganegaraan sesuai KTP"
         type="text"
         inputMode="text"
         #negara="ngModel"
@@ -126,6 +130,7 @@
         name="tempatLahir"
         label="Tempat Lahir"
         [isRequired]="!isUpdate"
+        placeholder="Isi Tempat Lahir sesuai KTP"
         type="text"
         inputMode="text"
         required
@@ -143,6 +148,7 @@
         #tanggalLahir="ngModel"
         required
       >
+      <p *ngIf="!tanggalLahir.errors || (!tanggalLahir.dirty && !tanggalLahir.touched)">Isi Tanggal Lahir sesuai KTP</p>
       <p *ngIf="tanggalLahir.errors?.['required'] && tanggalLahir.dirty" class="error-message">Wajib diisi</p>
       </app-base-input>
 
@@ -156,15 +162,16 @@
         [required]="true"
       >
     </app-file-input>
-    <p *ngIf="!participant.simAFileName && form.submitted" class="error-message">File SIM A wajib diunggah</p>
+    <p *ngIf="!participant.simAFileName && form.submitted" class="error-message">SIM A wajib diunggah</p>
 
       <app-file-input
         idInput="sim_b_input"
         (valueChange)="onFileChange('simB', $event)"
         label="SIM B"
         [fileName]="participant.simBFileName"
-        [fileType]="fileType">
-      </app-file-input>
+        [fileType]="fileType"
+      >
+    </app-file-input>
 
       <app-file-input
         idInput="ktp_input"
@@ -175,15 +182,17 @@
         [fileName]="participant.ktpFileName"
         [fileType]="fileType">
       </app-file-input>
+      <p *ngIf="!participant.ktp && form.submitted" class="error-message">KTP wajib diunggah</p>
 
       <app-file-input
         idInput="foto_input"
         (valueChange)="onFileChange('foto', $event)"
-        label="Foto"
+        label="Pas Foto"
         [isRequired]="!isUpdate"
         [fileName]="participant.fotoFileName"
         [fileType]="fileTypeFoto">
       </app-file-input>
+      <p *ngIf="!participant.foto&& form.submitted" class="error-message">Pas Foto wajib diunggah</p>
 
       <app-file-input
         idInput="surat_sehat_input"
@@ -193,6 +202,7 @@
         [fileName]="participant.suratSehatButaWarnaFileName"
         [fileType]="fileType">
       </app-file-input>
+      <p *ngIf="!participant.suratSehatButaWarnaFileName && form.submitted" class="error-message">Surat Ket Sehat dan Buta Warna wajib diunggah</p>
 
       <app-base-input
         [(ngModel)]="participant.expSuratSehatButaWarna"
@@ -204,6 +214,7 @@
         #expSuratSehatButaWarna="ngModel"
         required
       >
+      <p *ngIf="!expSuratSehatButaWarna.errors || (!expSuratSehatButaWarna.dirty && !expSuratSehatButaWarna.touched)">Masukkan tanggal keluar surat sehat sesuai dengan tanggal keluar surat yang diunggah</p>
       <p *ngIf="expSuratSehatButaWarna.errors?.['required'] && expSuratSehatButaWarna.dirty" class="error-message">Wajib diisi</p>
       </app-base-input>
 
@@ -215,6 +226,7 @@
         [fileName]="participant.suratBebasNarkobaFileName"
         [fileType]="fileType">
       </app-file-input>
+      <p *ngIf="!participant.suratBebasNarkobaFileName && form.submitted" class="error-message">Surat Ket Bebas Narkoba wajib diunggah</p>
 
       <app-base-input
         [(ngModel)]="participant.expSuratBebasNarkoba"
@@ -226,6 +238,7 @@
         #expSuratBebasNarkoba="ngModel"
         required
       >
+      <p *ngIf="!expSuratBebasNarkoba.errors || (!expSuratBebasNarkoba.dirty && !expSuratBebasNarkoba.touched)">Masukkan tanggal keluar surat sehat sesuai dengan tanggal keluar surat yang diunggah</p>
       <p *ngIf="expSuratBebasNarkoba.errors?.['required'] && expSuratBebasNarkoba.dirty" class="error-message">Wajib diisi</p>
       </app-base-input>
     </div>

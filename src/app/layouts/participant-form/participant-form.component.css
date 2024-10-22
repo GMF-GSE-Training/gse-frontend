@@ -15,9 +15,16 @@ form {
   width: 48%;
 }
 
+p {
+  margin-left: 15px;
+  margin-top: 3px;
+  font-size: 14px;
+}
+
 .error-message {
   color: red;
 }
+
 
 .container-button {
   display: flex;
