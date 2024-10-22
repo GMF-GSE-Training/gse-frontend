@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { CapabilityService } from '../../../shared/service/capability.service';
 import { CapabilityFormComponent } from "../../../layouts/capability-form/capability-form.component";
+import { ErrorHandlerService } from '../../../shared/service/error-handler.service';
 
 @Component({
   selector: 'app-add-capability',
@@ -21,6 +22,7 @@ export class AddCapabilityComponent {
   constructor(
     private readonly capabilityService: CapabilityService,
     private readonly router: Router,
+    private readonly errorHandlerService: ErrorHandlerService
   ) { }
 
   onSubmit(capability: any) {
@@ -38,6 +40,7 @@ export class AddCapabilityComponent {
       },
       error: (error) => {
         console.log(error);
+        this.errorHandlerService.handleError(error);
       }
     })
   }
