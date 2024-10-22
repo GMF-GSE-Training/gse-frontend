@@ -9,8 +9,17 @@ input {
   font-size: 15px;
 }
 
+
+.error-input {
+  border-color: red;
+}
+
+.error-input {
+  outline: red;
+}
+
 label {
-  display: block;
+  display: flex;
   margin-top: 15px;
   font-weight: bold;
   font-size: 20px;
@@ -28,4 +37,8 @@ app-toggle-password-visibility {
 
 .container {
   margin-bottom: -25px;
+}
+
+p {
+  color: red;
 }

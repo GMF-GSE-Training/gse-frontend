@@ -27,6 +27,8 @@ export class BaseInputComponent {
   @Input() name: string = '';
   @Input() value: string = '';
   @Input() disabled: boolean = false;
+  @Input() errorInput: boolean = false;
+  @Input() isRequired: boolean = false;
 
   // Komponen toggle-password-visibility
   @Input() isPassVisible: boolean = false;
@@ -57,5 +59,25 @@ export class BaseInputComponent {
     this.onChange(this.value);
     this.onTouched();
     this.valueChange.emit(this.value);
+  }
+
+  // Properti opsional untuk mengaktifkan validasi huruf atau pola lainnya
+  @Input() restrictToPattern: string | null = null; // Pola akan diambil dari parent
+
+  onKeyDown(event: KeyboardEvent) {
+    if (this.restrictToPattern) {
+      const regex = new RegExp(this.restrictToPattern);
+      const key = event.key;
+
+      // Mengizinkan tombol Backspace, Delete, dan Arrow keys
+      if (key === 'Backspace' || key === 'Delete' || key.startsWith('Arrow')) {
+        return; // Izinkan tombol ini bekerja
+      }
+
+      // Cek apakah karakter yang ditekan tidak sesuai dengan pola
+      if (!regex.test(key)) {
+        event.preventDefault();  // Mencegah input jika karakter tidak sesuai dengan pola
+      }
+    }
   }
 }

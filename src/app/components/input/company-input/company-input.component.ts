@@ -17,6 +17,7 @@ export class CompanyInputComponent {
   @Input() showCompanyInput: boolean = false;
   @Input() companyName: string = '';
   @Input() name: string = '';
+  @Input() isRequired: boolean = false;
 
   ngOnInit(): void {
     console.log(this.selectedCompany)

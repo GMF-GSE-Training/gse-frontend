@@ -14,17 +14,36 @@
       <app-base-input
         [(ngModel)]="participant.nama"
         name="nama"
-        [label]="isUpdate ? 'Nama' : 'Nama *'"
+        label="Nama"
+        [isRequired]="!isUpdate"
         type="text"
-        inputMode="text">
+        inputMode="text"
+        #nama="ngModel"
+        required
+        [restrictToPattern]="'^[a-zA-Z ]+$'"
+        [errorInput]="nama.invalid! && (nama.dirty! || nama.touched!)"
+      >
+        <p *ngIf="!nama.errors || (!nama.dirty && !nama.touched)">Masukkan nama asli, nama akan digunakan pada data sertifikat</p>
+        <p *ngIf="nama.errors?.['required'] && nama.dirty" class="error-message">Wajib diisi</p>
       </app-base-input>
 
       <app-base-input
         [(ngModel)]="participant.nik"
         name="nik"
-        [label]="isUpdate ? 'NIK' : 'NIK *'"
+        label="NIK"
+        [isRequired]="!isUpdate"
         type="text"
-        inputMode="text">
+        inputMode="text"
+        #nik="ngModel"
+        required
+        [restrictToPattern]="'^[0-9]+$'"
+        maxlength="16"
+        minlength="16"
+        [errorInput]="nik.invalid! && (nik.dirty! || nik.touched!)"
+      >
+        <p *ngIf="!nik.errors || (!nik.dirty && !nik.touched)">Masukkan NIK sesuai KTP</p>
+        <p *ngIf="nik.errors?.['required'] && nik.dirty" class="error-message">Wajib diisi</p>
+        <p *ngIf="(nik.errors?.['minlength'] || nik.errors?.['maxlength']) && nik.dirty" class="error-message">NIk harus terdiri dari 16 karakter</p>
       </app-base-input>
 
       <app-base-input
@@ -47,59 +66,97 @@
         [selectedCompany]="selectedCompany"
         [companyName]="companyName"
         [showCompanyInput]="showCompanyInput"
+        [isRequired]="!isUpdate"
       >
       </app-company-input>
 
       <app-base-input
         [(ngModel)]="participant.email"
         name="email"
-        [label]="isUpdate ? 'Email' : 'Email *'"
+        label="Email"
+        [isRequired]="!isUpdate"
         type="email"
         inputMode="text"
-        [disabled]="isUpdate">
-        <p>Anda dapat mengubah alamat email <a >disini</a></p>
+        [disabled]="isUpdate"
+        #email="ngModel"
+        required
+        email
+        [errorInput]="email.invalid! && (email.dirty! || email.touched!)"
+      >
+        <p *ngIf="!email.errors || (!email.dirty && !email.touched)">Gunakan alamat email aktif</p>
+        <p *ngIf="email.errors?.['required'] && email.dirty" class="error-message">Wajib diisi</p>
+        <p *ngIf="email.errors?.['email'] && email.dirty" class="error-message">Format email tidak valid</p>
+        <p *ngIf="isUpdate">Anda dapat mengubah alamat email <a href="">disini</a></p>
       </app-base-input>
 
       <app-base-input
         [(ngModel)]="participant.noTelp"
         name="noTelp"
-        [label]="isUpdate ? 'Nomor Telpon' : 'Nomor Telpon *'"
+        label="Nomor Telepon"
+        [isRequired]="!isUpdate"
         type="tel"
-        inputMode="tel">
+        inputMode="tel"
+        #noTelp="ngModel"
+        required
+        [restrictToPattern]="'^[0-9-+ ]+$'"
+        [errorInput]="noTelp.invalid! && (noTelp.dirty! || noTelp.touched!)"
+      >
+        <p *ngIf="!noTelp.errors || (!noTelp.dirty && !noTelp.touched)">Gunakan nomor telepon aktif</p>
+        <p *ngIf="noTelp.errors?.['required'] && noTelp.dirty" class="error-message">Wajib diisi</p>
       </app-base-input>
 
       <app-base-input
         [(ngModel)]="participant.negara"
         name="negara"
-        [label]="isUpdate ? 'Kewarganegaraan' : 'Kewarganegaraan *'"
+        label="Kewarganegaraan"
+        [isRequired]="!isUpdate"
         type="text"
-        inputMode="text">
+        inputMode="text"
+        #negara="ngModel"
+        required
+        [restrictToPattern]="'^[a-zA-Z ]+$'"
+        [errorInput]="negara.invalid! && (negara.dirty! || negara.touched!)"
+      >
+        <p *ngIf="negara.errors?.['required'] && negara.dirty" class="error-message">Wajib diisi</p>
       </app-base-input>
     </div>
     <div class="right-column">
       <app-base-input
         [(ngModel)]="participant.tempatLahir"
         name="tempatLahir"
-        [label]="isUpdate ? 'Tempat Lahir' : 'Tempat Lahir *'"
+        label="Tempat Lahir"
+        [isRequired]="!isUpdate"
         type="text"
-        inputMode="text">
+        inputMode="text"
+        required
+        [restrictToPattern]="'^[a-zA-Z ]+$'"
+      >
       </app-base-input>
 
       <app-base-input
         [(ngModel)]="participant.tanggalLahir"
         name="tanggalLahir"
-        [label]="isUpdate ? 'Tanggal lahir' : 'Tanggal lahir *'"
+        label="Tanggal Lahir"
+        [isRequired]="!isUpdate"
         type="date"
-        inputmode="date">
+        inputmode="date"
+        #tanggalLahir="ngModel"
+        required
+      >
+      <p *ngIf="tanggalLahir.errors?.['required'] && tanggalLahir.dirty" class="error-message">Wajib diisi</p>
       </app-base-input>
 
       <app-file-input
         idInput="sim_a_input"
         (valueChange)="onFileChange('simA', $event)"
-        [label]="isUpdate ? 'Sim A' : 'Sim A *'"
+        label="SIM A"
+        [isRequired]="!isUpdate"
         [fileName]="participant.simAFileName"
-        [fileType]="fileType">
-      </app-file-input>
+        [fileType]="fileType"
+        [required]="true"
+      >
+    </app-file-input>
+    <p *ngIf="!participant.simAFileName && form.submitted" class="error-message">File SIM A wajib diunggah</p>
 
       <app-file-input
         idInput="sim_b_input"
@@ -112,7 +169,9 @@
       <app-file-input
         idInput="ktp_input"
         (valueChange)="onFileChange('ktp', $event)"
-        [label]="isUpdate ? 'KTP' : 'KTP *'"
+        label="KTP"
+        [isRequired]="!isUpdate"
+        [required]="true"
         [fileName]="participant.ktpFileName"
         [fileType]="fileType">
       </app-file-input>
@@ -120,7 +179,8 @@
       <app-file-input
         idInput="foto_input"
         (valueChange)="onFileChange('foto', $event)"
-        [label]="isUpdate ? 'Foto' : 'Foto *'"
+        label="Foto"
+        [isRequired]="!isUpdate"
         [fileName]="participant.fotoFileName"
         [fileType]="fileTypeFoto">
       </app-file-input>
@@ -128,7 +188,8 @@
       <app-file-input
         idInput="surat_sehat_input"
         (valueChange)="onFileChange('suratSehatButaWarna', $event)"
-        [label]="isUpdate ? 'Surat Ket Sehat & Buta Warna' : 'Surat Ket Sehat & Buta Warna *'"
+        label="Surat Ket Sehat dan Buta Warna"
+        [isRequired]="!isUpdate"
         [fileName]="participant.suratSehatButaWarnaFileName"
         [fileType]="fileType">
       </app-file-input>
@@ -136,15 +197,21 @@
       <app-base-input
         [(ngModel)]="participant.expSuratSehatButaWarna"
         name="expSuratSehatButaWarna"
-        [label]="isUpdate ? 'Tanggal Pembuatan Surat Ket Sehat & Buta Warna' : 'Tanggal Pembuatan Surat Ket Sehat & Buta Warna *'"
+        label="Tanggal Pembuatan Surat Ket Sehat & Buta Warna"
+        [isRequired]="!isUpdate"
         type="date"
-        inputmode="date">
+        inputmode="date"
+        #expSuratSehatButaWarna="ngModel"
+        required
+      >
+      <p *ngIf="expSuratSehatButaWarna.errors?.['required'] && expSuratSehatButaWarna.dirty" class="error-message">Wajib diisi</p>
       </app-base-input>
 
       <app-file-input
         idInput="surat_bebas_narkoba_input"
         (valueChange)="onFileChange('suratBebasNarkoba', $event)"
-        [label]="isUpdate ? 'Surat Ket Bebas Narkoba' : 'Surat Ket Bebas Narkoba *'"
+        label="Surat Ket Bebas Narkoba"
+        [isRequired]="!isUpdate"
         [fileName]="participant.suratBebasNarkobaFileName"
         [fileType]="fileType">
       </app-file-input>
@@ -152,15 +219,20 @@
       <app-base-input
         [(ngModel)]="participant.expSuratBebasNarkoba"
         name="expSuratBebasNarkoba"
-        [label]="isUpdate ? 'Tanggal Pembuatan Surat Ket Bebas Narkoba' : 'Tanggal Pembuatan Surat Ket Bebas Narkoba *'"
+        label="Tanggal Pembuatan Surat Ket Bebas Narkoba"
+        [isRequired]="!isUpdate"
         type="date"
-        inputmode="date">
+        inputmode="date"
+        #expSuratBebasNarkoba="ngModel"
+        required
+      >
+      <p *ngIf="expSuratBebasNarkoba.errors?.['required'] && expSuratBebasNarkoba.dirty" class="error-message">Wajib diisi</p>
       </app-base-input>
     </div>
   </div>
 
   <div class="container-button">
     <app-white-button type="button" routerLink="/participants" class="button">Kembali</app-white-button>
-    <app-blue-button type="submit" class="button">Simpan</app-blue-button>
+    <app-blue-button type="submit" class="button" [disabled]="form.invalid!">Simpan</app-blue-button>
   </div>
 </form>

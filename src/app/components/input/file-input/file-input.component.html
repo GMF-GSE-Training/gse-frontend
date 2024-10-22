@@ -1,8 +1,16 @@
 <label [for]="idInput">
   {{ label }}
+  <p *ngIf="isRequired">*</p>
 </label>
 <div class="file-upload">
   <label [for]="idInput" class="file-upload-label">Pilih File</label>
   <div class="file-upload-text">{{ displayFileName }}</div>
-  <input type="file" [id]="idInput" (change)="onFileSelected($event)" hidden [accept]="fileType">
+  <input
+    type="file"
+    [id]="idInput"
+    (change)="onFileSelected($event)"
+    hidden
+    [accept]="fileType"
+    [required]="required"
+  >
 </div>

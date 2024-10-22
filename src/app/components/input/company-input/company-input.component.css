@@ -4,7 +4,7 @@
 }
 
 label {
-  display: block;
+  display: flex;
   margin-top: 15px;
   font-weight: bold;
   font-size: 20px;
@@ -27,4 +27,8 @@ select, input {
 #company-input {
   height: 35px;
   width: calc(100% - 23px);
+}
+
+p {
+  color: red;
 }

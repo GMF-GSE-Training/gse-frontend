@@ -29,8 +29,13 @@
 }
 
 label {
-  display: block;
+  display: flex;
   margin-top: 15px;
   font-weight: bold;
   font-size: 20px;
+}
+
+.error-message,
+p {
+  color: red;
 }

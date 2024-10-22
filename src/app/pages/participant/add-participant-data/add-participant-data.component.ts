@@ -79,7 +79,7 @@ export class AddParticipantDataComponent {
         });
       },
       error: (error) => {
-        this.errorHandlerService.handleError(error, this.requiredFields);
+        // this.errorHandlerService.handleError(error, this.requiredFields);
       }
     });
   }

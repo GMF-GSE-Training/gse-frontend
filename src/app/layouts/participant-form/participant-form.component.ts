@@ -8,6 +8,7 @@ import { HeaderComponent } from '../../components/header/header.component';
 import { RouterLink } from '@angular/router';
 import { TitleComponent } from '../../components/title/title.component';
 import { FormsModule, NgForm } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-participant-form',
@@ -21,7 +22,8 @@ import { FormsModule, NgForm } from '@angular/forms';
     HeaderComponent,
     RouterLink,
     FormsModule,
-    TitleComponent
+    TitleComponent,
+    CommonModule,
   ],
   templateUrl: './participant-form.component.html',
   styleUrl: './participant-form.component.css',
@@ -58,6 +60,9 @@ export class ParticipantFormComponent {
   }
 
   onFileChange(property: string, file: File | null): void {
+    if (property === 'simA') {
+      this.participant.simAFileName = file ? file.name : null;
+    }
     this.fileChange.emit({ property, file });
   }
 }

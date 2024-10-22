@@ -15,6 +15,10 @@ form {
   width: 48%;
 }
 
+.error-message {
+  color: red;
+}
+
 .container-button {
   display: flex;
   justify-content: center;

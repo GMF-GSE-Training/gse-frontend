@@ -1,4 +1,4 @@
-<label>{{ label }}</label>
+<label>{{ label }}<p *ngIf="isRequired">*</p></label>
 
 <div [ngClass]="name === 'password' ? 'container' : ''">
   <input
@@ -9,6 +9,8 @@
     [(ngModel)]="value"
     (input)="onValueChange()"
     [disabled]="disabled"
+    [ngClass]="{'error-input': errorInput}"
+    (keydown)="onKeyDown($event)"
   />
 
   <div>

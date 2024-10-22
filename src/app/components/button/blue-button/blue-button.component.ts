@@ -1,9 +1,10 @@
+import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-blue-button',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './blue-button.component.html',
   styleUrl: './blue-button.component.css'
 })
