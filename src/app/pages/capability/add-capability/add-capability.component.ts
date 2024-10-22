@@ -1,25 +1,12 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { HeaderComponent } from '../../../components/header/header.component';
-import { BaseInputComponent } from '../../../components/input/base-input/base-input.component';
-import { WhiteButtonComponent } from '../../../components/button/white-button/white-button.component';
-import { BlueButtonComponent } from '../../../components/button/blue-button/blue-button.component';
+import { Router } from '@angular/router';
 import { CapabilityService } from '../../../shared/service/capability.service';
-import { FormsModule } from '@angular/forms';
-import { TitleComponent } from "../../../components/title/title.component";
+import { CapabilityFormComponent } from "../../../layouts/capability-form/capability-form.component";
 
 @Component({
   selector: 'app-add-capability',
   standalone: true,
-  imports: [
-    RouterLink,
-    HeaderComponent,
-    BaseInputComponent,
-    WhiteButtonComponent,
-    BlueButtonComponent,
-    FormsModule,
-    TitleComponent
-],
+  imports: [CapabilityFormComponent],
   templateUrl: './add-capability.component.html',
   styleUrl: './add-capability.component.css'
 })
