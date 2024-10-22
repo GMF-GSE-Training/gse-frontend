@@ -27,6 +27,10 @@ export class CapabilityService {
     return this.http.patch<CapabilityResponse>(`${this.apiUrl}/${this.endpoint.base}/${id}`, request, { withCredentials: true });
   }
 
+  deleteCapability(id: string): Observable<CapabilityResponse> {
+    return this.http.delete<CapabilityResponse>(`${this.apiUrl}/${this.endpoint.base}/${id}`, { withCredentials: true });
+  }
+
   listCapability(page: number = 1, size: number = 10): Observable<CapabilityListResponse> {
     return this.http.get<CapabilityListResponse>(`${this.apiUrl}/${this.endpoint.list}?page=${page}&size=${size}`, { withCredentials: true });
   }

@@ -44,7 +44,7 @@
         [errorInput]="nik.invalid! && (nik.dirty! || nik.touched!)"
       >
         <p *ngIf="nik.errors?.['required'] && nik.dirty" class="error-message">Wajib diisi</p>
-        <p *ngIf="(nik.errors?.['minlength'] || nik.errors?.['maxlength']) && nik.dirty" class="error-message"></p>
+        <p *ngIf="(nik.errors?.['minlength'] || nik.errors?.['maxlength']) && nik.dirty" class="error-message">NIK harus terdiri dari 16 digit angka</p>
       </app-base-input>
 
       <app-base-input

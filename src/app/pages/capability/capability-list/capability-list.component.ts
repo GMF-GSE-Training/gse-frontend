@@ -7,6 +7,8 @@ import { TableComponent } from "../../../components/table/table.component";
 import { SearchComponent } from "../../../components/search/search.component";
 import { DataManagementComponent } from "../../../layouts/data-management/data-management.component";
 import { CapabilityService } from '../../../shared/service/capability.service';
+import { SweetalertService } from '../../../shared/service/sweetaler.service';
+import { Capability } from '../../../shared/model/capability.model';
 
 @Component({
   selector: 'app-capability-list',
@@ -52,6 +54,7 @@ export class CapabilityListComponent {
     private capabilityService: CapabilityService,
     private router: Router,
     private route: ActivatedRoute,
+    private sweetalertService: SweetalertService,
   ) {}
 
   ngOnInit(): void {
@@ -102,8 +105,19 @@ export class CapabilityListComponent {
     });
   }
 
-  deleteCapability(capability: any) {
-    throw new Error('Method not implemented.');
+  async deleteCapability(capability: Capability): Promise<void> {
+    const isConfirmed = await this.sweetalertService.confirm('Anda Yakin?', `Apakah anda ingin menghapus capability ini : ${capability.namaTraining}?`, 'warning', 'Ya, hapus!');
+    if (isConfirmed) {
+      this.capabilityService.deleteCapability(capability.id).subscribe({
+        next: () => {
+          this.sweetalertService.alert(isConfirmed, 'Dihapus!', 'Data capability berhasil dihapus', 'success');
+          this.capability = this.capability.filter(c => c.id !== capability.id);
+        },
+        error: () => {
+          this.sweetalertService.alert(!isConfirmed, 'Gagal!', 'Gagal menghapus data capability', 'error');
+        }
+      });
+    }
   }
 
   onPageChanged(page: number): void {

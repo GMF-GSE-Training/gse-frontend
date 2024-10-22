@@ -10,7 +10,7 @@ export interface UpdateCapability {
   namaTraining?: string;
 }
 
-type CapabilityData = {
+export interface Capability {
   id: string;
   kodeRating: string;
   kodeTraining: string;
@@ -26,7 +26,7 @@ type CapabilityData = {
 export interface CapabilityResponse {
   code: number;
   status: string;
-  data: CapabilityData | string;
+  data: Capability | string;
 }
 
 export interface CapabilityListResponse {
