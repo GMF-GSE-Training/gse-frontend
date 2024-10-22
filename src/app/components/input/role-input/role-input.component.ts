@@ -16,6 +16,8 @@ import { FormsModule } from '@angular/forms';
 export class RoleInputComponent {
   @Input() initialRole: any = null;
   selectedRole: any = null;
+  @Input() label: string = '';
+  @Input() isRequired: boolean = false;
 
   @Output() roleChange = new EventEmitter<any>(); // Emit role ke parent
 

@@ -9,12 +9,8 @@ input {
   font-size: 15px;
 }
 
-
 .error-input {
   border-color: red;
-}
-
-.error-input {
   outline: red;
 }
 
@@ -31,8 +27,8 @@ div {
 
 app-toggle-password-visibility {
   position: relative;
-  left: 485px;
-  bottom: 50px;
+  left: 39.5em;
+  bottom: 7.3em;
 }
 
 .container {

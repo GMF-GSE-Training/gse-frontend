@@ -37,8 +37,6 @@ export class RegisterComponent {
     password: '',
     dinas: '',
   };
-  submitError: boolean = false;
-  message: string = '';
 
   constructor(
     private authService: AuthService,
@@ -52,14 +50,11 @@ export class RegisterComponent {
 
     this.authService.register(user).subscribe({
       next: (response) => {
-        this.submitError = false;
         this.sweetalertService.close();
-        this.message = 'Register berhasil, silahkan verifikasi email anda';
         console.log(response);
       },
       error: (error) => {
         console.log(error);
-        this.submitError = true;
         this.sweetalertService.close();
         this.handleError(error);
       },
@@ -81,12 +76,12 @@ export class RegisterComponent {
 
     if (isObject(e) || isArray) {
       if (e.message) {
-        this.message = e.message;
+        // this.message = e.message;
       } else if (e.email || e.name || e.password || e.roleId || e.nik) {
-        this.message = 'field dengan tanda bintang wajib diisi dengan benar';
+        // this.message = 'field dengan tanda bintang wajib diisi dengan benar';
       }
     } else {
-      this.message = e;
+      // this.message = e;
     }
   }
 }

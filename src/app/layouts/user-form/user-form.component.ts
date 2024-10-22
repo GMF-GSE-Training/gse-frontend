@@ -33,11 +33,7 @@ export class UserFormComponent {
   @Input() user: any = {};
   @Input() isRegister: boolean = false;
   @Input() isCreateUser: boolean = false;
-  @Input() submitError: boolean = false;
-  @Input() parrentMessage: string = '';
   @Input() isResetPassword: boolean = false;
-  message: string = '';
-  isSubmitted: boolean = false;
   blueButtonLabel: string = '';
   @Input() isCreate: boolean = false;
   @Input() isUpdate: boolean = false;
@@ -69,75 +65,13 @@ export class UserFormComponent {
   }
 
   onSubmit() {
-    this.isSubmitted = true;
     if (this.form.valid) {
       this.formSubmit.emit(this.user);
-    } else {
-      this.message = this.getMessage();  // Menampilkan pesan error di parent jika form tidak valid
     }
   }
 
   onRoleChange(role: { id: string, role: string }): void {
     this.selectedRole = role;
     this.user.roleId = role.id;
-  }
-
-  getMessage(): string {
-    if (!this.form) return '';
-
-    // NIK
-    const nikControl = this.form.controls['nik'];
-    if (nikControl?.invalid) {
-      if (nikControl.errors?.['required']) {
-        this.submitError = true;
-        return 'NIK wajib diisi';
-      }
-    }
-
-    // Name
-    const nameControl = this.form.controls['name'];
-    if (nameControl?.invalid) {
-      if (nameControl.errors?.['required']) {
-        this.submitError = true;
-        return 'Nama wajib diisi';
-      } else if (nameControl.errors?.['pattern']) {
-        this.submitError = true;
-        return 'Nama hanya boleh berisi huruf';
-      }
-    }
-
-    // Email
-    const emailControl = this.form.controls['email'];
-    if (emailControl?.invalid) {
-      if (emailControl.errors?.['required']) {
-        this.submitError = true;
-        return 'Email wajib diisi';
-      } else if (emailControl.errors?.['email']) {
-        this.submitError = true;
-        return 'Email tidak valid';
-      }
-    }
-
-    // Password
-    if(this.isCreate || this.isRegister) {
-      const passwordControl = this.form.controls['password'];
-      if (passwordControl?.invalid) {
-        if (passwordControl.errors?.['required']) {
-
-          this.submitError = true;
-          return 'Password wajib diisi';
-        } else if (passwordControl.errors?.['minlength'] || passwordControl.errors?.['pattern']) {
-
-          this.submitError = true;
-          return 'Password harus minimal 8 karakter kombinasi huruf besar kecil dan angka';
-        }
-      }
-    }
-
-    if(!this.parrentMessage) {
-      this.submitError = false;
-    }
-
-    return this.parrentMessage;
   }
 }
