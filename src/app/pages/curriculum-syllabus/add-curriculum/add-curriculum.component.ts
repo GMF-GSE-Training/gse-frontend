@@ -9,6 +9,7 @@ import { Router, RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CurriculumSyllabusService } from '../../../shared/service/curriculum-syllabus.service';
 import { CreateCurriculumSyllabus } from '../../../shared/model/curriculum-syllabus.model';
+import { ErrorHandlerService } from '../../../shared/service/error-handler.service';
 
 @Component({
   selector: 'app-add-curriculum',
@@ -57,6 +58,7 @@ export class AddCurriculumComponent {
   constructor(
     private readonly router: Router,
     private readonly curriculumSyllabusService: CurriculumSyllabusService,
+    private readonly errorHandlerService: ErrorHandlerService,
   ) {
     const navigation = this.router.getCurrentNavigation();
     const state = navigation?.extras.state as { id?: string, kodeRating?: string, namaTraining?: string } | undefined;
@@ -127,12 +129,16 @@ export class AddCurriculumComponent {
     // Panggil service untuk mengirim data ke backend
     this.curriculumSyllabusService.createCurriculumSyllabus({
       curriculumSyllabus: curriculumSyllabusData
-    }).subscribe(response => {
-      // Handle response
-      console.log('Curriculum & Syllabus saved successfully', response);
-    }, error => {
-      // Handle error
-      console.error('Error saving Curriculum & Syllabus', error);
+    }).subscribe({
+      next: () => {
+        // Handle response
+        this.router.navigateByUrl('/capability');
+      },
+      error: (error) => {
+        // Handle error
+        console.error('Error saving Curriculum & Syllabus', error);
+        this.errorHandlerService.handleError(error);
+      }
     });
   }
 }
