@@ -1,42 +1,6 @@
-<main>
-  <app-title pageTitle="Add Capability"></app-title>
-
-  <form #form="ngForm" (submit)="onSubmit(capability)">
-    <div class="form-container">
-      <div class="input-column">
-        <app-base-input
-          label="Kode Rating"
-          type="text"
-          inputMode="text"
-          name="kodeRating"
-          [(ngModel)]="capability.kodeRating"
-          #kodeRating="ngModel">
-        </app-base-input>
-
-        <app-base-input
-          label="Kode Training"
-          type="text"
-          inputMode="text"
-          name="kodeTraining"
-          [(ngModel)]="capability.kodeTraining"
-          #kodeTraining="ngModel">
-        </app-base-input>
-
-        <app-base-input
-          label="Nama Training"
-          type="text"
-          inputMode="text"
-          name="namaTraining"
-          [(ngModel)]="capability.namaTraining"
-          #namaTraining="ngModel">
-        </app-base-input>
-      </div>
-    </div>
-
-    <div class="container-button">
-      <app-white-button type="button" routerLink="/capability" class="button">Kembali</app-white-button>
-      <app-blue-button type="submit" class="button">Simpan</app-blue-button>
-    </div>
-  </form>
-
-</main>
+<app-capability-form
+  [isCreate]="false"
+  [pageTitle]="'Edit Capability'"
+  [capability]="capability"
+  (formSubmit)="onSubmit($event)">
+</app-capability-form>

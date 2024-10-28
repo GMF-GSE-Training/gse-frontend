@@ -7,8 +7,8 @@ import { BaseInputComponent } from '../../../components/input/base-input/base-in
 import { TitleComponent } from "../../../components/title/title.component";
 import { CapabilityService } from '../../../shared/service/capability.service';
 import { FormsModule } from '@angular/forms';
-import { UpdateCapability } from '../../../shared/model/capability.model';
 import { SweetalertService } from '../../../shared/service/sweetaler.service';
+import { CapabilityFormComponent } from "../../../layouts/capability-form/capability-form.component";
 
 @Component({
   selector: 'app-edit-capability',
@@ -21,6 +21,7 @@ import { SweetalertService } from '../../../shared/service/sweetaler.service';
     BlueButtonComponent,
     TitleComponent,
     FormsModule,
+    CapabilityFormComponent
 ],
   templateUrl: './edit-capability.component.html',
   styleUrl: './edit-capability.component.css'
