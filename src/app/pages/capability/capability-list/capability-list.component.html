@@ -8,7 +8,6 @@
   (searchChange)="onSearchChanged($event)"
   [placeHolder]="placeHolder"
   (viewAllChange)="viewAll()"
-  (whiteButtonClick)="onWhiteButtonClick()"
-  (blueButtonClick)="onBlueButtonClick()"
+  [blueButtonRoute]="'/capability/add'"
   [roleBassedAccess]="['super admin']"
 ></app-data-management>

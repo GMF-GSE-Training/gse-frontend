@@ -7,6 +7,7 @@ import { WhiteButtonComponent } from "../../components/button/white-button/white
 import { BlueButtonComponent } from "../../components/button/blue-button/blue-button.component";
 import { PaginationComponent } from "../../components/pagination/pagination.component";
 import { RoleBasedAccessDirective } from '../../shared/directive/role-based-access.directive';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-data-management',
@@ -20,6 +21,7 @@ import { RoleBasedAccessDirective } from '../../shared/directive/role-based-acce
     BlueButtonComponent,
     PaginationComponent,
     RoleBasedAccessDirective,
+    RouterLink,
   ],
   templateUrl: './data-management.component.html',
   styleUrl: './data-management.component.css'
@@ -58,19 +60,8 @@ export class DataManagementComponent {
     this.viewAllChange.emit();
   }
 
-  // Komponen blue button
-  @Output() blueButtonClick = new EventEmitter<void>();
-
-  onBlueButtonClick() {
-    this.blueButtonClick.emit();
-  }
-
-  // Komponen white button
-  @Output() whiteButtonClick = new EventEmitter<void>();
-
-  onWhiteButtonClick() {
-    this.whiteButtonClick.emit();
-  }
+  // Komponen button
+  @Input() blueButtonRoute: string = '';
 
   // Role Based Access
   @Input() roleBassedAccess: string[] = [];

@@ -4,7 +4,6 @@
   [totalPages]="totalPages" [currentPage]="currentPage" (pageChange)="onPageChanged($event)"
   [placeHolder]="placeHolder" (searchChange)="onSearchChanged($event)"
   (viewAllChange)="viewAll()"
-  (whiteButtonClick)="onWhiteButtonClick()"
-  (blueButtonClick)="onBlueButtonClick()"
+  [blueButtonRoute]="'/users/add'"
   [roleBassedAccess]="['super admin', 'lcu']"
 ></app-data-management>

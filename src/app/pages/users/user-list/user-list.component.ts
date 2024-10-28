@@ -157,12 +157,4 @@ export class UserListComponent implements OnInit {
 
     this.searchQuery = '';
   }
-
-  onBlueButtonClick() {
-    this.router.navigateByUrl('/users/add');
-  }
-
-  onWhiteButtonClick() {
-    this.router.navigateByUrl('/home');
-  }
 }

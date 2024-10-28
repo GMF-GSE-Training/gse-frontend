@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { HeaderComponent } from '../../../components/header/header.component';
 import { WhiteButtonComponent } from '../../../components/button/white-button/white-button.component';
@@ -25,7 +25,7 @@ import { Capability } from '../../../shared/model/capability.model';
   templateUrl: './capability-list.component.html',
   styleUrl: './capability-list.component.css'
 })
-export class CapabilityListComponent {
+export class CapabilityListComponent implements OnInit {
   pageTitle: string = "Capability";
 
   columns = [
@@ -64,12 +64,12 @@ export class CapabilityListComponent {
       if (this.searchQuery) {
         this.getSearchCapability(this.searchQuery, this.currentPage, this.itemsPerPage);
       } else {
-        this.getListParticipants(this.currentPage, this.itemsPerPage);
+        this.getListCapability(this.currentPage, this.itemsPerPage);
       }
     });
   }
 
-  getListParticipants(page: number, size: number): void {
+  getListCapability(page: number, size: number): void {
     this.capabilityService.listCapability(page, size).subscribe({
       next: (response: any) => {
         if (response.code === 200 && response.status === 'OK') {
@@ -78,21 +78,19 @@ export class CapabilityListComponent {
 
             const totalDurasiKompetensi = capability.totalDurasiTeoriKompetensi + capability.totalDurasiPraktekKompetensi || '-';
 
-            console.log(capability)
-
             return {
+              id: capability.id,
               kodeRating: capability.kodeRating,
               kodeTraining: capability.kodeTraining,
               namaTraining: capability.namaTraining,
-              durasiMateriRegulasGSE: totalDurasiRegulasiGSE,
-              durasiMateriRating: totalDurasiKompetensi,
+              durasiMateriRegulasGSE: totalDurasiRegulasiGSE ?? '-',
+              durasiMateriRating: totalDurasiKompetensi ?? '-',
               totalDurasi: capability.totalDurasi || "-",
               kurikulumSilabus: `/capability/${capability.id}/detail`,
               editLink: response.actions.canEdit ? `/capability/${capability.id}/edit` : null,
               deleteMethod: response.actions.canDelete ? () => this.deleteCapability(capability) : null,
             };
           });
-          console.log(this.capability);
           this.totalPages = response.paging.totalPage;
         } else {
           this.capability = [];
@@ -110,7 +108,9 @@ export class CapabilityListComponent {
     if (isConfirmed) {
       this.capabilityService.deleteCapability(capability.id).subscribe({
         next: () => {
+          console.log(this.capability)
           this.sweetalertService.alert(isConfirmed, 'Dihapus!', 'Data capability berhasil dihapus', 'success');
+          console.log(capability.id);
           this.capability = this.capability.filter(c => c.id !== capability.id);
         },
         error: () => {

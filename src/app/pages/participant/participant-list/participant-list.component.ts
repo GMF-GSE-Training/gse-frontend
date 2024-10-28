@@ -154,12 +154,4 @@ export class ParticipantListComponent implements OnInit {
 
     this.searchQuery = '';
   }
-
-  onBlueButtonClick() {
-    this.router.navigateByUrl('/participants/add');
-  }
-
-  onWhiteButtonClick() {
-    this.router.navigateByUrl('/home');
-  }
 }
