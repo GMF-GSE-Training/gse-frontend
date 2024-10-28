@@ -8,8 +8,9 @@ import { BlueButtonComponent } from "../../../components/button/blue-button/blue
 import { Router, RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CurriculumSyllabusService } from '../../../shared/service/curriculum-syllabus.service';
-import { CreateCurriculumSyllabus } from '../../../shared/model/curriculum-syllabus.model';
 import { ErrorHandlerService } from '../../../shared/service/error-handler.service';
+import { CurriculumSyllabusFormComponent } from "../../../layouts/curriculum-syllabus-form/curriculum-syllabus-form.component";
+import { SweetalertService } from '../../../shared/service/sweetaler.service';
 
 @Component({
   selector: 'app-add-curriculum',
@@ -23,9 +24,9 @@ import { ErrorHandlerService } from '../../../shared/service/error-handler.servi
     BlueButtonComponent,
     RouterLink,
     FormsModule,
-  ],
+    CurriculumSyllabusFormComponent
+],
   templateUrl: './add-curriculum.component.html',
-  styleUrl: '../curriculum-syllabus.component.css'
 })
 export class AddCurriculumComponent {
   capability = {
@@ -33,10 +34,6 @@ export class AddCurriculumComponent {
     kodeRating: '',
     kodeTraining: '',
     namaTraining: ''
-  }
-
-  curriculumSyllabus: CreateCurriculumSyllabus = {
-    curriculumSyllabus: []
   }
 
   regulasiGSEs: Array<{ capabilityId: string; nama: string; durasiTeori: number; durasiPraktek: number; type: string }> = [{
@@ -58,6 +55,7 @@ export class AddCurriculumComponent {
   constructor(
     private readonly router: Router,
     private readonly curriculumSyllabusService: CurriculumSyllabusService,
+    private readonly sweetalertService: SweetalertService,
     private readonly errorHandlerService: ErrorHandlerService,
   ) {
     const navigation = this.router.getCurrentNavigation();
@@ -74,9 +72,6 @@ export class AddCurriculumComponent {
       this.kompetensis[0].capabilityId = this.capability.id;
     }
   }
-
-  inputGroup1: Array<any> = [];
-  inputGroup2: Array<any> = [];
 
   onSubmit() {
     // Parse input group 1 (Regulasi GSEs) to ensure numbers are correct
@@ -99,12 +94,13 @@ export class AddCurriculumComponent {
       ...this.kompetensis
     ];
 
+    console.log(curriculumSyllabusData)
+
     // Panggil service untuk mengirim data ke backend
-    this.curriculumSyllabusService.createCurriculumSyllabus({
-      curriculumSyllabus: curriculumSyllabusData
-    }).subscribe({
-      next: () => {
+    this.curriculumSyllabusService.createCurriculumSyllabus({ curriculumSyllabus: curriculumSyllabusData }).subscribe({
+      next: (response) => {
         // Handle response
+        this.sweetalertService.alert(true, 'Berhasil', response.data, 'success');
         this.router.navigateByUrl('/capability');
       },
       error: (error) => {
@@ -113,45 +109,5 @@ export class AddCurriculumComponent {
         this.errorHandlerService.handleError(error);
       }
     });
-  }
-
-  addInput(group: string, event?: Event) {
-    if (event) {
-      event.preventDefault();
-      event.stopPropagation();
-    }
-
-    const capabilityId = this.capability.id; // Assuming capabilityId is the same as capability.id
-
-    if (group === 'group1') {
-      this.regulasiGSEs.push({
-        capabilityId,
-        nama: '', // Add name for this item
-        durasiTeori: 0,
-        durasiPraktek: 0,
-        type: 'Regulasi GSE' // Set default type
-      });
-    } else if (group === 'group2') {
-      this.kompetensis.push({
-        capabilityId,
-        nama: '', // Add name for this item
-        durasiTeori: 0,
-        durasiPraktek: 0,
-        type: 'Kompetensi' // Set default type
-      });
-    }
-  }
-
-  deleteInput(group: string, indeks: number, event?: Event) {
-    if (event) {
-      event.preventDefault();
-      event.stopPropagation();
-    }
-
-    if (group === 'group1') {
-      this.regulasiGSEs.splice(indeks, 1); // Hapus item pada indeks yang diberikan untuk regulasiGSEs
-    } else if (group === 'group2') {
-      this.kompetensis.splice(indeks, 1); // Hapus item pada indeks yang diberikan untuk kompetensis
-    }
   }
 }

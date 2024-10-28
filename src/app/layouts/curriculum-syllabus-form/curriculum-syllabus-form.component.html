@@ -1,1 +1,135 @@
-<p>curriculum-syllabus-form works!</p>
+<app-title [pageTitle]="pageTitle"></app-title>
+
+<form #form="ngForm" (submit)="handleSubmit()">
+  <div class="top-form-container">
+    <div class="form-section">
+      <app-base-input
+        label="Kode Rating"
+        [(ngModel)]="capability.kodeRating"
+        name="kodeRating"
+        [disabled]="true">
+      </app-base-input>
+    </div>
+    <div class="form-section">
+      <app-base-input
+        label="Nama Training"
+        type="text"
+        [(ngModel)]="capability.namaTraining"
+        name="namaTraining"
+        [disabled]="true">
+      </app-base-input>
+    </div>
+  </div>
+
+  <div class="bottom-form-container">
+    <div class="form-section" id="reg-gse">
+      <div class="input-group" [ngStyle]="{ 'grid-template-columns': isView ? '50% 22% 22%' : '50% 20% 20% 1%' }">
+        <!-- Dynamic inputs for first group -->
+        <ng-container *ngFor="let input of regulasiGSEs; let i = index">
+          <app-base-input
+            [(ngModel)]="regulasiGSEs[i].nama"
+            name="reg_gse_{{i}}"
+            label="Regulasi GSE"
+            type="text"
+            [isRequired]="true"
+            [disabled]="isView"
+            required>
+          </app-base-input>
+          <app-base-input
+            [(ngModel)]="regulasiGSEs[i].durasiTeori"
+            name="durasi_teori_{{i}}"
+            label="Durasi Teori"
+            type="text"
+            inputMode="tel"
+            [disabled]="isView"
+            required
+            pattern="^[0-9]+$"
+            [restrictToPattern]="'^[0-9]+$'">
+          </app-base-input>
+          <app-base-input
+            [(ngModel)]="regulasiGSEs[i].durasiPraktek"
+            name="durasi_praktek_{{i}}"
+            label="Durasi Praktik"
+            type="text"
+            inputMode="tel"
+            [disabled]="isView"
+            required
+            pattern="^[0-9]+$"
+            [restrictToPattern]="'^[0-9]+$'">
+          </app-base-input>
+          <i
+            *ngIf="!isView"
+            (click)="deleteInput('regulasiGSEs', i)"
+            class="fa-solid fa-trash-can delete-button"
+          >
+          </i>
+        </ng-container>
+      </div>
+      <div class="add-input-button-container">
+        <app-white-button
+          *ngIf="!isView" (whiteButtonClick)="addInput('regulasiGSEs')"
+          type="button"
+        >
+          <i class="fa-solid fa-plus"></i>
+        </app-white-button>
+      </div>
+    </div>
+
+    <div class="form-section">
+      <div class="input-group" [ngStyle]="{ 'grid-template-columns': isView ? '50% 22% 22%' : '50% 20% 20% 1%' }">
+        <!-- Dynamic inputs for second group -->
+        <ng-container *ngFor="let input of kompetensis; let i = index">
+          <app-base-input
+            [(ngModel)]="kompetensis[i].nama"
+            name="kompetensi_{{i}}"
+            label="Kompetensi"
+            type="text"
+            [disabled]="isView"
+            required>
+          </app-base-input>
+          <app-base-input
+            [(ngModel)]="kompetensis[i].durasiTeori"
+            name="durasi_teori_kompetensi_{{i}}"
+            label="Durasi Teori"
+            type="text"
+            inputMode="tel"
+            [disabled]="isView"
+            required
+            pattern="^[0-9]+$"
+            [restrictToPattern]="'^[0-9]+$'">
+          </app-base-input>
+          <app-base-input
+            [(ngModel)]="kompetensis[i].durasiPraktek"
+            name="durasi_praktek_kompetensi_{{i}}"
+            label="Durasi Praktik"
+            type="text"
+            inputMode="tel"
+            [disabled]="isView"
+            required
+            pattern="^[0-9]+$"
+            [restrictToPattern]="'^[0-9]+$'">
+          </app-base-input>
+          <i
+            *ngIf="!isView"
+            (click)="deleteInput('kompetensis', i)"
+            class="fa-solid fa-trash-can delete-button">
+          </i>
+        </ng-container>
+      </div>
+      <div class="add-input-button-container">
+        <app-white-button
+          *ngIf="!isView"
+          (whiteButtonClick)="addInput('kompetensis')"
+          type="button"
+        >
+          <i class="fa-solid fa-plus"></i>
+        </app-white-button>
+      </div>
+    </div>
+  </div>
+
+  <div class="container-button">
+    <app-white-button type="button" routerLink="/capability" class="button">Kembali</app-white-button>
+    <app-blue-button type="submit" [routerLink]="blueButtonRoute" [disabled]="form.invalid!" class="button">{{ isView ? 'Edit' : 'Simpan' }}</app-blue-button>
+  </div>
+</form>

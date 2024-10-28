@@ -1,0 +1,75 @@
+.top-form-container,
+.bottom-form-container {
+  max-width: 100%;
+  display: flex;
+  margin-top: 25px;
+  margin-left: 25px;
+  margin-right: 25px;
+}
+
+.top-form-container {
+  gap: 30%;
+}
+
+.bottom-form-container {
+  gap: 1%;
+}
+
+.form-section {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 20px;
+}
+
+.input-group {
+  display: grid;
+  grid-template-columns: 50% 20% 20% 1%;
+  gap: 1em;
+}
+
+#reg-gse {
+  border-right: 5px double grey;
+}
+
+.add-input-button-container {
+  display: flex;
+  justify-content: end;
+  width: 100%;
+}
+
+app-white-button {
+  width: 125px;
+  margin-right: 50px;
+}
+
+i {
+  cursor: pointer;
+  font-size: 25px;
+}
+
+.delete-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 30px;
+}
+
+.delete-button {
+  color: red;
+}
+
+.container-button {
+  display: flex;
+  justify-content: center;
+  gap: 10em;
+  width: 90%;
+  margin-top: 50px;
+  margin-bottom: 15px;
+  margin-left: 4em;
+}
+
+.button {
+  width: 190px;
+  height: 45px;
+}

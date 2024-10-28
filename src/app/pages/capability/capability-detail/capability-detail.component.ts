@@ -8,6 +8,7 @@ import { BlueButtonComponent } from "../../../components/button/blue-button/blue
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CapabilityService } from '../../../shared/service/capability.service';
+import { CurriculumSyllabusFormComponent } from "../../../layouts/curriculum-syllabus-form/curriculum-syllabus-form.component";
 
 @Component({
   selector: 'app-capability-detail',
@@ -21,7 +22,8 @@ import { CapabilityService } from '../../../shared/service/capability.service';
     BlueButtonComponent,
     RouterLink,
     FormsModule,
-  ],
+    CurriculumSyllabusFormComponent
+],
   templateUrl: './capability-detail.component.html',
   styleUrl: './capability-detail.component.css'
 })
@@ -48,9 +50,6 @@ export class CapabilityDetailComponent implements OnInit {
     durasiPraktek: 0,
     type: '',
   }];
-
-  inputGroup1: Array<any> = [];
-  inputGroup2: Array<any> = [];
 
   editLink: string = '';
 

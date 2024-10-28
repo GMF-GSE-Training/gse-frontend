@@ -9,6 +9,7 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { CurriculumSyllabusService } from '../../../shared/service/curriculum-syllabus.service';
 import { SweetalertService } from '../../../shared/service/sweetaler.service';
+import { CurriculumSyllabusFormComponent } from "../../../layouts/curriculum-syllabus-form/curriculum-syllabus-form.component";
 
 @Component({
   selector: 'app-edit-curriculum-syllabus',
@@ -21,9 +22,9 @@ import { SweetalertService } from '../../../shared/service/sweetaler.service';
     FormsModule,
     RouterLink,
     CommonModule,
+    CurriculumSyllabusFormComponent
 ],
   templateUrl: './edit-curriculum-syllabus.component.html',
-  styleUrl: '../curriculum-syllabus.component.css'
 })
 export class EditCurriculumSyllabusComponent implements OnInit {
   clas: string = 'add-button delete-button';
@@ -51,9 +52,6 @@ export class EditCurriculumSyllabusComponent implements OnInit {
     durasiPraktek: 0,
     type: '',
   }];
-
-  inputGroup1: Array<any> = [];
-  inputGroup2: Array<any> = [];
 
   constructor(
     private readonly router: Router,
@@ -138,47 +136,5 @@ export class EditCurriculumSyllabusComponent implements OnInit {
         console.error(error);
       }
     });
-  }
-
-  addInput(group: string, event?: Event) {
-    if (event) {
-      event.preventDefault();
-      event.stopPropagation();
-    }
-
-    const capabilityId = this.capability.id; // Assuming capabilityId is the same as capability.id
-
-    if (group === 'group1') {
-      this.regulasiGSEs.push({
-        id: '',
-        capabilityId,
-        nama: '', // Add name for this item
-        durasiTeori: 0,
-        durasiPraktek: 0,
-        type: 'Regulasi GSE' // Set default type
-      });
-    } else if (group === 'group2') {
-      this.kompetensis.push({
-        id: '',
-        capabilityId,
-        nama: '', // Add name for this item
-        durasiTeori: 0,
-        durasiPraktek: 0,
-        type: 'Kompetensi' // Set default type
-      });
-    }
-  }
-
-  deleteInput(group: string, indeks: number, event?: Event) {
-    if (event) {
-      event.preventDefault();
-      event.stopPropagation();
-    }
-
-    if (group === 'group1') {
-      this.regulasiGSEs.splice(indeks, 1); // Hapus item pada indeks yang diberikan untuk regulasiGSEs
-    } else if (group === 'group2') {
-      this.kompetensis.splice(indeks, 1); // Hapus item pada indeks yang diberikan untuk kompetensis
-    }
   }
 }
