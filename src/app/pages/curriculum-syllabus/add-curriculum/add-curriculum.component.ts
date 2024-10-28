@@ -25,7 +25,7 @@ import { ErrorHandlerService } from '../../../shared/service/error-handler.servi
     FormsModule,
   ],
   templateUrl: './add-curriculum.component.html',
-  styleUrl: './add-curriculum.component.css'
+  styleUrl: '../curriculum-syllabus.component.css'
 })
 export class AddCurriculumComponent {
   capability = {
@@ -78,33 +78,6 @@ export class AddCurriculumComponent {
   inputGroup1: Array<any> = [];
   inputGroup2: Array<any> = [];
 
-  addInput(group: string, event?: Event) {
-    if (event) {
-      event.preventDefault();
-      event.stopPropagation();
-    }
-
-    const capabilityId = this.capability.id; // Assuming capabilityId is the same as capability.id
-
-    if (group === 'group1') {
-      this.regulasiGSEs.push({
-        capabilityId,
-        nama: '', // Add name for this item
-        durasiTeori: 0,
-        durasiPraktek: 0,
-        type: 'Regulasi GSE' // Set default type
-      });
-    } else if (group === 'group2') {
-      this.kompetensis.push({
-        capabilityId,
-        nama: '', // Add name for this item
-        durasiTeori: 0,
-        durasiPraktek: 0,
-        type: 'Kompetensi' // Set default type
-      });
-    }
-  }
-
   onSubmit() {
     // Parse input group 1 (Regulasi GSEs) to ensure numbers are correct
     this.regulasiGSEs = this.regulasiGSEs.map(item => ({
@@ -140,5 +113,45 @@ export class AddCurriculumComponent {
         this.errorHandlerService.handleError(error);
       }
     });
+  }
+
+  addInput(group: string, event?: Event) {
+    if (event) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+
+    const capabilityId = this.capability.id; // Assuming capabilityId is the same as capability.id
+
+    if (group === 'group1') {
+      this.regulasiGSEs.push({
+        capabilityId,
+        nama: '', // Add name for this item
+        durasiTeori: 0,
+        durasiPraktek: 0,
+        type: 'Regulasi GSE' // Set default type
+      });
+    } else if (group === 'group2') {
+      this.kompetensis.push({
+        capabilityId,
+        nama: '', // Add name for this item
+        durasiTeori: 0,
+        durasiPraktek: 0,
+        type: 'Kompetensi' // Set default type
+      });
+    }
+  }
+
+  deleteInput(group: string, indeks: number, event?: Event) {
+    if (event) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+
+    if (group === 'group1') {
+      this.regulasiGSEs.splice(indeks, 1); // Hapus item pada indeks yang diberikan untuk regulasiGSEs
+    } else if (group === 'group2') {
+      this.kompetensis.splice(indeks, 1); // Hapus item pada indeks yang diberikan untuk kompetensis
+    }
   }
 }

@@ -46,6 +46,7 @@
             type="text"
             inputMode="tel">
           </app-base-input>
+          <i (click)="deleteInput('group1', i)" class="fa-solid fa-trash-can delete-button"></i>
         </ng-container>
       </div>
       <div class="add-button">
@@ -79,6 +80,7 @@
             type="text"
             inputMode="tel">
           </app-base-input>
+          <i (click)="deleteInput('group2', i)" class="fa-solid fa-trash-can delete-button"></i>
         </ng-container>
       </div>
       <div class="add-button">

@@ -8,7 +8,6 @@ import { CapabilityService } from '../../../shared/service/capability.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { CurriculumSyllabusService } from '../../../shared/service/curriculum-syllabus.service';
-import { UpdateCurriculumSyllabus } from '../../../shared/model/curriculum-syllabus.model';
 import { SweetalertService } from '../../../shared/service/sweetaler.service';
 
 @Component({
@@ -24,7 +23,7 @@ import { SweetalertService } from '../../../shared/service/sweetaler.service';
     CommonModule,
 ],
   templateUrl: './edit-curriculum-syllabus.component.html',
-  styleUrl: './edit-curriculum-syllabus.component.css'
+  styleUrl: '../curriculum-syllabus.component.css'
 })
 export class EditCurriculumSyllabusComponent implements OnInit {
   clas: string = 'add-button delete-button';
