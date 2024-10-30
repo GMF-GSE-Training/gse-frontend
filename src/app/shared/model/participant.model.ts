@@ -16,9 +16,9 @@ export interface Participant {
   ktp: File | null;
   foto: File | null;
   suratSehatButaWarna: File | null;
-  expSuratSehatButaWarna: string;
+  tglKeluarSehatButaWarna: string;
   suratBebasNarkoba: File | null;
-  expSuratBebasNarkoba: string;
+  tglKeluarBebasNarkoba: string;
   linkQrCode?: string;
   qrCode?: string | File;
   gmfNonGmf?: string;
@@ -47,8 +47,8 @@ export interface UpdateParticipant {
   suratSehatButaWarnaFileName?: string;
   suratBebasNarkoba: File |null;
   suratBebasNarkobaFileName?: string;
-  expSuratSehatButaWarna: string;
-  expSuratBebasNarkoba: string;
+  tglKeluarSehatButaWarna: string;
+  tglKeluarBebasNarkoba: string;
 }
 
 export interface CreateParticipant {
@@ -75,8 +75,8 @@ export interface CreateParticipant {
   suratSehatButaWarnaFileName?: string;
   suratBebasNarkoba: File | null;
   suratBebasNarkobaFileName: string;
-  expSuratSehatButaWarna: string;
-  expSuratBebasNarkoba: string;
+  tglKeluarSehatButaWarna: string;
+  tglKeluarBebasNarkoba: string;
 }
 
 type ActionAccessRigts = {

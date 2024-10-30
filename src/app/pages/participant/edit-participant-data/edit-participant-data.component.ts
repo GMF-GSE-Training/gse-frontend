@@ -41,8 +41,8 @@ export class EditParticipantDataComponent implements OnInit {
     suratSehatButaWarnaFileName: '',
     suratBebasNarkoba: null,
     suratBebasNarkobaFileName: '',
-    expSuratSehatButaWarna: '',
-    expSuratBebasNarkoba: '',
+    tglKeluarSehatButaWarna: '',
+    tglKeluarBebasNarkoba: '',
   };
 
   participantId = this.route.snapshot.paramMap.get('id');
@@ -70,8 +70,8 @@ export class EditParticipantDataComponent implements OnInit {
         console.log(response.data);
         this.updateParticipant = response.data;
         this.updateParticipant.tanggalLahir = this.formatDateToISO(response.data.tanggalLahir);
-        this.updateParticipant.expSuratSehatButaWarna = this.formatDateToISO(response.data.expSuratSehatButaWarna);
-        this.updateParticipant.expSuratBebasNarkoba = this.formatDateToISO(response.data.expSuratBebasNarkoba);
+        this.updateParticipant.tglKeluarSehatButaWarna = this.formatDateToISO(response.data.tglKeluarSehatButaWarna);
+        this.updateParticipant.tglKeluarBebasNarkoba = this.formatDateToISO(response.data.tglKeluarBebasNarkoba);
 
         // Company Input
         this.selectedCompany = response.data.gmfNonGmf ? response.data.gmfNonGmf : response.data.perusahaan;

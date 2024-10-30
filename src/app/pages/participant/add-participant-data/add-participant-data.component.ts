@@ -46,13 +46,13 @@ export class AddParticipantDataComponent {
     suratSehatButaWarnaFileName: '',
     suratBebasNarkoba: null,
     suratBebasNarkobaFileName: '',
-    expSuratSehatButaWarna: '',
-    expSuratBebasNarkoba: '',
+    tglKeluarSehatButaWarna: '',
+    tglKeluarBebasNarkoba: '',
   };
 
   requiredFields = ['nama', 'perusahaan', 'email', 'noTelp', 'kewarganegaraan',
                     'tempatLahir', 'tanggalLahir', 'simA', 'ktp', 'foto',
-                    'suratSehatButaWarna', 'expSuratSehatButaWarna',
+                    'suratSehatButaWarna', 'tglKeluarSehatButaWarna',
                     'suratBebasNarkoba', 'expSuratSehatBebasNarkoba'];
 
   constructor(
