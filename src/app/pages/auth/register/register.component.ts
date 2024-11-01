@@ -11,6 +11,7 @@ import { TitleComponent } from "../../../components/title/title.component";
 import { BaseInputComponent } from '../../../components/input/base-input/base-input.component';
 import { UserFormComponent } from '../../../layouts/user-form/user-form.component';
 import { SweetalertService } from '../../../shared/service/sweetaler.service';
+import { ErrorHandlerService } from '../../../shared/service/error-handler.service';
 
 @Component({
   selector: 'app-register',
@@ -38,9 +39,13 @@ export class RegisterComponent {
     dinas: '',
   };
 
+  isSuccess: boolean = false;
+  registerMessage: string = '';
+
   constructor(
     private authService: AuthService,
     private readonly sweetalertService: SweetalertService,
+    private readonly handleErrorService: ErrorHandlerService,
   ){ }
 
   onRegister(user: RegisterUserRequest) {
@@ -49,14 +54,16 @@ export class RegisterComponent {
     console.log(user);
 
     this.authService.register(user).subscribe({
-      next: (response) => {
+      next: () => {
         this.sweetalertService.close();
-        console.log(response);
+        this.isSuccess = true;
+        this.registerMessage = 'Register berhasil, silahkan verifikasi email anda';
       },
       error: (error) => {
         console.log(error);
         this.sweetalertService.close();
-        this.handleError(error);
+        this.isSuccess = false;
+        this.registerMessage = this.handleErrorService.handleErrorString(error, ['nik', 'email', 'nama', 'password']);
       },
     });
   }
@@ -66,22 +73,6 @@ export class RegisterComponent {
       if (object.hasOwnProperty(key) && object[key] === '') {
         object[key] = undefined;  // Atau bisa diubah menjadi undefined
       }
-    }
-  }
-
-  private handleError(error: any): void {
-    const e = error.error.errors;
-    const isObject = (obj: any) => obj !== null && typeof obj === 'object' && !Array.isArray(obj);
-    const isArray = Array.isArray(e);
-
-    if (isObject(e) || isArray) {
-      if (e.message) {
-        // this.message = e.message;
-      } else if (e.email || e.name || e.password || e.roleId || e.nik) {
-        // this.message = 'field dengan tanda bintang wajib diisi dengan benar';
-      }
-    } else {
-      // this.message = e;
     }
   }
 }

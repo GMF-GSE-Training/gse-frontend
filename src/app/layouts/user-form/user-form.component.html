@@ -3,6 +3,17 @@
     <form #form="ngForm" (ngSubmit)="onSubmit()" class="form">
       <app-title [pageTitle]="pageTitle"></app-title>
 
+      <div
+        *ngIf="isRegister && registerMessage"
+        class="register-message"
+        [ngStyle]="{
+          'background-color': !isSuccess ? '#ffeeba' : '',
+          'color': !isSuccess ? 'red' : ''
+        }"
+      >
+        <p>{{ registerMessage }}</p>
+      </div>
+
       <div class="input-container">
         <app-base-input
           class="input"
@@ -17,15 +28,15 @@
         </app-base-input>
 
         <app-role-input
-          *ngIf="isCreateUser"
+          *ngIf="!isRegister"
           class="input"
           label="Role"
-          [isRequired]="isCreate"
+          [isRequired]="isCreate && !isRegister"
           [initialRole]="user.role"
           (roleChange)="onRoleChange($event)"
         >
         </app-role-input>
-        <div class="error-message-container"><p *ngIf="!user.role && form.submitted" class="error-message">Wajib diisi</p></div>
+        <div class="error-message-container" *ngIf="!user.role && form.submitted && !isRegister"><p class="error-message">Wajib diisi</p></div>
 
         <app-base-input
           *ngIf="isRegister || selectedRole?.role === 'user'"
@@ -33,18 +44,17 @@
           type="text"
           inputMode="tel"
           label="NIK"
-          [isRequired]="isCreate"
+          [isRequired]="true"
           [placeholder]="isRegister ? 'Masukan NIK sesuai KTP' : 'Role user wajib mengisi NIK'"
           name="nik"
           [(ngModel)]="user.nik"
           #nik="ngModel"
           [required]="isRegister || selectedRole?.role === 'user'"
+          pattern="^[0-9]+$"
           [restrictToPattern]="'^[0-9]+$'"
-          maxlength="16"
-          minlength="16"
-          [errorInput]="nik.invalid! && (nik.dirty! || nik.touched!)"
+          minLength="16"
+          minLengthErrorMessage="NIK harus terdiri dari 16 digit angka"
         >
-          <p *ngIf="nik.errors?.['required'] && nik.dirty" class="error-message">Wajib diisi</p>
         </app-base-input>
 
         <app-base-input
@@ -52,16 +62,16 @@
           type="text"
           inputMode="text"
           label="Nama"
-          [isRequired]="isCreate"
+          [isRequired]="true"
           placeholder="Masukkan nama asli, nama akan digunakan pada data sertifikat"
           name="name"
           [(ngModel)]="user.name"
           #name="ngModel"
           required
+          pattern="^[a-zA-Z ]+$"
+          patternErrorMessage="Nama hanya boleh berisi huruf"
           [restrictToPattern]="'^[a-zA-Z ]+$'"
-          [errorInput]="name.invalid! && (name.dirty || name.touched)!"
         >
-          <p *ngIf="name.errors?.['required'] && name.dirty" class="error-message">Wajib diisi</p>
         </app-base-input>
 
         <app-base-input
@@ -69,18 +79,15 @@
           type="email"
           inputMode="email"
           label="Email"
-          [isRequired]="isCreate"
+          [isRequired]="true"
           placeholder="Gunakan alamat email aktif"
           name="email"
           [(ngModel)]="user.email"
           #email="ngModel"
+          [email]="true"
           required
-          email
-          [disabled]="isUpdate"
-          [errorInput]="email.invalid! && (email.dirty || email.touched)!"
+          [disabled]="!isCreate"
         >
-          <p *ngIf="email.errors?.['required'] && email.dirty" class="error-message">Wajib diisi</p>
-          <p *ngIf="email.errors?.['email'] && email.dirty" class="error-message">Alamat email tidak</p>
         </app-base-input>
 
         <app-base-input
@@ -96,12 +103,11 @@
           [(ngModel)]="user.password"
           #password="ngModel"
           [required]="isCreate"
-          minlength="8"
-          pattern="^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}$"
-          [errorInput]="password.invalid! && (password.dirty || password.touched)!"
-        >
-        <p *ngIf="password.errors?.['required'] && password.dirty" class="error-message">Wajib diisi</p>
-        <p *ngIf="password.errors?.['pattern'] && password.dirty" class="error-message">Password harus berisi minimal 8 karakter dengan kombinasi huruf besar, huruf kecil, dan angka</p>
+          minLength="8"
+          pattern="^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9]).+$"
+          minLengthErrorMessage="Password harus berisi minimal 8 karakter dengan kombinasi huruf besar, huruf kecil, dan angka"
+          patternErrorMessage="Password harus berisi minimal 8 karakter dengan kombinasi huruf besar, huruf kecil, dan angka"
+          >
         </app-base-input>
 
         <app-base-input
@@ -113,11 +119,10 @@
           [(ngModel)]="user.dinas"
         ></app-base-input>
       </div>
-
       <p *ngIf="isRegister" class="isRegistered">Sudah punya akun? <a routerLink="/login">Masuk</a></p>
 
       <div class="buttons">
-        <app-white-button *ngIf="isCreateUser" type="button" routerLink="/users">Kembali</app-white-button>
+        <app-white-button *ngIf="!isRegister" type="button" routerLink="/users">Kembali</app-white-button>
         <app-blue-button type="submit" [ngClass]="isRegister ? 'submit' : ''" [disabled]="form.invalid!">{{ blueButtonLabel }}</app-blue-button>
       </div>
     </form>

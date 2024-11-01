@@ -1,24 +1,53 @@
-<label>{{ label }}<p *ngIf="isRequired">*</p></label>
+<label>{{ label }}<p *ngIf="isRequired" class="required-label">*</p></label>
 
 <div [ngClass]="name === 'password' ? 'container' : ''">
   <input
     [type]="type"
+    [autocomplete]="type === 'password' ? 'current-password' : ''"
     [inputMode]="inputMode"
     [placeholder]="placeholder"
     [name]="name"
     [(ngModel)]="value"
     (input)="onValueChange()"
     [disabled]="disabled"
-    [ngClass]="{'error-input': errorInput}"
+    [ngClass]="{'error-input': (inputControl.invalid && inputControl.touched)}"
     (keydown)="onKeyDown($event)"
+    [required]="isRequired"
+    [minlength]="minLength"
+    [email]="email"
+    [pattern]="pattern"
+    #inputControl="ngModel"
   />
 
   <div>
-    <ng-content></ng-content>
+    <!-- Tampilkan hanya satu pesan error jika input tidak valid -->
+    <p *ngIf="inputControl.invalid && inputControl.touched" class="error-message">
+      <!-- Tampilkan pesan error yang relevan -->
+      <ng-container *ngIf="inputControl.errors">
+        <span *ngIf="inputControl.errors['required']; else nextError">Wajib diisi</span>
+        <ng-template #nextError>
+          <span *ngIf="inputControl.errors['minlength']; else patternError">
+            {{ minLengthErrorMessage }}
+          </span>
+        </ng-template>
+        <ng-template #patternError>
+          <span *ngIf="inputControl.errors['pattern']; else emailError">
+            {{ patternErrorMessage }}
+          </span>
+        </ng-template>
+        <ng-template #emailError>
+          <span *ngIf="inputControl.errors['email']">Alamat email tidak valid</span>
+        </ng-template>
+      </ng-container>
+    </p>
+
+    <!-- Tampilkan pesan default jika tidak ada error atau belum disentuh -->
+    <p *ngIf="!inputControl.errors || (!inputControl.dirty && !inputControl.touched)">{{ helperMessage }}</p>
   </div>
 
   <app-toggle-password-visibility
     *ngIf="name === 'password' || name === 'newPassword'"
+    [ngStyle]="{ 'bottom': inputControl.invalid && inputControl.touched ? '3.2em' : '2.2em' }"
     [isPassVisible]="isPassVisible"
     (togglePassClick)="passVisible()"
   ></app-toggle-password-visibility>

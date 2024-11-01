@@ -25,7 +25,6 @@ import { RouterLink } from '@angular/router';
 export class CapabilityFormComponent {
   @Input() capability: any = {};
   @Input() pageTitle: string = '';
-  @Input() isCreate: boolean = false;
 
   @Output() formSubmit = new EventEmitter<any>();
   @ViewChild('form') form!: NgForm;

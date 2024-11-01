@@ -55,7 +55,7 @@ export class ParticipantDetailComponent implements OnInit {
   ]
 
   ngOnInit(): void {
-    const id = this.route.snapshot.paramMap.get('id');
+    const id = this.route.snapshot.paramMap.get('id') || localStorage.getItem('participantId');
     if (id) {
       this.participantService.getParticipantById(id).subscribe({
         next: (response) => {

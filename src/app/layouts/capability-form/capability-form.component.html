@@ -6,8 +6,7 @@
       <div class="input-column">
         <app-base-input
           label="Kode Rating"
-          [isRequired]="isCreate"
-          [errorInput]="kodeRating.invalid! && (kodeRating.dirty || kodeRating.touched)!"
+          [isRequired]="true"
           type="text"
           inputMode="text"
           name="kodeRating"
@@ -15,13 +14,11 @@
           #kodeRating="ngModel"
           required
         >
-          <p *ngIf="kodeRating.errors?.['required'] && kodeRating.dirty">Wajib diisi</p>
         </app-base-input>
 
         <app-base-input
           label="Kode Training"
-          [isRequired]="isCreate"
-          [errorInput]="kodeTraining.invalid! && (kodeTraining.dirty || kodeTraining.touched)!"
+          [isRequired]="true"
           type="text"
           inputMode="text"
           name="kodeTraining"
@@ -29,13 +26,11 @@
           #kodeTraining="ngModel"
           required
         >
-          <p *ngIf="kodeTraining.errors?.['required'] && kodeTraining.dirty">Wajib diisi</p>
         </app-base-input>
 
         <app-base-input
           label="Nama Training"
-          [isRequired]="isCreate"
-          [errorInput]="namaTraining.invalid! && (namaTraining.dirty || namaTraining.touched)!"
+          [isRequired]="true"
           type="text"
           inputMode="text"
           name="namaTraining"
@@ -43,7 +38,6 @@
           #namaTraining="ngModel"
           required
         >
-          <p *ngIf="namaTraining.errors?.['required'] && namaTraining.dirty">Wajib diisi</p>
         </app-base-input>
       </div>
     </div>

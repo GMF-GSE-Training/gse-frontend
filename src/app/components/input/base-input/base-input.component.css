@@ -27,14 +27,21 @@ div {
 
 app-toggle-password-visibility {
   position: relative;
-  left: 39.5em;
-  bottom: 7.3em;
+  left: 40em;
+  bottom: 2.2em;
 }
 
 .container {
   margin-bottom: -25px;
 }
 
-p {
+.error-message,
+.required-label {
   color: red;
+}
+
+.error-message {
+  margin-left: 15px;
+  margin-top: 3px;
+  font-size: 14px;
 }

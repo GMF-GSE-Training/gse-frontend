@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { TitleComponent } from "../../components/title/title.component";
 import { BaseInputComponent } from "../../components/input/base-input/base-input.component";
 import { WhiteButtonComponent } from "../../components/button/white-button/white-button.component";
@@ -28,15 +28,15 @@ import { RoleInputComponent } from "../../components/input/role-input/role-input
   templateUrl: './user-form.component.html',
   styleUrl: './user-form.component.css'
 })
-export class UserFormComponent {
+export class UserFormComponent implements OnInit {
   @Input() pageTitle: string = '';
   @Input() user: any = {};
   @Input() isRegister: boolean = false;
-  @Input() isCreateUser: boolean = false;
   @Input() isResetPassword: boolean = false;
-  blueButtonLabel: string = '';
+  @Input() blueButtonLabel: string = 'Simpan';
   @Input() isCreate: boolean = false;
-  @Input() isUpdate: boolean = false;
+  @Input() registerMessage: string = '';
+  @Input() isSuccess: boolean = false;
 
   // role-input
   selectedRole: any = null;
@@ -54,11 +54,6 @@ export class UserFormComponent {
   ) {}
 
   ngOnInit(): void {
-    if(this.router.url === '/register') {
-      this.blueButtonLabel = 'Daftar';
-    } else {
-      this.blueButtonLabel = 'Simpan';
-    }
     if(this.user.role) {
       this.onRoleChange(this.user.role);
     }

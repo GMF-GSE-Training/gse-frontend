@@ -10,20 +10,23 @@
       <div class="input-container" ngClass="email">
         <app-base-input
           class="input"
+          label="Email"
           type="email"
           inputMode="email"
           placeholder="Email"
           name="email"
           [(ngModel)]="data.email"
           #email="ngModel"
+          [isRequired]="true"
+          [email]="true"
           required
-          email>
+        >
         </app-base-input>
       </div>
 
       <div class="buttons">
-        <app-white-button type="button" routerLink="/login">Kembali</app-white-button>
-        <app-blue-button class="submit" type="submit">Kirim</app-blue-button>
+        <app-white-button type="button" routerLink="/">Kembali</app-white-button>
+        <app-blue-button class="submit" type="submit" [disabled]="form.invalid!">Kirim</app-blue-button>
       </div>
     </form>
   </div>

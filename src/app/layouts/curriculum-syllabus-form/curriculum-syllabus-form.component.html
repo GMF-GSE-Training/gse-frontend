@@ -41,6 +41,7 @@
             label="Durasi Teori"
             type="text"
             inputMode="tel"
+            [isRequired]="true"
             [disabled]="isView"
             required
             pattern="^[0-9]+$"
@@ -52,6 +53,7 @@
             label="Durasi Praktik"
             type="text"
             inputMode="tel"
+            [isRequired]="true"
             [disabled]="isView"
             required
             pattern="^[0-9]+$"
@@ -84,6 +86,7 @@
             name="kompetensi_{{i}}"
             label="Kompetensi"
             type="text"
+            [isPassVisible]="true"
             [disabled]="isView"
             required>
           </app-base-input>
@@ -93,6 +96,7 @@
             label="Durasi Teori"
             type="text"
             inputMode="tel"
+            [isRequired]="true"
             [disabled]="isView"
             required
             pattern="^[0-9]+$"
@@ -104,6 +108,7 @@
             label="Durasi Praktik"
             type="text"
             inputMode="tel"
+            [isRequired]="true"
             [disabled]="isView"
             required
             pattern="^[0-9]+$"

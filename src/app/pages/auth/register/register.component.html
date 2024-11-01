@@ -3,5 +3,8 @@
   [isCreate]="true"
   [pageTitle]="'Create Account'"
   [user]="registerUserRequest"
+  [isSuccess]="isSuccess"
+  [registerMessage]="registerMessage"
+  blueButtonLabel="Daftar"
   (formSubmit)="onRegister($event)">
 </app-user-form>

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { AuthComponent } from "../../components/auth/auth.component";
 import { TitleComponent } from "../../components/title/title.component";
 import { BaseInputComponent } from '../../components/input/base-input/base-input.component';
@@ -29,9 +29,7 @@ export class ResetPasswordFormComponent {
     newPassword: '',
     confirmNewPassword: '',
   };
-  @Input() submitError: boolean = false;
-  isSubmitted: boolean = false;
-  @Input() parrentMessage: string = '';
+  passwordMismatch: boolean = false;
   message: string = '';
 
   isPassVisible: boolean = false;
@@ -39,40 +37,27 @@ export class ResetPasswordFormComponent {
     this.isPassVisible = !this.isPassVisible;
   }
 
+  @Input() parrentMessage: string = '';
+  @Input() isSuccess: boolean = false;
+
   @Output() formSubmit = new EventEmitter<any>();
   @ViewChild('form') form!: NgForm;
 
-  onSubmit() {
-    this.isSubmitted = true;
-    if (this.form.valid) {
-      this.formSubmit.emit(this.data);
-    } else {
-      this.message = this.getMessage();  // Menampilkan pesan error di parent jika form tidak valid
+  // Method untuk memvalidasi password match
+  checkPasswordMatch() {
+    if (this.data.newPassword && this.data.confirmNewPassword) {
+      this.passwordMismatch = this.data.newPassword !== this.data.confirmNewPassword;
+      if (this.passwordMismatch) {
+        this.message = 'Password baru tidak sama';
+      } else {
+        this.message = '';
+      }
     }
   }
 
-  getMessage() {
-    if (!this.form) return '';
-
-    // Reset Password
-    const newPasswordControl = this.form.controls['newPassword'];
-    if (newPasswordControl?.invalid) {
-      if (newPasswordControl.errors?.['required']) {
-        this.submitError = true;
-        return 'Password baru wajib diisi';
-      } else if (newPasswordControl.errors?.['minlength'] || newPasswordControl.errors?.['pattern']) {
-        this.submitError = true;
-        return 'Password harus minimal 8 karakter kombinasi huruf besar kecil dan angka';
-      }
-    } else if (this.data.newPassword !== this.data.confirmNewPassword) {
-      this.submitError = true; // Tandai sebagai kesalahan
-      return 'Data konfirmasi password tidak sama'; // Pesan kesalahan
+  onSubmit() {
+    if (this.form.valid) {
+      this.formSubmit.emit(this.data);
     }
-
-    if(!this.parrentMessage) {
-      this.submitError = false;
-    }
-
-    return this.parrentMessage;
   }
 }

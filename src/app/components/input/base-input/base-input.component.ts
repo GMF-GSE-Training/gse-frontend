@@ -27,8 +27,13 @@ export class BaseInputComponent {
   @Input() name: string = '';
   @Input() value: string = '';
   @Input() disabled: boolean = false;
-  @Input() errorInput: boolean = false;
   @Input() isRequired: boolean = false;
+  @Input() minLength: string = '';
+  @Input() pattern: string = '';
+  @Input() email: boolean = false;
+  @Input() helperMessage: string = '';
+  @Input() minLengthErrorMessage: string = 'Panjang input minimum tidak terpenuhi';
+  @Input() patternErrorMessage: string = 'Pattern input tidak terpenuhi';
 
   // Komponen toggle-password-visibility
   @Input() isPassVisible: boolean = false;

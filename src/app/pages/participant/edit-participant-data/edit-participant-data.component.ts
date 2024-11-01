@@ -5,7 +5,6 @@ import { ParticipantService } from '../../../shared/service/participant.service'
 import { SweetalertService } from '../../../shared/service/sweetaler.service';
 import { CompanyInputComponent } from '../../../components/input/company-input/company-input.component';
 import { ParticipantFormComponent } from '../../../layouts/participant-form/participant-form.component';
-import { environment } from '../../../../environments/environment.development';
 
 @Component({
   selector: 'app-edit-participant-data',
@@ -41,8 +40,8 @@ export class EditParticipantDataComponent implements OnInit {
     suratSehatButaWarnaFileName: '',
     suratBebasNarkoba: null,
     suratBebasNarkobaFileName: '',
-    tglKeluarSehatButaWarna: '',
-    tglKeluarBebasNarkoba: '',
+    tglKeluarSuratSehatButaWarna: '',
+    tglKeluarSuratBebasNarkoba: '',
   };
 
   participantId = this.route.snapshot.paramMap.get('id');
@@ -67,11 +66,12 @@ export class EditParticipantDataComponent implements OnInit {
   loadParticipant(): void {
     this.participantService.getParticipantById(this.participantId!).subscribe({
       next: (response) => {
-        console.log(response.data);
-        this.updateParticipant = response.data;
-        this.updateParticipant.tanggalLahir = this.formatDateToISO(response.data.tanggalLahir);
-        this.updateParticipant.tglKeluarSehatButaWarna = this.formatDateToISO(response.data.tglKeluarSehatButaWarna);
-        this.updateParticipant.tglKeluarBebasNarkoba = this.formatDateToISO(response.data.tglKeluarBebasNarkoba);
+        this.updateParticipant = {
+          ...response.data,
+          tanggalLahir: this.formatDateToISO(response.data.tanggalLahir),
+          tglKeluarSuratSehatButaWarna : this.formatDateToISO(response.data.tglKeluarSuratSehatButaWarna),
+          tglKeluarSuratBebasNarkoba : this.formatDateToISO(response.data.tglKeluarSuratBebasNarkoba),
+        };
 
         // Company Input
         this.selectedCompany = response.data.gmfNonGmf ? response.data.gmfNonGmf : response.data.perusahaan;
@@ -91,7 +91,7 @@ export class EditParticipantDataComponent implements OnInit {
   }
 
   onUpdate(participant: UpdateParticipant) {
-    console.log(participant)
+    console.log("REQUEST : ", participant)
     const formData = this.prepareFormData(participant);
 
     this.participantService.updateParticipant(this.participantId!, formData).subscribe({

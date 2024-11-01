@@ -75,6 +75,9 @@ app-blue-button {
 
 .error-message {
   color: red;
+  margin-left: 15px;
+  margin-top: 3px;
+  font-size: 14px;
 }
 
 .success-message {
@@ -90,8 +93,14 @@ app-blue-button {
   height: 45px;
 }
 
-p {
-  margin-left: 15px;
-  margin-top: 3px;
-  font-size: 14px;
+.register-message {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: lightgreen;
+  padding: 2px;
+  position: relative;
+  top: 1em;
+  color: #000;
+  font-weight: bold;
 }
