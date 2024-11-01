@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { RoleBasedAccessDirective } from '../../shared/directive/role-based-access.directive';
@@ -16,9 +16,10 @@ import { ParticipantService } from '../../shared/service/participant.service';
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.css'
 })
-export class SidebarComponent {
-  currentUserRole: string = localStorage.getItem('currentUserRole')!;
-  id: string = '';
+export class SidebarComponent implements OnChanges {
+  @Input() isMenuVisible: boolean = false;
+  @Output() menuClose = new EventEmitter<void>();
+  id: string = localStorage.getItem('participantId')!;
 
   generalMenu = [
     {
@@ -26,8 +27,27 @@ export class SidebarComponent {
       routerLink: ""
     },
     {
-      name: this.currentUserRole?.toLocaleLowerCase() === 'user' ? 'Profil' : 'Participants Data',
-      routerLink: this.currentUserRole?.toLocaleLowerCase() === 'user' ? `/participants/${this.id}/view` : "/participants"
+      name: 'Participants Data',
+      routerLink: "/participants"
+    },
+    {
+      name: 'Capability',
+      routerLink: "/capability"
+    },
+    {
+      name: 'COT',
+      routerLink: "/cot"
+    },
+  ];
+
+  generalUserMenu = [
+    {
+      name: 'Home',
+      routerLink: ""
+    },
+    {
+      name: 'Profil',
+      routerLink: `/participants/${this.id}/detail`
     },
     {
       name: 'Capability',
@@ -52,42 +72,35 @@ export class SidebarComponent {
 
   constructor(
     private authService: AuthService,
-    private participantService: ParticipantService,
     private router: Router,
   ) {
-    if(this.currentUserRole?.toLocaleLowerCase() === 'user') {
-      this.participantService.getParticipantByNik().subscribe({
-        next: (response) => {
-          this.id = response.data;
-          this.updateGeneralMenu();
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['isMenuVisible'] && changes['isMenuVisible'].currentValue === true) {
+      // Ambil ID ketika sidebar muncul
+      this.id = localStorage.getItem('participantId')!;
+      // Update `generalUserMenu` jika perlu
+      this.generalUserMenu = [
+        {
+          name: 'Home',
+          routerLink: ""
         },
-      });
+        {
+          name: 'Profil',
+          routerLink: `/participants/${this.id}/detail`
+        },
+        {
+          name: 'Capability',
+          routerLink: "/capability"
+        },
+        {
+          name: 'COT',
+          routerLink: "/cot"
+        },
+      ];
     }
   }
-
-  updateGeneralMenu() {
-    this.generalMenu = [
-      {
-        name: 'Home',
-        routerLink: ""
-      },
-      {
-        name: 'Profil',
-        routerLink: `/participants/${this.id}/view`
-      },
-      {
-        name: 'Capability',
-        routerLink: "/capability"
-      },
-      {
-        name: 'COT',
-        routerLink: "/cot"
-      },
-    ];
-  }
-
-  @Input() isMenuVisible: boolean = false;
-  @Output() menuClose = new EventEmitter<void>();
 
   closeMenu() {
     this.isMenuVisible = false;
@@ -97,7 +110,7 @@ export class SidebarComponent {
   logout() {
     this.authService.logout().subscribe({
       next: () => {
-        localStorage.removeItem('currentUserRole');
+        localStorage.clear(); // Clear all localStorage items
         this.router.navigateByUrl('/login');
       },
       error: (error) => {

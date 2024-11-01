@@ -26,4 +26,25 @@ export class ErrorHandlerService {
       this.sweetalertService.alert(false, 'Gagal!', e, 'error');
     }
   }
+
+  handleErrorString(error?: any, requiredFields?: string[]): string {
+    const e = error.error.errors;
+
+    const isObject = (obj: any) => obj !== null && typeof obj === 'object' && !Array.isArray(obj);
+
+    // Fungsi untuk mengecek apakah objek memiliki field tertentu
+    const hasRequiredFields = (obj: any, fields: string[]) =>
+      fields.some(field => obj[field]);
+
+    if (isObject(e) || Array.isArray(e)) {
+      if (e.message) {
+        return e.message;
+      } else if (hasRequiredFields(e, requiredFields!)) {
+        return 'Kolom dengan tanda bintang (*) wajib diisi';
+      }
+    } else {
+      return e;
+    }
+    return 'Terjadi kesalahan, silahkan tunggu beberapa saat lalu coba kembali';
+  }
 }

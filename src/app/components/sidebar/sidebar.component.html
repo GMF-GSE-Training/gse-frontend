@@ -1,7 +1,13 @@
 <div class="menu" [ngClass]="{ 'visible': isMenuVisible }" *ngIf="isMenuVisible">
-  <ul class="nav-menu">
+  <ul class="nav-menu" *appRoleBasedAccess="['super admin', 'supervisor', 'LCU']">
     <li class="nav-item" *ngFor="let item of generalMenu">
-      <a class="nav-link" (click)="closeMenu()" routerLink="{{ item.routerLink }}">{{ item.name }}</a>
+      <a class="nav-link" (click)="closeMenu()" [routerLink]="item.routerLink">{{ item.name }}</a>
+    </li>
+  </ul>
+
+  <ul class="nav-menu" *appRoleBasedAccess="['user']">
+    <li class="nav-item" *ngFor="let item of generalUserMenu">
+      <a class="nav-link" (click)="closeMenu()" [routerLink]="item.routerLink">{{ item.name }}</a>
     </li>
   </ul>
 

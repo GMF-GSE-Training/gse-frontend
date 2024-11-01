@@ -16,9 +16,9 @@ export interface Participant {
   ktp: File | null;
   foto: File | null;
   suratSehatButaWarna: File | null;
-  tglKeluarSehatButaWarna: string;
+  tglKeluarSuratSehatButaWarna: string;
   suratBebasNarkoba: File | null;
-  tglKeluarBebasNarkoba: string;
+  tglKeluarSuratBebasNarkoba: string;
   linkQrCode?: string;
   qrCode?: string | File;
   gmfNonGmf?: string;
@@ -26,29 +26,29 @@ export interface Participant {
 
 export interface UpdateParticipant {
   noPegawai?: string | null;
-  nama: string;
-  nik: string;
+  nama?: string;
+  nik?: string;
   dinas?: string | null;
   bidang?: string | null;
-  perusahaan: string;
-  noTelp: string;
-  negara: string;
-  tempatLahir: string;
-  tanggalLahir: string;
-  simA: File | null;
+  perusahaan?: string;
+  noTelp?: string;
+  negara?: string;
+  tempatLahir?: string;
+  tanggalLahir?: string;
+  simA?: File | null;
   simAFileName?: string;
-  simB: File | null;
+  simB?: File | null;
   simBFileName?: string;
-  ktp: File | null;
+  ktp?: File | null;
   ktpFileName?: string;
-  foto: File | null;
+  foto?: File | null;
   fotoFileName?: string;
-  suratSehatButaWarna: File | null;
+  suratSehatButaWarna?: File | null;
   suratSehatButaWarnaFileName?: string;
-  suratBebasNarkoba: File |null;
+  suratBebasNarkoba?: File |null;
   suratBebasNarkobaFileName?: string;
-  tglKeluarSehatButaWarna: string;
-  tglKeluarBebasNarkoba: string;
+  tglKeluarSuratSehatButaWarna?: string;
+  tglKeluarSuratBebasNarkoba?: string;
 }
 
 export interface CreateParticipant {
@@ -75,8 +75,8 @@ export interface CreateParticipant {
   suratSehatButaWarnaFileName?: string;
   suratBebasNarkoba: File | null;
   suratBebasNarkobaFileName: string;
-  tglKeluarSehatButaWarna: string;
-  tglKeluarBebasNarkoba: string;
+  tglKeluarSuratSehatButaWarna: string;
+  tglKeluarSuratBebasNarkoba: string;
 }
 
 type ActionAccessRigts = {
