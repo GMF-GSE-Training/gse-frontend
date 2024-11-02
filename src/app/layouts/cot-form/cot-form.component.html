@@ -15,14 +15,14 @@
       >
       </app-base-input>
 
-      <app-select-input
+      <app-dropdown-input
         label="Kode Training"
         placeholder="--- Pilih capability ---"
         [isRequired]="true"
         [options]="capabilityOptions"
         (selectionChange)="onTrainingSelected($event)"
         required>
-      </app-select-input>
+      </app-dropdown-input>
 
       <app-base-input
         label="Kode Rating"

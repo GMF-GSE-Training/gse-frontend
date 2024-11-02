@@ -3,16 +3,16 @@ import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChange
 import { BaseInputComponent } from "../base-input/base-input.component";
 
 @Component({
-  selector: 'app-select-input',
+  selector: 'app-dropdown-input',
   standalone: true,
   imports: [
     CommonModule,
     BaseInputComponent
 ],
-  templateUrl: './select-input.component.html',
-  styleUrl: './select-input.component.css'
+  templateUrl: './dropdown-input.component.html',
+  styleUrl: './dropdown-input.component.css'
 })
-export class SelectInputComponent implements OnChanges {
+export class DropdownInputComponent implements OnChanges {
   @Input() label: string = '';
   @Input() isRequired: boolean = false;
   @Input() options: { label: string, value: string }[] = []; // List of options

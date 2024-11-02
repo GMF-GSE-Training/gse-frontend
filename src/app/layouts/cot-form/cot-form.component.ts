@@ -4,7 +4,7 @@ import { BaseInputComponent } from "../../components/input/base-input/base-input
 import { WhiteButtonComponent } from "../../components/button/white-button/white-button.component";
 import { BlueButtonComponent } from "../../components/button/blue-button/blue-button.component";
 import { RouterLink } from '@angular/router';
-import { SelectInputComponent } from "../../components/input/select-input/select-input.component";
+import { DropdownInputComponent } from "../../components/input/dropdown-input/dropdown-input.component";
 import { FormsModule, NgForm } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { CapabilityService } from '../../shared/service/capability.service';
@@ -18,7 +18,7 @@ import { CapabilityService } from '../../shared/service/capability.service';
     WhiteButtonComponent,
     BlueButtonComponent,
     RouterLink,
-    SelectInputComponent,
+    DropdownInputComponent,
     FormsModule,
     CommonModule,
 ],
