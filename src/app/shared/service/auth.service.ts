@@ -3,7 +3,6 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { AuthResponse, LoginUserRequest, ResetPassword } from '../model/auth.model';
 import { environment } from '../../../environments/environment.development';
-import { CookieService } from 'ngx-cookie-service';
 
 @Injectable({
   providedIn: 'root',
@@ -15,12 +14,7 @@ export class AuthService {
 
   constructor(
     private http: HttpClient,
-    private cookieService: CookieService,
   ) {}
-
-  // getToken(): string | undefined {
-  //   return this.cookieService.get('access_token');
-  // }
 
   register<T>(request: any): Observable<any > {
     return this.http.post<T>(`${this.apiUrl}/${this.endpoint.register}`, request);

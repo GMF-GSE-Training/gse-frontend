@@ -30,7 +30,6 @@ export interface User {
     id: string,
     role: string,
   },
-  roleName: string;
 }
 
 type Paging = {

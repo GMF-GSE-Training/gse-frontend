@@ -41,7 +41,8 @@ export class HeaderComponent implements OnInit {
         currentRoute === '/passwordreset' ||
         currentRoute.includes('/reset') ||
         (currentRoute.includes('/users') && currentRoute.includes('/edit')) ||
-        (currentRoute.includes('/users') && currentRoute.includes('/add'))
+        (currentRoute.includes('/users') && currentRoute.includes('/add')) ||
+        currentRoute === '/not-found'
       );
     });
   }

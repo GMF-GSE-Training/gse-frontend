@@ -20,13 +20,16 @@ export class AppComponent {
 
   constructor(private router: Router) {
     this.router.events.subscribe(() => {
-      this.isAuthRoute = this.router.url === '/login' ||
-      this.router.url === '/register' ||
-      this.router.url === '/users/add' ||
-      this.router.url === '/reset-password' ||
-      this.router.url === '/passwordreset' ||
-      this.router.url.includes('/reset')  ||
-      this.router.url.includes('/users') && this.router.url.includes('/edit');
+      const url = this.router.url;
+      this.isAuthRoute =
+        url === '/login' ||
+        url === '/register' ||
+        url === '/users/add' ||
+        url === '/reset-password' ||
+        url === '/passwordreset' ||
+        url.includes('/reset') ||
+        (url.includes('/users') && url.includes('/edit')) ||
+        url === '/not-found'; // Pengecekan untuk rute yang tidak dikenali
     });
   }
 }

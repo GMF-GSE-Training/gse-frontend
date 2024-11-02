@@ -33,6 +33,10 @@ export const environment = {
     curriculumSyllabus: {
       base: 'curriculum-syllabus',
       list: 'curriculum-syllabus/list/result',
+    },
+    cot: {
+      base: 'cot',
+      list: 'cot/list/result'
     }
   },
 };

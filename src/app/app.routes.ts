@@ -32,6 +32,7 @@ import { ResetPasswordComponent } from './pages/auth/reset-password/reset-passwo
 import { ForgotPasswordComponent } from './pages/auth/forgot-password/forgot-password.component';
 import { CapabilityDetailComponent } from './pages/capability/capability-detail/capability-detail.component';
 import { EditCurriculumSyllabusComponent } from './pages/curriculum-syllabus/edit-curriculum-syllabus/edit-curriculum-syllabus.component';
+import { NotFoundComponent } from './pages/errors/not-found/not-found.component';
 
 export const routes: Routes = [
   {
@@ -218,5 +219,13 @@ export const routes: Routes = [
     component: EditCurriculumSyllabusComponent,
     canActivate: [AuthAndRoleGuard],
     data: { roles: ['super admin'] }
+  },
+  {
+    path: 'not-found',
+    component: NotFoundComponent,
+  },
+  {
+    path: '**',
+    redirectTo: 'not-found'
   }
 ];

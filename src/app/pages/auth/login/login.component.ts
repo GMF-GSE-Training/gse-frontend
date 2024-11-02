@@ -47,7 +47,11 @@ export class LoginComponent {
   login() {
     this.authService.login(this.loginRequest).subscribe({
       next: (response) => {
-        console.log(response);
+        // Set expiration time saat login berhasil
+        const expirationTime = new Date().getTime() + (60 * 60 * 1000); // 30 menit
+        sessionStorage.setItem('tokenExpiration', expirationTime.toString());
+        sessionStorage.setItem('currentUserRole', response.data.role.role);
+        sessionStorage.setItem('participantId', response.data.participantId);
         this.loginError = false;
         this.router.navigateByUrl('/home');
       },
