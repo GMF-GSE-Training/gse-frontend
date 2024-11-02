@@ -1,29 +1,5 @@
-<main>
-  <div class="title-container">
-    <h1 class="title">Calender Of Training</h1>
-  </div>
-
-  <form>
-    <div class="form-container">
-      <div class="left-column">
-        <app-base-input type="text" inputMode="text">Kode Rating</app-base-input>
-        <app-base-input type="text" inputMode="text">Nama Training</app-base-input>
-        <app-base-input>Tanggal Mulai</app-base-input>
-        <app-base-input>Tanggal Selesai</app-base-input>
-        <app-base-input type="text" inputMode="text">Lokasi Training</app-base-input>
-      </div>
-      <div class="right-column">
-        <app-base-input type="text" inputMode="text">Instruktur Regulasi GSE</app-base-input>
-        <app-base-input type="text" inputMode="text">Instruktur Teori Rating</app-base-input>
-        <app-base-input type="text" inputMode="text">Instruktur Praktek 1</app-base-input>
-        <app-base-input type="text" inputMode="text">Instruktur Praktek 2</app-base-input>
-      </div>
-    </div>
-  </form>
-
-  <div class="container-button">
-    <app-white-button routerLink="/home">Back</app-white-button>
-    <app-blue-button routerLink="/cot">Save</app-blue-button>
-  </div>
-
-</main>
+<app-cot-form
+  pageTitle="Edit Calender Of Training"
+  [cot]="cot"
+  (formSubmit)="onSubmit($event)">
+</app-cot-form>

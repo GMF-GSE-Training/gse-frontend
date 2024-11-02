@@ -8,6 +8,7 @@ import { DropdownInputComponent } from "../../components/input/dropdown-input/dr
 import { FormsModule, NgForm } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { CapabilityService } from '../../shared/service/capability.service';
+import { Capability } from '../../shared/model/capability.model';
 
 @Component({
   selector: 'app-cot-form',
@@ -44,30 +45,49 @@ export class CotFormComponent {
   selectedCapabily: any = '';
 
   onSubmit() {
-    console.log(this.cot);
     if (this.form.valid) {
       this.formSubmit.emit(this.cot);
     }
   }
 
-  ngOnInit() {
-    // Misalkan Anda mendapatkan data dari service
-    this.capabilityService.listCapability().subscribe({
-      next: (response) => {
-        const capability = response.data;
-
-        this.capabilityData = capability;
-        // Transform data menjadi format options yang dibutuhkan komponen
-        this.capabilityOptions = capability.map(training => ({
-          label: training.kodeTraining, // Menampilkan kode training
-          value: training.id // Nilai yang akan dipilih adalah kode training
-        }));
-        console.log(this.capabilityOptions);
-      },
-      error: (error) => {
-        console.log(error);
+  ngOnChanges(): void {
+    if (this.cot) {
+      // Format dates using new Date()
+      if (this.cot.tanggalMulai) {
+        this.cot.tanggalMulai = new Date(this.cot.tanggalMulai).toISOString().split('T')[0];
       }
-    });
+      if (this.cot.tanggalSelesai) {
+        this.cot.tanggalSelesai = new Date(this.cot.tanggalSelesai).toISOString().split('T')[0];
+      }
+
+      // If editing existing COT
+      if (this.cot.Capabillity) {
+        const capability = this.cot.Capabillity;
+        this.capabilityData = [capability];
+        this.capabilityOptions = [{
+          label: capability.kodeTraining,
+          value: capability.id
+        }];
+
+        // Set the selected capability
+        this.selectedCapabily = capability;
+      }
+    } else {
+      // If creating new COT
+      this.capabilityService.listCapability().subscribe({
+        next: (response) => {
+          const capability = response.data;
+          this.capabilityData = capability;
+          this.capabilityOptions = capability.map(training => ({
+            label: training.kodeTraining,
+            value: training.id
+          }));
+        },
+        error: (error) => {
+          console.log(error);
+        }
+      });
+    }
   }
 
   onTrainingSelected(capability: any) {

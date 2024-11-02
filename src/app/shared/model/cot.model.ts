@@ -1,8 +1,8 @@
 export interface CreateCOT {
   kodeCot: string;
   capabilityId: string;
-  tanggalMulai: Date;
-  tanggalSelesai: Date;
+  tanggalMulai: string;
+  tanggalSelesai: string;
   lokasiTraining: string;
   instrukturTeoriRegulasiGse: string;
   instrukturTeoriKompetensi: string;
@@ -11,11 +11,26 @@ export interface CreateCOT {
   status?: boolean;
 }
 
+export interface UpdateCOT {
+  id: string;
+  kodeCot?: string;
+  capabilityId?: string;
+  tanggalMulai?: string;
+  tanggalSelesai?: string;
+  lokasiTraining?: string;
+  instrukturTeoriRegulasiGse?: string;
+  instrukturTeoriKompetensi?: string;
+  instrukturPraktek1?: string;
+  instrukturPraktek2?: string;
+  status?: boolean;
+}
+
 export interface COT {
+  id: string;
   kodeCot: string;
   capabilityId: string;
-  tanggalMulai: Date;
-  tanggalSelesai: Date;
+  tanggalMulai: string;
+  tanggalSelesai: string;
   lokasiTraining: string;
   instrukturTeoriRegulasiGse: string;
   instrukturTeoriKompetensi: string;

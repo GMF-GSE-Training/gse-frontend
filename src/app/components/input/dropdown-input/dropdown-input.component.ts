@@ -18,14 +18,24 @@ export class DropdownInputComponent implements OnChanges {
   @Input() options: { label: string, value: string }[] = []; // List of options
   @Input() placeholder: string = 'Select an option'; // Placeholder text
   @Input() selectedValue: any; // Initial selected value (optional)
+  @Input() initialValue: string = '';
   @Output() selectionChange = new EventEmitter<any>();
 
   isActive: boolean = false;
   searchText: string = ''; // For filtering options
   filteredOptions: { label: string, value: string }[] = []; // To hold filtered options
 
-  ngOnChanges() {
+  ngOnChanges(changes: SimpleChanges) {
     this.filteredOptions = [...this.options]; // Initialize filteredOptions with all options
+
+    // Handle initial value selection
+    if (changes['initialValue'] && this.initialValue && this.options.length > 0) {
+      const selectedOption = this.options.find(option => option.value === this.initialValue);
+      if (selectedOption) {
+        this.selectedValue = selectedOption.label;
+        this.selectionChange.emit(selectedOption.value);
+      }
+    }
   }
 
   // Toggle dropdown visibility

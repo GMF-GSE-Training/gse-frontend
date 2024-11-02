@@ -20,6 +20,7 @@
         placeholder="--- Pilih capability ---"
         [isRequired]="true"
         [options]="capabilityOptions"
+        [initialValue]="cot.capabilityId"
         (selectionChange)="onTrainingSelected($event)"
         required>
       </app-dropdown-input>
