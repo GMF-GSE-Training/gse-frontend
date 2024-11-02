@@ -2,6 +2,7 @@
 
 <div [ngClass]="name === 'password' ? 'container' : ''">
   <input
+    [ngStyle]="{ 'outline': readOnly || disabled ? 'none' : '#000'  }"
     [type]="type"
     [autocomplete]="type === 'password' ? 'current-password' : ''"
     [inputMode]="inputMode"
@@ -12,12 +13,16 @@
     [disabled]="disabled"
     [ngClass]="{'error-input': (inputControl.invalid && inputControl.touched)}"
     (keydown)="onKeyDown($event)"
+    [readOnly]="readOnly"
     [required]="isRequired"
     [minlength]="minLength"
     [email]="email"
     [pattern]="pattern"
     #inputControl="ngModel"
   />
+
+  <ng-content></ng-content>
+
 
   <div>
     <!-- Tampilkan hanya satu pesan error jika input tidak valid -->

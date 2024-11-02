@@ -32,7 +32,7 @@ export interface CapabilityResponse {
 export interface CapabilityListResponse {
   code: number;
   status: string;
-  data: CapabilityResponse[],
+  data: Capability[],
   actions: ActionAccessRigts,
   paging: Paging;
 }

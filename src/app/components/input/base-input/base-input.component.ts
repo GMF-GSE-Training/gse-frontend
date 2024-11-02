@@ -26,6 +26,7 @@ export class BaseInputComponent {
   @Input() placeholder: string = '';
   @Input() name: string = '';
   @Input() value: string = '';
+  @Input() readOnly: boolean = false;
   @Input() disabled: boolean = false;
   @Input() isRequired: boolean = false;
   @Input() minLength: string = '';
