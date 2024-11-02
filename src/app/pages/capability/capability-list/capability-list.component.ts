@@ -186,5 +186,4 @@ export class CapabilityListComponent implements OnInit {
   onWhiteButtonClick() {
     this.router.navigateByUrl('/home');
   }
-
 }

@@ -1,10 +1,13 @@
 import { Component } from '@angular/core';
 import { HeaderComponent } from '../../../components/header/header.component';
 import { TableComponent } from '../../../components/table/table.component';
-import { RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { WhiteButtonComponent } from '../../../components/button/white-button/white-button.component';
 import { BlueButtonComponent } from '../../../components/button/blue-button/blue-button.component';
 import { RoleBasedAccessDirective } from '../../../shared/directive/role-based-access.directive';
+import { DataManagementComponent } from "../../../layouts/data-management/data-management.component";
+import { CotService } from '../../../shared/service/cot.service';
+import { COT } from '../../../shared/model/cot.model';
 
 @Component({
   selector: 'app-cot-list',
@@ -15,151 +18,109 @@ import { RoleBasedAccessDirective } from '../../../shared/directive/role-based-a
     RouterLink,
     WhiteButtonComponent,
     BlueButtonComponent,
-    RoleBasedAccessDirective
-  ],
+    RoleBasedAccessDirective,
+    DataManagementComponent
+],
   templateUrl: './cot-list.component.html',
   styleUrl: './cot-list.component.css',
 })
 export class CotListComponent {
   columns = [
     { header: 'Kode COT', field: 'kodeCot' },
-    { header: 'Mulai', field: 'mulai' },
-    { header: 'Selesai', field: 'selesai' },
+    { header: 'Mulai', field: 'tanggalMulai' },
+    { header: 'Selesai', field: 'tanggalSelesai' },
     { header: 'Kode Rating', field: 'kodeRating' },
     { header: 'Nama Training', field: 'namaTraining' },
     { header: 'Action', field: 'action' },
   ];
 
-  data = [
-    {
-      kodeCot: 'GSE-REGJAN24-01',
-      Mulai: '09 January 2024',
-      Selesai: '10 January 2024',
-      kodeRating: 'GSE - Reg',
-      namaTraining: 'Regulasi GSE',
-      editLink: '/cot/edit',
-      detailLink: '/cot/id/detail',
-      deleteMethod: () => this.deleteCot('GSE-REGJAN24-01')
-    },
-    {
-      kodeCot: 'BTTJAN24-02',
-      Mulai: '10 January 2024',
-      Selesai: '11 January 2024',
-      kodeRating: 'BTT Cont',
-      namaTraining: 'Baggage Towing Refreshment Tractor',
-    },
-    {
-      kodeCot: 'FLTJAN24-04',
-      Mulai: '15 January 2024',
-      Selesai: '16 January 2024',
-      kodeRating: 'FLT Cont',
-      namaTraining: 'Forklift Refreshment',
-    },
-    {
-      kodeCot: 'ATTJAN24-03',
-      Mulai: '11 January 2024',
-      Selesai: '12 January 2024',
-      kodeRating: 'AAT Cont',
-      namaTraining: 'Aircraft Towing Tractor Refreshment',
-    },
-    {
-      kodeCot: 'GSE-REGJAN24-05',
-      Mulai: '17 January 2024',
-      Selesai: '18 January 2024',
-      kodeRating: 'GSE - Reg',
-      namaTraining: 'Regulasi GSE',
-    },
-    {
-      kodeCot: 'FLTJAN24-06',
-      Mulai: '25 January 2024',
-      Selesai: '26 January 2024',
-      kodeRating: 'FLT',
-      namaTraining: 'Forklift',
-    },
-    {
-      kodeCot: 'BTTJAN24-07',
-      Mulai: '19 January 2024',
-      Selesai: '24 January 2024',
-      kodeRating: 'BTT',
-      namaTraining: 'Baggage Towing Tractor',
-    },
-    {
-      kodeCot: 'GSE-REGFEB24-01',
-      Mulai: '01 February 2024',
-      Selesai: '02 February 2024',
-      kodeRating: 'GSE - Reg',
-      namaTraining: 'Regulasi GSE',
-    },
-    {
-      kodeCot: 'ACSCONTFEB24-02',
-      Mulai: '02 February 2024',
-      Selesai: '05 February 2024',
-      kodeRating: 'ACS Cont',
-      namaTraining: 'Air Conditioning System Refreshment',
-    },
-    {
-      kodeCot: 'ASSCONTFEB24-06',
-      Mulai: '06 February 2024',
-      Selesai: '09 February 2024',
-      kodeRating: 'ASS Cont',
-      namaTraining: 'Air Starter System Refreshment',
-    },
-    {
-      kodeCot: 'GSE-REGFEB24-14',
-      Mulai: '13 February 2024',
-      Selesai: '14 February 2024',
-      kodeRating: 'GSE - Reg',
-      namaTraining: 'Regulasi GSE',
-    },
-    {
-      kodeCot: 'FLTFEB24-16',
-      Mulai: '16 February 2024',
-      Selesai: '19 February 2024',
-      kodeRating: 'FLT',
-      namaTraining: 'Forklift',
-    },
-    {
-      kodeCot: 'BTTFEB24-26',
-      Mulai: '26 February 2024',
-      Selesai: '29 February 2024',
-      kodeRating: 'BTT',
-      namaTraining: 'Baggage Towing Tractor',
-    },
-    {
-      kodeCot: 'GSE-REGFEB',
-      Mulai: '22 February 2024',
-      Selesai: '23 February 2024',
-      kodeRating: 'GSE - Reg',
-      namaTraining: 'Regulasi GSE',
-    },
-  ];
+  cot: COT[] = [];
 
-  currentPage = 1;
-  itemsPerPage = 10;
+  // Komponen pagination
+  currentPage: number = 1;
+  totalPages: number = 1;
+  itemsPerPage: number = 10;
+  searchQuery: string = '';
 
-  get paginatedData() {
-    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
-    const endIndex = startIndex + this.itemsPerPage;
-    return this.data.slice(startIndex, endIndex);
+  constructor(
+    private cotService: CotService,
+    private router: Router,
+    private route: ActivatedRoute,
+  ) {}
+
+  ngOnInit(): void {
+    this.route.queryParams.subscribe(params => {
+      this.searchQuery = params['q'] || '';
+      this.currentPage =+ params['page'] || 1;
+      if (this.searchQuery) {
+
+      } else {
+        this.getListCot(this.currentPage, this.itemsPerPage);
+      }
+    });
   }
 
-  get totalPages() {
-    return Math.ceil(this.data.length / this.itemsPerPage);
+  getListCot(page: number, size: number): void {
+    this.cotService.listCot(page, size).subscribe({
+      next: (response: any) => {
+        if (response.code === 200 && response.status === 'OK') {
+          this.cot = response.data.map((cot: any) => ({
+            kodeCot: cot.kodeCot,
+            tanggalMulai: new Date(cot.tanggalMulai).toLocaleDateString('id-ID', {
+              day: 'numeric',
+              month: 'long',
+              year: 'numeric'
+            }),
+            tanggalSelesai: new Date(cot.tanggalSelesai).toLocaleDateString('id-ID', {
+              day: 'numeric',
+              month: 'long',
+              year: 'numeric'
+            }),
+            kodeRating: cot.Capabillity.kodeRating,
+            namaTraining: cot.Capabillity.namaTraining,
+            editLink: response.actions.canEdit ? `/cot/${cot.id}/edit` : null,
+            detailLink: response.actions.canView ? `/cot/${cot.id}/detail` : null,
+            deleteMethod: response.actions.canDelete ? () => this.deleteCot(cot) : null,
+          }));
+          console.log(this.cot)
+          this.totalPages = response.paging.totalPage;
+        } else {
+          this.cot = [];
+        }
+      },
+      error: (error) => {
+        console.log(error)
+        this.cot = [];
+      }
+    });
   }
 
-  nextPage() {
-    if (this.currentPage * this.itemsPerPage < this.data.length) {
-      this.currentPage++;
-    }
+  deleteCot(cot: COT[]) {
+    throw new Error('Method not implemented.');
   }
 
-  previousPage() {
-    if (this.currentPage > 1) {
-      this.currentPage--;
-    }
+  onPageChanged(page: number): void {
+    this.router.navigate([], {
+      queryParams: { page },
+      queryParamsHandling: 'merge',
+    });
   }
 
-  deleteCot(noPegawai: string) {
-    alert(`Delete COT with kode cot: ${noPegawai}`);
+  viewAll(): void {
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: { q: null, page: null },
+      queryParamsHandling: 'merge',
+    });
+
+    this.searchQuery = '';
+  }
+
+  onBlueButtonClick() {
+    this.router.navigateByUrl('/capability/add');
+  }
+
+  onWhiteButtonClick() {
+    this.router.navigateByUrl('/home');
   }
 }
