@@ -5,51 +5,78 @@ import { of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 
 export const AuthAndRoleGuard: CanActivateFn = (route, state) => {
-  const router = inject(Router);
-  const authService = inject(AuthService);
+  const router = inject(Router); // Mengambil instance Router untuk navigasi
+  const authService = inject(AuthService); // Mengambil instance AuthService untuk memverifikasi user melalui metode me()
 
-  // Periksa apakah data pengguna ada di cache
-  const cachedUserRole = localStorage.getItem('currentUserRole');
-  const cachedParticipantId = localStorage.getItem('participantId');
+  // Fungsi untuk memeriksa dan memproses role user sesuai dengan role yang diizinkan
+  const checkAndProcessRole = (userRole: string, allowedRoles: string[]): boolean => {
+    const normalizedUserRole = userRole.toLowerCase(); // Normalisasi role user ke huruf kecil
+    const normalizedAllowedRoles = allowedRoles.map(role => role.toLowerCase()); // Normalisasi role yang diizinkan
 
-  if (cachedUserRole && cachedParticipantId) {
-    const userRole = cachedUserRole.toLowerCase();
-    const allowedRoles = (route.data['roles'] as Array<string>).map(role => role.toLowerCase());
-
-    if (allowedRoles.includes(userRole)) {
-      return true; // Akses diizinkan
+    if (normalizedAllowedRoles.includes(normalizedUserRole)) { // Jika role user sesuai dengan role yang diizinkan
+      return true;
     } else {
-      router.navigate(['/home']);
+      router.navigate(['/home']); // Jika tidak sesuai, arahkan ke halaman /home
       return false;
     }
+  };
+
+  // Fungsi untuk menghapus data dari session storage dan mengarahkan ke halaman login
+  const clearStorageAndRedirect = () => {
+    sessionStorage.removeItem('currentUserRole'); // Hapus role user
+    sessionStorage.removeItem('participantId'); // Hapus ID participant
+    sessionStorage.removeItem('tokenExpiration'); // Hapus waktu kadaluarsa token
+    router.navigateByUrl('/login'); // Arahkan ke halaman login
+    return false;
+  };
+
+  // Fungsi untuk memeriksa apakah token sudah expired berdasarkan waktu kadaluarsa yang disimpan
+  const isTokenExpired = (): boolean => {
+    const expiration = sessionStorage.getItem('tokenExpiration'); // Ambil waktu kadaluarsa token
+    if (!expiration) return true; // Jika tidak ada waktu kadaluarsa, anggap token expired
+
+    return new Date().getTime() > parseInt(expiration); // Bandingkan waktu sekarang dengan waktu kadaluarsa
+  };
+
+  // Ambil role user dan ID participant dari session storage
+  const cachedUserRole = sessionStorage.getItem('currentUserRole');
+  const cachedParticipantId = sessionStorage.getItem('participantId');
+
+  if (cachedUserRole && cachedParticipantId) {
+    // Jika ada data di cache, periksa apakah token sudah expired
+    if (!isTokenExpired()) {
+      return of(checkAndProcessRole(
+        cachedUserRole,
+        route.data['roles'] as Array<string> // Memastikan role user cocok dengan role yang diizinkan
+      ));
+    }
+    // Jika token expired, hapus data di storage dan minta user autentikasi ulang
+    return clearStorageAndRedirect();
   }
 
+  // Jika tidak ada data di cache atau token expired, panggil metode me() untuk memverifikasi user
   return authService.me().pipe(
     map((response: any) => {
-      if (response.code === 200 || response.status === 'OK') {
-        console.log(response.data);
-        localStorage.setItem('currentUserRole', response.data.role.role);
-        localStorage.setItem('participantId', response.data.participantId);
-        const userRole = response.data.role.role.toLowerCase(); // Ambil role dari response
-        const allowedRoles = (route.data['roles'] as Array<string>).map(role => role.toLowerCase());
+      if (response.code === 200 || response.status === 'OK') { // Jika respons berhasil
+        // Simpan data user dan waktu expired token di session storage
+        sessionStorage.setItem('currentUserRole', response.data.role.role);
+        sessionStorage.setItem('participantId', response.data.participantId);
 
-        // Cek apakah role pengguna termasuk dalam role yang diizinkan
-        if (allowedRoles.includes(userRole)) {
-          return true; // Akses diizinkan
-        } else {
-          router.navigate(['/home']); // Akses tidak diizinkan
-          return false;
-        }
-      } else {
-        router.navigateByUrl('/login'); // Jika tidak terautentikasi, redirect ke login
-        return false;
+        // Set waktu kadaluarsa token (misalnya 1 jam dari sekarang)
+        const expirationTime = new Date().getTime() + (60 * 60 * 1000);
+        sessionStorage.setItem('tokenExpiration', expirationTime.toString());
+
+        // Lakukan pengecekan role user setelah data disimpan
+        return checkAndProcessRole(
+          response.data.role.role,
+          route.data['roles'] as Array<string>
+        );
       }
+      // Jika gagal mendapatkan respons, hapus data dan arahkan ke login
+      return clearStorageAndRedirect();
     }),
     catchError(() => {
-      localStorage.removeItem('currentUserRole');
-      localStorage.removeItem('participantId');
-      router.navigateByUrl('/login'); // Jika ada error, redirect ke halaman login
-      return of(false);
+      return of(clearStorageAndRedirect()); // Jika terjadi error, hapus data dan arahkan ke login
     })
   );
 };

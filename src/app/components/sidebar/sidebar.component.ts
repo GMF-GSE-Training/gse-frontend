@@ -19,7 +19,7 @@ import { ParticipantService } from '../../shared/service/participant.service';
 export class SidebarComponent implements OnChanges {
   @Input() isMenuVisible: boolean = false;
   @Output() menuClose = new EventEmitter<void>();
-  id: string = localStorage.getItem('participantId')!;
+  id: string = sessionStorage.getItem('participantId')!;
 
   generalMenu = [
     {
@@ -79,7 +79,7 @@ export class SidebarComponent implements OnChanges {
   ngOnChanges(changes: SimpleChanges) {
     if (changes['isMenuVisible'] && changes['isMenuVisible'].currentValue === true) {
       // Ambil ID ketika sidebar muncul
-      this.id = localStorage.getItem('participantId')!;
+      this.id = sessionStorage.getItem('participantId')!;
       // Update `generalUserMenu` jika perlu
       this.generalUserMenu = [
         {
@@ -110,12 +110,12 @@ export class SidebarComponent implements OnChanges {
   logout() {
     this.authService.logout().subscribe({
       next: () => {
-        localStorage.clear(); // Clear all localStorage items
+        sessionStorage.clear(); // Clear all sessionStorage items
         this.router.navigateByUrl('/login');
       },
       error: (error) => {
-        console.log(error)
-        alert(`${error.error.errors}`);
+        this.router.navigateByUrl('/login');
+        sessionStorage.clear();
       }
     });
   }

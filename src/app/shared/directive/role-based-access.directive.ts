@@ -25,14 +25,14 @@ export class RoleBasedAccessDirective {
 
   // Load role from cache if available
   private loadRoleFromCache(): void {
-    const cachedRole = localStorage.getItem('currentUserRole');
+    const cachedRole = sessionStorage.getItem('currentUserRole');
     if (cachedRole) {
       this.currentUserRole = cachedRole;
       this.updateView();
     } else {
       this.authService.me().subscribe(user => {
         this.currentUserRole = user.data.role.role;
-        localStorage.setItem('currentUserRole', this.currentUserRole); // Save to cache
+        sessionStorage.setItem('currentUserRole', this.currentUserRole); // Save to cache
         this.updateView();
       });
     }
