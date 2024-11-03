@@ -1,6 +1,6 @@
 <app-title [pageTitle]="pageTitle"></app-title>
 
-<form #form="ngForm" (submit)="onSubmit()">
+<form #form="ngForm" (ngSubmit)="onSubmit()">
   <div class="form-container">
     <div class="left-column">
       <app-base-input
@@ -8,8 +8,8 @@
         type="text"
         inputMode="text"
         [isRequired]="true"
-        name="kodeRating"
         [(ngModel)]="cot.kodeCot"
+        name="kodeRating"
         #kodeCot="ngModel"
         required
       >
@@ -21,7 +21,7 @@
         [isRequired]="true"
         [options]="capabilityOptions"
         [initialValue]="cot.capabilityId"
-        (selectionChange)="onTrainingSelected($event)"
+        (selectionChange)="onCapabilitySelected($event)"
         required>
       </app-dropdown-input>
 
@@ -123,7 +123,7 @@
   </div>
 
   <div class="container-button">
-    <app-white-button routerLink="/cot" class="button">Kembali</app-white-button>
+    <app-white-button type="button" routerLink="/cot" class="button">Kembali</app-white-button>
     <app-blue-button type="submit" [disabled]="form.invalid!" class="button">Simpan</app-blue-button>
   </div>
 </form>

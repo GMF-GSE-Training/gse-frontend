@@ -54,6 +54,12 @@ export class EditCotComponent implements OnInit {
       this.cotService.getCotById(id).subscribe({
         next: (response) => {
           this.cot = response.data as COT;
+          if (this.cot.tanggalMulai) {
+            this.cot.tanggalMulai = new Date(this.cot.tanggalMulai).toISOString().split('T')[0];
+          }
+          if (this.cot.tanggalSelesai) {
+            this.cot.tanggalSelesai = new Date(this.cot.tanggalSelesai).toISOString().split('T')[0];
+          }
         },
         error: (error) => {
           console.log(error);

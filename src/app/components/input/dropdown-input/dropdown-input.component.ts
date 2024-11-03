@@ -25,11 +25,11 @@ export class DropdownInputComponent implements OnChanges {
   searchText: string = ''; // For filtering options
   filteredOptions: { label: string, value: string }[] = []; // To hold filtered options
 
-  ngOnChanges(changes: SimpleChanges) {
+  ngOnChanges() {
     this.filteredOptions = [...this.options]; // Initialize filteredOptions with all options
 
     // Handle initial value selection
-    if (changes['initialValue'] && this.initialValue && this.options.length > 0) {
+    if (this.initialValue) {
       const selectedOption = this.options.find(option => option.value === this.initialValue);
       if (selectedOption) {
         this.selectedValue = selectedOption.label;

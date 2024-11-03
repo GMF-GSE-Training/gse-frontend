@@ -51,46 +51,23 @@ export class CotFormComponent {
   }
 
   ngOnChanges(): void {
-    if (this.cot) {
-      // Format dates using new Date()
-      if (this.cot.tanggalMulai) {
-        this.cot.tanggalMulai = new Date(this.cot.tanggalMulai).toISOString().split('T')[0];
+    this.capabilityService.listCapability().subscribe({
+      next: (response) => {
+        const capability = response.data;
+        this.capabilityData = capability;
+        this.capabilityOptions = capability.map(training => ({
+          label: training.kodeTraining,
+          value: training.id
+        }));
+      },
+      error: (error) => {
+        console.log(error);
       }
-      if (this.cot.tanggalSelesai) {
-        this.cot.tanggalSelesai = new Date(this.cot.tanggalSelesai).toISOString().split('T')[0];
-      }
-
-      // If editing existing COT
-      if (this.cot.Capabillity) {
-        const capability = this.cot.Capabillity;
-        this.capabilityData = [capability];
-        this.capabilityOptions = [{
-          label: capability.kodeTraining,
-          value: capability.id
-        }];
-
-        // Set the selected capability
-        this.selectedCapabily = capability;
-      }
-    } else {
-      // If creating new COT
-      this.capabilityService.listCapability().subscribe({
-        next: (response) => {
-          const capability = response.data;
-          this.capabilityData = capability;
-          this.capabilityOptions = capability.map(training => ({
-            label: training.kodeTraining,
-            value: training.id
-          }));
-        },
-        error: (error) => {
-          console.log(error);
-        }
-      });
-    }
+    });
   }
 
-  onTrainingSelected(capability: any) {
+  onCapabilitySelected(capability: any) {
     this.selectedCapabily = this.capabilityData.find(training => training.id === capability);
+    this.cot.capabilityId = capability;
   }
 }

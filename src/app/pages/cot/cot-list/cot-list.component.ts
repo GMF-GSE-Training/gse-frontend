@@ -82,7 +82,6 @@ export class CotListComponent {
             detailLink: response.actions.canView ? `/cot/${cot.id}/detail` : null,
             deleteMethod: response.actions.canDelete ? () => this.deleteCot(cot) : null,
           }));
-          console.log(this.cot)
           this.totalPages = response.paging.totalPage;
         } else {
           this.cot = [];
