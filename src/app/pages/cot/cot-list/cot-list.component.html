@@ -5,6 +5,7 @@
   [data]="cot"
   [totalPages]="totalPages"
   [currentPage]="currentPage"
+  (searchChange)="onSearchChanged($event)"
   (pageChange)="onPageChanged($event)"
   (viewAllChange)="viewAll()"
   [blueButtonRoute]="'/cot/add'"

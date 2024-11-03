@@ -44,6 +44,12 @@ export class CotListComponent {
   itemsPerPage: number = 10;
   searchQuery: string = '';
 
+  dateOptions: Intl.DateTimeFormatOptions = {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric' // Pastikan nilai-nilai ini sesuai dengan spesifikasi Intl.DateTimeFormatOptions
+  };
+
   constructor(
     private readonly cotService: CotService,
     private readonly router: Router,
@@ -57,7 +63,7 @@ export class CotListComponent {
       this.searchQuery = params['q'] || '';
       this.currentPage =+ params['page'] || 1;
       if (this.searchQuery) {
-
+        this.getSearchCot(this.searchQuery, this.currentPage, this.itemsPerPage);
       } else {
         this.getListCot(this.currentPage, this.itemsPerPage);
       }
@@ -68,16 +74,10 @@ export class CotListComponent {
     this.cotService.listCot(page, size).subscribe({
       next: ({ code, status, data, actions, paging }) => {
         if (code === 200 && status === 'OK' && Array.isArray(data)) {
-          const dateOptions: Intl.DateTimeFormatOptions = {
-            day: 'numeric',
-            month: 'long',
-            year: 'numeric' // Pastikan nilai-nilai ini sesuai dengan spesifikasi Intl.DateTimeFormatOptions
-          };
-
           this.cot = data.map((cot: COT) => ({
             ...cot,
-            tanggalMulai: new Date(cot.tanggalMulai).toLocaleDateString('id-ID', dateOptions),
-            tanggalSelesai: new Date(cot.tanggalSelesai).toLocaleDateString('id-ID', dateOptions),
+            tanggalMulai: new Date(cot.tanggalMulai).toLocaleDateString('id-ID', this.dateOptions),
+            tanggalSelesai: new Date(cot.tanggalSelesai).toLocaleDateString('id-ID', this.dateOptions),
             kodeRating: cot.Capability?.kodeRating,
             namaTraining: cot.Capability?.namaTraining,
             editLink: actions?.canEdit ? `/cot/${cot.id}/edit` : null,
@@ -111,6 +111,42 @@ export class CotListComponent {
         }
       });
     }
+  }
+
+  getSearchCot(query: string, page: number, size: number) {
+    this.cotService.searchCot(query, page, size).subscribe({
+      next: ({ code, status, data, actions, paging }) => {
+        if (code === 200 && status === 'OK' && Array.isArray(data)) {
+          this.cot = data.map((cot: COT) => ({
+            ...cot,
+            tanggalMulai: new Date(cot.tanggalMulai).toLocaleDateString('id-ID', this.dateOptions),
+            tanggalSelesai: new Date(cot.tanggalSelesai).toLocaleDateString('id-ID', this.dateOptions),
+            kodeRating: cot.Capability?.kodeRating,
+            namaTraining: cot.Capability?.namaTraining,
+            editLink: actions?.canEdit ? `/cot/${cot.id}/edit` : null,
+            detailLink: actions?.canView ? `/cot/${cot.id}/detail` : null,
+            deleteMethod: actions?.canDelete ? () => this.deleteCot(cot) : null,
+          }));
+
+          this.totalPages = paging?.totalPage || 1;
+        } else {
+          this.cot = [];
+        }
+      },
+      error: (error) => {
+        console.error('Error fetching data:', error);
+        this.cot = [];
+      }
+    });
+  }
+
+  onSearchChanged(query: string): void {
+    this.searchQuery = query;
+    this.router.navigate([], {
+      queryParams: { search: query },
+      queryParamsHandling: 'merge',
+    });
+    this.getSearchCot(query, 1, this.itemsPerPage);
   }
 
   onPageChanged(page: number): void {

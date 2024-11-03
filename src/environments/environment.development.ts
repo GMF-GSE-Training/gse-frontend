@@ -36,7 +36,8 @@ export const environment = {
     },
     cot: {
       base: 'cot',
-      list: 'cot/list/result'
+      list: 'cot/list/result',
+      search: 'cot/search/result'
     }
   },
 };

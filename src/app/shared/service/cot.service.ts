@@ -34,4 +34,10 @@ export class CotService {
     listCot(page: number = 1, size: number = 10): Observable<CotResponse> {
       return this.http.get<CotResponse>(`${this.apiUrl}/${this.endpoint.list}?page=${page}&size=${size}`, { withCredentials: true });
     }
+
+    searchCot(q: string, page: number = 1, size: number = 10): Observable<CotResponse> {
+      return this.http.get<CotResponse>(`${this.apiUrl}/${this.endpoint.search}?q=${q}&page=${page}&size=${size}`,
+        { withCredentials: true }
+      );
+    }
 }

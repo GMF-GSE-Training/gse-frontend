@@ -122,7 +122,7 @@ export const routes: Routes = [
     path: 'capability/:id/detail',
     component: CapabilityDetailComponent,
     canActivate: [AuthAndRoleGuard],
-    data: { roles: ['super admin', 'supervisor'] }
+    data: { roles: ['super admin', 'supervisor', 'lcu', 'user'] }
   },
   {
     path: 'cot',
