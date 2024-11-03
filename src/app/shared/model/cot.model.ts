@@ -1,3 +1,5 @@
+import { Capability } from "./capability.model";
+
 export interface CreateCOT {
   kodeCot: string;
   capabilityId: string;
@@ -37,7 +39,7 @@ export interface COT {
   instrukturPraktek1: string;
   instrukturPraktek2: string;
   status: boolean;
-  capability?: Object;
+  Capability: Capability;
 }
 
 export interface CotResponse {

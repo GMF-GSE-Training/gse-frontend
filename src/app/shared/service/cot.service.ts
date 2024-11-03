@@ -27,6 +27,10 @@ export class CotService {
       return this.http.patch<CotResponse>(`${this.apiUrl}/${this.endpoint.base}/${id}`, request, { withCredentials: true });
     }
 
+    deleteCot(id: string): Observable<CotResponse> {
+      return this.http.delete<CotResponse>(`${this.apiUrl}/${this.endpoint.base}/${id}`, { withCredentials: true });
+    }
+
     listCot(page: number = 1, size: number = 10): Observable<CotResponse> {
       return this.http.get<CotResponse>(`${this.apiUrl}/${this.endpoint.list}?page=${page}&size=${size}`, { withCredentials: true });
     }

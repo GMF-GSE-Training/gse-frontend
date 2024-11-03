@@ -8,6 +8,8 @@ import { RoleBasedAccessDirective } from '../../../shared/directive/role-based-a
 import { DataManagementComponent } from "../../../layouts/data-management/data-management.component";
 import { CotService } from '../../../shared/service/cot.service';
 import { COT } from '../../../shared/model/cot.model';
+import { SweetalertService } from '../../../shared/service/sweetaler.service';
+import { ErrorHandlerService } from '../../../shared/service/error-handler.service';
 
 @Component({
   selector: 'app-cot-list',
@@ -43,9 +45,11 @@ export class CotListComponent {
   searchQuery: string = '';
 
   constructor(
-    private cotService: CotService,
-    private router: Router,
-    private route: ActivatedRoute,
+    private readonly cotService: CotService,
+    private readonly router: Router,
+    private readonly route: ActivatedRoute,
+    private readonly sweetalertService: SweetalertService,
+    private readonly errorHandlerService: ErrorHandlerService,
   ) {}
 
   ngOnInit(): void {
@@ -62,40 +66,51 @@ export class CotListComponent {
 
   getListCot(page: number, size: number): void {
     this.cotService.listCot(page, size).subscribe({
-      next: (response: any) => {
-        if (response.code === 200 && response.status === 'OK') {
-          this.cot = response.data.map((cot: any) => ({
-            kodeCot: cot.kodeCot,
-            tanggalMulai: new Date(cot.tanggalMulai).toLocaleDateString('id-ID', {
-              day: 'numeric',
-              month: 'long',
-              year: 'numeric'
-            }),
-            tanggalSelesai: new Date(cot.tanggalSelesai).toLocaleDateString('id-ID', {
-              day: 'numeric',
-              month: 'long',
-              year: 'numeric'
-            }),
-            kodeRating: cot.Capabillity.kodeRating,
-            namaTraining: cot.Capabillity.namaTraining,
-            editLink: response.actions.canEdit ? `/cot/${cot.id}/edit` : null,
-            detailLink: response.actions.canView ? `/cot/${cot.id}/detail` : null,
-            deleteMethod: response.actions.canDelete ? () => this.deleteCot(cot) : null,
+      next: ({ code, status, data, actions, paging }) => {
+        if (code === 200 && status === 'OK' && Array.isArray(data)) {
+          const dateOptions: Intl.DateTimeFormatOptions = {
+            day: 'numeric',
+            month: 'long',
+            year: 'numeric' // Pastikan nilai-nilai ini sesuai dengan spesifikasi Intl.DateTimeFormatOptions
+          };
+
+          this.cot = data.map((cot: COT) => ({
+            ...cot,
+            tanggalMulai: new Date(cot.tanggalMulai).toLocaleDateString('id-ID', dateOptions),
+            tanggalSelesai: new Date(cot.tanggalSelesai).toLocaleDateString('id-ID', dateOptions),
+            kodeRating: cot.Capability?.kodeRating,
+            namaTraining: cot.Capability?.namaTraining,
+            editLink: actions?.canEdit ? `/cot/${cot.id}/edit` : null,
+            detailLink: actions?.canView ? `/cot/${cot.id}/detail` : null,
+            deleteMethod: actions?.canDelete ? () => this.deleteCot(cot) : null,
           }));
-          this.totalPages = response.paging.totalPage;
+
+          this.totalPages = paging?.totalPage || 1;
         } else {
           this.cot = [];
         }
       },
       error: (error) => {
-        console.log(error)
+        console.error('Error fetching data:', error);
         this.cot = [];
       }
     });
   }
 
-  deleteCot(cot: COT[]) {
-    throw new Error('Method not implemented.');
+  async deleteCot(cot: COT): Promise<void> {
+    const isConfirmed = await this.sweetalertService.confirm('Anda Yakin?', `Apakah anda ingin menghapus COT ini : ${cot.kodeCot}?`, 'warning', 'Ya, hapus!');
+    if (isConfirmed) {
+      this.cotService.deleteCot(cot.id).subscribe({
+        next: () => {
+          this.sweetalertService.alert(isConfirmed, 'Dihapus!', 'Data COT berhasil dihapus', 'success');
+          this.cot = this.cot.filter(c => c.id !== cot.id);
+          console.log(this.cot);
+        },
+        error: () => {
+          this.sweetalertService.alert(!isConfirmed, 'Gagal!', 'Gagal menghapus data peserta', 'error');
+        }
+      });
+    }
   }
 
   onPageChanged(page: number): void {

@@ -37,7 +37,7 @@ export class EditCotComponent implements OnInit {
     instrukturPraktek1: '',
     instrukturPraktek2: '',
     status: undefined!,
-    capability: undefined,
+    Capability: undefined!,
   }
 
   constructor(
