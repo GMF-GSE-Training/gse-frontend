@@ -66,7 +66,7 @@ export class SidebarComponent implements OnChanges {
     },
     {
       name: 'E-Sign',
-      routerLink: "/sign"
+      routerLink: "/e-sign"
     },
   ];
 

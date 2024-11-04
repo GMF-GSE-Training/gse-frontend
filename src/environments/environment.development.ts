@@ -40,6 +40,9 @@ export const environment = {
       search: 'cot/search/result',
       participanCot: 'cot/participant-cot',
       unregisteredParticipants: 'unregistered/result'
+    },
+    eSign: {
+      base: 'e-sign'
     }
   },
 };

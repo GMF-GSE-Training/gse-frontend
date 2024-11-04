@@ -1,0 +1,76 @@
+<app-title [pageTitle]="pageTitle"></app-title>
+
+<form #form="ngForm" (ngSubmit)="onSubmit()">
+  <div class="form-container">
+    <div class="left-column">
+      <app-base-input
+        [(ngModel)]="eSign.noPegawai"
+        name="noPegawai"
+        label="No Pegawai"
+        [isRequired]="true"
+        placeholder="No Pegawai"
+        type="text"
+        inputMode="text"
+        #noPegawai="ngModel"
+        required
+      >
+      </app-base-input>
+
+      <app-base-input
+        [(ngModel)]="eSign.role"
+        name="role"
+        label="Role"
+        [isRequired]="true"
+        placeholder="Role"
+        type="text"
+        inputMode="text"
+        #nik="ngModel"
+        required
+      >
+      </app-base-input>
+
+      <app-base-input
+        [(ngModel)]="eSign.name"
+        name="name"
+        label="Nama"
+        [isRequired]="true"
+        placeholder="Nama"
+        type="text"
+        inputMode="text"
+        #name="ngModel"
+        required
+        [restrictToPattern]="'^[a-zA-Z ]+$'"
+        [pattern]="'^[a-zA-Z ]+$'"
+      >
+      </app-base-input>
+    </div>
+    <div class="right-column">
+      <app-file-input
+        idInput="e_sign_input"
+        (valueChange)="onFileChange('eSign', $event)"
+        label="Tanda Tangan"
+        [isRequired]="true"
+        [fileName]="eSign.eSignFileName"
+        fileType=".png, .jpg, .jpeg"
+        [required]="eSign.eSignFileName"
+      >
+    </app-file-input>
+    <p *ngIf="!eSign.eSignFileName && form.submitted" class="error-message">Tanda Tangan wajib diunggah</p>
+
+    <app-dropdown-input
+        label="Status"
+        placeholder="--- Pilih capability ---"
+        [isRequired]="true"
+        [options]="statusOptions"
+        [initialValue]="eSign.Status"
+        (selectionChange)="onStatusSelected($event)"
+        required>
+      </app-dropdown-input>
+    </div>
+  </div>
+
+  <div class="container-button">
+    <app-white-button type="button" routerLink="/participants" class="button">Kembali</app-white-button>
+    <app-blue-button type="submit" class="button" [disabled]="form.invalid!">Simpan</app-blue-button>
+  </div>
+</form>

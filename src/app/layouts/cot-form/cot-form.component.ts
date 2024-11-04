@@ -31,7 +31,6 @@ export class CotFormComponent {
 
   @Input() pageTitle: string = '';
   @Input() cot: any = {};
-  @Input() options: { label: string, value: any }[] = []; // List of options
   @Input() selectedValue: any; // Initial selected value (optional)
 
   // Output event to emit the selected value to the parent component
@@ -67,7 +66,9 @@ export class CotFormComponent {
   }
 
   onCapabilitySelected(capability: any) {
+    console.log(capability);
     this.selectedCapabily = this.capabilityData.find(training => training.id === capability);
+    console.log(this.selectedCapabily)
     this.cot.capabilityId = capability;
   }
 }

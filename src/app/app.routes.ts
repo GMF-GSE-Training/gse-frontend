@@ -191,19 +191,19 @@ export const routes: Routes = [
     data: { roles: ['super admin', 'lcu'] }
   },
   {
-    path: 'sign/add',
+    path: 'e-sign/add',
     component: AddSignComponent,
     canActivate: [AuthAndRoleGuard],
     data: { roles: ['super admin'] }
   },
   {
-    path: 'sign',
+    path: 'e-sign',
     component: SignatureListComponent,
     canActivate: [AuthAndRoleGuard],
     data: { roles: ['super admin', 'supervisor', 'lcu'] }
   },
   {
-    path: 'sign/:id/edit',
+    path: 'e-sign/:id/edit',
     component: EditSignComponent,
     canActivate: [AuthAndRoleGuard],
     data: { roles: ['super admin'] }
