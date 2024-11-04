@@ -15,7 +15,7 @@ import { BaseInputComponent } from "../base-input/base-input.component";
 export class DropdownInputComponent implements OnChanges {
   @Input() label: string = '';
   @Input() isRequired: boolean = false;
-  @Input() options: { label: string, value: string }[] = []; // List of options
+  @Input() options: { label: string, value: any }[] = []; // List of options
   @Input() placeholder: string = 'Select an option'; // Placeholder text
   @Input() selectedValue: any; // Initial selected value (optional)
   @Input() initialValue: string = '';
@@ -23,7 +23,7 @@ export class DropdownInputComponent implements OnChanges {
 
   isActive: boolean = false;
   searchText: string = ''; // For filtering options
-  filteredOptions: { label: string, value: string }[] = []; // To hold filtered options
+  filteredOptions: { label: string, value: any }[] = []; // To hold filtered options
 
   ngOnChanges() {
     this.filteredOptions = [...this.options]; // Initialize filteredOptions with all options
