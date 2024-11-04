@@ -27,6 +27,22 @@ export class CotService {
       return this.http.patch<CotResponse>(`${this.apiUrl}/${this.endpoint.base}/${id}`, request, { withCredentials: true });
     }
 
+    getUnregisteredParticipants(cotId: string, page: number = 1, size: number = 10): Observable<any> {
+      return this.http.get<any>(`${this.apiUrl}/${this.endpoint.participanCot}/${cotId}/${this.endpoint.unregisteredParticipants}?page=${page}&size=${size}`, { withCredentials: true });
+    }
+
+    addParticipantToCot(cotId: string, participantIds: any): Observable<any> {
+      return this.http.post<any>(`${this.apiUrl}/${this.endpoint.participanCot}/${cotId}`, participantIds, { withCredentials: true });
+    }
+
+    getParticipantCot(cotId: string, page: number = 1, size: number = 10): Observable<any> {
+      return this.http.get<any>(`${this.apiUrl}/${this.endpoint.participanCot}/${cotId}?page=${page}&size=${size}`, { withCredentials: true });
+    }
+
+    deleteParticipantFromCot(cotId: string, participantId: string): Observable<CotResponse> {
+      return this.http.delete<CotResponse>(`${this.apiUrl}/${this.endpoint.participanCot}/${cotId}/${participantId}`, { withCredentials: true });
+    }
+
     deleteCot(id: string): Observable<CotResponse> {
       return this.http.delete<CotResponse>(`${this.apiUrl}/${this.endpoint.base}/${id}`, { withCredentials: true });
     }

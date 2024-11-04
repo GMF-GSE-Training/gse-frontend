@@ -1,27 +1,37 @@
-<main>
+<div class="main-content" [class.modal-active]="showModal">
   <div class="title-container">
     <h1 class="title">Calender Of Training</h1>
   </div>
 
   <app-detailed-view [leftTableData]="leftTableData" [rightTableData]="rightTableData"></app-detailed-view>
 
-  <div class="container">
-    <app-table [columns]="columns" [data]="paginatedData"></app-table>
-  </div>
+  <app-data-management
+    placeHolder="Cari participant"
+    [columns]="columns"
+    [data]="participantsCot"
+    [totalPages]="totalPages"
+    [currentPage]="currentPage"
+    (pageChange)="onPageChanged($event)"
+    (viewAllChange)="viewAll()"
+    whiteButtonRoute="/cot">
+  </app-data-management>
 
-  <div class="nav">
-    <div class="nav-pagination">
-      <p (click)="previousPage()">&lt; Preview</p>
-      <p>{{ currentPage }} / {{ totalPages }}</p>
-      <p (click)="nextPage()">Next &gt;</p>
-    </div>
-    <app-white-button class="add-button" routerLink="/add-participant-cot"><i class="fa-solid fa-plus"></i></app-white-button>
+  <div class="add-button">
+    <app-white-button (click)="openModal()">
+      <i class="fa-solid fa-plus"></i>
+    </app-white-button>
   </div>
+</div>
 
-  <div class="container-button">
-    <app-white-button routerLink="/home">Back</app-white-button>
-    <app-blue-button routerLink="/cot/finish">Finish</app-blue-button>
-    <app-white-button routerLink="/cot">Cancel</app-white-button>
-  </div>
-
-</main>
+<div *ngIf="showModal" class="modal-container">
+  <app-modal
+    [columns]="modalColumns"
+    [data]="unregisteredParticipants"
+    [currentPage]="modalCurrentPage"
+    [totalPage]="modalTotalPages"
+    (pageChange)="modalPageChanged($event)"
+    (selectedIdsChange)="onSelectedIdsChange($event)"
+    (save)="saveSelectedParticipants()"
+    (cancel)="closeModal()">
+  </app-modal>
+</div>

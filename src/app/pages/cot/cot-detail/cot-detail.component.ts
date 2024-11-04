@@ -4,7 +4,14 @@ import { DetailedViewComponent } from '../../../components/detailed-view/detaile
 import { TableComponent } from '../../../components/table/table.component';
 import { WhiteButtonComponent } from "../../../components/button/white-button/white-button.component";
 import { BlueButtonComponent } from "../../../components/button/blue-button/blue-button.component";
-import { RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { CotService } from '../../../shared/service/cot.service';
+import { ErrorHandlerService } from '../../../shared/service/error-handler.service';
+import { SweetalertService } from '../../../shared/service/sweetaler.service';
+import { PaginationComponent } from "../../../components/pagination/pagination.component";
+import { DataManagementComponent } from "../../../layouts/data-management/data-management.component";
+import { ModalComponent } from "../../../components/modal/modal.component";
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-cot-detail',
@@ -16,198 +23,214 @@ import { RouterLink } from '@angular/router';
     WhiteButtonComponent,
     BlueButtonComponent,
     RouterLink,
-  ],
+    PaginationComponent,
+    DataManagementComponent,
+    ModalComponent,
+    CommonModule,
+],
   templateUrl: './cot-detail.component.html',
   styleUrl: './cot-detail.component.css',
 })
 export class CotDetailComponent {
-  leftTableData = [
-    { label: 'Kode COT', value: 'GSE-REGJAN24-01' },
-    { label: 'Kode Rating', value: 'GSE Reg' },
-    { label: 'Nama training', value: 'Regulasi GSE' },
-    { label: 'Tanggal Mulai', value: '09 January 2024' },
-    { label: 'Tanggal Selesai', value: '10 January 2024' },
-    { label: 'Lokasi Training', value: 'R.FAM-Material Building lt.2' },
-  ];
+  searchQuery: string = '';
+  searchTerm: any;
 
-  rightTableData = [
-    { label: 'Instruktur Regulasi GSE', value: 'Fanny Nur Alim' },
-    { label: 'Instruktur Teori Rating', value: '-' },
-    { label: 'Instruktur Praktek 1', value: '-' },
-    { label: 'Instruktur Praktek 2', value: '-' },
-    { label: 'Jumlah Peserta', value: '18' },
-    { label: 'Status', value: '-' },
-  ];
+  constructor(
+    private readonly route: ActivatedRoute,
+    private readonly cotService: CotService,
+    private readonly sweetalertService: SweetalertService,
+    private readonly router: Router,
+  ) { }
+
+  id = this.route.snapshot.paramMap.get('id');
+
+  leftTableData: any[] = [];
+  rightTableData: any[] = [];
 
   columns = [
     { header: 'No Pegawai', field: 'noPegawai' },
     { header: 'Nama', field: 'nama' },
     { header: 'Dinas', field: 'dinas' },
-    { header: 'SIM', field: 'sim' },
-    { header: 'Exp ket Sehat & Buta Warna', field: 'expKetSehat' },
-    { header: 'Exp Bebas Narkoba', field: 'expBebasNarkoba' },
+    { header: 'SIM', field: 'simA' },
+    { header: 'Tanggal Keluar Sehat & Buta Warna', field: 'tglKeluarSuratSehatButaWarna' },
+    { header: 'Tanggal Kelua Bebas Narkoba', field: 'tglKeluarSuratBebasNarkoba' },
     { header: 'Keterangan', field: 'keterangan' },
     { header: 'Action', field: 'action' },
   ];
 
-  data = [
-    {
-      nama: 'Heri Susanto',
-      noPegawai: '160088',
-      dinas: 'TL',
-      bidang: 'TLC - 4',
-      perusahaan: 'Kopkar',
-      editLink: '/participant/edit',
-      detailLink: '/participant/view',
-      deleteMethod: () => this.deleteParticipant('160088'),
-    },
-    {
-      nama: 'Agus Tariono',
-      noPegawai: '160104',
-      dinas: 'TL',
-      bidang: 'TLC - 4',
-      perusahaan: 'DPP',
-    },
-    {
-      nama: 'Adityo Akhmad Taufiq S.',
-      noPegawai: '430869',
-      dinas: 'TL',
-      bidang: 'TLC - 4',
-      perusahaan: 'DPP',
-    },
-    {
-      nama: 'Jaya Sunjaya',
-      noPegawai: '430870',
-      dinas: 'TL',
-      bidang: 'TLC - 4',
-      perusahaan: 'DPP',
-    },
-    {
-      nama: 'Andi Satria',
-      noPegawai: '430880',
-      dinas: 'TL',
-      bidang: 'TLC - 4',
-      perusahaan: 'DPP',
-    },
-    {
-      nama: 'Heri Dwi Irawan',
-      noPegawai: '430882',
-      dinas: 'TL',
-      bidang: 'TLC - 4',
-      perusahaan: 'DPP',
-    },
-    {
-      nama: 'I Nyoman Putra Jaya',
-      noPegawai: '430890',
-      dinas: 'TL',
-      bidang: 'TLC - 4',
-      perusahaan: 'DPP',
-    },
-    {
-      nama: 'I Ketut Jurnaedi',
-      noPegawai: '430891',
-      dinas: 'TL',
-      bidang: 'TLC - 4',
-      perusahaan: 'DPP',
-    },
-    {
-      nama: 'Lihansyah',
-      noPegawai: '430892',
-      dinas: 'TL',
-      bidang: 'TLC - 4',
-      perusahaan: 'GDPS',
-    },
-    {
-      nama: 'Deni Jaelani',
-      noPegawai: '430893',
-      dinas: 'TL',
-      bidang: 'TLC - 4',
-      perusahaan: 'GDPS',
-    },
-    {
-      nama: 'Heri Susanto',
-      noPegawai: '160088',
-      dinas: 'TZ',
-      bidang: 'TLC - 4',
-      perusahaan: 'Kopkar',
-    },
-    {
-      nama: 'Agus Tariono',
-      noPegawai: '160104',
-      dinas: 'TZ',
-      bidang: 'TLC - 4',
-      perusahaan: 'DPP',
-    },
-    {
-      nama: 'Adityo Akhmad Taufiq S.',
-      noPegawai: '430869',
-      dinas: 'TZ',
-      bidang: 'TLC - 4',
-      perusahaan: 'DPP',
-    },
-    {
-      nama: 'Jaya Sunjaya',
-      noPegawai: '430870',
-      dinas: 'TZ',
-      bidang: 'TLC - 4',
-      perusahaan: 'DPP',
-    },
-    {
-      nama: 'Andi Satria',
-      noPegawai: '430880',
-      dinas: 'TZ',
-      bidang: 'TLC - 4',
-      perusahaan: 'DPP',
-    },
-    {
-      nama: 'Heri Dwi Irawan',
-      noPegawai: '430882',
-      dinas: 'TZ',
-      bidang: 'TLC - 4',
-      perusahaan: 'DPP',
-    },
-    {
-      nama: 'I Nyoman Putra Jaya',
-      noPegawai: '430890',
-      dinas: 'TZ',
-      bidang: 'TLC - 4',
-      perusahaan: 'DPP',
-    },
-    {
-      nama: 'I Ketut Jurnaedi',
-      noPegawai: '430891',
-      dinas: 'TZ',
-      bidang: 'TLC - 4',
-      perusahaan: 'DPP',
-    },
+  dateOptions: Intl.DateTimeFormatOptions = {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric' // Pastikan nilai-nilai ini sesuai dengan spesifikasi Intl.DateTimeFormatOptions
+  };
+
+  participantsCot: any[] = [];
+  totalPages: number = 0;
+  currentPage: number = 1;
+  itemsPerPage: number = 10;
+
+  modalColumns = [
+    { header: 'No Pegawai', field: 'noPegawai' },
+    { header: 'Nama', field: 'nama' },
+    { header: 'Dinas', field: 'dinas' },
+    { header: 'Bidang', field: 'bidang' },
+    { header: 'Perusahaan', field: 'perusahaan' },
+    { header: 'Action', field: 'action' },
   ];
 
-  currentPage = 1;
-  itemsPerPage = 10;
+  showModal: boolean = false;
+  selectedParticipantIds: any[] = [];
+  unregisteredParticipants: any[] = [];
+  modalTotalPages: number = 0;
+  modalCurrentPage: number = 1;
+  modalItemsPerPage: number = 10;
 
-  get paginatedData() {
-    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
-    const endIndex = startIndex + this.itemsPerPage;
-    return this.data.slice(startIndex, endIndex);
+  ngOnInit(): void {
+    this.route.queryParams.subscribe(params => {
+      this.currentPage =+ params['page'] || 1;
+      if(this.id) {
+        this.getParticipantCot(this.id, this.currentPage, this.itemsPerPage);
+      }
+    });
   }
 
-  get totalPages() {
-    return Math.ceil(this.data.length / this.itemsPerPage);
+  getParticipantCot(cotId: string, currentPage: number, itemsPerPage: number) {
+    this.cotService.getParticipantCot(cotId, currentPage, itemsPerPage).subscribe({
+      next: ({ data }) => {
+        console.log(data)
+        this.leftTableData = [
+          { label: 'Kode COT', value: data.cot.kodeCot },
+          { label: 'Kode Rating', value: data.cot.Capability.kodeRating },
+          { label: 'Nama training', value: data.cot.Capability.namaTraining },
+          { label: 'Tanggal Mulai', value: new Date(data.cot.tanggalMulai).toLocaleDateString('id-ID', this.dateOptions) },
+          { label: 'Tanggal Selesai', value: new Date(data.cot.tanggalSelesai).toLocaleDateString('id-ID', this.dateOptions) },
+          { label: 'Lokasi Training', value: data.cot.lokasiTraining },
+        ];
+
+        this.rightTableData = [
+          { label: 'Instruktur Regulasi GSE', value: data.cot.instrukturTeoriRegulasiGse },
+          { label: 'Instruktur Teori Rating', value: data.cot.instrukturTeoriKompetensi },
+          { label: 'Instruktur Praktek 1', value: data.cot.instrukturPraktek1 },
+          { label: 'Instruktur Praktek 2', value: data.cot.instrukturPraktek2 },
+          { label: 'Jumlah Peserta', value: data.participant.length },
+          { label: 'Status', value: data.cot.status },
+        ];
+
+        this.participantsCot = data.participant?.map((participant: any) => {
+          if (!participant) return null; // Skip jika participant null
+
+          return {
+            ...participant,
+            simA: participant?.id ? `/participants/${participant.id}/sim-a` : null,
+            tglKeluarSuratSehatButaWarna: participant?.id ? `/participants/${participant.id}/sim-a` : null,
+            tglKeluarSuratBebasNarkoba: participant?.id ? `/participants/${participant.id}/sim-a` : null,
+            keterangan: '-',
+            printLink: data.actions?.canPrint && participant?.id ? `/sertifikat/${participant.id}` : null,
+            detailLink: data.actions?.canView && participant?.id ? `/participants/${participant.id}/detail` : null,
+            deleteMethod: data.actions?.canDelete ? () => this.deleteParticipantFromCot(data.cotId, participant?.id) : null,
+          };
+        }).filter((item: null) => item !== null); // Filter out null items
+
+        this.totalPages = data.paging?.totalPage || 1;
+      },
+      error: (error) => {
+        console.log(error);
+      }
+    });
   }
 
-  nextPage() {
-    if (this.currentPage * this.itemsPerPage < this.data.length) {
-      this.currentPage++;
+  getUnregisteredParticipants(cotId: string, currentPage: number, itemsPerPage: number) {
+    this.cotService.getUnregisteredParticipants(cotId, currentPage, itemsPerPage).subscribe({
+      next: ({ paging, data }) => {
+        this.modalCurrentPage = this.modalCurrentPage;
+        this.modalTotalPages = paging.totalPage;
+        this.unregisteredParticipants = data;
+      },
+      error: (error) => {
+        console.log(error);
+      }
+    })
+  }
+
+  onSearchChanged(query: string): void {
+    this.searchQuery = query; // Simpan query pencarian di properti `searchQuery`
+  }
+
+
+  async deleteParticipantFromCot(cotId: string, participantId: string) {
+    const isConfirmed = await this.sweetalertService.confirm('Anda Yakin?', `Apakah anda ingin menghapus peserta ini dari COT?`, 'warning', 'Ya, hapus!');
+    if(isConfirmed) {
+      this.cotService.deleteParticipantFromCot(cotId, participantId).subscribe({
+        next: () => {
+          this.sweetalertService.alert('Berhasil!', 'Participant berhasil dihapus dari COT ini', 'success');
+          this.participantsCot = this.participantsCot.filter(p => p.id !== participantId);
+        },
+        error: () => {
+          this.sweetalertService.alert('Gagal!', 'Gagal menhapus participant dari COT, silahkan coba lagi nanti', 'error');
+        }
+      })
     }
   }
 
-  previousPage() {
-    if (this.currentPage > 1) {
-      this.currentPage--;
+  onPageChanged(page: number) {
+    this.currentPage = page; // Tambahkan ini agar currentPage diperbarui
+    this.router.navigate([], {
+      queryParams: { page },
+      queryParamsHandling: 'merge',
+    });
+  }
+
+  viewAll(): void {
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: { q: null, page: null },
+      queryParamsHandling: 'merge',
+    });
+
+    this.searchQuery = '';
+  }
+
+  openModal() {
+    this.showModal = true;
+    if(this.id && this.showModal) {
+      this.getUnregisteredParticipants(this.id, this.modalCurrentPage, this.modalItemsPerPage);
     }
   }
 
-  deleteParticipant(noPegawai: string) {
-    alert(`Delete participant with noPegawai: ${noPegawai}`);
+  closeModal() {
+    this.showModal = false;
+  }
+
+  modalSearchChanged(query: string) {
+    console.log(query);
+  }
+
+  modalPageChanged(page: number) {
+    this.modalCurrentPage = page;
+    if(this.id && this.showModal) {
+      this.getUnregisteredParticipants(this.id, this.modalCurrentPage, this.modalItemsPerPage);
+    }
+  }
+
+  onSelectedIdsChange(ids: Set<number | string>) {
+    this.selectedParticipantIds = Array.from(ids) as number[];
+  }
+
+  saveSelectedParticipants() {
+    console.log(this.selectedParticipantIds)
+    if(this.id) {
+      const requestPayload = {
+        participantIds: this.selectedParticipantIds
+      };
+      this.cotService.addParticipantToCot(this.id, requestPayload).subscribe({
+        next: () => {
+          this.sweetalertService.alert('Berhasil!', 'Berhasil menambahkan participant ke COT', 'success');
+          this.closeModal();
+        },
+        error: (error) => {
+          console.log(error);
+        }
+      })
+    }
   }
 }

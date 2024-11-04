@@ -37,7 +37,9 @@ export const environment = {
     cot: {
       base: 'cot',
       list: 'cot/list/result',
-      search: 'cot/search/result'
+      search: 'cot/search/result',
+      participanCot: 'cot/participant-cot',
+      unregisteredParticipants: 'unregistered/result'
     }
   },
 };

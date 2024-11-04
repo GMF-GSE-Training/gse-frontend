@@ -14,4 +14,7 @@
     <span *ngIf="detailLink">
       <i class="fa-solid fa-eye action-icon" [routerLink]="[detailLink]"></i>
     </span>
+    <span *ngIf="showSelectIcon" id="select-icon" (click)="toggleSelect()">
+      <i [ngClass]="select ? 'fa-solid fa-square-check' : 'fa-regular fa-square'"></i>
+    </span>
 </div>

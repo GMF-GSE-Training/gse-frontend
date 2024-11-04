@@ -52,7 +52,7 @@ export class PaginationComponent {
       }
     }
 
-    return pageArray; 
+    return pageArray;
   }
 
   goToPage(page: number | string) {

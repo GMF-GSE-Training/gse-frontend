@@ -8,15 +8,16 @@
     <tr *ngFor="let item of data">
       <td *ngFor="let column of columns">
         <ng-container *ngIf="column.field !== 'action'; else actionTemplate">
-          <ng-container *ngIf="column.field !== 'kurikulumSilabus'; else linkTemplate">
+          <ng-container *ngIf="!['kurikulumSilabus', 'simA', 'tglKeluarSuratSehatButaWarna', 'tglKeluarSuratBebasNarkoba'].includes(column.field)">
             {{ item[column.field] }}
           </ng-container>
-          <ng-template #linkTemplate>
-            <a [routerLink]="item.kurikulumSilabus">Lihat</a>
-          </ng-template>
+          <a *ngIf="column.field === 'kurikulumSilabus'" [routerLink]="item.kurikulumSilabus">Lihat</a>
+          <a *ngIf="column.field === 'simA'" [routerLink]="item.simA">Lihat</a>
+          <a *ngIf="column.field === 'tglKeluarSuratSehatButaWarna'" [routerLink]="item.tglKeluarSuratSehatButaWarna">Lihat</a>
+          <a *ngIf="column.field === 'tglKeluarSuratBebasNarkoba'" [routerLink]="item.tglKeluarSuratBebasNarkoba">Lihat</a>
         </ng-container>
         <ng-template #actionTemplate>
-          <app-icon-action [printLink]="item.printLink" [addLink]="item.addLink" [editLink]="item.editLink" [delete]="item.deleteMethod" [detailLink]="item.detailLink"></app-icon-action>
+          <app-icon-action [printLink]="item.printLink" [addLink]="item.addLink" [editLink]="item.editLink" [delete]="item.deleteMethod" [detailLink]="item.detailLink" [select]="item.select"></app-icon-action>
         </ng-template>
       </td>
     </tr>

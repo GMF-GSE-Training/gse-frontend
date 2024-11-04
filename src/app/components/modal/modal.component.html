@@ -1,0 +1,44 @@
+<div class="search-container">
+  <app-search
+    [placeHolder]="placeHolder"
+    (searchChange)="onSearchChanged($event)">
+  </app-search>
+</div>
+
+<div class="table-container">
+  <table>
+    <thead>
+      <tr>
+        <th *ngFor="let column of columns">{{ column.header }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of data">
+        <td *ngFor="let column of columns">
+          <ng-container *ngIf="column.field !== 'action'; else actionTemplate">
+            {{ item[column.field] }}
+          </ng-container>
+          <ng-template #actionTemplate>
+            <app-icon-action
+              [showSelectIcon]="true"
+              [select]="item.select"
+              [itemId]="item.id"
+              (selectChange)="onSelectChange($event)">
+            </app-icon-action>
+          </ng-template>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<app-pagination
+  [currentPage]="currentPage"
+  [totalPages]="totalPage"
+  (pageChange)="onPageChanged($event)">
+</app-pagination>
+
+<div class="button-container">
+  <app-blue-button class="button" (click)="onSave()">Simpan</app-blue-button>
+  <app-white-button class="button" (click)="onCancel()">Batal</app-white-button>
+</div>
