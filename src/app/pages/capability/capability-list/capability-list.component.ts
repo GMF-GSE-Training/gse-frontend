@@ -109,12 +109,12 @@ export class CapabilityListComponent implements OnInit {
       this.capabilityService.deleteCapability(capability.id).subscribe({
         next: () => {
           console.log(this.capability)
-          this.sweetalertService.alert(isConfirmed, 'Dihapus!', 'Data capability berhasil dihapus', 'success');
+          this.sweetalertService.alert('Dihapus!', 'Data capability berhasil dihapus', 'success');
           console.log(capability.id);
           this.capability = this.capability.filter(c => c.id !== capability.id);
         },
         error: () => {
-          this.sweetalertService.alert(!isConfirmed, 'Gagal!', 'Gagal menghapus data capability', 'error');
+          this.sweetalertService.alert('Gagal!', 'Gagal menghapus data capability', 'error');
         }
       });
     }

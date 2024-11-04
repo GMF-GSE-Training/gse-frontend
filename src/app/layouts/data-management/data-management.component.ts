@@ -62,6 +62,7 @@ export class DataManagementComponent {
 
   // Komponen button
   @Input() blueButtonRoute: string = '';
+  @Input() whiteButtonRoute: string = '/home';
 
   // Role Based Access
   @Input() roleBassedAccess: string[] = [];

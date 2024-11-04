@@ -45,7 +45,7 @@ export class IdCardComponent implements OnInit {
         const parsingError = JSON.parse(error.error);
         this.router.navigateByUrl(this.navigationLink ? this.navigationLink : '/participants');
         if(parsingError.code === 400) {
-          this.sweetalertService.alert(false, 'Data Participant Belum Lengkap', 'Untuk melihat ID Card, pastikan semua data participant telah lengkap.', 'warning');
+          this.sweetalertService.alert('Data Participant Belum Lengkap', 'Untuk melihat ID Card, pastikan semua data participant telah lengkap.', 'warning');
         }
       }
     });

@@ -14,9 +14,9 @@ export const guestGuard: CanActivateFn = (route, state) => {
     map((response: any) => {
       if (response.code === 200 || response.status === 'OK') {
         if(state.url === 'login') {
-          sweetalertService.alert(false, 'Warning!', 'Anda sudah login', 'warning');
+          sweetalertService.alert('Warning!', 'Anda sudah login', 'warning');
         } else if(state.url === 'register') {
-          sweetalertService.alert(false, 'Warning!', 'Anda sudah terdaftar', 'warning');
+          sweetalertService.alert('Warning!', 'Anda sudah terdaftar', 'warning');
         }
         router.navigateByUrl('/');
         return false;

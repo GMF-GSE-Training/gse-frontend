@@ -100,7 +100,7 @@ export class AddCurriculumComponent {
     this.curriculumSyllabusService.createCurriculumSyllabus({ curriculumSyllabus: curriculumSyllabusData }).subscribe({
       next: (response) => {
         // Handle response
-        this.sweetalertService.alert(true, 'Berhasil', response.data, 'success');
+        this.sweetalertService.alert('Berhasil', response.data, 'success');
         this.router.navigateByUrl('/capability');
       },
       error: (error) => {

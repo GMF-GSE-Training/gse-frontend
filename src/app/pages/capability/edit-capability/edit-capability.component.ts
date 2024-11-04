@@ -61,7 +61,7 @@ export class EditCapabilityComponent implements OnInit {
     const { id, ...request } = capability;
     this.capabilityService.updateCapability(id, request).subscribe({
       next: () => {
-        this.sweetalertService.alert(true, 'Berhasil', 'Capability berhasil diperbarui', 'success');
+        this.sweetalertService.alert('Berhasil', 'Capability berhasil diperbarui', 'success');
         this.router.navigateByUrl('/capability');
       },
       error: (error) => {

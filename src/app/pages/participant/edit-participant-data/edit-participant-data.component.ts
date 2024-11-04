@@ -96,12 +96,12 @@ export class EditParticipantDataComponent implements OnInit {
 
     this.participantService.updateParticipant(this.participantId!, formData).subscribe({
       next: (response) => {
-        this.sweetalertService.alert(true, 'Diperbarui!', 'Peserta berhasil diperbarui', 'success');
+        this.sweetalertService.alert('Diperbarui!', 'Peserta berhasil diperbarui', 'success');
         this.router.navigateByUrl(`/participants/${response.data.id}/detail`);
       },
       error: (error) => {
         console.log(error);
-        this.sweetalertService.alert(false, 'Gagal!', 'Gagal memperbarui peserta', 'error');
+        this.sweetalertService.alert('Gagal!', 'Gagal memperbarui peserta', 'error');
       }
     });
   }

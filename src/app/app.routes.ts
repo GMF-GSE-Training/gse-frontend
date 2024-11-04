@@ -161,13 +161,13 @@ export const routes: Routes = [
     data: { roles: ['super admin', 'lcu'] }
   },
   {
-    path: 'sertifikat',
+    path: 'sertifikat/:id',
     component: CreateSertifikatComponent,
     canActivate: [AuthAndRoleGuard],
     data: { roles: ['super admin', 'supervisor', 'lcu', 'user'] }
   },
   {
-    path: 'sertifikat/download',
+    path: 'sertifikat/:id/download',
     component: DownloadSertifikatComponent,
     canActivate: [AuthAndRoleGuard],
     data: { roles: ['super admin', 'supervisor', 'lcu', 'user'] }

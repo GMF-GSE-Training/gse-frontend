@@ -40,7 +40,7 @@ export class AddCotComponent {
     this.cotService.createCot(cot).subscribe({
       next: () => {
         this.router.navigateByUrl('/cot');
-        this.sweetalertService.alert(true, 'Berhasil', 'COT berhasil dibuat', 'success');
+        this.sweetalertService.alert('Berhasil', 'COT berhasil dibuat', 'success');
       },
       error: (error) => {
         this.errorHandlerService.handleError(error);

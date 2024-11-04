@@ -72,7 +72,7 @@ export class EditCotComponent implements OnInit {
     this.cotService.updateCot(cot.id, cot).subscribe({
       next: () => {
         this.router.navigateByUrl('/cot');
-        this.sweetalertService.alert(true, 'Berhasil', 'COT berhasil diperbarui', 'success');
+        this.sweetalertService.alert('Berhasil', 'COT berhasil diperbarui', 'success');
       },
       error: (error) => {
         this.errorHandlerService.handleError(error);

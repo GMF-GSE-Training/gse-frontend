@@ -4,6 +4,7 @@ import { HeaderComponent } from '../../../components/header/header.component';
 import { WhiteButtonComponent } from '../../../components/button/white-button/white-button.component';
 import { BlueButtonComponent } from '../../../components/button/blue-button/blue-button.component';
 import { TableComponent } from "../../../components/table/table.component";
+import { SearchComponent } from "../../../components/search/search.component";
 
 @Component({
   selector: 'app-sign-list',
@@ -14,7 +15,8 @@ import { TableComponent } from "../../../components/table/table.component";
     WhiteButtonComponent,
     BlueButtonComponent,
     TableComponent,
-  ],
+    SearchComponent
+],
   templateUrl: './signature-list.component.html',
   styleUrl: './signature-list.component.css'
 })

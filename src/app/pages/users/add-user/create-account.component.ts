@@ -16,6 +16,7 @@ import { ErrorHandlerService } from '../../../shared/service/error-handler.servi
 })
 export class AddUserComponent {
   createUser: CreateUserRequest = {
+    participantId: '',
     noPegawai: '',
     nik: '',
     email: '',
@@ -36,10 +37,13 @@ export class AddUserComponent {
     const state = navigation?.extras.state;
 
     if (state) {
+      console.log(state);
+      this.createUser.participantId = state['id'];
       this.createUser.noPegawai = state['noPegawai'] || '';
       this.createUser.nik = state['nik'] || '';
       this.createUser.email = state['email'] || '';
       this.createUser.name = state['name'] || '';
+      this.createUser.dinas = state['dinas'] || '';
     }
   }
 
@@ -49,7 +53,7 @@ export class AddUserComponent {
     // Panggil service untuk membuat user
     this.userService.createUser(user).subscribe({
       next: () => {
-        this.sweetalertService.alert(true, 'Ditambahkan!', 'Pengguna berhasil ditambahkan', 'success');
+        this.sweetalertService.alert('Ditambahkan!', 'Pengguna berhasil ditambahkan', 'success');
         this.router.navigateByUrl('/users');
       },
       error: (error) => {

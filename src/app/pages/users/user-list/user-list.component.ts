@@ -96,11 +96,11 @@ export class UserListComponent implements OnInit {
     if (isConfirmed) {
       this.userService.deleteUser(user.id).subscribe({
         next: () => {
-          this.sweetalertService.alert(isConfirmed, 'Dihapus!', 'Data peserta berhasil dihapus', 'success');
+          this.sweetalertService.alert('Dihapus!', 'Data peserta berhasil dihapus', 'success');
           this.users = this.users.filter(p => p.id !== user.id);
         },
         error: () => {
-          this.sweetalertService.alert(!isConfirmed, 'Gagal!', 'Gagal menghapus data peserta', 'error');
+          this.sweetalertService.alert('Gagal!', 'Gagal menghapus data peserta', 'error');
         }
       });
     }

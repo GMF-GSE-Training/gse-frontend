@@ -3,12 +3,7 @@
     <h1 class="title">E-Sign</h1>
   </div>
 
-  <div class="search-container">
-    <form action="">
-      <input type="text" placeholder="Search User">
-      <i class="fa-solid fa-magnifying-glass"></i>
-    </form>
-  </div>
+<app-search></app-search>
 
   <div class="container">
     <app-table [columns]="columns" [data]="paginatedData"></app-table>

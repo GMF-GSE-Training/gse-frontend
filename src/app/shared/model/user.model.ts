@@ -1,4 +1,5 @@
 export interface CreateUserRequest {
+  participantId: string;
   noPegawai?: string;
   nik?: string;
   email: string;

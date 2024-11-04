@@ -90,11 +90,11 @@ export class ParticipantListComponent implements OnInit {
     if (isConfirmed) {
       this.participantService.deleteParticipant(participant.id).subscribe({
         next: () => {
-          this.sweetalertService.alert(isConfirmed, 'Dihapus!', 'Data peserta berhasil dihapus', 'success');
+          this.sweetalertService.alert('Dihapus!', 'Data peserta berhasil dihapus', 'success');
           this.participants = this.participants.filter(p => p.id !== participant.id);
         },
         error: () => {
-          this.sweetalertService.alert(!isConfirmed, 'Gagal!', 'Gagal menghapus data peserta', 'error');
+          this.sweetalertService.alert('Gagal!', 'Gagal menghapus data peserta', 'error');
         }
       });
     }

@@ -66,15 +66,16 @@ export class AddParticipantDataComponent {
     const formData = this.prepareFormData(participant);
 
     this.participantService.createParticipant(formData).subscribe({
-      next: () => {
-        this.sweetalertService.alert(true, 'Ditambahkan!', 'Peserta berhasil ditambahkan', 'success');
+      next: (response) => {
+        this.sweetalertService.alert('Ditambahkan!', 'Peserta berhasil ditambahkan', 'success');
         this.router.navigateByUrl(`/users/add`, {
           state: {
-            noPegawai: this.createParticipant.noPegawai,
-            nik: this.createParticipant.nik,
-            email: this.createParticipant.email,
-            name: this.createParticipant.nama,
-            dinas: this.createParticipant.dinas
+            id: response.data.id,
+            noPegawai: response.data.noPegawai,
+            nik: response.data.nik,
+            email: response.data.email,
+            name: response.data.nama,
+            dinas: response.data.dinas
           }
         });
       },

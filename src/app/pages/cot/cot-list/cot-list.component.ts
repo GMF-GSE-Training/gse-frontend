@@ -55,7 +55,6 @@ export class CotListComponent {
     private readonly router: Router,
     private readonly route: ActivatedRoute,
     private readonly sweetalertService: SweetalertService,
-    private readonly errorHandlerService: ErrorHandlerService,
   ) {}
 
   ngOnInit(): void {
@@ -102,12 +101,11 @@ export class CotListComponent {
     if (isConfirmed) {
       this.cotService.deleteCot(cot.id).subscribe({
         next: () => {
-          this.sweetalertService.alert(isConfirmed, 'Dihapus!', 'Data COT berhasil dihapus', 'success');
+          this.sweetalertService.alert('Dihapus!', 'Data COT berhasil dihapus', 'success');
           this.cot = this.cot.filter(c => c.id !== cot.id);
-          console.log(this.cot);
         },
         error: () => {
-          this.sweetalertService.alert(!isConfirmed, 'Gagal!', 'Gagal menghapus data peserta', 'error');
+          this.sweetalertService.alert('Gagal!', 'Gagal menghapus data peserta', 'error');
         }
       });
     }
@@ -164,13 +162,5 @@ export class CotListComponent {
     });
 
     this.searchQuery = '';
-  }
-
-  onBlueButtonClick() {
-    this.router.navigateByUrl('/capability/add');
-  }
-
-  onWhiteButtonClick() {
-    this.router.navigateByUrl('/home');
   }
 }

@@ -55,7 +55,7 @@ export class DisplayFilesParticipantsComponent implements OnInit {
         console.log(error);
         this.router.navigateByUrl(this.id ? this.navigationLink : '/participants')
         if(error.error.code === 404) {
-          this.sweetalertService.alert(false, 'File Tidak Ada', 'Silahkan lengkapi data terlebih dahulu', 'warning');
+          this.sweetalertService.alert('File Tidak Ada', 'Silahkan lengkapi data terlebih dahulu', 'warning');
         }
       }
     });

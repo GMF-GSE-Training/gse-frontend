@@ -129,7 +129,7 @@ export class EditCurriculumSyllabusComponent implements OnInit {
     // Send the data to the backend using the service
     this.curriculumSyllabusService.updateCurriculumSyllabus(this.capability.id, { curriculumSyllabus: curriculumSyllabusData }).subscribe({
       next: (response) => {
-        this.sweetalertService.alert(true, 'Berhasil', response.data, 'success');
+        this.sweetalertService.alert('Berhasil', response.data, 'success');
         this.router.navigateByUrl('/capability');
       },
       error: (error) => {

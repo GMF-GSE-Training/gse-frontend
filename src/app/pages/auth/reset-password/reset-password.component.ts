@@ -30,13 +30,13 @@ export class ResetPasswordComponent {
     console.log(newPassword)
     this.authService.resetPassword(newPassword).subscribe({
       next: () => {
-        this.sweetalertService.alert(true, 'Berhasil!', 'Password berhasil diperbarui', 'success');
+        this.sweetalertService.alert('Berhasil!', 'Password berhasil diperbarui', 'success');
         this.router.navigateByUrl('/login');
       },
       error: (error) => {
         console.log(error)
         const e = error.error.errors;
-        this.sweetalertService.alert(true, 'Gagal!', e, 'error');
+        this.sweetalertService.alert('Gagal!', e, 'error');
       }
     })
   }

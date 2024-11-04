@@ -22,24 +22,14 @@ export class SweetalertService {
     });
   }
 
-  alert(isConfirmed: boolean, title: string, message: string, icon: SweetAlertIcon): void {
-    if (isConfirmed) {
-      Swal.fire({
-        title: title,
-        text: message,
-        icon: icon,
-        confirmButtonColor: '#02507E',
-        scrollbarPadding: false,
-      });
-    } else {
-      Swal.fire({
-        title: title,
-        text: message,
-        icon: icon,
-        confirmButtonColor: '#02507E',
-        scrollbarPadding: false,
-      });
-    }
+  alert(title: string, message: string, icon: SweetAlertIcon): void {
+    Swal.fire({
+      title: title,
+      text: message,
+      icon: icon,
+      confirmButtonColor: '#02507E',
+      scrollbarPadding: false,
+    });
   }
 
   loading(title: string, html: string): void {
