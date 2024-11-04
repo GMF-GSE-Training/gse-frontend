@@ -1,10 +1,14 @@
 import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { HeaderComponent } from '../../../components/header/header.component';
 import { WhiteButtonComponent } from '../../../components/button/white-button/white-button.component';
 import { BlueButtonComponent } from '../../../components/button/blue-button/blue-button.component';
 import { TableComponent } from "../../../components/table/table.component";
 import { SearchComponent } from "../../../components/search/search.component";
+import { DataManagementComponent } from "../../../layouts/data-management/data-management.component";
+import { ESign } from '../../../shared/model/e-sign.model';
+import { ESignService } from '../../../shared/service/e-sign.service';
+import { SweetalertService } from '../../../shared/service/sweetaler.service';
 
 @Component({
   selector: 'app-sign-list',
@@ -15,89 +19,95 @@ import { SearchComponent } from "../../../components/search/search.component";
     WhiteButtonComponent,
     BlueButtonComponent,
     TableComponent,
-    SearchComponent
+    SearchComponent,
+    DataManagementComponent
 ],
   templateUrl: './signature-list.component.html',
   styleUrl: './signature-list.component.css'
 })
 export class SignatureListComponent {
+  constructor(
+    private eSignService: ESignService,
+    private sweetalertService: SweetalertService,
+    private router: Router,
+    private route: ActivatedRoute,
+  ) {}
+
   columns = [
     { header: 'No Pegawai', field: 'noPegawai' },
     { header: 'Role', field: 'role' },
-    { header: 'Nama', field: 'nama' },
+    { header: 'Nama', field: 'name' },
     { header: 'Tanda Tangan', field: 'tandaTangan' },
     { header: 'Action', field: 'action' }
   ];
 
-  data = [
-    { nama: 'Yusa Asra Yuli Wardana', noPegawai: '160088', dinas: 'TL', role: 'Manager Non Aviation Training', email: 'herisusanto@example.com', editLink: '/sign/edit', deleteMethod: () => this.deleteParticipant('160088') },
-    { nama: 'Moh Hilmi Firmansyah', noPegawai: '160104', dinas: 'TL', role: 'Senior Manager General Affairs' },
-    { nama: 'Adityo Akhmad Taufiq S.', noPegawai: '430869', dinas: 'TL', role: '' },
-    { nama: 'Jaya Sunjaya', noPegawai: '430870', dinas: 'TL', role: '' },
-    { nama: 'Andi Satria', noPegawai: '430880', dinas: 'TL', },
-    { nama: 'Heri Dwi Irawan', noPegawai: '430882', dinas: 'TL', },
-    { nama: 'I Nyoman Putra Jaya', noPegawai: '430890', dinas: 'TL', },
-    { nama: 'I Ketut Jurnaedi', noPegawai: '430891', dinas: 'TL', },
-    { nama: 'Lihansyah', noPegawai: '430892', dinas: 'TL', },
-    { nama: 'Deni Jaelani', noPegawai: '430893', dinas: 'TL', },
-    { nama: 'Heri Susanto', noPegawai: '160088', dinas: 'TZ', },
-    { nama: 'Agus Tariono', noPegawai: '160104', dinas: 'TZ', },
-    { nama: 'Adityo Akhmad Taufiq S.', noPegawai: '430869', dinas: 'TZ', },
-    { nama: 'Jaya Sunjaya', noPegawai: '430870', dinas: 'TZ', },
-    { nama: 'Andi Satria', noPegawai: '430880', dinas: 'TZ', },
-    { nama: 'Heri Dwi Irawan', noPegawai: '430882', dinas: 'TZ', },
-    { nama: 'I Nyoman Putra Jaya', noPegawai: '430890', dinas: 'TZ', },
-    { nama: 'I Ketut Jurnaedi', noPegawai: '430891', dinas: 'TZ', },
-    { nama: 'Lihansyah', noPegawai: '430892', dinas: 'TZ', },
-    { nama: 'Deni Jaelani', noPegawai: '430893', dinas: 'TZ', },
-    { nama: 'Heri Susanto', noPegawai: '160088', dinas: 'TU', },
-    { nama: 'Agus Tariono', noPegawai: '160104', dinas: 'TU', },
-    { nama: 'Adityo Akhmad Taufiq S.', noPegawai: '430869', dinas: 'TU', },
-    { nama: 'Jaya Sunjaya', noPegawai: '430870', dinas: 'TU', },
-    { nama: 'Andi Satria', noPegawai: '430880', dinas: 'TU', },
-    { nama: 'Heri Dwi Irawan', noPegawai: '430882', dinas: 'TU', },
-    { nama: 'I Nyoman Putra Jaya', noPegawai: '430890', dinas: 'TU', },
-    { nama: 'I Ketut Jurnaedi', noPegawai: '430891', dinas: 'TU', },
-    { nama: 'Lihansyah', noPegawai: '430892', dinas: 'TU', },
-    { nama: 'Deni Jaelani', noPegawai: '430893', dinas: 'TU', },
-    { nama: 'Heri Susanto', noPegawai: '160088', dinas: 'TV', },
-    { nama: 'Agus Tariono', noPegawai: '160104', dinas: 'TV', },
-    { nama: 'Adityo Akhmad Taufiq S.', noPegawai: '430869', dinas: 'TV', },
-    { nama: 'Jaya Sunjaya', noPegawai: '430870', dinas: 'TV', },
-    { nama: 'Andi Satria', noPegawai: '430880', dinas: 'TV', },
-    { nama: 'Heri Dwi Irawan', noPegawai: '430882', dinas: 'TV', },
-    { nama: 'I Nyoman Putra Jaya', noPegawai: '430890', dinas: 'TV', },
-    { nama: 'I Ketut Jurnaedi', noPegawai: '430891', dinas: 'TV', },
-    { nama: 'Lihansyah', noPegawai: '430892', dinas: 'TV', },
-    { nama: 'Deni Jaelani', noPegawai: '430893', dinas: 'TV', },
-  ];
+  eSign: ESign[] = [];
 
-  currentPage = 1;
-  itemsPerPage = 10;
+  // Komponen pagination
+  currentPage: number = 1;
+  totalPages: number = 1;
+  itemsPerPage: number = 10;
+  searchQuery: string = '';
 
-  get paginatedData() {
-    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
-    const endIndex = startIndex + this.itemsPerPage;
-    return this.data.slice(startIndex, endIndex);
+  ngOnInit(): void {
+    this.route.queryParams.subscribe(params => {
+      this.searchQuery = params['q'] || '';
+      this.currentPage =+ params['page'] || 1;
+      if (this.searchQuery) {
+        this.getSearchESign(this.searchQuery, this.currentPage, this.itemsPerPage);
+      } else {
+        this.getListESign(this.currentPage, this.itemsPerPage);
+      }
+    });
   }
 
-  get totalPages() {
-    return Math.ceil(this.data.length / this.itemsPerPage);
+  getListESign(page: number, size: number): void {
+    this.eSignService.listESign(page, size).subscribe({
+      next: ({ code, status, data, actions, paging}) => {
+        if(code === 200 && status === 'OK' && Array.isArray(data)) {
+          this.eSign = data.map((eSign: ESign) => ({
+            ...eSign,
+            editLink: actions?.canEdit ? `/e-sign/${eSign.id}/edit` : null,
+            deleteMethod: actions?.canDelete ? () => this.deleteCot(eSign) : null,
+          }));
+        } else {
+          this.eSign = [];
+        }
+      }
+    });
   }
 
-  nextPage() {
-    if ((this.currentPage * this.itemsPerPage) < this.data.length) {
-      this.currentPage++;
-    }
+  async deleteCot(cot: any): Promise<void> {
+
   }
 
-  previousPage() {
-    if (this.currentPage > 1) {
-      this.currentPage--;
-    }
+  getSearchESign(query: string, page: number, size: number) {
+
   }
 
-  deleteParticipant(noPegawai: string) {
-    alert(`Delete E-sign with no Pegawai: ${noPegawai}`);
+  onSearchChanged(query: string): void {
+    this.searchQuery = query;
+    this.router.navigate([], {
+      queryParams: { search: query },
+      queryParamsHandling: 'merge',
+    });
+    // this.getSearchParticipants(query, 1, this.itemsPerPage);
+  }
+
+  onPageChanged(page: number): void {
+    this.router.navigate([], {
+      queryParams: { page },
+      queryParamsHandling: 'merge',
+    });
+  }
+
+  viewAll(): void {
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: { q: null, page: null },
+      queryParamsHandling: 'merge',
+    });
+
+    this.searchQuery = '';
   }
 }

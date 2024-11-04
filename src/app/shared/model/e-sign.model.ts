@@ -7,10 +7,20 @@ export interface CreateESign {
   status: boolean;
 }
 
+export interface ESign {
+  id: string;
+  noPegawai: string;
+  role: string;
+  name: string;
+  eSign: File;
+  eSignFileName: string;
+  status: boolean;
+}
+
 export interface ESignResponse {
   code: number;
   status: string;
-  data: string;
+  data: string | ESign | ESign[];
   actions?: ActionAccessRigts,
   paging?: Paging;
 }

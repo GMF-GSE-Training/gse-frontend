@@ -42,7 +42,8 @@ export const environment = {
       unregisteredParticipants: 'unregistered/result'
     },
     eSign: {
-      base: 'e-sign'
+      base: 'e-sign',
+      list: 'e-sign/list/result'
     }
   },
 };
