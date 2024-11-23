@@ -1,38 +1,32 @@
 export interface CreateCapability {
-  kodeRating: string;
-  kodeTraining: string;
-  namaTraining: string;
+  ratingCode: string;
+  trainingCode: string;
+  trainingName: string;
 }
 
 export interface UpdateCapability {
-  kodeRating?: string;
-  kodeTraining?: string;
-  namaTraining?: string;
+  ratingCode?: string;
+  trainingCode?: string;
+  trainingName?: string;
 }
 
 export interface Capability {
   id: string;
-  kodeRating: string;
-  kodeTraining: string;
-  namaTraining: string;
-  totalDurasiTeoriRegGse?: string;
-  totalDurasiPraktekRegGse?: string;
-  totalDurasiTeoriKompetensi?: string;
-  totalDurasiPraktekKompetensi?: string;
-  TotalDurasi?: string;
+  ratingCode: string;
+  trainingCode: string;
+  trainingName: string;
+  totalTheoryDurationRegGse?: string;
+  totalPracticeDurationRegGse?: string;
+  totalTheoryDurationCompetency?: string;
+  totalPracticeDurationCompetency?: string;
+  totalDuration?: string;
   curriculumSyllabus?: CurriculumSyllabus[];
 }
 
 export interface CapabilityResponse {
   code: number;
   status: string;
-  data: Capability | string;
-}
-
-export interface CapabilityListResponse {
-  code: number;
-  status: string;
-  data: Capability[],
+  data: Capability[] | Capability | string,
   actions: ActionAccessRigts,
   paging: Paging;
 }
@@ -40,9 +34,9 @@ export interface CapabilityListResponse {
 type CurriculumSyllabus = {
   id: string;
   capabilityId: string;
-  nama: string;
-  durasiTeori: number;
-  durasiPraktek: number;
+  name: string;
+  theoryDuration: number;
+  practiceDuration: number;
   type: string;
 }
 

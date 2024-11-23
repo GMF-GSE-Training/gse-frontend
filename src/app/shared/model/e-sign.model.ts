@@ -1,19 +1,28 @@
 export interface CreateESign {
-  noPegawai: string;
+  idNumber: string;
   role: string;
   name: string;
-  eSign: File;
-  eSignFileName?: string;
+  eSign: Buffer;
+  signFileName?: string;
   status: boolean;
+}
+
+export interface UpdateESign {
+  idNumber?: string;
+  role?: string;
+  name?: string;
+  eSign?: File;
+  signFileName?: string;
+  status?: boolean;
 }
 
 export interface ESign {
   id: string;
-  noPegawai: string;
+  idNumber: string;
   role: string;
   name: string;
   eSign: File;
-  eSignFileName: string;
+  signFileName: string;
   status: boolean;
 }
 

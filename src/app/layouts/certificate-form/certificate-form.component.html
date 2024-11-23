@@ -1,0 +1,112 @@
+<app-title [pageTitle]="pageTitle"></app-title>
+
+<form #form="ngForm" (ngSubmit)="onSubmit()">
+  <div class="form-container">
+    <div class="left-column">
+      <app-base-input
+        [(ngModel)]="certificate.noPegawai"
+        name="noPegawai"
+        label="No Pegawai"
+        [isRequired]="true"
+        [disabled]="true"
+      >
+      </app-base-input>
+
+      <app-base-input
+        [(ngModel)]="certificate.nama"
+        name="nama"
+        label="Nama"
+        [isRequired]="true"
+        [disabled]="true"
+      >
+      </app-base-input>
+
+      <app-base-input
+        [(ngModel)]="certificate.namaTraining"
+        name="namaTraining"
+        label="Nama Training"
+        [isRequired]="true"
+        [disabled]="true"
+      >
+      </app-base-input>
+
+      <app-base-input
+        [(ngModel)]="certificate.tanggalMulai"
+        name="tanggalMulai"
+        label="Tanggal Mulai"
+        type="date"
+        [isRequired]="true"
+      >
+      </app-base-input>
+
+      <app-base-input
+        [(ngModel)]="certificate.tanggalSelesai"
+        name="tanggalSelesai"
+        label="Tanggal Selesai"
+        type="date"
+        [isRequired]="true"
+      >
+      </app-base-input>
+
+      <app-base-input
+        [(ngModel)]="certificate.kehadiran"
+        name="kehadiran"
+        label="Kehadiran"
+        type="text"
+        [isRequired]="true"
+      >
+      </app-base-input>
+    </div>
+    <div class="right-column">
+      <app-base-input
+        [(ngModel)]="certificate.nilaiTeori"
+        name="nilaiTeori"
+        label="Nilai Tori"
+        type="text"
+        [isRequired]="true"
+      >
+      </app-base-input>
+
+      <app-base-input
+        [(ngModel)]="certificate.nilaiPraktek"
+        name="nilaiPraktek"
+        label="Nilai Praktek"
+        type="text"
+        [isRequired]="true"
+      >
+      </app-base-input>
+
+      <app-base-input
+        [(ngModel)]="certificate.status"
+        name="status"
+        label="Status"
+        type="text"
+        [isRequired]="true"
+      >
+      </app-base-input>
+
+      <app-base-input
+        [(ngModel)]="certificate.tandaTangan1"
+        name="tandaTangan1"
+        label="Tanda Tangan 1"
+        type="text"
+        [isRequired]="true"
+      >
+      </app-base-input>
+
+      <app-base-input
+        [(ngModel)]="certificate.tandaTangan2"
+        name="tandaTangan2"
+        label="Tanda Tangan 2"
+        type="text"
+        [isRequired]="true"
+      >
+      </app-base-input>
+    </div>
+  </div>
+
+  <div class="container-button">
+    <app-white-button type="button" routerLink="/cot" class="button">Kembali</app-white-button>
+    <app-blue-button type="submit" class="button" [disabled]="form.invalid!">Simpan</app-blue-button>
+  </div>
+</form>

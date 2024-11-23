@@ -1,32 +1,30 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ParticipantService } from '../../../shared/service/participant.service';
-import { ListParticipantsResponse, Participant } from '../../../shared/model/participant.model';
+import { Participant } from '../../../shared/model/participant.model';
 import { SweetalertService } from '../../../shared/service/sweetaler.service';
-import { FormsModule } from '@angular/forms';
 import { DataManagementComponent } from "../../../layouts/data-management/data-management.component";
 
 @Component({
   selector: 'app-participant-list',
   standalone: true,
   imports: [
-    RouterLink,
-    FormsModule,
     DataManagementComponent
 ],
   templateUrl: './participant-list.component.html',
 })
 export class ParticipantListComponent implements OnInit {
   // Komponen title
-  pageTitle = 'Participant Data';
+  pageTitle = 'Participants';
 
   // Komponen tabel
   columns = [
-    { header: 'No Pegawai', field: 'noPegawai' },
-    { header: 'Nama', field: 'nama' },
+    { header: 'No Pegawai', field: 'idNumber' },
+    { header: 'Nama', field: 'name' },
     { header: 'Dinas', field: 'dinas' },
     { header: 'Bidang', field: 'bidang' },
-    { header: 'Perusahaan', field: 'perusahaan' },
+    { header: 'Perusahaan', field: 'company' },
+    { header: 'Email', field: 'email' },
     { header: 'Action', field: 'action' }
   ];
 
@@ -42,7 +40,7 @@ export class ParticipantListComponent implements OnInit {
   placeHolder: string = 'Cari Participant';
 
   // Role Bassed Access
-  roleBassedAccess: string[] = ['super admin'];
+  roleBassedAccess: string[] = ['super admin', 'supervisor', 'lcu'];
 
   constructor(
     private participantService: ParticipantService,
@@ -64,29 +62,30 @@ export class ParticipantListComponent implements OnInit {
   }
 
   getListParticipants(page: number, size: number): void {
-    this.participantService.listParticipants(page, size).subscribe((response: ListParticipantsResponse) => {
-      if (response.code === 200 && response.status === 'OK') {
-        console.log('List Response', response)
-        this.participants = response.data.map((participant: Participant) => {
+    this.participantService.listParticipants(page, size).subscribe({
+      next: (response) => {
+        this.participants = (response.data as Participant[]).map((participant: Participant) => {
           return {
             ...participant,
-            noPegawai: participant.noPegawai ?? '-',
+            idNumber: participant.idNumber ?? '-',
             dinas: participant.dinas ?? '-',
             bidang: participant.bidang ?? '-',
+            company: participant.company ?? '-',
             editLink: response.actions.canEdit ? `/participants/${participant.id}/edit` : null,
             detailLink: response.actions.canView ? `/participants/${participant.id}/detail` : null,
             deleteMethod: response.actions.canDelete ? () => this.deleteParticipant(participant) : null,
           };
         });
         this.totalPages = response.paging.totalPage;
-      } else {
-        this.participants = [];
+      },
+      error: (error) => {
+        console.log(error);
       }
     });
   }
 
   async deleteParticipant(participant: Participant): Promise<void> {
-    const isConfirmed = await this.sweetalertService.confirm('Anda Yakin?', `Apakah anda ingin menghapus peserta ini : ${participant.nama}?`, 'warning', 'Ya, hapus!');
+    const isConfirmed = await this.sweetalertService.confirm('Anda Yakin?', `Apakah anda ingin menghapus peserta ini : ${participant.name}?`, 'warning', 'Ya, hapus!');
     if (isConfirmed) {
       this.participantService.deleteParticipant(participant.id).subscribe({
         next: () => {
@@ -102,25 +101,20 @@ export class ParticipantListComponent implements OnInit {
 
   getSearchParticipants(query: string, page: number, size: number) {
     this.participantService.searchParticipant(query, page, size).subscribe({
-      next: (response: ListParticipantsResponse) => {
-        if (response.code === 200 && response.status === 'OK') {
-          console.log('Search Response', response);
-          this.participants = response.data.map((participant: Participant) => {
-            return {
-              ...participant,
-              noPegawai: participant.noPegawai ?? '-',
-              dinas: participant.dinas ?? '-',
-              bidang: participant.bidang ?? '-',
-              editLink: response.actions.canEdit ? `/participants/${participant.id}/edit` : null,
-              detailLink: response.actions.canView ? `/participants/${participant.id}/detail` : null,
-              deleteMethod: response.actions.canDelete ? () => this.deleteParticipant(participant) : null,
-            };
-          });
-          this.totalPages = response.paging.totalPage;
-        } else {
-          console.warn('Data tidak ditemukan');
-          this.participants = [];
-        }
+      next: (response) => {
+        this.participants = (response.data as Participant[]).map((participant: Participant) => {
+          return {
+            ...participant,
+            idNumber: participant.idNumber ?? '-',
+            dinas: participant.dinas ?? '-',
+            bidang: participant.bidang ?? '-',
+            company: participant.company ?? '-',
+            editLink: response.actions.canEdit ? `/participants/${participant.id}/edit` : null,
+            detailLink: response.actions.canView ? `/participants/${participant.id}/detail` : null,
+            deleteMethod: response.actions.canDelete ? () => this.deleteParticipant(participant) : null,
+          };
+        });
+        this.totalPages = response.paging.totalPage;
       },
       error: (error) => {
         console.error('Error fetching users:', error);

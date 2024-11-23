@@ -14,5 +14,5 @@ import { TitleComponent } from "../../components/title/title.component";
 })
 export class DisplayFilesComponent {
   @Input() pageTitle: string = '';
-  navigationLinks: string = '';
+  @Input() navigationLinks: string = '';
 }

@@ -1,43 +1,31 @@
 import { Component, OnInit } from '@angular/core';
-import { HeaderComponent } from "../../../components/header/header.component";
-import { WhiteButtonComponent } from "../../../components/button/white-button/white-button.component";
-import { BlueButtonComponent } from "../../../components/button/blue-button/blue-button.component";
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { BaseInputComponent } from '../../../components/input/base-input/base-input.component';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CotFormComponent } from "../../../layouts/cot-form/cot-form.component";
 import { CotService } from '../../../shared/service/cot.service';
 import { ErrorHandlerService } from '../../../shared/service/error-handler.service';
 import { SweetalertService } from '../../../shared/service/sweetaler.service';
-import { COT, CreateCOT, UpdateCOT } from '../../../shared/model/cot.model';
+import { Cot, UpdateCot } from '../../../shared/model/cot.model';
 
 @Component({
   selector: 'app-edit-cot',
   standalone: true,
   imports: [
-    HeaderComponent,
-    BaseInputComponent,
-    WhiteButtonComponent,
-    BlueButtonComponent,
-    RouterLink,
     CotFormComponent
 ],
   templateUrl: './edit-cot.component.html',
-  styleUrl: './edit-cot.component.css'
 })
 export class EditCotComponent implements OnInit {
-  cot: COT = {
+  cot: UpdateCot = {
     id: '',
-    kodeCot: '',
     capabilityId: '',
-    tanggalMulai: undefined!,
-    tanggalSelesai: undefined!,
-    lokasiTraining: '',
-    instrukturTeoriRegulasiGse: '',
-    instrukturTeoriKompetensi: '',
-    instrukturPraktek1: '',
-    instrukturPraktek2: '',
+    startDate: undefined!,
+    endDate: undefined!,
+    trainingLocation: '',
+    theoryInstructorRegGse: '',
+    theoryInstructorCompetency: '',
+    practicalInstructor1: '',
+    practicalInstructor2: '',
     status: undefined!,
-    Capability: undefined!,
   }
 
   constructor(
@@ -48,18 +36,31 @@ export class EditCotComponent implements OnInit {
     private readonly sweetalertService: SweetalertService,
   ) { }
 
+  initialCapability: string = '';
+
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
     if(id) {
       this.cotService.getCotById(id).subscribe({
         next: (response) => {
-          this.cot = response.data as COT;
-          if (this.cot.tanggalMulai) {
-            this.cot.tanggalMulai = new Date(this.cot.tanggalMulai).toISOString().split('T')[0];
-          }
-          if (this.cot.tanggalSelesai) {
-            this.cot.tanggalSelesai = new Date(this.cot.tanggalSelesai).toISOString().split('T')[0];
-          }
+          // Casting response.data ke Cot untuk memastikan tipe data yang benar
+          const cotData = response.data as Cot;
+
+          // Mapping data dari response ke UpdateCot
+          this.cot = {
+            id: cotData.id,
+            capabilityId: cotData.Capability?.id, // Mengambil id dari Capability
+            startDate: cotData.startDate ? new Date(cotData.startDate).toISOString().split('T')[0] : undefined,
+            endDate: cotData.endDate ? new Date(cotData.endDate).toISOString().split('T')[0] : undefined,
+            trainingLocation: cotData.trainingLocation,
+            theoryInstructorRegGse: cotData.theoryInstructorRegGse,
+            theoryInstructorCompetency: cotData.theoryInstructorCompetency,
+            practicalInstructor1: cotData.practicalInstructor1,
+            practicalInstructor2: cotData.practicalInstructor2,
+            status: cotData.status
+          };
+
+          this.initialCapability = this.cot.capabilityId!;
         },
         error: (error) => {
           console.log(error);
@@ -68,8 +69,8 @@ export class EditCotComponent implements OnInit {
     }
   }
 
-  onSubmit(cot: UpdateCOT) {
-    this.cotService.updateCot(cot.id, cot).subscribe({
+  onSubmit() {
+    this.cotService.updateCot(this.cot.id, this.cot).subscribe({
       next: () => {
         this.router.navigateByUrl('/cot');
         this.sweetalertService.alert('Berhasil', 'COT berhasil diperbarui', 'success');

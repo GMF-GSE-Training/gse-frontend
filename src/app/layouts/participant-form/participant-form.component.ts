@@ -20,7 +20,6 @@ import { RoleBasedAccessDirective } from '../../shared/directive/role-based-acce
     WhiteButtonComponent,
     BlueButtonComponent,
     BaseInputComponent,
-    HeaderComponent,
     RouterLink,
     FormsModule,
     TitleComponent,
@@ -49,12 +48,15 @@ export class ParticipantFormComponent {
   @ViewChild(CompanyInputComponent) companyInputComponent!: CompanyInputComponent;
   @ViewChild('form') form!: NgForm;
 
+  currentUserRole: string | null = sessionStorage.getItem('currentUserRole');
+
   onSubmit() {
     if (this.form.valid) {
       this.participant.perusahaan = this.companyInputComponent.getCompanyName();
       if(this.isUpdate) {
-        this.participant.email = null;
-        console.log("Participant form : ", this.participant);
+        if(this.currentUserRole !== 'super admin') {
+          this.participant.email = undefined;
+        }
         this.formSubmit.emit(this.participant);
       } else {
         this.formSubmit.emit(this.participant);

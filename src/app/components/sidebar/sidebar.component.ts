@@ -27,7 +27,7 @@ export class SidebarComponent implements OnChanges {
       routerLink: ""
     },
     {
-      name: 'Participants Data',
+      name: 'Participants',
       routerLink: "/participants"
     },
     {
@@ -61,7 +61,7 @@ export class SidebarComponent implements OnChanges {
 
   optionalMenu = [
     {
-      name: 'Users',
+      name: 'User Role',
       routerLink: "/users"
     },
     {

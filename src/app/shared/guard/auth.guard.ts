@@ -59,7 +59,7 @@ export const AuthAndRoleGuard: CanActivateFn = (route, state) => {
     map((response: any) => {
       if (response.code === 200 || response.status === 'OK') { // Jika respons berhasil
         // Simpan data user dan waktu expired token di session storage
-        sessionStorage.setItem('currentUserRole', response.data.role.role);
+        sessionStorage.setItem('currentUserRole', response.data.role.name);
         sessionStorage.setItem('participantId', response.data.participantId);
 
         // Set waktu kadaluarsa token (misalnya 1 jam dari sekarang)
@@ -68,7 +68,7 @@ export const AuthAndRoleGuard: CanActivateFn = (route, state) => {
 
         // Lakukan pengecekan role user setelah data disimpan
         return checkAndProcessRole(
-          response.data.role.role,
+          response.data.role.name,
           route.data['roles'] as Array<string>
         );
       }

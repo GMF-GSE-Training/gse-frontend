@@ -21,39 +21,38 @@
           inputMode="tel"
           label="No Pegawai"
           placeholder="No Pegawai"
-          name="noPegawai"
-          [(ngModel)]="user.noPegawai"
-          #noPegawai="ngModel"
+          name="idNumber"
+          [(ngModel)]="user.idNumber"
+          #idNumber="ngModel"
         >
         </app-base-input>
 
-        <app-role-input
+        <app-dropdown-input
           *ngIf="!isRegister"
           class="input"
           label="Role"
-          [isRequired]="isCreate && !isRegister"
-          [initialRole]="user.role"
-          (roleChange)="onRoleChange($event)"
-        >
-        </app-role-input>
-        <div class="error-message-container" *ngIf="!user.role && form.submitted && !isRegister"><p class="error-message">Wajib diisi</p></div>
+          [isRequired]="true"
+          placeholder="--- Pilih Role ---"
+          [options]="roleOptions"
+          [initialValue]="initialRole"
+          (selectionChange)="onRoleSelected($event)"
+          >
+        </app-dropdown-input>
 
         <app-base-input
-          *ngIf="isRegister || selectedRole?.role === 'user'"
+          *ngIf="isRegister || selectedRole.role === 'user'"
           class="input"
           type="text"
           inputMode="tel"
-          label="NIK"
+          label="NIK/Paspor"
           [isRequired]="true"
-          [placeholder]="isRegister ? 'Masukan NIK sesuai KTP' : 'Role user wajib mengisi NIK'"
+          [placeholder]="isRegister ? 'Masukan NIK/Paspor' : 'Role user wajib mengisi NIK/Paspor'"
           name="nik"
           [(ngModel)]="user.nik"
           #nik="ngModel"
-          [required]="isRegister || selectedRole?.role === 'user'"
+          [required]="isRegister"
           pattern="^[0-9]+$"
           [restrictToPattern]="'^[0-9]+$'"
-          minLength="16"
-          minLengthErrorMessage="NIK harus terdiri dari 16 digit angka"
         >
         </app-base-input>
 
@@ -86,7 +85,7 @@
           #email="ngModel"
           [email]="true"
           required
-          [disabled]="!isCreate"
+          [disabled]="!isCreate && (!currentUserRole || currentUserRole !== 'super admin')"
         >
         </app-base-input>
 

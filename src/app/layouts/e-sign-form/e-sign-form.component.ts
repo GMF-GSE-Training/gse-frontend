@@ -7,6 +7,7 @@ import { BlueButtonComponent } from "../../components/button/blue-button/blue-bu
 import { CommonModule } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
 import { DropdownInputComponent } from "../../components/input/dropdown-input/dropdown-input.component";
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-e-sign-form',
@@ -19,7 +20,8 @@ import { DropdownInputComponent } from "../../components/input/dropdown-input/dr
     BlueButtonComponent,
     CommonModule,
     FormsModule,
-    DropdownInputComponent
+    DropdownInputComponent,
+    RouterLink,
 ],
   templateUrl: './e-sign-form.component.html',
   styleUrl: './e-sign-form.component.css'

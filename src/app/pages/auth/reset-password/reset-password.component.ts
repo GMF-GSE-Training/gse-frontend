@@ -27,7 +27,6 @@ export class ResetPasswordComponent {
   ) { }
 
   onResetPassword(newPassword: ResetPassword) {
-    console.log(newPassword)
     this.authService.resetPassword(newPassword).subscribe({
       next: () => {
         this.sweetalertService.alert('Berhasil!', 'Password berhasil diperbarui', 'success');

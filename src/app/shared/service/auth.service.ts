@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { AuthResponse, LoginUserRequest, ResetPassword } from '../model/auth.model';
+import { AuthResponse, LoginUserRequest, RegisterUserRequest, ResetPassword } from '../model/auth.model';
 import { environment } from '../../../environments/environment.development';
 
 @Injectable({
@@ -16,20 +16,20 @@ export class AuthService {
     private http: HttpClient,
   ) {}
 
-  register<T>(request: any): Observable<any > {
-    return this.http.post<T>(`${this.apiUrl}/${this.endpoint.register}`, request);
+  register(request: RegisterUserRequest): Observable<AuthResponse> {
+    return this.http.post<AuthResponse>(`${this.apiUrl}/${this.endpoint.register}`, request);
   }
 
-  login(request: LoginUserRequest): Observable<any> {
-    return this.http.post(`${this.apiUrl}/${this.endpoint.login}`, request, { withCredentials: true });
+  login(request: LoginUserRequest): Observable<AuthResponse> {
+    return this.http.post<AuthResponse>(`${this.apiUrl}/${this.endpoint.login}`, request, { withCredentials: true });
   }
 
-  me(): Observable<any> {
-    return this.http.get(`${this.apiUrl}/${this.endpoint.base}`, { withCredentials: true });
+  me(): Observable<AuthResponse> {
+    return this.http.get<AuthResponse>(`${this.apiUrl}/${this.endpoint.base}`, { withCredentials: true });
   }
 
-  logout(): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/${this.endpoint.base}`, { withCredentials: true });
+  logout(): Observable<AuthResponse> {
+    return this.http.delete<AuthResponse>(`${this.apiUrl}/${this.endpoint.base}`, { withCredentials: true });
   }
 
   forgotPassword(request: { email: string }): Observable<AuthResponse> {

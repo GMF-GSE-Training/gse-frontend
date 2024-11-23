@@ -1,4 +1,8 @@
-  .login-form {
+div {
+  font-family: 'Petrona', sans-serif;
+}
+
+.login-form {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -8,7 +12,6 @@
 
 .login-form input {
   font-size: 20px;
-  font-family: 'Petrona', sans-serif;
   font-weight: bold;
   padding-left: 50px;
 }

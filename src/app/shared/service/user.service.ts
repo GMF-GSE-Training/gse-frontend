@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment.development';
-import { CreateUserRequest, ListUserResponse, UpdateUserRequest, User, UserResponse } from '../model/user.model';
+import { CreateUserRequest, UpdateUserRequest, User, UserResponse } from '../model/user.model';
 
 @Injectable({
   providedIn: 'root',
@@ -26,15 +26,15 @@ export class UserService {
     return this.http.patch<UserResponse>(`${this.apiUrl}/${this.endpoints.base}/${id}`, request, { withCredentials: true });
   }
 
-  searchUser(q: string, page: number = 1, size: number = 10): Observable<ListUserResponse> {
-    return this.http.get<ListUserResponse>(
+  searchUser(q: string, page: number = 1, size: number = 10): Observable<UserResponse> {
+    return this.http.get<UserResponse>(
       `${this.apiUrl}/${this.endpoints.search}?q=${q}&page=${page}&size=${size}`,
       { withCredentials: true }
     );
   }
 
-  listUsers(page: number = 1, size: number = 10): Observable<ListUserResponse> {
-    return this.http.get<ListUserResponse>(`${this.apiUrl}/${this.endpoints.list}?page=${page}&size=${size}`, { withCredentials: true });
+  listUsers(page: number = 1, size: number = 10): Observable<UserResponse> {
+    return this.http.get<UserResponse>(`${this.apiUrl}/${this.endpoints.list}?page=${page}&size=${size}`, { withCredentials: true });
   }
 
   deleteUser(id: string): Observable<UserResponse> {

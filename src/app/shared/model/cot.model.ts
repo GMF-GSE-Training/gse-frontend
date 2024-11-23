@@ -1,43 +1,39 @@
 import { Capability } from "./capability.model";
 
-export interface CreateCOT {
-  kodeCot: string;
+export interface CreateCot {
   capabilityId: string;
-  tanggalMulai: string;
-  tanggalSelesai: string;
-  lokasiTraining: string;
-  instrukturTeoriRegulasiGse: string;
-  instrukturTeoriKompetensi: string;
-  instrukturPraktek1: string;
-  instrukturPraktek2: string;
+  startDate: string;
+  endDate: string;
+  trainingLocation: string;
+  theoryInstructorRegGse: string;
+  theoryInstructorCompetency: string;
+  practicalInstructor1: string;
+  practicalInstructor2: string;
   status?: boolean;
 }
 
-export interface UpdateCOT {
+export interface UpdateCot {
   id: string;
-  kodeCot?: string;
   capabilityId?: string;
-  tanggalMulai?: string;
-  tanggalSelesai?: string;
-  lokasiTraining?: string;
-  instrukturTeoriRegulasiGse?: string;
-  instrukturTeoriKompetensi?: string;
-  instrukturPraktek1?: string;
-  instrukturPraktek2?: string;
+  startDate?: string;
+  endDate?: string;
+  trainingLocation?: string;
+  theoryInstructorRegGse?: string;
+  theoryInstructorCompetency?: string;
+  practicalInstructor1?: string;
+  practicalInstructor2?: string;
   status?: boolean;
 }
 
-export interface COT {
+export interface Cot {
   id: string;
-  kodeCot: string;
-  capabilityId: string;
-  tanggalMulai: string;
-  tanggalSelesai: string;
-  lokasiTraining: string;
-  instrukturTeoriRegulasiGse: string;
-  instrukturTeoriKompetensi: string;
-  instrukturPraktek1: string;
-  instrukturPraktek2: string;
+  startDate: string;
+  endDate: string;
+  trainingLocation: string;
+  theoryInstructorRegGse: string;
+  theoryInstructorCompetency: string;
+  practicalInstructor1: string;
+  practicalInstructor2: string;
   status: boolean;
   Capability: Capability;
 }
@@ -45,9 +41,9 @@ export interface COT {
 export interface CotResponse {
   code: number;
   status: string;
-  data: COT | string | COT[];
-  actions?: ActionAccessRigts,
-  paging?: Paging;
+  data: Cot | string | Cot[];
+  actions: ActionAccessRigts,
+  paging: Paging;
 }
 
 type ActionAccessRigts = {

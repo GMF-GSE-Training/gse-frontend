@@ -1,8 +1,8 @@
-i {
-  transform: rotate(-90deg);
-  position: relative;
-  left: 52.7em;
-  bottom: 2.2em;
+.fa-less-than {
+  position: absolute;
+  right: 1em;
+  top: 75%;
+  transform: translateY(-50%) rotate(-90deg);
   font-size: 12px;
   font-weight: bold;
 }
@@ -37,7 +37,7 @@ li:hover {
 
 .dropdown-content {
   position: absolute;
-  top: 100%; /* letakkan di bawah <app-base-input> */
+  top: 120%; /* letakkan di bawah <app-base-input> */
   left: 0;
   width: 100%; /* mengikuti lebar elemen pembungkus */
   background-color: white;

@@ -1,7 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { ParticipantService } from '../../../shared/service/participant.service';
-import { CreateParticipant } from '../../../shared/model/participant.model';
+import { CreateParticipant, Participant } from '../../../shared/model/participant.model';
 import { FormsModule } from '@angular/forms';
 import { environment } from '../../../../environments/environment.development';
 import { SweetalertService } from '../../../shared/service/sweetaler.service';
@@ -23,17 +23,17 @@ export class AddParticipantDataComponent {
   @ViewChild(CompanyInputComponent) companyInputComponent!: CompanyInputComponent;
 
   createParticipant: CreateParticipant = {
-    noPegawai: '',
-    nama: '',
+    idNumber: '',
+    name: '',
     nik: '',
     dinas: '',
     bidang: '',
-    perusahaan: '',
+    company: '',
     email: '',
-    noTelp: '',
-    negara: '',
-    tempatLahir: '',
-    tanggalLahir: '',
+    phoneNumber: '',
+    nationality: '',
+    placeOfBirth: '',
+    dateOfBirth: '',
     simA: null,
     simAFileName: '',
     simB: null,
@@ -48,10 +48,11 @@ export class AddParticipantDataComponent {
     suratBebasNarkobaFileName: '',
     tglKeluarSuratSehatButaWarna: '',
     tglKeluarSuratBebasNarkoba: '',
+    qrCodeLink: ''
   };
 
-  requiredFields = ['nama', 'perusahaan', 'email', 'noTelp', 'kewarganegaraan',
-                    'tempatLahir', 'tanggalLahir', 'simA', 'ktp', 'foto',
+  requiredFields = ['name', 'company', 'email', 'phoneNumber', 'kewarganegaraan',
+                    'placeOfBirth', 'dateOfBirth', 'simA', 'ktp', 'foto',
                     'suratSehatButaWarna', 'tglKeluarSuratSehatButaWarna',
                     'suratBebasNarkoba', 'tglKeluarSuratSehatBebasNarkoba'];
 
@@ -63,19 +64,21 @@ export class AddParticipantDataComponent {
   ) {}
 
   onCreate(participant: any) {
+    participant.qrCodeLink = environment.qrCodeLink;
     const formData = this.prepareFormData(participant);
 
     this.participantService.createParticipant(formData).subscribe({
       next: (response) => {
+        const responseData = response.data as Participant;
         this.sweetalertService.alert('Ditambahkan!', 'Peserta berhasil ditambahkan', 'success');
         this.router.navigateByUrl(`/users/add`, {
           state: {
-            id: response.data.id,
-            noPegawai: response.data.noPegawai,
-            nik: response.data.nik,
-            email: response.data.email,
-            name: response.data.nama,
-            dinas: response.data.dinas
+            id: responseData.id,
+            idNumber: responseData.idNumber,
+            nik: responseData.nik,
+            email: responseData.email,
+            name: responseData.name,
+            dinas: responseData.dinas
           }
         });
       },
@@ -89,7 +92,7 @@ export class AddParticipantDataComponent {
     if (file) {
       (this.createParticipant as any)[property] = file;
       const fileNameProperty = `${property}FileName`;
-      // Mengisi nama file ke property yang sesuai
+      // Mengisi name file ke property yang sesuai
       (this.createParticipant as any)[fileNameProperty] = file.name;
     }
   }

@@ -1,20 +1,22 @@
 <table>
   <thead>
     <tr>
-      <th *ngFor="let column of columns">{{ column.header }}</th>
+      <th *ngFor="let column of columns" [ngClass]="{ 'hidden': column.field === 'action' && !hasActionColumn() }">
+        {{ column.header }}
+      </th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let item of data">
-      <td *ngFor="let column of columns">
+      <td *ngFor="let column of columns" [ngClass]="{ 'hidden': column.field === 'action' && !hasActionColumn() }">
         <ng-container *ngIf="column.field !== 'action'; else actionTemplate">
-          <ng-container *ngIf="!['kurikulumSilabus', 'simA', 'tglKeluarSuratSehatButaWarna', 'tglKeluarSuratBebasNarkoba'].includes(column.field)">
+          <ng-container *ngIf="!['kurikulumSilabus', 'sim', 'expSuratSehatButaWarna', 'expSuratBebasNarkoba'].includes(column.field)">
             {{ item[column.field] }}
           </ng-container>
           <a *ngIf="column.field === 'kurikulumSilabus'" [routerLink]="item.kurikulumSilabus">Lihat</a>
-          <a *ngIf="column.field === 'simA'" [routerLink]="item.simA">Lihat</a>
-          <a *ngIf="column.field === 'tglKeluarSuratSehatButaWarna'" [routerLink]="item.tglKeluarSuratSehatButaWarna">Lihat</a>
-          <a *ngIf="column.field === 'tglKeluarSuratBebasNarkoba'" [routerLink]="item.tglKeluarSuratBebasNarkoba">Lihat</a>
+          <a *ngIf="column.field === 'sim'" [routerLink]="item.sim">Lihat</a>
+          <a *ngIf="column.field === 'expSuratSehatButaWarna'" [routerLink]="item.expSuratSehatButaWarna.value">{{ item.expSuratSehatButaWarna.label }}</a>
+          <a *ngIf="column.field === 'expSuratBebasNarkoba'" [routerLink]="item.expSuratBebasNarkoba.value">{{ item.expSuratBebasNarkoba.label }}</a>
         </ng-container>
         <ng-template #actionTemplate>
           <app-icon-action [printLink]="item.printLink" [addLink]="item.addLink" [editLink]="item.editLink" [delete]="item.deleteMethod" [detailLink]="item.detailLink" [select]="item.select"></app-icon-action>

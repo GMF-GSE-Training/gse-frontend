@@ -1,6 +1,6 @@
 <app-title [pageTitle]="pageTitle" (click)="$event.stopPropagation()"></app-title>
 
-<div class="back" [routerLink]="navigationLinks">
+<div class="back" (routerLink)="navigationLinks">
   <i class="fa-solid fa-arrow-left"></i>
 </div>
 

@@ -1,26 +1,14 @@
 import { Component } from '@angular/core';
-import { HeaderComponent } from '../../../components/header/header.component';
-import { TableComponent } from '../../../components/table/table.component';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { WhiteButtonComponent } from '../../../components/button/white-button/white-button.component';
-import { BlueButtonComponent } from '../../../components/button/blue-button/blue-button.component';
-import { RoleBasedAccessDirective } from '../../../shared/directive/role-based-access.directive';
+import { ActivatedRoute, Router } from '@angular/router';
 import { DataManagementComponent } from "../../../layouts/data-management/data-management.component";
 import { CotService } from '../../../shared/service/cot.service';
-import { COT } from '../../../shared/model/cot.model';
+import { Cot } from '../../../shared/model/cot.model';
 import { SweetalertService } from '../../../shared/service/sweetaler.service';
-import { ErrorHandlerService } from '../../../shared/service/error-handler.service';
 
 @Component({
   selector: 'app-cot-list',
   standalone: true,
   imports: [
-    HeaderComponent,
-    TableComponent,
-    RouterLink,
-    WhiteButtonComponent,
-    BlueButtonComponent,
-    RoleBasedAccessDirective,
     DataManagementComponent
 ],
   templateUrl: './cot-list.component.html',
@@ -28,15 +16,14 @@ import { ErrorHandlerService } from '../../../shared/service/error-handler.servi
 })
 export class CotListComponent {
   columns = [
-    { header: 'Kode COT', field: 'kodeCot' },
-    { header: 'Mulai', field: 'tanggalMulai' },
-    { header: 'Selesai', field: 'tanggalSelesai' },
-    { header: 'Kode Rating', field: 'kodeRating' },
-    { header: 'Nama Training', field: 'namaTraining' },
+    { header: 'Mulai', field: 'startDate' },
+    { header: 'Selesai', field: 'endDate' },
+    { header: 'Kode Rating', field: 'ratingCode' },
+    { header: 'Nama Training', field: 'trainingName' },
     { header: 'Action', field: 'action' },
   ];
 
-  cot: COT[] = [];
+  cot: any[] = [];
 
   // Komponen pagination
   currentPage: number = 1;
@@ -72,32 +59,26 @@ export class CotListComponent {
   getListCot(page: number, size: number): void {
     this.cotService.listCot(page, size).subscribe({
       next: ({ code, status, data, actions, paging }) => {
-        if (code === 200 && status === 'OK' && Array.isArray(data)) {
-          this.cot = data.map((cot: COT) => ({
-            ...cot,
-            tanggalMulai: new Date(cot.tanggalMulai).toLocaleDateString('id-ID', this.dateOptions),
-            tanggalSelesai: new Date(cot.tanggalSelesai).toLocaleDateString('id-ID', this.dateOptions),
-            kodeRating: cot.Capability?.kodeRating,
-            namaTraining: cot.Capability?.namaTraining,
-            editLink: actions?.canEdit ? `/cot/${cot.id}/edit` : null,
-            detailLink: actions?.canView ? `/cot/${cot.id}/detail` : null,
-            deleteMethod: actions?.canDelete ? () => this.deleteCot(cot) : null,
-          }));
+        this.cot = (data as Cot[]).map((cot) => ({
+          startDate: new Date(cot.startDate).toLocaleDateString('id-ID', this.dateOptions),
+          endDate: new Date(cot.endDate).toLocaleDateString('id-ID', this.dateOptions),
+          ratingCode: cot.Capability?.ratingCode,
+          trainingName: cot.Capability?.trainingName,
+          editLink: actions?.canEdit ? `/cot/${cot.id}/edit` : null,
+          detailLink: actions?.canView ? `/cot/${cot.id}/detail` : null,
+          deleteMethod: actions?.canDelete ? () => this.deleteCot(cot) : null,
+        }));
 
-          this.totalPages = paging?.totalPage || 1;
-        } else {
-          this.cot = [];
-        }
+        this.totalPages = paging.totalPage;
       },
       error: (error) => {
-        console.error('Error fetching data:', error);
-        this.cot = [];
+        console.error(error);
       }
     });
   }
 
-  async deleteCot(cot: COT): Promise<void> {
-    const isConfirmed = await this.sweetalertService.confirm('Anda Yakin?', `Apakah anda ingin menghapus COT ini : ${cot.kodeCot}?`, 'warning', 'Ya, hapus!');
+  async deleteCot(cot: Cot): Promise<void> {
+    const isConfirmed = await this.sweetalertService.confirm('Anda Yakin?', `Apakah anda ingin menghapus COT ${cot.Capability.trainingName}?`, 'warning', 'Ya, hapus!');
     if (isConfirmed) {
       this.cotService.deleteCot(cot.id).subscribe({
         next: () => {
@@ -115,12 +96,12 @@ export class CotListComponent {
     this.cotService.searchCot(query, page, size).subscribe({
       next: ({ code, status, data, actions, paging }) => {
         if (code === 200 && status === 'OK' && Array.isArray(data)) {
-          this.cot = data.map((cot: COT) => ({
+          this.cot = data.map((cot: Cot) => ({
             ...cot,
-            tanggalMulai: new Date(cot.tanggalMulai).toLocaleDateString('id-ID', this.dateOptions),
-            tanggalSelesai: new Date(cot.tanggalSelesai).toLocaleDateString('id-ID', this.dateOptions),
-            kodeRating: cot.Capability?.kodeRating,
-            namaTraining: cot.Capability?.namaTraining,
+            startDate: new Date(cot.startDate).toLocaleDateString('id-ID', this.dateOptions),
+            endDate: new Date(cot.endDate).toLocaleDateString('id-ID', this.dateOptions),
+            ratingCode: cot.Capability?.ratingCode,
+            trainingName: cot.Capability?.trainingName,
             editLink: actions?.canEdit ? `/cot/${cot.id}/edit` : null,
             detailLink: actions?.canView ? `/cot/${cot.id}/detail` : null,
             deleteMethod: actions?.canDelete ? () => this.deleteCot(cot) : null,

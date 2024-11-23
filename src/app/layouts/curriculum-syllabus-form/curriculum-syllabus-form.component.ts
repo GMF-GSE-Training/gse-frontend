@@ -7,6 +7,7 @@ import { FormsModule, NgForm } from '@angular/forms';
 import { Capability } from '../../shared/model/capability.model';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { RoleBasedAccessDirective } from '../../shared/directive/role-based-access.directive';
 
 @Component({
   selector: 'app-curriculum-syllabus-form',
@@ -19,6 +20,7 @@ import { RouterLink } from '@angular/router';
     FormsModule,
     CommonModule,
     RouterLink,
+    RoleBasedAccessDirective,
   ],
   templateUrl: './curriculum-syllabus-form.component.html',
   styleUrl: './curriculum-syllabus-form.component.css'
@@ -27,24 +29,24 @@ export class CurriculumSyllabusFormComponent {
   @Input() pageTitle: string = '';
   @Input() capability: Capability = {
     id: '',
-    kodeRating: '',
-    kodeTraining: '',
-    namaTraining: ''
+    ratingCode: '',
+    trainingCode: '',
+    trainingName: ''
   };
 
-  @Input() regulasiGSEs: Array<{ capabilityId: string; nama: string; durasiTeori: number; durasiPraktek: number; type: string }> = [{
+  @Input() regulasiGSEs: Array<{ capabilityId: string; name: string; theoryDuration: number; practiceDuration: number; type: string }> = [{
     capabilityId: this.capability.id,
-    nama: '',
-    durasiTeori: 0,
-    durasiPraktek: 0,
+    name: '',
+    theoryDuration: 0,
+    practiceDuration: 0,
     type: 'Regulasi GSE'
   }];
 
-  @Input() kompetensis: Array<{ capabilityId: string; nama: string; durasiTeori: number; durasiPraktek: number; type: string }> = [{
+  @Input() kompetensis: Array<{ capabilityId: string; name: string; theoryDuration: number; practiceDuration: number; type: string }> = [{
     capabilityId: this.capability.id,
-    nama: '',
-    durasiTeori: 0,
-    durasiPraktek: 0,
+    name: '',
+    theoryDuration: 0,
+    practiceDuration: 0,
     type: 'Kompetensi'
   }];
 
@@ -54,7 +56,9 @@ export class CurriculumSyllabusFormComponent {
   @Output() formSubmit = new EventEmitter<any>();
   @ViewChild('form') form!: NgForm;
 
-  handleSubmit() {
+  handleSubmit(event: Event) {
+    event.preventDefault();
+
     if (this.form.valid) {
       this.formSubmit.emit();
     }
@@ -63,9 +67,9 @@ export class CurriculumSyllabusFormComponent {
   addInput(groupName: 'regulasiGSEs' | 'kompetensis') {
     const newItem = {
       capabilityId: this.capability.id,
-      nama: '',
-      durasiTeori: 0,
-      durasiPraktek: 0,
+      name: '',
+      theoryDuration: 0,
+      practiceDuration: 0,
       type: groupName === 'regulasiGSEs' ? 'Regulasi GSE' : 'Kompetensi'
     };
 

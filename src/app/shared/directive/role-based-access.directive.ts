@@ -31,10 +31,16 @@ export class RoleBasedAccessDirective {
       this.updateView();
     } else {
       this.authService.me().subscribe(user => {
-        this.currentUserRole = user.data.role.role;
-        sessionStorage.setItem('currentUserRole', this.currentUserRole); // Save to cache
-        this.updateView();
+        if (user.data && typeof user.data !== 'string') {
+          this.currentUserRole = user.data.role.name;
+          sessionStorage.setItem('currentUserRole', this.currentUserRole); // Save to cache
+          this.updateView();
+        } else {
+          // Handle case where data is a string or undefined
+          console.error("Invalid data format:", user.data);
+        }
       });
+
     }
   }
 

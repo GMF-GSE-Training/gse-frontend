@@ -13,8 +13,6 @@ import { SweetalertService } from '../../../shared/service/sweetaler.service';
   selector: 'app-id-card',
   standalone: true,
   imports: [
-    HeaderComponent,
-    WhiteButtonComponent,
     BlueButtonComponent,
     RouterLink,
     DisplayFilesComponent
@@ -25,7 +23,7 @@ import { SweetalertService } from '../../../shared/service/sweetaler.service';
 export class IdCardComponent implements OnInit {
   id_card: SafeHtml = '';
   id = this.route.snapshot.paramMap.get('id');
-  navigationLink: string = `/participants/${this.id}/view`;
+  navigationLink: string = `/participants/${this.id}/detail`;
 
   constructor(
     private readonly route: ActivatedRoute,
@@ -38,7 +36,6 @@ export class IdCardComponent implements OnInit {
   ngOnInit(): void {
     this.participantService.viewIdCard(this.id!).subscribe({
       next: (response) => {
-        console.log(response);
         this.id_card = this.sanitizer.bypassSecurityTrustHtml(response);
       },
       error: (error) => {

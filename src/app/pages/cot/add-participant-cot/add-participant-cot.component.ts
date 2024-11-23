@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { HeaderComponent } from '../../../components/header/header.component';
 import { WhiteButtonComponent } from '../../../components/button/white-button/white-button.component';
 import { BlueButtonComponent } from '../../../components/button/blue-button/blue-button.component';
 import { TableComponent } from '../../../components/table/table.component';
@@ -9,7 +8,6 @@ import { TableComponent } from '../../../components/table/table.component';
   selector: 'app-add-participant-cot',
   standalone: true,
   imports: [
-    HeaderComponent,
     RouterLink,
     WhiteButtonComponent,
     BlueButtonComponent,

@@ -17,7 +17,7 @@ import { ErrorHandlerService } from '../../../shared/service/error-handler.servi
 export class AddUserComponent {
   createUser: CreateUserRequest = {
     participantId: '',
-    noPegawai: '',
+    idNumber: '',
     nik: '',
     email: '',
     name: '',
@@ -26,6 +26,7 @@ export class AddUserComponent {
   }
 
   requiredFields = ['name', 'nik', 'email', 'roleId', 'password'];
+  initialRole: string = '';
 
   constructor(
     private router: Router,
@@ -37,13 +38,13 @@ export class AddUserComponent {
     const state = navigation?.extras.state;
 
     if (state) {
-      console.log(state);
       this.createUser.participantId = state['id'];
-      this.createUser.noPegawai = state['noPegawai'] || '';
+      this.createUser.idNumber = state['idNumber'] || '';
       this.createUser.nik = state['nik'] || '';
       this.createUser.email = state['email'] || '';
       this.createUser.name = state['name'] || '';
       this.createUser.dinas = state['dinas'] || '';
+      this.initialRole = 'user';
     }
   }
 

@@ -1,37 +1,26 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { HeaderComponent } from "../../../components/header/header.component";
-import { WhiteButtonComponent } from "../../../components/button/white-button/white-button.component";
-import { BlueButtonComponent } from "../../../components/button/blue-button/blue-button.component";
-import { BaseInputComponent } from '../../../components/input/base-input/base-input.component';
-import { TitleComponent } from "../../../components/title/title.component";
+import { ActivatedRoute, Router } from '@angular/router';
 import { CapabilityService } from '../../../shared/service/capability.service';
-import { FormsModule } from '@angular/forms';
 import { SweetalertService } from '../../../shared/service/sweetaler.service';
 import { CapabilityFormComponent } from "../../../layouts/capability-form/capability-form.component";
+import { Capability } from '../../../shared/model/capability.model';
+import { ErrorHandlerService } from '../../../shared/service/error-handler.service';
 
 @Component({
   selector: 'app-edit-capability',
   standalone: true,
   imports: [
-    RouterLink,
-    HeaderComponent,
-    BaseInputComponent,
-    WhiteButtonComponent,
-    BlueButtonComponent,
-    TitleComponent,
-    FormsModule,
     CapabilityFormComponent
-],
+  ],
   templateUrl: './edit-capability.component.html',
   styleUrl: './edit-capability.component.css'
 })
 export class EditCapabilityComponent implements OnInit {
   capability = {
     id: '',
-    kodeRating: '',
-    kodeTraining: '',
-    namaTraining: '',
+    ratingCode: '',
+    trainingCode: '',
+    trainingName: '',
   };
 
   constructor(
@@ -39,6 +28,7 @@ export class EditCapabilityComponent implements OnInit {
     private readonly router: Router,
     private readonly route: ActivatedRoute,
     private readonly sweetalertService: SweetalertService,
+    private readonly errorHandlerService: ErrorHandlerService,
   ) { }
 
   ngOnInit(): void {
@@ -46,9 +36,7 @@ export class EditCapabilityComponent implements OnInit {
     if(id) {
       this.capabilityService.getCapabilityById(id).subscribe({
         next: (response) => {
-          if(typeof response.data === 'object') {
-            this.capability = response.data;
-          }
+          this.capability = response.data as Capability;
         },
         error: (error) => {
           console.log(error);
@@ -66,6 +54,7 @@ export class EditCapabilityComponent implements OnInit {
       },
       error: (error) => {
         console.log(error);
+        this.errorHandlerService.handleError(error);
       }
     })
   }

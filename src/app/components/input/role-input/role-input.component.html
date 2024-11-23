@@ -1,8 +1,0 @@
-<label>
-  {{ label }}
-  <p *ngIf="isRequired">*</p>
-</label>
-<select id="role-select" [(ngModel)]="selectedRole" (change)="onRoleChange()">
-  <option label="--- Pilih Role ---" [ngValue]="null" [disabled]="roleChange"></option> <!-- Opsi pertama selalu tersedia -->
-  <option label="{{ role.role }}" *ngFor="let role of roles" [ngValue]="role"></option>
-</select>

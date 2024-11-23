@@ -22,6 +22,7 @@ import { TogglePasswordVisibilityComponent } from "../../toggle-password-visibil
 export class BaseInputComponent {
   @Input() label: string = '';
   @Input() type: string = '';
+  @Input() autocomplete: string = '';
   @Input() inputMode: string = '';
   @Input() placeholder: string = '';
   @Input() name: string = '';
@@ -75,8 +76,8 @@ export class BaseInputComponent {
       const regex = new RegExp(this.restrictToPattern);
       const key = event.key;
 
-      // Mengizinkan tombol Backspace, Delete, dan Arrow keys
-      if (key === 'Backspace' || key === 'Delete' || key.startsWith('Arrow')) {
+      // Mengizinkan tombol Backspace, Delete, Arrow keys, dan Enter
+      if (key === 'Backspace' || key === 'Delete' || key.startsWith('Arrow') || key === 'Enter') {
         return; // Izinkan tombol ini bekerja
       }
 

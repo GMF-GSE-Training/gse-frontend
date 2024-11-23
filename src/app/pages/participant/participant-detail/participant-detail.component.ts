@@ -1,11 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Renderer2 } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { HeaderComponent } from '../../../components/header/header.component';
 import { BlueButtonComponent } from '../../../components/button/blue-button/blue-button.component';
 import { DetailedViewComponent } from "../../../components/detailed-view/detailed-view.component";
 import { TableComponent } from "../../../components/table/table.component";
 import { ParticipantService } from '../../../shared/service/participant.service';
-import { Participant, ParticipantResponse } from '../../../shared/model/participant.model';
+import { Participant } from '../../../shared/model/participant.model';
 import { map } from 'rxjs/operators';
 import { RoleBasedAccessDirective } from '../../../shared/directive/role-based-access.directive';
 import { CommonModule } from '@angular/common';
@@ -16,7 +15,6 @@ import { WhiteButtonComponent } from "../../../components/button/white-button/wh
   standalone: true,
   imports: [
     RouterLink,
-    HeaderComponent,
     BlueButtonComponent,
     DetailedViewComponent,
     TableComponent,
@@ -39,7 +37,8 @@ export class ParticipantDetailComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private participantService: ParticipantService
+    private participantService: ParticipantService,
+    private renderer: Renderer2
   ) {}
 
   columns = [
@@ -54,33 +53,33 @@ export class ParticipantDetailComponent implements OnInit {
     {namaTraining: "Air Conditioning System Refreshment", exp: "10 February 2026"},
   ]
 
+  id = this.route.snapshot.paramMap.get('id') || localStorage.getItem('participantId');
+
   ngOnInit(): void {
-    const id = this.route.snapshot.paramMap.get('id') || localStorage.getItem('participantId');
-    if (id) {
-      this.participantService.getParticipantById(id).subscribe({
+    if (this.id) {
+      this.participantService.getParticipantById(this.id).subscribe({
         next: (response) => {
           if (response.status === 'OK' && response.code === 200) {
-            console.log('Detail : ', response.data)
-            this.participant = response.data;
+            this.participant = response.data as Participant;
             this.editLink = `/participants/${this.participant.id}/edit`;
 
             this.leftTableData = [
-              { label: 'Nama Peserta', value: this.participant!.nama },
+              { label: 'Nama Peserta', value: this.participant!.name },
               { label: 'Dinas', value: this.participant?.dinas ?? '-'},
               { label: 'Bidang', value: this.participant?.bidang ?? '-' },
-              { label: 'Perusahaan', value: this.participant!.perusahaan },
+              { label: 'Perusahaan', value: this.participant!.company },
               { label: 'Email', value: this.participant!.email },
-              { label: 'No Telp', value: this.participant!.noTelp }
+              { label: 'No Telp', value: this.participant!.phoneNumber }
             ];
 
             this.rightTableData = [
-              { label: 'Tempat Lahir', value: this.participant!.tempatLahir },
-              { label: 'Tanggal Lahir', value: this.participant!.tanggalLahir },
+              { label: 'Tempat Lahir', value: this.participant!.placeOfBirth },
+              { label: 'Tanggal Lahir', value: this.participant!.dateOfBirth },
               { label: 'SIM A', value: '-', link: `/participants/${this.participant!.id}/sim-a` },
               { label: 'SIM B', value: '-', link: `/participants/${this.participant!.id}/sim-b` },
               { label: 'KTP', value: '-', link: `/participants/${this.participant!.id}/ktp` },
-              { label: 'Ket Sehat & Buta Warna', value: '-', link: `/participants/${this.participant!.id}/surat-sehat-buta-warna` },
-              { label: 'Ket Bebas Narkoba', value: '-', link: `/participants/${this.participant!.id}/surat-bebas-narkoba` },
+              { label: 'Surat Ket Sehat & Buta Warna', value: '-', link: `/participants/${this.participant!.id}/surat-sehat-buta-warna` },
+              { label: 'Surat Ket Bebas Narkoba', value: '-', link: `/participants/${this.participant!.id}/surat-bebas-narkoba` },
             ];
 
             this.getFoto(this.participant!.id);
@@ -100,8 +99,8 @@ export class ParticipantDetailComponent implements OnInit {
     this.participantService.getFoto(id).subscribe({
       next: (response) => {
         if(response) {
-          this.photoType = this.getMediaType(response.data);
-          this.foto = response.data;
+          this.photoType = this.getMediaType(response.data as string);
+          this.foto = response.data as string;
         }
       }
     });
@@ -109,7 +108,7 @@ export class ParticipantDetailComponent implements OnInit {
 
   getQrCode(id: string): void {
     this.participantService.getQrCode(id).pipe(
-      map(response => response.data)
+      map(response => response.data as string)
     ).subscribe((qrCode: string) => {
       this.qrCode = qrCode;
     });
@@ -128,5 +127,20 @@ export class ParticipantDetailComponent implements OnInit {
     if (header === 'JVBE') return 'application/pdf';
 
     return ''; // Unknown type
+  }
+
+  downloadQrCode(): void {
+    if (this.qrCode) {
+      const link = this.renderer.createElement('a');
+      this.renderer.setAttribute(link, 'href', `data:image/png;base64,${this.qrCode}`);
+      this.renderer.setAttribute(link, 'download', 'QR_Code.png');
+
+      // Memasukkan elemen ke dalam DOM agar kompatibilitas terjaga
+      this.renderer.appendChild(document.body, link);
+      link.click();
+      this.renderer.removeChild(document.body, link);
+    } else {
+      console.error('QR code is not available');
+    }
   }
 }

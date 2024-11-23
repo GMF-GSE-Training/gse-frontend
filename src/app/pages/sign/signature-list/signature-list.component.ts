@@ -1,10 +1,5 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { HeaderComponent } from '../../../components/header/header.component';
-import { WhiteButtonComponent } from '../../../components/button/white-button/white-button.component';
-import { BlueButtonComponent } from '../../../components/button/blue-button/blue-button.component';
-import { TableComponent } from "../../../components/table/table.component";
-import { SearchComponent } from "../../../components/search/search.component";
+import { ActivatedRoute, Router } from '@angular/router';
 import { DataManagementComponent } from "../../../layouts/data-management/data-management.component";
 import { ESign } from '../../../shared/model/e-sign.model';
 import { ESignService } from '../../../shared/service/e-sign.service';
@@ -14,12 +9,6 @@ import { SweetalertService } from '../../../shared/service/sweetaler.service';
   selector: 'app-sign-list',
   standalone: true,
   imports: [
-    HeaderComponent,
-    RouterLink,
-    WhiteButtonComponent,
-    BlueButtonComponent,
-    TableComponent,
-    SearchComponent,
     DataManagementComponent
 ],
   templateUrl: './signature-list.component.html',

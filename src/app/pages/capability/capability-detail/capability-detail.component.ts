@@ -1,27 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { HeaderComponent } from '../../../components/header/header.component';
-import { WhiteButtonComponent } from "../../../components/button/white-button/white-button.component";
-import { BaseInputComponent } from '../../../components/input/base-input/base-input.component';
-import { TitleComponent } from "../../../components/title/title.component";
-import { CommonModule } from '@angular/common';
-import { BlueButtonComponent } from "../../../components/button/blue-button/blue-button.component";
-import { ActivatedRoute, RouterLink } from '@angular/router';
-import { FormsModule } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { CapabilityService } from '../../../shared/service/capability.service';
 import { CurriculumSyllabusFormComponent } from "../../../layouts/curriculum-syllabus-form/curriculum-syllabus-form.component";
+import { Capability } from '../../../shared/model/capability.model';
 
 @Component({
   selector: 'app-capability-detail',
   standalone: true,
   imports: [
-    HeaderComponent,
-    BaseInputComponent,
-    WhiteButtonComponent,
-    TitleComponent,
-    CommonModule,
-    BlueButtonComponent,
-    RouterLink,
-    FormsModule,
     CurriculumSyllabusFormComponent
 ],
   templateUrl: './capability-detail.component.html',
@@ -30,24 +16,24 @@ import { CurriculumSyllabusFormComponent } from "../../../layouts/curriculum-syl
 export class CapabilityDetailComponent implements OnInit {
   capability = {
     id: '',
-    kodeRating: '',
-    kodeTraining: '',
-    namaTraining: ''
+    ratingCode: '',
+    trainingCode: '',
+    trainingName: ''
   }
 
-  regulasiGSEs: Array<{ capabilityId: string; nama: string; durasiTeori: number; durasiPraktek: number; type: string; }> = [{
+  regulasiGSEs: Array<{ capabilityId: string; name: string; theoryDuration: number; practiceDuration: number; type: string; }> = [{
     capabilityId: '',
-    nama: '',
-    durasiTeori: 0,
-    durasiPraktek: 0,
+    name: '',
+    theoryDuration: 0,
+    practiceDuration: 0,
     type: '',
   }];
 
-  kompetensis: Array<{ capabilityId: string; nama: string; durasiTeori: number; durasiPraktek: number; type: string }> = [{
+  kompetensis: Array<{ capabilityId: string; name: string; theoryDuration: number; practiceDuration: number; type: string }> = [{
     capabilityId: '',
-    nama: '',
-    durasiTeori: 0,
-    durasiPraktek: 0,
+    name: '',
+    theoryDuration: 0,
+    practiceDuration: 0,
     type: '',
   }];
 
@@ -62,18 +48,17 @@ export class CapabilityDetailComponent implements OnInit {
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
       this.editLink = `/curriculum-syllabus/${id}/edit`;
-      console.log(this.editLink);
 
       this.capabilityService.getCapabilityById(id).subscribe({
         next: (response) => {
           if(typeof response.data === 'object') {
-            const data = response.data;
+            const data = response.data as Capability;
             // Update capability data
             this.capability = {
               id: data.id,
-              kodeRating: data.kodeRating,
-              kodeTraining: data.kodeTraining,
-              namaTraining: data.namaTraining,
+              ratingCode: data.ratingCode,
+              trainingCode: data.trainingCode,
+              trainingName: data.trainingName,
             };
 
             // Filter and map curriculumSyllabus to regulasiGSEs and kompetensis
@@ -81,9 +66,9 @@ export class CapabilityDetailComponent implements OnInit {
               .filter(item => item.type === 'Regulasi GSE')
               .map(item => ({
                 capabilityId: item.capabilityId,
-                nama: item.nama,
-                durasiTeori: item.durasiTeori,
-                durasiPraktek: item.durasiPraktek,
+                name: item.name,
+                theoryDuration: item.theoryDuration,
+                practiceDuration: item.practiceDuration,
                 type: item.type,
               }));
 
@@ -91,9 +76,9 @@ export class CapabilityDetailComponent implements OnInit {
               .filter(item => item.type === 'Kompetensi')
               .map(item => ({
                 capabilityId: item.capabilityId,
-                nama: item.nama,
-                durasiTeori: item.durasiTeori,
-                durasiPraktek: item.durasiPraktek,
+                name: item.name,
+                theoryDuration: item.theoryDuration,
+                practiceDuration: item.practiceDuration,
                 type: item.type,
               }));
           }

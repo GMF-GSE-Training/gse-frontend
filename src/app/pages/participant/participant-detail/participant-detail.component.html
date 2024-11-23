@@ -1,21 +1,21 @@
 <div class="section">
   <div class="profile-section">
-    <div class="me">
+    <div class="photo">
       <img *ngIf="photoType === 'image/png'" src="data:{{ photoType }}/;base64,{{ foto }}" alt="Profile Picture" class="file">
       <iframe *ngIf="photoType === 'application/pdf'" src="data:{{ photoType }};base64,{{ foto }}" alt="Profile Picture" class="file"></iframe>
       <img *ngIf="!foto" src="../../../../assets/image/pas_foto.png" alt="profile picture" class="file">
     </div>
     <div class="name">
-      <h2>{{ participant?.nama }}</h2>
+      <h2>{{ participant?.name }}</h2>
     </div>
   </div>
   <div class="qr-section">
-    <div class="print">
+    <div class="qr-code">
       <img src="data:image/png;base64,{{ qrCode }}" alt="QR Code" class="file">
     </div>
-    <div class="print">
+    <div class="download">
       <p *appRoleBasedAccess="['super admin', 'supervisor', 'lcu']"><a (click)="cetakKartuPeserta()">Cetak Kartu Peserta</a></p>
-      <p><a>Download</a></p>
+      <p (click)="downloadQrCode()"><a>Download</a></p>
     </div>
   </div>
 </div>

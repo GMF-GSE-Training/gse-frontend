@@ -7,8 +7,8 @@ import { FormsModule, NgForm } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { AuthComponent } from "../../components/auth/auth.component";
-import { TogglePasswordVisibilityComponent } from "../../components/toggle-password-visibility/toggle-password-visibility.component";
-import { RoleInputComponent } from "../../components/input/role-input/role-input.component";
+import { DropdownInputComponent } from "../../components/input/dropdown-input/dropdown-input.component";
+import { RoleService } from '../../shared/service/role.service';
 
 @Component({
   selector: 'app-user-form',
@@ -22,8 +22,7 @@ import { RoleInputComponent } from "../../components/input/role-input/role-input
     FormsModule,
     CommonModule,
     AuthComponent,
-    TogglePasswordVisibilityComponent,
-    RoleInputComponent
+    DropdownInputComponent
 ],
   templateUrl: './user-form.component.html',
   styleUrl: './user-form.component.css'
@@ -39,7 +38,10 @@ export class UserFormComponent implements OnInit {
   @Input() isSuccess: boolean = false;
 
   // role-input
-  selectedRole: any = null;
+  roleOptions: { label: string, value: string }[] = [];
+  roleData: any[] = []; // Store the full training data
+  selectedRole: any = '';
+  @Input() initialRole: string = '';
 
   isPassVisible: boolean = false;
   passVisible() {
@@ -49,24 +51,44 @@ export class UserFormComponent implements OnInit {
   @Output() formSubmit = new EventEmitter<any>();
   @ViewChild('form') form!: NgForm;
 
+  currentUserRole: string | null = sessionStorage.getItem('currentUserRole');
+
   constructor(
-    private router: Router,
+    private readonly router: Router,
+    private readonly roleService: RoleService,
   ) {}
 
   ngOnInit(): void {
-    if(this.user.role) {
-      this.onRoleChange(this.user.role);
-    }
+    this.roleService.getAllRoles().subscribe({
+      next: (response) => {
+        this.roleData = response.data;
+        this.roleOptions = response.data.map(role => ({
+          label: role.name,
+          value: role.id
+        }));
+        console.log(this.roleOptions)
+      },
+      error: (error) => {
+        console.log(error);
+      }
+    })
   }
 
   onSubmit() {
     if (this.form.valid) {
-      this.formSubmit.emit(this.user);
+      if(this.isCreate) {
+        this.formSubmit.emit(this.user);
+      } else {
+        if(this.currentUserRole !== 'super admin') {
+          this.user.email = undefined;
+        }
+        this.formSubmit.emit(this.user);
+      }
     }
   }
 
-  onRoleChange(role: { id: string, role: string }): void {
-    this.selectedRole = role;
-    this.user.roleId = role.id;
+  onRoleSelected(role: any) {
+    this.selectedRole = this.roleData.find(r => r.id === role);
+    this.user.roleId = role;
   }
 }

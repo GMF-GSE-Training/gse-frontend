@@ -4,6 +4,6 @@
   [totalPages]="totalPages" [currentPage]="currentPage" (pageChange)="onPageChanged($event)"
   [placeHolder]="placeHolder" (searchChange)="onSearchChanged($event)"
   (viewAllChange)="viewAll()"
-  [blueButtonRoute]="'/participants/add'"
-  [roleBassedAccess]="['super admin', 'lcu']"
+  [blueButtonRoute]="'/users/add'"
+  [roleBassedAccess]="['super admin', 'supervisor', 'lcu']"
 ></app-data-management>

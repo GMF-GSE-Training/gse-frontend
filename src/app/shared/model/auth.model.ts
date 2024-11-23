@@ -6,7 +6,7 @@ export interface LoginUserRequest {
 }
 
 export interface RegisterUserRequest {
-  noPegawai?: string;
+  idNumber?: string;
   nik: string;
   email: string;
   name: string;
@@ -23,6 +23,5 @@ export interface ResetPassword {
 export interface AuthResponse {
   code: number;
   status: string;
-  data?: User;
-  errors: any;
+  data?: User | string;
 }

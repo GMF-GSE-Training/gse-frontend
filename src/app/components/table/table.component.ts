@@ -17,4 +17,11 @@ import { IconActionComponent } from "../icon-action/icon-action.component";
 export class  TableComponent {
   @Input() columns: { header: string, field: string }[] = [];
   @Input() data: any[] = [];
+
+  // Metode untuk memeriksa apakah kolom action memiliki nilai
+  hasActionColumn(): boolean {
+    return this.data.some(item =>
+      item.printLink || item.addLink || item.editLink || item.deleteMethod || item.detailLink || item.select
+    );
+  }
 }

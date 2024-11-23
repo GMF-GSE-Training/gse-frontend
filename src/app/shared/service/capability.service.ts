@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { environment } from "../../../environments/environment.development";
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
-import { CapabilityListResponse, CapabilityResponse, UpdateCapability } from "../model/capability.model";
+import { CapabilityResponse, CreateCapability, UpdateCapability } from "../model/capability.model";
 
 @Injectable({
   providedIn: 'root',
@@ -15,12 +15,16 @@ export class CapabilityService {
     private http: HttpClient,
   ) {}
 
-  createCapability(request: any): Observable<CapabilityResponse> {
+  createCapability(request: CreateCapability): Observable<CapabilityResponse> {
     return this.http.post<CapabilityResponse>(`${this.apiUrl}/${this.endpoint.base}`, request, { withCredentials: true });
   }
 
   getCapabilityById(id: string): Observable<CapabilityResponse> {
     return this.http.get<CapabilityResponse>(`${this.apiUrl}/${this.endpoint.base}/${id}`, { withCredentials: true });
+  }
+
+  getAllCapability(): Observable<CapabilityResponse> {
+    return this.http.get<CapabilityResponse>(`${this.apiUrl}/${this.endpoint.base}`, { withCredentials: true });
   }
 
   updateCapability(id: string, request: UpdateCapability): Observable<CapabilityResponse> {
@@ -31,12 +35,12 @@ export class CapabilityService {
     return this.http.delete<CapabilityResponse>(`${this.apiUrl}/${this.endpoint.base}/${id}`, { withCredentials: true });
   }
 
-  listCapability(page: number = 1, size: number = 10): Observable<CapabilityListResponse> {
-    return this.http.get<CapabilityListResponse>(`${this.apiUrl}/${this.endpoint.list}?page=${page}&size=${size}`, { withCredentials: true });
+  listCapability(page: number = 1, size: number = 10): Observable<CapabilityResponse> {
+    return this.http.get<CapabilityResponse>(`${this.apiUrl}/${this.endpoint.list}?page=${page}&size=${size}`, { withCredentials: true });
   }
 
-  searchCapability(q: string, page: number = 1, size: number = 10): Observable<CapabilityListResponse> {
-    return this.http.get<CapabilityListResponse>(`${this.apiUrl}/${this.endpoint.search}?q=${q}&page=${page}&size=${size}`,
+  searchCapability(q: string, page: number = 1, size: number = 10): Observable<CapabilityResponse> {
+    return this.http.get<CapabilityResponse>(`${this.apiUrl}/${this.endpoint.search}?q=${q}&page=${page}&size=${size}`,
       { withCredentials: true }
     );
   }

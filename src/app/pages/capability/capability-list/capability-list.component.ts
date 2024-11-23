@@ -1,10 +1,5 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { HeaderComponent } from '../../../components/header/header.component';
-import { WhiteButtonComponent } from '../../../components/button/white-button/white-button.component';
-import { BlueButtonComponent } from '../../../components/button/blue-button/blue-button.component';
-import { TableComponent } from "../../../components/table/table.component";
-import { SearchComponent } from "../../../components/search/search.component";
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { DataManagementComponent } from "../../../layouts/data-management/data-management.component";
 import { CapabilityService } from '../../../shared/service/capability.service';
 import { SweetalertService } from '../../../shared/service/sweetaler.service';
@@ -14,12 +9,6 @@ import { Capability } from '../../../shared/model/capability.model';
   selector: 'app-capability-list',
   standalone: true,
   imports: [
-    HeaderComponent,
-    RouterLink,
-    WhiteButtonComponent,
-    BlueButtonComponent,
-    TableComponent,
-    SearchComponent,
     DataManagementComponent
 ],
   templateUrl: './capability-list.component.html',
@@ -29,12 +18,12 @@ export class CapabilityListComponent implements OnInit {
   pageTitle: string = "Capability";
 
   columns = [
-    { header: 'Kode Rating', field: 'kodeRating' },
-    { header: 'Kode Training', field: 'kodeTraining' },
-    { header: 'Nama Training', field: 'namaTraining' },
+    { header: 'Kode Rating', field: 'ratingCode' },
+    { header: 'Kode Training', field: 'trainingCode' },
+    { header: 'Nama Training', field: 'trainingName' },
     { header: 'Durasi Materi Regulasi GSE', field: 'durasiMateriRegulasGSE' },
     { header: 'Durasi Materi Kompetensi', field: 'durasiMateriRating' },
-    { header: 'Total Durasi', field: 'totalDurasi' },
+    { header: 'Total Durasi', field: 'totalDuration' },
     { header: 'Kurikulum & Silabus', field: 'kurikulumSilabus' },
     { header: 'Action', field: 'action' }
   ];
@@ -72,29 +61,25 @@ export class CapabilityListComponent implements OnInit {
   getListCapability(page: number, size: number): void {
     this.capabilityService.listCapability(page, size).subscribe({
       next: (response: any) => {
-        if (response.code === 200 && response.status === 'OK') {
-          this.capability = response.data.map((capability: any) => {
-            const totalDurasiRegulasiGSE = capability.totalDurasiTeoriRegGse + capability.totalDurasiPraktekRegGse || '-';
+        this.capability = response.data.map((capability: any) => {
+          const totalDurasiRegulasiGSE = capability.totalTheoryDurationRegGse + capability.totalPracticeDurationRegGse || '-';
 
-            const totalDurasiKompetensi = capability.totalDurasiTeoriKompetensi + capability.totalDurasiPraktekKompetensi || '-';
+          const totalDurasiKompetensi = capability.totalTheoryDurationCompetency + capability.totalPracticeDurationCompetency || '-';
 
-            return {
-              id: capability.id,
-              kodeRating: capability.kodeRating,
-              kodeTraining: capability.kodeTraining,
-              namaTraining: capability.namaTraining,
-              durasiMateriRegulasGSE: totalDurasiRegulasiGSE ?? '-',
-              durasiMateriRating: totalDurasiKompetensi ?? '-',
-              totalDurasi: capability.totalDurasi || "-",
-              kurikulumSilabus: `/capability/${capability.id}/detail`,
-              editLink: response.actions.canEdit ? `/capability/${capability.id}/edit` : null,
-              deleteMethod: response.actions.canDelete ? () => this.deleteCapability(capability) : null,
-            };
-          });
-          this.totalPages = response.paging.totalPage;
-        } else {
-          this.capability = [];
-        }
+          return {
+            id: capability.id,
+            ratingCode: capability.ratingCode,
+            trainingCode: capability.trainingCode,
+            trainingName: capability.trainingName,
+            durasiMateriRegulasGSE: totalDurasiRegulasiGSE ?? '-',
+            durasiMateriRating: totalDurasiKompetensi ?? '-',
+            totalDuration: capability.totalDuration || "-",
+            kurikulumSilabus: `/capability/${capability.id}/detail`,
+            editLink: response.actions.canEdit ? `/capability/${capability.id}/edit` : null,
+            deleteMethod: response.actions.canDelete ? () => this.deleteCapability(capability) : null,
+          };
+        });
+        this.totalPages = response.paging.totalPage;
       },
       error: (error) => {
         console.log(error)
@@ -104,13 +89,11 @@ export class CapabilityListComponent implements OnInit {
   }
 
   async deleteCapability(capability: Capability): Promise<void> {
-    const isConfirmed = await this.sweetalertService.confirm('Anda Yakin?', `Apakah anda ingin menghapus capability ini : ${capability.namaTraining}?`, 'warning', 'Ya, hapus!');
+    const isConfirmed = await this.sweetalertService.confirm('Anda Yakin?', `Apakah anda ingin menghapus capability ini : ${capability.trainingName}?`, 'warning', 'Ya, hapus!');
     if (isConfirmed) {
       this.capabilityService.deleteCapability(capability.id).subscribe({
         next: () => {
-          console.log(this.capability)
           this.sweetalertService.alert('Dihapus!', 'Data capability berhasil dihapus', 'success');
-          console.log(capability.id);
           this.capability = this.capability.filter(c => c.id !== capability.id);
         },
         error: () => {
@@ -123,34 +106,29 @@ export class CapabilityListComponent implements OnInit {
   async getSearchCapability(query: string, page: number, size: number) {
     this.capabilityService.searchCapability(query, page, size).subscribe({
       next: (response) => {
-        if(response.code === 200 && response.status === 'OK') {
-          this.capability = response.data.map((capability: any) => {
-            const totalDurasiRegulasiGSE = capability.totalDurasiTeoriRegGse + capability.totalDurasiPraktekRegGse || '-';
-            const totalDurasiKompetensi = capability.totalDurasiTeoriKompetensi + capability.totalDurasiPraktekKompetensi || '-';
+        this.capability = (response.data as Capability[]).map((capability: any) => {
+          const totalDurasiRegulasiGSE = capability.totalTheoryDurationRegGse + capability.totalPracticeDurationRegGse || '-';
+          const totalDurasiKompetensi = capability.totalTheoryDurationCompetency + capability.totalPracticeDurationCompetency || '-';
 
-            return {
-              kodeRating: capability.kodeRating,
-              kodeTraining: capability.kodeTraining,
-              namaTraining: capability.namaTraining,
-              durasiMateriRegulasGSE: totalDurasiRegulasiGSE,
-              durasiMateriRating: totalDurasiKompetensi,
-              totalDurasi: capability.totalDurasi || "-",
-              kurikulumSilabus: `/capability/${capability.id}/detail`,
-              editLink: response.actions.canEdit ? `/capability/${capability.id}/edit` : null,
-              deleteMethod: response.actions.canDelete ? () => this.deleteCapability(capability) : null,
-            };
-          });
-          this.totalPages = response.paging.totalPage;
-        } else {
-          console.warn('Data tidak ditemukan');
-          this.capability = [];
-        }
+          return {
+            ratingCode: capability.ratingCode,
+            trainingCode: capability.trainingCode,
+            trainingName: capability.trainingName,
+            durasiMateriRegulasGSE: totalDurasiRegulasiGSE,
+            durasiMateriRating: totalDurasiKompetensi,
+            totalDuration: capability.totalDuration || "-",
+            kurikulumSilabus: `/capability/${capability.id}/detail`,
+            editLink: response.actions.canEdit ? `/capability/${capability.id}/edit` : null,
+            deleteMethod: response.actions.canDelete ? () => this.deleteCapability(capability) : null,
+          };
+        });
+        this.totalPages = response.paging.totalPage;
       },
       error: (error) => {
         console.log(error);
         this.capability = [];
       }
-    })
+    });
   }
 
   onSearchChanged(query: string): void {

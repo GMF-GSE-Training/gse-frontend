@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { CapabilityService } from '../../../shared/service/capability.service';
 import { CapabilityFormComponent } from "../../../layouts/capability-form/capability-form.component";
 import { ErrorHandlerService } from '../../../shared/service/error-handler.service';
+import { SweetalertService } from '../../../shared/service/sweetaler.service';
 
 @Component({
   selector: 'app-add-capability',
@@ -22,7 +23,8 @@ export class AddCapabilityComponent {
   constructor(
     private readonly capabilityService: CapabilityService,
     private readonly router: Router,
-    private readonly errorHandlerService: ErrorHandlerService
+    private readonly errorHandlerService: ErrorHandlerService,
+    private readonly sweetalertService: SweetalertService,
   ) { }
 
   onSubmit(capability: any) {
@@ -30,11 +32,12 @@ export class AddCapabilityComponent {
     this.capabilityService.createCapability(request).subscribe({
       next: (response) => {
         capability = response.data;
+        this.sweetalertService.alert('Berhasil!', 'Capability berhasil dibuat, selanjutnya buat kurikulum & silabus', 'success');
         this.router.navigateByUrl('/curriculum-syllabus/add', {
           state: {
             id: capability.id,
-            kodeRating: capability.kodeRating,
-            namaTraining: capability.namaTraining,
+            ratingCode: capability.ratingCode,
+            trainingName: capability.trainingName,
           }
         });
       },

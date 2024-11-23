@@ -19,6 +19,7 @@ export class DropdownInputComponent implements OnChanges {
   @Input() placeholder: string = 'Select an option'; // Placeholder text
   @Input() selectedValue: any; // Initial selected value (optional)
   @Input() initialValue: string = '';
+  @Input() showSearchItem: boolean = false;
   @Output() selectionChange = new EventEmitter<any>();
 
   isActive: boolean = false;

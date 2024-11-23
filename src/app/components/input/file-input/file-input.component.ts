@@ -19,6 +19,7 @@ import { NG_VALUE_ACCESSOR } from '@angular/forms';
 export class FileInputComponent {
   @Input() label: string = '';
   @Input() idInput!: string;
+  @Input() placeholder: string = '';
   @Input() fileName: string | null = null;
   @Input() fileType: string = '';
   @Input() required: boolean = false;
@@ -29,7 +30,7 @@ export class FileInputComponent {
   isFileSelected: boolean = true; // Flag untuk validasi apakah file sudah dipilih
 
   get displayFileName(): string {
-    return this.fileName || 'Unggah file maksimal 2 MB dengan format png, jpg, jpeg, atau pdf';
+    return this.fileName || this.placeholder;
   }
 
   onFileSelected(event: Event): void {

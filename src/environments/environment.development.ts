@@ -1,6 +1,7 @@
 export const environment = {
   production: false,
-  apiUrl: `http://localhost:3000`,
+  qrCodeLink: `${window.location.protocol}//${window.location.hostname}:${window.location.port}/participants/{id}/detail`,
+  apiUrl: `http://${window.location.hostname}:3000`,
   endpoints: {
     auth: {
       base: 'auth/current',
@@ -23,7 +24,8 @@ export const environment = {
       id_card: 'id-card',
       download_id_card: 'id-card/download',
       list: 'participants/list/result',
-      search: 'participants/search/result'
+      search: 'participants/search/result',
+      isComplete: 'participants/check-data-complete'
     },
     capability: {
       base: 'capability',
@@ -43,7 +45,7 @@ export const environment = {
     },
     eSign: {
       base: 'e-sign',
-      list: 'e-sign/list/result'
+      list: 'e-sign/list/result',
     }
   },
 };

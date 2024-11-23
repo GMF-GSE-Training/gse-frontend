@@ -46,17 +46,13 @@ export class DisplayFilesParticipantsComponent implements OnInit {
 
   getFile(id: string, fileName: string): void {
     this.participantService.getFile({ id }, fileName).pipe(
-      map(response => response.data)
+      map(response => response.data as string)
     ).subscribe({
-      next: (file: string) => {
+      next: (file) => {
         this.file = file;
       },
       error: (error) => {
         console.log(error);
-        this.router.navigateByUrl(this.id ? this.navigationLink : '/participants')
-        if(error.error.code === 404) {
-          this.sweetalertService.alert('File Tidak Ada', 'Silahkan lengkapi data terlebih dahulu', 'warning');
-        }
       }
     });
   }

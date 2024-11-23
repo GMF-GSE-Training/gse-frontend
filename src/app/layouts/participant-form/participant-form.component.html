@@ -4,23 +4,25 @@
   <div class="form-container">
     <div class="left-column">
       <app-base-input
-        [(ngModel)]="participant.noPegawai"
-        name="noPegawai"
+        [(ngModel)]="participant.idNumber"
+        name="idNumber"
         label="No Pegawai"
         placeholder="No Pegawai"
         type="text"
+        autocomplete="idNumber"
         inputMode="tel">
       </app-base-input>
 
       <app-base-input
-        [(ngModel)]="participant.nama"
-        name="nama"
+        [(ngModel)]="participant.name"
+        name="name"
         label="Nama"
         [isRequired]="true"
         placeholder="Masukkan nama asli, nama akan digunakan pada data sertifikat"
         type="text"
+        autocomplete="name"
         inputMode="text"
-        #nama="ngModel"
+        #name="ngModel"
         required
         [restrictToPattern]="'^[a-zA-Z ]+$'"
         [pattern]="'^[a-zA-Z ]+$'"
@@ -30,17 +32,16 @@
       <app-base-input
         [(ngModel)]="participant.nik"
         name="nik"
-        label="NIK"
-        [isRequired]="!isUpdate"
-        placeholder="Masukkan NIK sesuai KTP"
+        label="NIK/Paspor"
+        [isRequired]="true"
+        placeholder="Masukkan NIK/Paspor"
         type="text"
+        autocomplete="NIK"
         inputMode="text"
         #nik="ngModel"
         required
         [restrictToPattern]="'^[0-9]+$'"
         [pattern]="'^[0-9]+$'"
-        minLength="16"
-        minLengthErrorMessage="NIK harus terdiri dari 16 digit angka"
       >
       </app-base-input>
 
@@ -50,6 +51,7 @@
         label="Dinas"
         placeholder="Dinas"
         type="text"
+        autocomplete="dinas"
         inputMode="text">
       </app-base-input>
 
@@ -59,6 +61,7 @@
         label="Bidang"
         placeholder="Bidang"
         type="text"
+        autocomplete="bidang"
         inputMode="text">
       </app-base-input>
 
@@ -74,25 +77,27 @@
         [(ngModel)]="participant.email"
         name="email"
         label="Email"
-        [isRequired]="!isUpdate"
+        [isRequired]="true"
         placeholder="Gunakan alamat email aktif"
         type="email"
+        autocomplete="email"
         inputMode="text"
-        [disabled]="isUpdate"
+        [disabled]="isUpdate && (!currentUserRole || currentUserRole !== 'super admin')"
         #email="ngModel"
       >
     </app-base-input>
     <p *appRoleBasedAccess="['user']">Anda dapat mengubah alamat email <a routerLink="/passwordreset">disini</a></p>
 
       <app-base-input
-        [(ngModel)]="participant.noTelp"
-        name="noTelp"
+        [(ngModel)]="participant.phoneNumber"
+        name="phoneNumber"
         label="Nomor Telepon"
         [isRequired]="true"
         placeholder="Gunakan nomor telepon aktif"
         type="tel"
+        autocomplete="phone"
         inputMode="tel"
-        #noTelp="ngModel"
+        #phoneNumber="ngModel"
         [restrictToPattern]="'^[0-9-+ ]+$'"
         pattern="^[0-9-+ ]+$"
         required
@@ -100,39 +105,40 @@
       </app-base-input>
 
       <app-base-input
-        [(ngModel)]="participant.negara"
-        name="negara"
+        [(ngModel)]="participant.nationality"
+        name="nationality"
         label="Kewarganegaraan"
         [isRequired]="true"
         placeholder="Isi kewarganegaraan sesuai KTP"
         type="text"
+        autocomplete="country"
         inputMode="text"
-        #negara="ngModel"
+        #nationality="ngModel"
         >
       </app-base-input>
 
       <app-base-input
-        [(ngModel)]="participant.tempatLahir"
-        name="tempatLahir"
+        [(ngModel)]="participant.placeOfBirth"
+        name="placeOfBirth"
         label="Tempat Lahir"
         [isRequired]="true"
         placeholder="Isi Tempat Lahir sesuai KTP"
         type="text"
+        autocomplete="address-level2"
         inputMode="text"
-        #tempatLahir="ngModel"
+        #placeOfBirth="ngModel"
         >
-        <!-- [restrictToPattern]="'^[a-zA-Z ]+$'" -->
       </app-base-input>
     </div>
     <div class="right-column">
       <app-base-input
-        [(ngModel)]="participant.tanggalLahir"
-        name="tanggalLahir"
+        [(ngModel)]="participant.dateOfBirth"
+        name="dateOfBirth"
         label="Tanggal Lahir"
         [isRequired]="true"
         type="date"
         inputmode="date"
-        #tanggalLahir="ngModel"
+        #dateOfBirth="ngModel"
         defaultMessage="Isi Tanggal Lahir sesuai KTP"
       >
       </app-base-input>
@@ -141,6 +147,7 @@
         idInput="sim_a_input"
         (valueChange)="onFileChange('simA', $event)"
         label="SIM A"
+        placeholder="Unggah file maksimal 2 MB dengan format png, jpg, jpeg, atau pdf."
         [isRequired]="true"
         [fileName]="participant.simAFileName"
         [fileType]="fileType"
@@ -153,6 +160,7 @@
         idInput="sim_b_input"
         (valueChange)="onFileChange('simB', $event)"
         label="SIM B"
+        placeholder="Unggah file maksimal 2 MB dengan format png, jpg, jpeg, atau pdf."
         [fileName]="participant.simBFileName"
         [fileType]="fileType"
       >
@@ -162,6 +170,7 @@
         idInput="ktp_input"
         (valueChange)="onFileChange('ktp', $event)"
         label="KTP"
+        placeholder="Unggah file maksimal 2 MB dengan format png, jpg, jpeg, atau pdf."
         [isRequired]="true"
         [required]="participant.ktpFileName"
         [fileName]="participant.ktpFileName"
@@ -173,6 +182,7 @@
         idInput="foto_input"
         (valueChange)="onFileChange('foto', $event)"
         label="Pas Foto"
+        placeholder="Unggah file maksimal 2 MB dengan format png, jpg, atau jpeg. ukuran 3x4."
         [isRequired]="true"
         [fileName]="participant.fotoFileName"
         [fileType]="fileTypeFoto">
@@ -183,6 +193,7 @@
         idInput="surat_sehat_input"
         (valueChange)="onFileChange('suratSehatButaWarna', $event)"
         label="Surat Ket Sehat dan Buta Warna"
+        placeholder="Unggah file maksimal 2 MB dengan format png, jpg, jpeg, atau pdf."
         [isRequired]="true"
         [fileName]="participant.suratSehatButaWarnaFileName"
         [fileType]="fileType">
@@ -206,6 +217,7 @@
         idInput="surat_bebas_narkoba_input"
         (valueChange)="onFileChange('suratBebasNarkoba', $event)"
         label="Surat Ket Bebas Narkoba"
+        placeholder="Unggah file maksimal 2 MB dengan format png, jpg, jpeg, atau pdf."
         [isRequired]="true"
         [fileName]="participant.suratBebasNarkobaFileName"
         [fileType]="fileType"

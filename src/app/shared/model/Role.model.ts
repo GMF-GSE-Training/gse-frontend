@@ -1,6 +1,6 @@
 export interface Role {
   id: string;
-  role: string;
+  name: string;
 }
 
 export interface RoleResponse {

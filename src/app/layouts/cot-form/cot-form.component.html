@@ -3,33 +3,22 @@
 <form #form="ngForm" (ngSubmit)="onSubmit()">
   <div class="form-container">
     <div class="left-column">
-      <app-base-input
-        label="Kode COT"
-        type="text"
-        inputMode="text"
-        [isRequired]="true"
-        [(ngModel)]="cot.kodeCot"
-        name="kodeRating"
-        #kodeCot="ngModel"
-        required
-      >
-      </app-base-input>
-
       <app-dropdown-input
-        label="Kode Training"
+        label="Kode Rating"
+        [showSearchItem]="true"
         placeholder="--- Pilih capability ---"
         [isRequired]="true"
         [options]="capabilityOptions"
-        [initialValue]="cot.capabilityId"
+        [initialValue]="initialCapability"
         (selectionChange)="onCapabilitySelected($event)"
         required>
       </app-dropdown-input>
 
       <app-base-input
-        label="Kode Rating"
+        label="Kode Training"
         type="text"
         inputMode="text"
-        [value]="selectedCapabily.kodeRating"
+        [value]="selectedCapabily.trainingCode"
         [disabled]="true"
         required>
       </app-base-input>
@@ -38,7 +27,7 @@
         label="Nama Training"
         type="text"
         inputMode="text"
-        [value]="selectedCapabily.namaTraining"
+        [value]="selectedCapabily.trainingName"
         [disabled]="true"
         required>
       </app-base-input>
@@ -47,9 +36,9 @@
         label="Tanggal Mulai"
         type="date"
         [isRequired]="true"
-        [(ngModel)]="cot.tanggalMulai"
-        name="tanggalMulai"
-        #tanggalMulai="ngModel"
+        [(ngModel)]="cot.startDate"
+        name="startDate"
+        #startDate="ngModel"
         required>
       </app-base-input>
 
@@ -57,33 +46,43 @@
         label="Tanggal Selesai"
         type="date"
         [isRequired]="true"
-        [(ngModel)]="cot.tanggalSelesai"
-        name="tanggalSelesai"
-        #tanggalSelesai="ngModel"
+        [(ngModel)]="cot.endDate"
+        name="endDate"
+        #endDate="ngModel"
         required>
       </app-base-input>
-    </div>
 
-    <div class="right-column">
       <app-base-input
         label="Lokasi Training"
         type="text"
         inputMode="text"
         [isRequired]="true"
-        [(ngModel)]="cot.lokasiTraining"
-        name="lokasiTraining"
-        #lokasiTraining="ngModel"
+        [(ngModel)]="cot.trainingLocation"
+        name="trainingLocation"
+        #trainingLocation="ngModel"
         required>
       </app-base-input>
+    </div>
+
+    <div class="right-column">
+      <app-dropdown-input
+        label="Status"
+        placeholder="--- Status ---"
+        [isRequired]="true"
+        [options]="statusOptions"
+        [initialValue]="cot.status"
+        (selectionChange)="onStatusSelected($event)"
+        required>
+      </app-dropdown-input>
 
       <app-base-input
         label="Instruktur Teori Regulasi GSE"
         type="text"
         inputMode="text"
         [isRequired]="true"
-        [(ngModel)]="cot.instrukturTeoriRegulasiGse"
-        name="instrukturTeoriRegulasiGse"
-        #instrukturTeoriRegulasiGse="ngModel"
+        [(ngModel)]="cot.theoryInstructorRegGse"
+        name="theoryInstructorRegGse"
+        #theoryInstructorRegGse="ngModel"
         required>
       </app-base-input>
 
@@ -92,9 +91,9 @@
         type="text"
         inputMode="text"
         [isRequired]="true"
-        [(ngModel)]="cot.instrukturTeoriKompetensi"
-        name="instrukturTeoriKompetensi"
-        #instrukturTeoriKompetensi="ngModel"
+        [(ngModel)]="cot.theoryInstructorCompetency"
+        name="theoryInstructorCompetency"
+        #theoryInstructorCompetency="ngModel"
         required>
       </app-base-input>
 
@@ -103,9 +102,9 @@
         type="text"
         inputMode="text"
         [isRequired]="true"
-        [(ngModel)]="cot.instrukturPraktek1"
-        name="instrukturPraktek1"
-        #instrukturPraktek1="ngModel"
+        [(ngModel)]="cot.practicalInstructor1"
+        name="practicalInstructor1"
+        #practicalInstructor1="ngModel"
         required>
       </app-base-input>
 
@@ -114,9 +113,9 @@
         type="text"
         inputMode="text"
         [isRequired]="true"
-        [(ngModel)]="cot.instrukturPraktek2"
-        name="instrukturPraktek2"
-        #instrukturPraktek2="ngModel"
+        [(ngModel)]="cot.practicalInstructor2"
+        name="practicalInstructor2"
+        #practicalInstructor2="ngModel"
         required>
       </app-base-input>
     </div>

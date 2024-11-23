@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { CotFormComponent } from "../../../layouts/cot-form/cot-form.component";
-import { CreateCOT } from '../../../shared/model/cot.model';
+import { CreateCot } from '../../../shared/model/cot.model';
 import { ErrorHandlerService } from '../../../shared/service/error-handler.service';
 import { CotService } from '../../../shared/service/cot.service';
 import { SweetalertService } from '../../../shared/service/sweetaler.service';
@@ -11,21 +11,19 @@ import { SweetalertService } from '../../../shared/service/sweetaler.service';
   standalone: true,
   imports: [
     CotFormComponent
-],
+  ],
   templateUrl: './add-cot.component.html',
-  styleUrl: './add-cot.component.css'
 })
 export class AddCotComponent {
-  cot: CreateCOT = {
-    kodeCot: '',
+  cot: CreateCot = {
     capabilityId: '',
-    tanggalMulai: undefined!,
-    tanggalSelesai: undefined!,
-    lokasiTraining: '',
-    instrukturTeoriRegulasiGse: '',
-    instrukturTeoriKompetensi: '',
-    instrukturPraktek1: '',
-    instrukturPraktek2: ''
+    startDate: undefined!,
+    endDate: undefined!,
+    trainingLocation: '',
+    theoryInstructorRegGse: '',
+    theoryInstructorCompetency: '',
+    practicalInstructor1: '',
+    practicalInstructor2: ''
   }
 
   constructor(
@@ -35,8 +33,7 @@ export class AddCotComponent {
     private readonly sweetalertService: SweetalertService,
   ) { }
 
-  onSubmit(cot: CreateCOT) {
-    console.log(cot);
+  onSubmit(cot: CreateCot) {
     this.cotService.createCot(cot).subscribe({
       next: () => {
         this.router.navigateByUrl('/cot');

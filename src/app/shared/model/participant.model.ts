@@ -1,16 +1,16 @@
 export interface Participant {
   id: string;
-  noPegawai?: string;
-  nama: string;
+  idNumber?: string;
+  name: string;
   nik: string;
   dinas?: string;
   bidang?: string;
-  perusahaan: string;
+  company: string;
   email: string;
-  noTelp: string;
-  negara: string;
-  tempatLahir: string;
-  tanggalLahir: string;
+  phoneNumber: string;
+  nationality: string;
+  placeOfBirth: string;
+  dateOfBirth: string;
   simA: File | null;
   simB: File | null;
   ktp: File | null;
@@ -19,22 +19,22 @@ export interface Participant {
   tglKeluarSuratSehatButaWarna: string;
   suratBebasNarkoba: File | null;
   tglKeluarSuratBebasNarkoba: string;
-  linkQrCode?: string;
+  qrCodeLink?: string;
   qrCode?: string | File;
   gmfNonGmf?: string;
 }
 
 export interface UpdateParticipant {
-  noPegawai?: string | null;
-  nama?: string;
+  idNumber?: string | null;
+  name?: string;
   nik?: string;
   dinas?: string | null;
   bidang?: string | null;
-  perusahaan?: string;
-  noTelp?: string;
-  negara?: string;
-  tempatLahir?: string;
-  tanggalLahir?: string;
+  company?: string;
+  phoneNumber?: string;
+  nationality?: string;
+  placeOfBirth?: string;
+  dateOfBirth?: string;
   simA?: File | null;
   simAFileName?: string;
   simB?: File | null;
@@ -49,20 +49,21 @@ export interface UpdateParticipant {
   suratBebasNarkobaFileName?: string;
   tglKeluarSuratSehatButaWarna?: string;
   tglKeluarSuratBebasNarkoba?: string;
+  qrCodeLink?: string;
 }
 
 export interface CreateParticipant {
-  noPegawai?: string | null;
-  nama: string;
+  idNumber?: string | null;
+  name: string;
   nik: string;
   dinas?: string | null;
   bidang?: string | null;
-  perusahaan: string;
+  company: string;
   email: string;
-  noTelp: string;
-  negara: string;
-  tempatLahir: string;
-  tanggalLahir: string;
+  phoneNumber: string;
+  nationality: string;
+  placeOfBirth: string;
+  dateOfBirth: string;
   simA: File | null;
   simAFileName?: string;
   simB: File | null;
@@ -77,6 +78,7 @@ export interface CreateParticipant {
   suratBebasNarkobaFileName: string;
   tglKeluarSuratSehatButaWarna: string;
   tglKeluarSuratBebasNarkoba: string;
+  qrCodeLink: string;
 }
 
 type ActionAccessRigts = {
@@ -91,28 +93,10 @@ type Paging = {
   size: number;
 }
 
-export interface ListParticipantsResponse {
-  code: number;
-  status: string;
-  data: Participant[],
-  actions: ActionAccessRigts,
-  paging: Paging;
-}
-
 export interface ParticipantResponse {
   code: number;
   status: string;
-  data: Participant;
-}
-
-export interface DeleteParticipant {
-  code: number;
-  status: string;
-  data: boolean;
-}
-
-export interface FileResponse {
-  code: number;
-  status: string;
-  data: string;
+  data: Participant[] | Participant | string,
+  actions: ActionAccessRigts,
+  paging: Paging;
 }

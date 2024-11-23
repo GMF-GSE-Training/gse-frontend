@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 import { ESignFormComponent } from "../../../layouts/e-sign-form/e-sign-form.component";
 import { CreateESign } from '../../../shared/model/e-sign.model';
 import { ESignService } from '../../../shared/service/e-sign.service';
@@ -10,7 +10,6 @@ import { SweetalertService } from '../../../shared/service/sweetaler.service';
   selector: 'app-add-sign',
   standalone: true,
   imports: [
-    RouterLink,
     ESignFormComponent
 ],
   templateUrl: './add-sign.component.html',
@@ -25,11 +24,11 @@ export class AddSignComponent {
   ) { }
 
   eSign: CreateESign = {
-    noPegawai: '',
+    idNumber: '',
     role: '',
     name: '',
     eSign: undefined!,
-    eSignFileName: undefined,
+    signFileName: undefined,
     status: false
   }
 

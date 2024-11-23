@@ -33,6 +33,7 @@ import { ForgotPasswordComponent } from './pages/auth/forgot-password/forgot-pas
 import { CapabilityDetailComponent } from './pages/capability/capability-detail/capability-detail.component';
 import { EditCurriculumSyllabusComponent } from './pages/curriculum-syllabus/edit-curriculum-syllabus/edit-curriculum-syllabus.component';
 import { NotFoundComponent } from './pages/errors/not-found/not-found.component';
+import { DataCompleteGuard } from './shared/guard/data-complete.guard';
 
 export const routes: Routes = [
   {
@@ -61,7 +62,7 @@ export const routes: Routes = [
   {
     path: 'home',
     component: HomeComponent,
-    canActivate: [AuthAndRoleGuard],
+    canActivate: [AuthAndRoleGuard, DataCompleteGuard],
     data: { roles: ['super admin', 'supervisor', 'lcu', 'user'] }
   },
   {
@@ -74,18 +75,18 @@ export const routes: Routes = [
     path: 'participants/add',
     component: AddParticipantDataComponent,
     canActivate: [AuthAndRoleGuard],
-    data: { roles: ['super admin', 'lcu', 'user'] }
+    data: { roles: ['super admin', 'supervisor', 'lcu',] }
   },
   {
     path: 'participants/:id/detail',
     component: ParticipantDetailComponent,
-    canActivate: [AuthAndRoleGuard],
+    canActivate: [AuthAndRoleGuard, DataCompleteGuard],
     data: { roles: ['super admin', 'supervisor', 'lcu', 'user'] }
   },
   {
     path: 'participants/:id/id-card',
     component: IdCardComponent,
-    canActivate: [AuthAndRoleGuard],
+    canActivate: [AuthAndRoleGuard, DataCompleteGuard],
     data: { roles: ['super admin', 'supervisor', 'lcu', 'user'] }
   },
   {
@@ -97,13 +98,13 @@ export const routes: Routes = [
   {
     path: 'participants/:id/:file-name',
     component: DisplayFilesParticipantsComponent,
-    canActivate: [AuthAndRoleGuard],
+    canActivate: [AuthAndRoleGuard, DataCompleteGuard],
     data: { roles: ['super admin', 'supervisor', 'lcu', 'user'] }
   },
   {
     path: 'capability',
     component: CapabilityListComponent,
-    canActivate: [AuthAndRoleGuard],
+    canActivate: [AuthAndRoleGuard, DataCompleteGuard],
     data: { roles: ['super admin', 'supervisor', 'lcu', 'user'] }
   },
   {
@@ -121,13 +122,13 @@ export const routes: Routes = [
   {
     path: 'capability/:id/detail',
     component: CapabilityDetailComponent,
-    canActivate: [AuthAndRoleGuard],
+    canActivate: [AuthAndRoleGuard, DataCompleteGuard],
     data: { roles: ['super admin', 'supervisor', 'lcu', 'user'] }
   },
   {
     path: 'cot',
     component: CotListComponent,
-    canActivate: [AuthAndRoleGuard],
+    canActivate: [AuthAndRoleGuard, DataCompleteGuard],
     data: { roles: ['super admin', 'supervisor', 'lcu', 'user'] }
   },
   {
@@ -145,7 +146,7 @@ export const routes: Routes = [
   {
     path: 'cot/:id/detail',
     component: CotDetailComponent,
-    canActivate: [AuthAndRoleGuard],
+    canActivate: [AuthAndRoleGuard, DataCompleteGuard],
     data: { roles: ['super admin', 'supervisor', 'lcu', 'user'] }
   },
   {
@@ -163,13 +164,13 @@ export const routes: Routes = [
   {
     path: 'sertifikat/:id',
     component: CreateSertifikatComponent,
-    canActivate: [AuthAndRoleGuard],
+    canActivate: [AuthAndRoleGuard, DataCompleteGuard],
     data: { roles: ['super admin', 'supervisor', 'lcu', 'user'] }
   },
   {
     path: 'sertifikat/:id/download',
     component: DownloadSertifikatComponent,
-    canActivate: [AuthAndRoleGuard],
+    canActivate: [AuthAndRoleGuard, DataCompleteGuard],
     data: { roles: ['super admin', 'supervisor', 'lcu', 'user'] }
   },
   {
@@ -182,7 +183,7 @@ export const routes: Routes = [
     path: 'users/add',
     component: AddUserComponent,
     canActivate: [AuthAndRoleGuard],
-    data: { roles: ['super admin', 'lcu'] }
+    data: { roles: ['super admin', 'supervisor', 'lcu'] }
   },
   {
     path: 'users/:id/edit',

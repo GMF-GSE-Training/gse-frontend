@@ -1,27 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { TitleComponent } from "../../../components/title/title.component";
-import { BaseInputComponent } from "../../../components/input/base-input/base-input.component";
-import { WhiteButtonComponent } from "../../../components/button/white-button/white-button.component";
-import { BlueButtonComponent } from "../../../components/button/blue-button/blue-button.component";
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CapabilityService } from '../../../shared/service/capability.service';
-import { FormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
 import { CurriculumSyllabusService } from '../../../shared/service/curriculum-syllabus.service';
 import { SweetalertService } from '../../../shared/service/sweetaler.service';
 import { CurriculumSyllabusFormComponent } from "../../../layouts/curriculum-syllabus-form/curriculum-syllabus-form.component";
+import { Capability } from '../../../shared/model/capability.model';
 
 @Component({
   selector: 'app-edit-curriculum-syllabus',
   standalone: true,
   imports: [
-    TitleComponent,
-    BaseInputComponent,
-    WhiteButtonComponent,
-    BlueButtonComponent,
-    FormsModule,
-    RouterLink,
-    CommonModule,
     CurriculumSyllabusFormComponent
 ],
   templateUrl: './edit-curriculum-syllabus.component.html',
@@ -30,26 +18,26 @@ export class EditCurriculumSyllabusComponent implements OnInit {
   clas: string = 'add-button delete-button';
   capability = {
     id: '',
-    kodeRating: '',
-    kodeTraining: '',
-    namaTraining: ''
+    ratingCode: '',
+    trainingCode: '',
+    trainingName: ''
   }
 
-  regulasiGSEs: Array<{ id: string; capabilityId: string; nama: string; durasiTeori: number; durasiPraktek: number; type: string; }> = [{
+  regulasiGSEs: Array<{ id: string; capabilityId: string; name: string; theoryDuration: number; practiceDuration: number; type: string; }> = [{
     id: '',
     capabilityId: '',
-    nama: '',
-    durasiTeori: 0,
-    durasiPraktek: 0,
+    name: '',
+    theoryDuration: 0,
+    practiceDuration: 0,
     type: '',
   }];
 
-  kompetensis: Array<{ id: string, capabilityId: string; nama: string; durasiTeori: number; durasiPraktek: number; type: string }> = [{
+  kompetensis: Array<{ id: string, capabilityId: string; name: string; theoryDuration: number; practiceDuration: number; type: string }> = [{
     id: '',
     capabilityId: '',
-    nama: '',
-    durasiTeori: 0,
-    durasiPraktek: 0,
+    name: '',
+    theoryDuration: 0,
+    practiceDuration: 0,
     type: '',
   }];
 
@@ -70,12 +58,12 @@ export class EditCurriculumSyllabusComponent implements OnInit {
       this.capabilityService.getCapabilityById(this.capabilityId).subscribe({
         next: (response) => {
           if (typeof response.data === 'object') {
-            const data = response.data;
+            const data = response.data as Capability;
             this.capability = {
               id: data.id,
-              kodeRating: data.kodeRating,
-              kodeTraining: data.kodeTraining,
-              namaTraining: data.namaTraining,
+              ratingCode: data.ratingCode,
+              trainingCode: data.trainingCode,
+              trainingName: data.trainingName,
             };
 
             // Mapping curriculumSyllabus to respective arrays
@@ -97,34 +85,32 @@ export class EditCurriculumSyllabusComponent implements OnInit {
       .map(item => ({
         id: item.id,
         capabilityId: item.capabilityId,
-        nama: item.nama,
-        durasiTeori: item.durasiTeori,
-        durasiPraktek: item.durasiPraktek,
+        name: item.name,
+        theoryDuration: item.theoryDuration,
+        practiceDuration: item.practiceDuration,
         type: item.type,
       }));
   }
 
   onSubmit() {
-    // Ensure `durasiTeori` and `durasiPraktek` are numbers
+    // Ensure `theoryDuration` and `practiceDuration` are numbers
     this.regulasiGSEs = this.regulasiGSEs.map(item => ({
       ...item,
-      durasiTeori: Number(item.durasiTeori),
-      durasiPraktek: Number(item.durasiPraktek),
+      theoryDuration: Number(item.theoryDuration),
+      practiceDuration: Number(item.practiceDuration),
     }));
 
     this.kompetensis = this.kompetensis.map(item => ({
       ...item,
-      durasiTeori: Number(item.durasiTeori),
-      durasiPraktek: Number(item.durasiPraktek),
+      theoryDuration: Number(item.theoryDuration),
+      practiceDuration: Number(item.practiceDuration),
     }));
 
     // Combine both groups into a single array
     const curriculumSyllabusData = [
       ...this.regulasiGSEs,
       ...this.kompetensis
-    ];
-
-    console.log({ curriculumSyllabus: curriculumSyllabusData });
+    ];+
 
     // Send the data to the backend using the service
     this.curriculumSyllabusService.updateCurriculumSyllabus(this.capability.id, { curriculumSyllabus: curriculumSyllabusData }).subscribe({

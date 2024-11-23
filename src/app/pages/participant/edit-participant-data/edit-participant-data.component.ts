@@ -1,10 +1,11 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { UpdateParticipant } from '../../../shared/model/participant.model';
+import { Participant, UpdateParticipant } from '../../../shared/model/participant.model';
 import { ParticipantService } from '../../../shared/service/participant.service';
 import { SweetalertService } from '../../../shared/service/sweetaler.service';
 import { CompanyInputComponent } from '../../../components/input/company-input/company-input.component';
 import { ParticipantFormComponent } from '../../../layouts/participant-form/participant-form.component';
+import { environment } from '../../../../environments/environment.development';
 
 @Component({
   selector: 'app-edit-participant-data',
@@ -18,16 +19,16 @@ export class EditParticipantDataComponent implements OnInit {
   @ViewChild(CompanyInputComponent) companyInputComponent!: CompanyInputComponent;
 
   updateParticipant: UpdateParticipant = {
-    noPegawai: '',
-    nama: '',
+    idNumber: '',
+    name: '',
     nik: '',
     dinas: '',
     bidang: '',
-    perusahaan: '',
-    noTelp: '',
-    negara: '',
-    tempatLahir: '',
-    tanggalLahir: '',
+    company: '',
+    phoneNumber: '',
+    nationality: '',
+    placeOfBirth: '',
+    dateOfBirth: '',
     simA: null,
     simAFileName: '',
     simB: null,
@@ -61,26 +62,44 @@ export class EditParticipantDataComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadParticipant();
+    this.route.queryParams.subscribe(params => {
+      if (params['showAlert']) {
+        this.sweetalertService.alert(
+          'Peringatan',
+          'Anda tidak bisa mengakses halaman lain sebelum melengkapi data',
+          'warning'
+        );
+
+        // Hapus query parameter
+        this.router.navigate([], {
+          relativeTo: this.route,
+          queryParams: { showAlert: null },
+          queryParamsHandling: 'merge'
+        });
+      }
+    });
   }
 
   loadParticipant(): void {
     this.participantService.getParticipantById(this.participantId!).subscribe({
       next: (response) => {
+        const responseData = response.data as Participant;
         this.updateParticipant = {
-          ...response.data,
-          tanggalLahir: this.formatDateToISO(response.data.tanggalLahir),
-          tglKeluarSuratSehatButaWarna : this.formatDateToISO(response.data.tglKeluarSuratSehatButaWarna),
-          tglKeluarSuratBebasNarkoba : this.formatDateToISO(response.data.tglKeluarSuratBebasNarkoba),
+          ...responseData,
+          dateOfBirth: this.formatDateToISO(responseData.dateOfBirth),
+          tglKeluarSuratSehatButaWarna : this.formatDateToISO(responseData.tglKeluarSuratSehatButaWarna),
+          tglKeluarSuratBebasNarkoba : this.formatDateToISO(responseData.tglKeluarSuratBebasNarkoba),
         };
 
         // Company Input
-        this.selectedCompany = response.data.gmfNonGmf ? response.data.gmfNonGmf : response.data.perusahaan;
-        if(response.data.gmfNonGmf !== 'GMF' || response.data.perusahaan !== 'GMF') {
-          this.companyName = response.data.perusahaan;
-          if(this.companyName !== 'GMF') {
+        this.selectedCompany = responseData.gmfNonGmf ? responseData.gmfNonGmf : responseData.company;
+        if(responseData.gmfNonGmf !== 'GMF' || responseData.company !== 'GMF') {
+          this.companyName = responseData.company;
+          if(this.companyName && this.companyName.toLowerCase() === 'non gmf') {
             this.showCompanyInput = true;
           } else {
-            this.companyName = '';
+            this.selectedCompany = 'GMF'
+            this.showCompanyInput = false;
           }
         }
       },
@@ -91,13 +110,14 @@ export class EditParticipantDataComponent implements OnInit {
   }
 
   onUpdate(participant: UpdateParticipant) {
-    console.log("REQUEST : ", participant)
+    participant.qrCodeLink = environment.qrCodeLink;
     const formData = this.prepareFormData(participant);
+    this.sweetalertService.loading('Mohon tunggu', 'Proses...');
 
     this.participantService.updateParticipant(this.participantId!, formData).subscribe({
       next: (response) => {
         this.sweetalertService.alert('Diperbarui!', 'Peserta berhasil diperbarui', 'success');
-        this.router.navigateByUrl(`/participants/${response.data.id}/detail`);
+        this.router.navigateByUrl(`/participants/${(response.data as Participant).id}/detail`);
       },
       error: (error) => {
         console.log(error);
@@ -110,7 +130,7 @@ export class EditParticipantDataComponent implements OnInit {
     if (file) {
       (this.updateParticipant as any)[property] = file;
       const fileNameProperty = `${property}FileName`;
-      // Mengisi nama file ke property yang sesuai
+      // Mengisi name file ke property yang sesuai
       (this.updateParticipant as any)[fileNameProperty] = file.name;
     }
   }

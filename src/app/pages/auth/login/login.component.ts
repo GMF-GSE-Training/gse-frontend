@@ -9,6 +9,7 @@ import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../../shared/service/auth.service';
 import { TitleComponent } from "../../../components/title/title.component";
 import { TogglePasswordVisibilityComponent } from '../../../components/toggle-password-visibility/toggle-password-visibility.component';
+import { User } from '../../../shared/model/user.model';
 
 @Component({
   selector: 'app-login',
@@ -47,11 +48,12 @@ export class LoginComponent {
   login() {
     this.authService.login(this.loginRequest).subscribe({
       next: (response) => {
+        const responseData = response.data as User;
         // Set expiration time saat login berhasil
         const expirationTime = new Date().getTime() + (60 * 60 * 1000); // 30 menit
         sessionStorage.setItem('tokenExpiration', expirationTime.toString());
-        sessionStorage.setItem('currentUserRole', response.data.role.role);
-        sessionStorage.setItem('participantId', response.data.participantId);
+        sessionStorage.setItem('currentUserRole', responseData.role.name);
+        sessionStorage.setItem('participantId', responseData.participantId ?? '');
         this.loginError = false;
         this.router.navigateByUrl('/home');
       },

@@ -1,6 +1,6 @@
 export interface CreateUserRequest {
   participantId: string;
-  noPegawai?: string;
+  idNumber?: string;
   nik?: string;
   email: string;
   name: string;
@@ -10,7 +10,7 @@ export interface CreateUserRequest {
 }
 
 export interface UpdateUserRequest {
-  noPegawai?: string;
+  idNumber?: string;
   nik?: string;
   email?: string;
   name?: string;
@@ -21,7 +21,8 @@ export interface UpdateUserRequest {
 
 export interface User {
   id: string;
-  noPegawai?: string;
+  participantId?: string;
+  idNumber?: string;
   nik: string;
   email: string;
   name: string;
@@ -29,7 +30,7 @@ export interface User {
   roleId: string;
   role: {
     id: string,
-    role: string,
+    name: string,
   },
 }
 
@@ -45,17 +46,10 @@ type ActionAccessRigts = {
   canView: boolean;
 }
 
-export interface ListUserResponse {
-  code: number;
-  status: string;
-  data: User[];
-  actions: ActionAccessRigts,
-  paging: Paging;
-}
-
 export interface UserResponse {
   code: number;
   status: string;
-  data?: User;
-  errors: any;
+  data: User | User[];
+  actions: ActionAccessRigts,
+  paging: Paging;
 }

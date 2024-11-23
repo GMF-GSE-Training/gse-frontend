@@ -20,9 +20,9 @@ export class CompanyInputComponent {
   @Input() isRequired: boolean = false;
 
   ngOnInit(): void {
-    console.log(this.selectedCompany)
     if(!this.selectedCompany) {
       this.selectedCompany = 'GMF';
+      this.toggleCompanyInput();
     }
   }
 

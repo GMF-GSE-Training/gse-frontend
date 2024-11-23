@@ -1,14 +1,9 @@
 import { Component } from '@angular/core';
-import { HeaderComponent } from '../../../components/header/header.component';
 import { DetailedViewComponent } from '../../../components/detailed-view/detailed-view.component';
-import { TableComponent } from '../../../components/table/table.component';
 import { WhiteButtonComponent } from "../../../components/button/white-button/white-button.component";
-import { BlueButtonComponent } from "../../../components/button/blue-button/blue-button.component";
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CotService } from '../../../shared/service/cot.service';
-import { ErrorHandlerService } from '../../../shared/service/error-handler.service';
 import { SweetalertService } from '../../../shared/service/sweetaler.service';
-import { PaginationComponent } from "../../../components/pagination/pagination.component";
 import { DataManagementComponent } from "../../../layouts/data-management/data-management.component";
 import { ModalComponent } from "../../../components/modal/modal.component";
 import { CommonModule } from '@angular/common';
@@ -17,13 +12,8 @@ import { CommonModule } from '@angular/common';
   selector: 'app-cot-detail',
   standalone: true,
   imports: [
-    HeaderComponent,
     DetailedViewComponent,
-    TableComponent,
     WhiteButtonComponent,
-    BlueButtonComponent,
-    RouterLink,
-    PaginationComponent,
     DataManagementComponent,
     ModalComponent,
     CommonModule,
@@ -51,9 +41,9 @@ export class CotDetailComponent {
     { header: 'No Pegawai', field: 'noPegawai' },
     { header: 'Nama', field: 'nama' },
     { header: 'Dinas', field: 'dinas' },
-    { header: 'SIM', field: 'simA' },
-    { header: 'Tanggal Keluar Sehat & Buta Warna', field: 'tglKeluarSuratSehatButaWarna' },
-    { header: 'Tanggal Kelua Bebas Narkoba', field: 'tglKeluarSuratBebasNarkoba' },
+    { header: 'SIM', field: 'sim' },
+    { header: 'Exp Surat Sehat & Buta Warna', field: 'expSuratSehatButaWarna' },
+    { header: 'Exp Surat Bebas Narkoba', field: 'expSuratBebasNarkoba' },
     { header: 'Keterangan', field: 'keterangan' },
     { header: 'Action', field: 'action' },
   ];
@@ -97,11 +87,9 @@ export class CotDetailComponent {
   getParticipantCot(cotId: string, currentPage: number, itemsPerPage: number) {
     this.cotService.getParticipantCot(cotId, currentPage, itemsPerPage).subscribe({
       next: ({ data }) => {
-        console.log(data)
         this.leftTableData = [
-          { label: 'Kode COT', value: data.cot.kodeCot },
-          { label: 'Kode Rating', value: data.cot.Capability.kodeRating },
-          { label: 'Nama training', value: data.cot.Capability.namaTraining },
+          { label: 'Kode Rating', value: data.cot.capabilities[0].kodeRating },
+          { label: 'Nama training', value: data.cot.capabilities[0].namaTraining },
           { label: 'Tanggal Mulai', value: new Date(data.cot.tanggalMulai).toLocaleDateString('id-ID', this.dateOptions) },
           { label: 'Tanggal Selesai', value: new Date(data.cot.tanggalSelesai).toLocaleDateString('id-ID', this.dateOptions) },
           { label: 'Lokasi Training', value: data.cot.lokasiTraining },
@@ -118,12 +106,17 @@ export class CotDetailComponent {
 
         this.participantsCot = data.participant?.map((participant: any) => {
           if (!participant) return null; // Skip jika participant null
-
           return {
             ...participant,
-            simA: participant?.id ? `/participants/${participant.id}/sim-a` : null,
-            tglKeluarSuratSehatButaWarna: participant?.id ? `/participants/${participant.id}/sim-a` : null,
-            tglKeluarSuratBebasNarkoba: participant?.id ? `/participants/${participant.id}/sim-a` : null,
+            sim: participant?.id ? `/participants/${participant.id}/${participant.simBFileName  ? 'sim-b' : 'sim-a'}` : null,
+            expSuratSehatButaWarna: participant?.id ? {
+              label: new Date(new Date(participant.tglKeluarSuratSehatButaWarna).setFullYear(new Date(participant.tglKeluarSuratSehatButaWarna).getFullYear() + 2)).toLocaleDateString('id-ID', this.dateOptions),
+              value: `/participants/${participant.id}/surat-sehat-buta-warna`
+            } : null,
+            expSuratBebasNarkoba: participant?.id ? {
+              label: new Date(new Date(participant.tglKeluarSuratSehatButaWarna).setFullYear(new Date(participant.tglKeluarSuratSehatButaWarna).getFullYear() + 2)).toLocaleDateString('id-ID', this.dateOptions),
+              value: `/participants/${participant.id}/surat-bebas-narkoba`
+            } : null,
             keterangan: '-',
             printLink: data.actions?.canPrint && participant?.id ? `/sertifikat/${participant.id}` : null,
             detailLink: data.actions?.canView && participant?.id ? `/participants/${participant.id}/detail` : null,
@@ -217,7 +210,6 @@ export class CotDetailComponent {
   }
 
   saveSelectedParticipants() {
-    console.log(this.selectedParticipantIds)
     if(this.id) {
       const requestPayload = {
         participantIds: this.selectedParticipantIds
