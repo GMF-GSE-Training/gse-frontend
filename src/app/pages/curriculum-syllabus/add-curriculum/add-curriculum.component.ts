@@ -90,7 +90,7 @@ export class AddCurriculumComponent {
       error: (error) => {
         // Handle error
         console.error('Error saving Curriculum & Syllabus', error);
-        this.errorHandlerService.handleError(error);
+        this.errorHandlerService.alertError(error);
       }
     });
   }

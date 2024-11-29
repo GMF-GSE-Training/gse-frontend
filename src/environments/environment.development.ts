@@ -40,8 +40,12 @@ export const environment = {
       base: 'cot',
       list: 'cot/list/result',
       search: 'cot/search/result',
-      participanCot: 'cot/participant-cot',
-      unregisteredParticipants: 'unregistered/result'
+    },
+    participantCot: {
+      base: 'participant-cot',
+      unregisteredParticipants: 'participant-cot/unregistered',
+      list: 'list/result',
+      search: 'search/result',
     },
     eSign: {
       base: 'e-sign',

@@ -1,0 +1,56 @@
+.show-filter-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  height: 45px;
+  padding: 8px 16px;
+  font-size: 20px;
+  color: #02507E;
+  border: none;
+  background-color: none;
+  border-radius: 50px;
+  cursor: pointer;
+  white-space: nowrap;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.show-filter-button:hover {
+  cursor: pointer;
+  background-color: #d8dadb;
+}
+
+.filter-container {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 0;
+  background-color: #fff;
+  padding: 10px;
+  border: 2px solid black;
+  border-radius: 25px;;
+}
+
+.input-container {
+  display: flex;
+  gap: 25px;
+}
+
+.input {
+  font-size: 10px;
+}
+
+.filter-button {
+  height: 35px;
+  width: 125px;
+  font-size: 10px;
+  margin-left: auto;
+  margin-right: 0;
+}
+
+.filter-button-container {
+  display: flex;
+}

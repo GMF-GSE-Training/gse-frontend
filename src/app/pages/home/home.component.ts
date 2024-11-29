@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { HeaderComponent } from '../../components/header/header.component';
 import { RealisasiCotChartComponent } from '../../components/chart/realisasi-cot-chart/realisasi-cot-chart.component';
 import { DataPemegangKompetensiGseOperatorComponent } from '../../components/chart/data-pemegang-kompetensi-gse-operator/data-pemegang-kompetensi-gse-operator.component';
 import { DataTotalSertifikatAktifComponent } from '../../components/chart/data-total-sertifikat-aktif/data-total-sertifikat-aktif.component';
@@ -11,7 +10,6 @@ import { Router } from '@angular/router';
   selector: 'app-home',
   standalone: true,
   imports: [
-    HeaderComponent,
     RealisasiCotChartComponent,
     DataPemegangKompetensiGseOperatorComponent,
     DataTotalSertifikatAktifComponent,

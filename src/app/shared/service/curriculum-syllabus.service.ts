@@ -2,7 +2,8 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { environment } from "../../../environments/environment.development";
 import { Observable } from "rxjs";
-import { CreateCurriculumSyllabus, CurriculumSyllabusResponse, UpdateCurriculumSyllabus } from "../model/curriculum-syllabus.model";
+import { CreateCurriculumSyllabus, UpdateCurriculumSyllabus } from "../model/curriculum-syllabus.model";
+import { WebResponse } from "../model/web.model";
 
 @Injectable({
   providedIn: 'root'
@@ -15,15 +16,11 @@ export class CurriculumSyllabusService {
   private readonly apiUrl = environment.apiUrl;
   private readonly endpoints = environment.endpoints.curriculumSyllabus;
 
-  createCurriculumSyllabus(request: CreateCurriculumSyllabus): Observable<CurriculumSyllabusResponse> {
-    return this.http.post<CurriculumSyllabusResponse>(`${this.apiUrl}/${this.endpoints.base}`, request, { withCredentials: true });
+  createCurriculumSyllabus(request: CreateCurriculumSyllabus): Observable<WebResponse<string>> {
+    return this.http.post<WebResponse<string>>(`${this.apiUrl}/${this.endpoints.base}`, request, { withCredentials: true });
   }
 
-  updateCurriculumSyllabus(capabilityId: string, request: UpdateCurriculumSyllabus): Observable<CurriculumSyllabusResponse> {
-    return this.http.patch<CurriculumSyllabusResponse>(`${this.apiUrl}/${this.endpoints.base}/${capabilityId}`, request, { withCredentials: true });
-  }
-
-  getCurriculumSyllabus(capabilityId: string): Observable<CurriculumSyllabusResponse> {
-    return this.http.get<CurriculumSyllabusResponse>(`${this.apiUrl}/${this.endpoints.base}/${capabilityId}`, { withCredentials: true });
+  updateCurriculumSyllabus(capabilityId: string, request: UpdateCurriculumSyllabus): Observable<WebResponse<string>> {
+    return this.http.patch<WebResponse<string>>(`${this.apiUrl}/${this.endpoints.base}/${capabilityId}`, request, { withCredentials: true });
   }
 }

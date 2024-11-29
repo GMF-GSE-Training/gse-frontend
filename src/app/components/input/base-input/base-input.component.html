@@ -1,4 +1,4 @@
-<label>{{ label }}<p *ngIf="isRequired" class="required-label">*</p></label>
+<label>{{ label }}<span *ngIf="isRequired" class="required-label">*</span></label>
 
 <div [ngClass]="name === 'password' ? 'container' : ''">
   <input
@@ -25,7 +25,7 @@
 
   <div>
     <!-- Tampilkan hanya satu pesan error jika input tidak valid -->
-    <p *ngIf="inputControl.invalid && inputControl.touched" class="error-message">
+    <span *ngIf="inputControl.invalid && inputControl.touched" class="error-message">
       <!-- Tampilkan pesan error yang relevan -->
       <ng-container *ngIf="inputControl.errors">
         <span *ngIf="inputControl.errors['required']; else nextError">Wajib diisi</span>
@@ -43,10 +43,10 @@
           <span *ngIf="inputControl.errors['email']">Alamat email tidak valid</span>
         </ng-template>
       </ng-container>
-    </p>
+    </span>
 
     <!-- Tampilkan pesan default jika tidak ada error atau belum disentuh -->
-    <p *ngIf="!inputControl.errors || (!inputControl.dirty && !inputControl.touched)">{{ helperMessage }}</p>
+    <span *ngIf="!inputControl.errors || (!inputControl.dirty && !inputControl.touched)">{{ helperMessage }}</span>
   </div>
 
   <app-toggle-password-visibility

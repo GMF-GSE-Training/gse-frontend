@@ -46,7 +46,7 @@
   text-decoration: underline;
 }
 
-p:hover {
+span:hover {
   cursor: pointer;
   color: #266E99;
 }

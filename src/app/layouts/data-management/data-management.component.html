@@ -2,16 +2,23 @@
 
 <div class="search-container">
   <app-search
+    #searchComponent
     [placeHolder]="placeHolder"
     (searchChange)="onSearchChanged($event)">
   </app-search>
-  <app-view-all (viewAllChange)="viewAll()"></app-view-all>
+  <div *ngIf="isParticipantCot" class="date-filter">
+    <app-date-filter
+      #dateFilterComponent>
+    </app-date-filter>
+  </div>
+  <app-view-all (viewAllChange)="viewAll(searchComponent, dateFilterComponent!)"></app-view-all>
 </div>
 
 <div class="table-container">
   <app-table
     [columns]="columns"
-    [data]="data">
+    [data]="data"
+    [state]="state">
   </app-table>
 </div>
 

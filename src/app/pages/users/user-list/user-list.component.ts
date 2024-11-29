@@ -47,7 +47,7 @@ export class UserListComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
-      this.searchQuery = params['q'] || '';
+      this.searchQuery = params['keyword'] || '';
       this.currentPage =+ params['page'] || 1;
       if (this.searchQuery) {
         this.getSearchUsers(this.searchQuery, this.currentPage, this.itemsPerPage);
@@ -58,35 +58,61 @@ export class UserListComponent implements OnInit {
   }
 
   getListUsers(page: number, size: number): void {
-    this.userService.listUsers(page, size).subscribe((response) => {
-      this.users = (response.data as User[]).map((user: User) => {
-        return {
-          ...user,
-          idNumber: user.idNumber ?? '-',
-          dinas: user.dinas ?? '-',
-          roleName: user.role.name,
-          editLink: response.actions.canEdit ? `/users/${user.id}/edit` : null,
-          deleteMethod: response.actions.canDelete ? () => this.deleteParticipant(user) : null,
-        };
-      });
-      this.totalPages = response.paging.totalPage;
-      if (response.code === 200 && response.status === 'OK') {
-      } else {
-        this.users = [];
-      }
+    this.userService.listUsers(page, size).subscribe({
+      next: ({ data, actions, paging }) => {
+        this.users = data.map((user: User) => {
+          return {
+            ...user,
+            idNumber: user.idNumber ?? '-',
+            dinas: user.dinas ?? '-',
+            roleName: user.role.name,
+            editLink: actions?.canEdit ? `/users/${user.id}/edit` : null,
+            deleteMethod: actions?.canDelete ? () => this.deleteParticipant(user) : null,
+          };
+        });
+        this.totalPages = paging?.totalPage ?? 1;
+      },
+      error: (error) => console.log(error),
     });
   }
 
   async deleteParticipant(user: User): Promise<void> {
     const isConfirmed = await this.sweetalertService.confirm('Anda Yakin?', `Apakah anda ingin menghapus peserta ini : ${user.idNumber}?`, 'warning', 'Ya, hapus!');
     if (isConfirmed) {
+      this.sweetalertService.loading('Mohon tunggu', 'Proses...');
       this.userService.deleteUser(user.id).subscribe({
         next: () => {
           this.sweetalertService.alert('Dihapus!', 'Data peserta berhasil dihapus', 'success');
           this.users = this.users.filter(p => p.id !== user.id);
+
+          if(this.users.length === 0 && this.currentPage > 0) {
+            this.currentPage -= 1;
+          }
+
+          if (this.searchQuery) {
+            this.getSearchUsers(this.searchQuery, this.currentPage, this.itemsPerPage);
+          } else {
+            this.getListUsers(this.currentPage, this.itemsPerPage);
+          }
+          // Cek apakah halaman saat ini lebih besar dari total halaman
+          if (this.currentPage > this.totalPages) {
+            this.currentPage = this.totalPages; // Pindah ke halaman sebelumnya
+          }
+
+          // Update query params dengan currentPage yang diperbarui
+          const queryParams = this.searchQuery
+            ? { keyword: this.searchQuery, page: this.currentPage }
+            : { page: this.currentPage };
+
+          this.router.navigate([], {
+            relativeTo: this.route,
+            queryParams,
+            queryParamsHandling: 'merge',
+          });
         },
-        error: () => {
-          this.sweetalertService.alert('Gagal!', 'Gagal menghapus data peserta', 'error');
+        error: (error) => {
+          console.log(error);
+          this.sweetalertService.alert('Gagal!', 'Terjadi kesalahan, coba lagi nanti', 'error');
         }
       });
     }
@@ -94,38 +120,28 @@ export class UserListComponent implements OnInit {
 
   getSearchUsers(query: string, page: number, size: number) {
     this.userService.searchUser(query, page, size).subscribe({
-      next: (response) => {
-        if (response?.code === 200 && response.status === 'OK') {
-          console.log('Search Response', response);
-          this.users = (response.data as User[]).map((user: User) => ({
-            ...user,
-            idNumber: user.idNumber ?? '-',
-            dinas: user.dinas ?? '-',
-            roleName: user.role.name,
-            editLink: response.actions.canEdit ? `/users/${user.id}/edit` : null,
-            detailLink: response.actions.canView ? `/users/${user.id}/view` : null,
-            deleteMethod: response.actions.canDelete ? () => this.deleteParticipant(user) : null,
-          }));
-          this.totalPages = response.paging.totalPage;
-        } else {
-          console.warn('Data tidak ditemukan');
-          this.users = [];
-        }
+      next: ({ data, actions, paging  }) => {
+        this.users = data.map((user: User) => ({
+          ...user,
+          idNumber: user.idNumber ?? '-',
+          dinas: user.dinas ?? '-',
+          roleName: user.role.name,
+          editLink: actions?.canEdit ? `/users/${user.id}/edit` : null,
+          detailLink: actions?.canView ? `/users/${user.id}/view` : null,
+          deleteMethod: actions?.canDelete ? () => this.deleteParticipant(user) : null,
+        }));
+        this.totalPages = paging?.totalPage ?? 1;
       },
-      error: (err) => {
-        console.error('Error fetching users:', err);
-        this.users = [];
-      }
+      error: (error) => console.log(error),
     });
   }
 
   onSearchChanged(query: string): void {
     this.searchQuery = query;
     this.router.navigate([], {
-      queryParams: { search: query },
+      queryParams: { keyword: query, page: 1 },
       queryParamsHandling: 'merge',
     });
-    this.getSearchUsers(query, 1, this.itemsPerPage);
   }
 
   onPageChanged(page: number): void {
@@ -138,7 +154,7 @@ export class UserListComponent implements OnInit {
   viewAll(): void {
     this.router.navigate([], {
       relativeTo: this.route,
-      queryParams: { q: null, page: null },
+      queryParams: { keyword: undefined, page: undefined },
       queryParamsHandling: 'merge',
     });
 

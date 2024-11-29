@@ -6,6 +6,7 @@ import { SweetalertService } from '../../../shared/service/sweetaler.service';
 import { CompanyInputComponent } from '../../../components/input/company-input/company-input.component';
 import { ParticipantFormComponent } from '../../../layouts/participant-form/participant-form.component';
 import { environment } from '../../../../environments/environment.development';
+import { ErrorHandlerService } from '../../../shared/service/error-handler.service';
 
 @Component({
   selector: 'app-edit-participant-data',
@@ -52,11 +53,17 @@ export class EditParticipantDataComponent implements OnInit {
   @Input() companyName: string = '';
   @Input() showCompanyInput: boolean = false;
 
+  requiredFields = ['name', 'company', 'email', 'phoneNumber', 'kewarganegaraan',
+                    'placeOfBirth', 'dateOfBirth', 'simA', 'ktp', 'foto',
+                    'suratSehatButaWarna', 'tglKeluarSuratSehatButaWarna',
+                    'suratBebasNarkoba', 'tglKeluarSuratSehatBebasNarkoba'];
+
   constructor(
-    private route: ActivatedRoute,
-    private router: Router,
-    private participantService: ParticipantService,
-    private sweetalertService: SweetalertService,
+    private readonly route: ActivatedRoute,
+    private readonly router: Router,
+    private readonly participantService: ParticipantService,
+    private readonly sweetalertService: SweetalertService,
+    private readonly errorHandlerService: ErrorHandlerService,
   ) {
   }
 
@@ -83,7 +90,7 @@ export class EditParticipantDataComponent implements OnInit {
   loadParticipant(): void {
     this.participantService.getParticipantById(this.participantId!).subscribe({
       next: (response) => {
-        const responseData = response.data as Participant;
+        const responseData = response.data;
         this.updateParticipant = {
           ...responseData,
           dateOfBirth: this.formatDateToISO(responseData.dateOfBirth),
@@ -95,17 +102,16 @@ export class EditParticipantDataComponent implements OnInit {
         this.selectedCompany = responseData.gmfNonGmf ? responseData.gmfNonGmf : responseData.company;
         if(responseData.gmfNonGmf !== 'GMF' || responseData.company !== 'GMF') {
           this.companyName = responseData.company;
-          if(this.companyName && this.companyName.toLowerCase() === 'non gmf') {
+          if(this.companyName) {
             this.showCompanyInput = true;
           } else {
             this.selectedCompany = 'GMF'
+            this.companyName = 'GMF'
             this.showCompanyInput = false;
           }
         }
       },
-      error: (error) => {
-        console.log(error.error);
-      }
+      error: (error) => console.log(error)
     });
   }
 
@@ -115,13 +121,13 @@ export class EditParticipantDataComponent implements OnInit {
     this.sweetalertService.loading('Mohon tunggu', 'Proses...');
 
     this.participantService.updateParticipant(this.participantId!, formData).subscribe({
-      next: (response) => {
+      next: () => {
         this.sweetalertService.alert('Diperbarui!', 'Peserta berhasil diperbarui', 'success');
-        this.router.navigateByUrl(`/participants/${(response.data as Participant).id}/detail`);
+        this.router.navigateByUrl(`/participants/${this.participantId}/detail`);
       },
       error: (error) => {
         console.log(error);
-        this.sweetalertService.alert('Gagal!', 'Gagal memperbarui peserta', 'error');
+        this.errorHandlerService.alertError(error, this.requiredFields);
       }
     });
   }
@@ -139,10 +145,15 @@ export class EditParticipantDataComponent implements OnInit {
     const formData = new FormData();
     for (const key in participant) {
       if (participant.hasOwnProperty(key)) {
-        const value = participant[key];
+        let value = participant[key];
+
+        if(value === undefined || value === null) {
+          value = '';
+        }
+
         if (value instanceof File) {
           formData.append(key, value);
-        } else if (value !== undefined && value !== null) { // Menambahkan nilai kosong
+        } else { // Menambahkan nilai kosong
           formData.append(key, value);
         }
       }
@@ -150,8 +161,9 @@ export class EditParticipantDataComponent implements OnInit {
     return formData;
   }
 
+
   private formatDateToISO(dateString: string): string {
-    const [day, month, year] = dateString.split('-');
-    return `${year}-${month}-${day}`;
+    const date = new Date(dateString); // Konversi string menjadi objek Date
+    return date.toISOString().split('T')[0]; // Ambil hanya bagian tanggal (yyyy-MM-dd)
   }
 }

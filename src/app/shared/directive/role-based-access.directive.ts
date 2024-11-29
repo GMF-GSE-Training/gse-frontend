@@ -30,17 +30,16 @@ export class RoleBasedAccessDirective {
       this.currentUserRole = cachedRole;
       this.updateView();
     } else {
-      this.authService.me().subscribe(user => {
-        if (user.data && typeof user.data !== 'string') {
+      this.authService.me().subscribe({
+        next: (user) => {
           this.currentUserRole = user.data.role.name;
-          sessionStorage.setItem('currentUserRole', this.currentUserRole); // Save to cache
+          sessionStorage.setItem('currentUserRole', this.currentUserRole);
           this.updateView();
-        } else {
-          // Handle case where data is a string or undefined
-          console.error("Invalid data format:", user.data);
+        },
+        error: (error) => {
+          console.log(error);
         }
       });
-
     }
   }
 

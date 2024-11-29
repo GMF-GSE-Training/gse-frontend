@@ -55,7 +55,7 @@
         [required]="eSign.eSignFileName"
       >
     </app-file-input>
-    <p *ngIf="!eSign.eSignFileName && form.submitted" class="error-message">Tanda Tangan wajib diunggah</p>
+    <span *ngIf="!eSign.eSignFileName && form.submitted" class="error-message">Tanda Tangan wajib diunggah</span>
 
     <app-dropdown-input
         label="Status"

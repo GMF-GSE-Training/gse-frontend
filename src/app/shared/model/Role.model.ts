@@ -1,10 +1,4 @@
-export interface Role {
+export interface RoleResponse {
   id: string;
   name: string;
-}
-
-export interface RoleResponse {
-  code: number;
-  status: string;
-  data: Role[];
 }

@@ -34,22 +34,17 @@ export interface User {
   },
 }
 
-type Paging = {
-  currentPage: number;
-  totalPage: number;
-  size: number;
-}
-
-type ActionAccessRigts = {
-  canEdit: boolean;
-  canDelete: boolean;
-  canView: boolean;
-}
-
 export interface UserResponse {
-  code: number;
-  status: string;
-  data: User | User[];
-  actions: ActionAccessRigts,
-  paging: Paging;
+  id: string;
+  participantId?: string;
+  idNumber?: string;
+  nik: string;
+  email: string;
+  name: string;
+  dinas?: string;
+  roleId: string;
+  role: {
+    id: string,
+    name: string,
+  },
 }

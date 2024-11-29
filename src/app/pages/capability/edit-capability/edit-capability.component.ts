@@ -36,11 +36,9 @@ export class EditCapabilityComponent implements OnInit {
     if(id) {
       this.capabilityService.getCapabilityById(id).subscribe({
         next: (response) => {
-          this.capability = response.data as Capability;
+          this.capability = response.data;
         },
-        error: (error) => {
-          console.log(error);
-        }
+        error: (error) => console.log(error)
       })
     }
   }
@@ -54,7 +52,7 @@ export class EditCapabilityComponent implements OnInit {
       },
       error: (error) => {
         console.log(error);
-        this.errorHandlerService.handleError(error);
+        this.errorHandlerService.alertError(error);
       }
     })
   }

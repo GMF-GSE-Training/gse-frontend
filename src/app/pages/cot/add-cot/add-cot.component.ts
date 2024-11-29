@@ -34,13 +34,15 @@ export class AddCotComponent {
   ) { }
 
   onSubmit(cot: CreateCot) {
+    this.sweetalertService.loading('Mohon tunggu', 'Proses...');
     this.cotService.createCot(cot).subscribe({
       next: () => {
         this.router.navigateByUrl('/cot');
         this.sweetalertService.alert('Berhasil', 'COT berhasil dibuat', 'success');
       },
       error: (error) => {
-        this.errorHandlerService.handleError(error);
+        console.log(error);
+        this.errorHandlerService.alertError(error);
       }
     })
   }

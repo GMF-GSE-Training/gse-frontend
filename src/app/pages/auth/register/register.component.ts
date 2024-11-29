@@ -46,7 +46,7 @@ export class RegisterComponent {
         console.log(error);
         this.sweetalertService.close();
         this.isSuccess = false;
-        this.registerMessage = this.handleErrorService.handleErrorString(error, ['nik', 'email', 'nama', 'password']);
+        this.registerMessage = this.handleErrorService.getErrorMessage(error, ['nik', 'email', 'nama', 'password']);
       },
     });
   }

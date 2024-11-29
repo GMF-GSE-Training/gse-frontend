@@ -1,28 +1,20 @@
 import { Component } from '@angular/core';
-import { BlueButtonComponent } from '../../../components/button/blue-button/blue-button.component';
-import { AuthComponent } from "../../../components/auth/auth.component";
 import { CommonModule } from '@angular/common';
-import { Router, RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 import { LoginUserRequest } from '../../../shared/model/auth.model';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../../shared/service/auth.service';
-import { TitleComponent } from "../../../components/title/title.component";
-import { TogglePasswordVisibilityComponent } from '../../../components/toggle-password-visibility/toggle-password-visibility.component';
-import { User } from '../../../shared/model/user.model';
+import { LoginFormComponent } from "../../../layouts/login-form/login-form.component";
 
 @Component({
   selector: 'app-login',
   standalone: true,
   imports: [
-    BlueButtonComponent,
-    AuthComponent,
     CommonModule,
     HttpClientModule,
     FormsModule,
-    RouterLink,
-    TitleComponent,
-    TogglePasswordVisibilityComponent,
+    LoginFormComponent
 ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
@@ -35,6 +27,7 @@ export class LoginComponent {
   };
   loginError: boolean = false;
   message: string = '';
+  isLoading: boolean = false;
 
   constructor(
     private router: Router,
@@ -46,20 +39,25 @@ export class LoginComponent {
   }
 
   login() {
+    this.isLoading = true;
     this.authService.login(this.loginRequest).subscribe({
-      next: (response) => {
-        const responseData = response.data as User;
-        // Set expiration time saat login berhasil
+      next: ({ data }) => {
         const expirationTime = new Date().getTime() + (60 * 60 * 1000); // 30 menit
         sessionStorage.setItem('tokenExpiration', expirationTime.toString());
-        sessionStorage.setItem('currentUserRole', responseData.role.name);
-        sessionStorage.setItem('participantId', responseData.participantId ?? '');
+        sessionStorage.setItem('currentUserRole', data.role.name);
+        if(data.participantId) {
+          sessionStorage.setItem('participantId', data.participantId);
+        } else {
+          sessionStorage.setItem('id', data.id);
+        };
         this.loginError = false;
+        this.isLoading = false;
         this.router.navigateByUrl('/home');
       },
       error: (error) => {
         console.log(error)
         this.loginError = true;
+        this.isLoading = false;
         if(error.status === 400) {
           this.message = 'Email atau Nomor Pegawai dan Password tidak boleh kosong';
         } else if(error.status === 401) {

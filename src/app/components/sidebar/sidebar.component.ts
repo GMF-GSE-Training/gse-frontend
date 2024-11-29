@@ -3,7 +3,6 @@ import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { RoleBasedAccessDirective } from '../../shared/directive/role-based-access.directive';
 import { AuthService } from '../../shared/service/auth.service';
-import { ParticipantService } from '../../shared/service/participant.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -19,12 +18,17 @@ import { ParticipantService } from '../../shared/service/participant.service';
 export class SidebarComponent implements OnChanges {
   @Input() isMenuVisible: boolean = false;
   @Output() menuClose = new EventEmitter<void>();
-  id: string = sessionStorage.getItem('participantId')!;
+  participantId: string = sessionStorage.getItem('participantId')!;
+  id: string = sessionStorage.getItem('id')!;
 
   generalMenu = [
     {
       name: 'Home',
       routerLink: ""
+    },
+    {
+      name: 'Profil',
+      routerLink: `/users/${this.id}/profil`
     },
     {
       name: 'Participants',
@@ -79,26 +83,52 @@ export class SidebarComponent implements OnChanges {
   ngOnChanges(changes: SimpleChanges) {
     if (changes['isMenuVisible'] && changes['isMenuVisible'].currentValue === true) {
       // Ambil ID ketika sidebar muncul
-      this.id = sessionStorage.getItem('participantId')!;
-      // Update `generalUserMenu` jika perlu
-      this.generalUserMenu = [
-        {
-          name: 'Home',
-          routerLink: ""
-        },
-        {
-          name: 'Profil',
-          routerLink: `/participants/${this.id}/detail`
-        },
-        {
-          name: 'Capability',
-          routerLink: "/capability"
-        },
-        {
-          name: 'COT',
-          routerLink: "/cot"
-        },
-      ];
+      this.participantId = sessionStorage.getItem('participantId')!;
+      this.id = sessionStorage.getItem('id')!;
+
+      if(this.participantId) {
+        this.generalUserMenu = [
+          {
+            name: 'Home',
+            routerLink: ""
+          },
+          {
+            name: 'Profil',
+            routerLink: `/participants/${this.participantId}/detail`
+          },
+          {
+            name: 'Capability',
+            routerLink: "/capability"
+          },
+          {
+            name: 'COT',
+            routerLink: "/cot"
+          },
+        ];
+      } else if(this.id) {
+        this.generalMenu = [
+          {
+            name: 'Home',
+            routerLink: ""
+          },
+          {
+            name: 'Profil',
+            routerLink: `/users/${this.id}/profile`
+          },
+          {
+            name: 'Participants',
+            routerLink: "/participants"
+          },
+          {
+            name: 'Capability',
+            routerLink: "/capability"
+          },
+          {
+            name: 'COT',
+            routerLink: "/cot"
+          },
+        ];
+      }
     }
   }
 

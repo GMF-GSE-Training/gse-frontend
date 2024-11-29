@@ -44,7 +44,7 @@ export class EditCotComponent implements OnInit {
       this.cotService.getCotById(id).subscribe({
         next: (response) => {
           // Casting response.data ke Cot untuk memastikan tipe data yang benar
-          const cotData = response.data as Cot;
+          const cotData = response.data;
 
           // Mapping data dari response ke UpdateCot
           this.cot = {
@@ -62,21 +62,21 @@ export class EditCotComponent implements OnInit {
 
           this.initialCapability = this.cot.capabilityId!;
         },
-        error: (error) => {
-          console.log(error);
-        }
+        error: (error) => console.log(error)
       })
     }
   }
 
   onSubmit() {
+    this.sweetalertService.loading('Mohon tunggu', 'Proses...');
     this.cotService.updateCot(this.cot.id, this.cot).subscribe({
       next: () => {
         this.router.navigateByUrl('/cot');
         this.sweetalertService.alert('Berhasil', 'COT berhasil diperbarui', 'success');
       },
       error: (error) => {
-        this.errorHandlerService.handleError(error);
+        console.log(error);
+        this.errorHandlerService.alertError(error);
       }
     })
   }

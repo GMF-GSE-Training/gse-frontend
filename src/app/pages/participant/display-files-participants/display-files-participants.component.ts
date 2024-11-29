@@ -3,7 +3,6 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { map } from 'rxjs/operators';
 import { ParticipantService } from '../../../shared/service/participant.service';
 import { DisplayFilesComponent } from '../../../layouts/display-files/display-files.component';
-import { SweetalertService } from '../../../shared/service/sweetaler.service';
 
 @Component({
   selector: 'app-display-participants-files',
@@ -25,9 +24,16 @@ export class DisplayFilesParticipantsComponent implements OnInit {
   constructor(
     private readonly route: ActivatedRoute,
     private readonly participantService: ParticipantService,
-    private readonly router: Router,
-    private readonly sweetalertService: SweetalertService,
+    private router: Router,
   ) {
+    const navigation = this.router.getCurrentNavigation();
+    const state = navigation?.extras.state;
+
+    if(state) {
+      this.navigationLink = state['data']
+    } else {
+      this.navigationLink = `/participants/${this.id}/detail`
+    }
   }
 
   ngOnInit(): void {
@@ -46,7 +52,7 @@ export class DisplayFilesParticipantsComponent implements OnInit {
 
   getFile(id: string, fileName: string): void {
     this.participantService.getFile({ id }, fileName).pipe(
-      map(response => response.data as string)
+      map(response => response.data)
     ).subscribe({
       next: (file) => {
         this.file = file;

@@ -77,7 +77,7 @@ export class BaseInputComponent {
       const key = event.key;
 
       // Mengizinkan tombol Backspace, Delete, Arrow keys, dan Enter
-      if (key === 'Backspace' || key === 'Delete' || key.startsWith('Arrow') || key === 'Enter') {
+      if (key && (key === 'Backspace' || key === 'Delete' || key.startsWith('Arrow') || key === 'Enter')) {
         return; // Izinkan tombol ini bekerja
       }
 

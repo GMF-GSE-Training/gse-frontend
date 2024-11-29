@@ -3,6 +3,7 @@ import { environment } from "../../../environments/environment.development";
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { CapabilityResponse, CreateCapability, UpdateCapability } from "../model/capability.model";
+import { WebResponse } from "../model/web.model";
 
 @Injectable({
   providedIn: 'root',
@@ -12,35 +13,35 @@ export class CapabilityService {
   private endpoint = environment.endpoints.capability;
 
   constructor(
-    private http: HttpClient,
-  ) {}
+    private readonly http: HttpClient,
+  ) { }
 
-  createCapability(request: CreateCapability): Observable<CapabilityResponse> {
-    return this.http.post<CapabilityResponse>(`${this.apiUrl}/${this.endpoint.base}`, request, { withCredentials: true });
+  createCapability(request: CreateCapability): Observable<WebResponse<CapabilityResponse>> {
+    return this.http.post<WebResponse<CapabilityResponse>>(`${this.apiUrl}/${this.endpoint.base}`, request, { withCredentials: true });
   }
 
-  getCapabilityById(id: string): Observable<CapabilityResponse> {
-    return this.http.get<CapabilityResponse>(`${this.apiUrl}/${this.endpoint.base}/${id}`, { withCredentials: true });
+  getCapabilityById(id: string): Observable<WebResponse<CapabilityResponse>> {
+    return this.http.get<WebResponse<CapabilityResponse>>(`${this.apiUrl}/${this.endpoint.base}/${id}`, { withCredentials: true });
   }
 
-  getAllCapability(): Observable<CapabilityResponse> {
-    return this.http.get<CapabilityResponse>(`${this.apiUrl}/${this.endpoint.base}`, { withCredentials: true });
+  getAllCapability(): Observable<WebResponse<CapabilityResponse[]>> {
+    return this.http.get<WebResponse<CapabilityResponse[]>>(`${this.apiUrl}/${this.endpoint.base}`, { withCredentials: true });
   }
 
-  updateCapability(id: string, request: UpdateCapability): Observable<CapabilityResponse> {
-    return this.http.patch<CapabilityResponse>(`${this.apiUrl}/${this.endpoint.base}/${id}`, request, { withCredentials: true });
+  updateCapability(id: string, request: UpdateCapability): Observable<WebResponse<string>> {
+    return this.http.patch<WebResponse<string>>(`${this.apiUrl}/${this.endpoint.base}/${id}`, request, { withCredentials: true });
   }
 
-  deleteCapability(id: string): Observable<CapabilityResponse> {
-    return this.http.delete<CapabilityResponse>(`${this.apiUrl}/${this.endpoint.base}/${id}`, { withCredentials: true });
+  deleteCapability(id: string): Observable<WebResponse<string>> {
+    return this.http.delete<WebResponse<string>>(`${this.apiUrl}/${this.endpoint.base}/${id}`, { withCredentials: true });
   }
 
-  listCapability(page: number = 1, size: number = 10): Observable<CapabilityResponse> {
-    return this.http.get<CapabilityResponse>(`${this.apiUrl}/${this.endpoint.list}?page=${page}&size=${size}`, { withCredentials: true });
+  listCapability(page?: number, size?: number): Observable<WebResponse<CapabilityResponse[]>> {
+    return this.http.get<WebResponse<CapabilityResponse[]>>(`${this.apiUrl}/${this.endpoint.list}?page=${page}&size=${size}`, { withCredentials: true });
   }
 
-  searchCapability(q: string, page: number = 1, size: number = 10): Observable<CapabilityResponse> {
-    return this.http.get<CapabilityResponse>(`${this.apiUrl}/${this.endpoint.search}?q=${q}&page=${page}&size=${size}`,
+  searchCapability(q?: string, page?: number, size?: number): Observable<WebResponse<CapabilityResponse[]>> {
+    return this.http.get<WebResponse<CapabilityResponse[]>>(`${this.apiUrl}/${this.endpoint.search}?q=${q}&page=${page}&size=${size}`,
       { withCredentials: true }
     );
   }

@@ -1,21 +1,8 @@
-<app-auth>
-  <div>
-    <div *ngIf="loginError" class="error-message">
-      <p>{{ message }}</p>
-    </div>
-    <form class="login-form" (submit)="login()">
-      <app-title pageTitle="Login Account"></app-title>
-      <i class="fa-solid fa-user user-icon"></i>
-      <input [(ngModel)]="loginRequest.identifier" type="username" id="username" name="username" placeholder="Email atau No Pegawai">
-      <i class="fa-solid fa-lock pass-icon"></i>
-      <app-toggle-password-visibility
-        [isPassVisible]="isPassVisible"
-        (togglePassClick)="passVisible()">
-      </app-toggle-password-visibility>
-      <input [(ngModel)]="loginRequest.password" [type]="isPassVisible ? 'text' : 'password'" name="password" id="password" placeholder="Password">
-      <a routerLink="/passwordreset" class="forgotPassword">Lupa password?</a>
-      <p class="isRegistered">Belum punya akun? <a routerLink="/register">Daftar</a></p>
-      <app-blue-button [type]="'submit'" class="button">Masuk</app-blue-button>
-    </form>
-  </div>
-</app-auth>
+<app-login-form
+  [loginRequest]="loginRequest"
+  [loginError]="loginError"
+  [message]="message"
+  [isPassVisible]="isPassVisible"
+  [isLoading]="isLoading"
+  (formSubmit)="login()">
+</app-login-form>

@@ -4,7 +4,6 @@ import { CompanyInputComponent } from '../../components/input/company-input/comp
 import { WhiteButtonComponent } from '../../components/button/white-button/white-button.component';
 import { BlueButtonComponent } from '../../components/button/blue-button/blue-button.component';
 import { BaseInputComponent } from '../../components/input/base-input/base-input.component';
-import { HeaderComponent } from '../../components/header/header.component';
 import { RouterLink } from '@angular/router';
 import { TitleComponent } from '../../components/title/title.component';
 import { FormsModule, NgForm } from '@angular/forms';
@@ -52,7 +51,7 @@ export class ParticipantFormComponent {
 
   onSubmit() {
     if (this.form.valid) {
-      this.participant.perusahaan = this.companyInputComponent.getCompanyName();
+      this.participant.company = this.companyInputComponent.getCompanyName();
       if(this.isUpdate) {
         if(this.currentUserRole !== 'super admin') {
           this.participant.email = undefined;

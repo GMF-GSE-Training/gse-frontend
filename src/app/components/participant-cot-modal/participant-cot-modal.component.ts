@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, SimpleChanges } from '@angular/core';
 import { IconActionComponent } from "../icon-action/icon-action.component";
 import { PaginationComponent } from "../pagination/pagination.component";
 import { SearchComponent } from "../search/search.component";
@@ -17,10 +17,10 @@ import { WhiteButtonComponent } from "../button/white-button/white-button.compon
     BlueButtonComponent,
     WhiteButtonComponent
 ],
-  templateUrl: './modal.component.html',
-  styleUrl: './modal.component.css'
+  templateUrl: './participant-cot-modal.component.html',
+  styleUrl: './participant-cot-modal.component.css'
 })
-export class ModalComponent {
+export class ParticipantCotModalComponent {
   @Input() columns: { header: string, field: string }[] = [];
   @Input() data: any[] = [];
   @Output() selectedIdsChange = new EventEmitter<Set<number | string>>();
@@ -37,6 +37,10 @@ export class ModalComponent {
   @Input() placeHolder: string = '';
   @Output() searchChange = new EventEmitter<string>();
 
+  get isSaveDisabled(): boolean {
+    return this.selectedIds.size === 0;
+  }
+
   onSearchChanged(query: string) {
     this.searchChange.emit(query);
   }
@@ -48,12 +52,32 @@ export class ModalComponent {
   }
 
   onSelectChange(itemId: number | string) {
-    if (this.selectedIds.has(itemId)) {
-      this.selectedIds.delete(itemId);
-    } else {
-      this.selectedIds.add(itemId);
+    // Temukan item yang sesuai
+    const item = this.data.find(d => d.id === itemId);
+    if (item) {
+      // Toggle status select
+      item.select = !item.select;
+
+      // Update selectedIds
+      if (item.select) {
+        this.selectedIds.add(itemId);
+      } else {
+        this.selectedIds.delete(itemId);
+      }
+
+      // Emit perubahan
+      this.selectedIdsChange.emit(this.selectedIds);
     }
-    this.selectedIdsChange.emit(this.selectedIds);
+  }
+
+  // Tambahkan metode untuk menerapkan status select
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['data']) {
+      // Terapkan status select berdasarkan selectedIds
+      this.data.forEach(item => {
+        item.select = this.selectedIds.has(item.id);
+      });
+    }
   }
 
   onSave() {

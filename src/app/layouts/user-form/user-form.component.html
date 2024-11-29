@@ -11,7 +11,7 @@
           'color': !isSuccess ? 'red' : ''
         }"
       >
-        <p>{{ registerMessage }}</p>
+        <span>{{ registerMessage }}</span>
       </div>
 
       <div class="input-container">
@@ -40,7 +40,7 @@
         </app-dropdown-input>
 
         <app-base-input
-          *ngIf="isRegister || selectedRole.role === 'user'"
+          *ngIf="isRegister || selectedRole.name === 'user'"
           class="input"
           type="text"
           inputMode="tel"
@@ -119,7 +119,7 @@
           [(ngModel)]="user.dinas"
         ></app-base-input>
       </div>
-      <p *ngIf="isRegister" class="isRegistered">Sudah punya akun? <a routerLink="/login">Masuk</a></p>
+      <span *ngIf="isRegister" class="isRegistered">Sudah punya akun? <a routerLink="/login">Masuk</a></span>
 
       <div class="buttons">
         <app-white-button *ngIf="!isRegister" type="button" routerLink="/users">Kembali</app-white-button>

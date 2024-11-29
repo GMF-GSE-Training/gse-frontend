@@ -29,6 +29,7 @@ export class AddCapabilityComponent {
 
   onSubmit(capability: any) {
     const { id, ...request } = capability;
+    this.sweetalertService.loading('Mohon tunggu', 'Proses...');
     this.capabilityService.createCapability(request).subscribe({
       next: (response) => {
         capability = response.data;
@@ -43,7 +44,7 @@ export class AddCapabilityComponent {
       },
       error: (error) => {
         console.log(error);
-        this.errorHandlerService.handleError(error);
+        this.errorHandlerService.alertError(error);
       }
     })
   }

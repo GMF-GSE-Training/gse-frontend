@@ -35,19 +35,17 @@ export class EditUserComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.loadUsers();
+    this.getUser();
   }
 
-  loadUsers(): void {
+  getUser(): void {
     this.userService.get(this.userId!).subscribe({
-      next: (response) => {
+      next: ({ data }) => {
         this.updateUser = {
-          ...response.data as UpdateUserRequest,
+          ...data,
         }
       },
-      error: (error) => {
-        console.log(error);
-      }
+      error: (error) => console.log(error),
     });
   }
 
@@ -55,14 +53,15 @@ export class EditUserComponent implements OnInit {
     this.cleanEmptyFields(user);
 
     if(this.userId) {
-      // Panggil service untuk membuat user
+      this.sweetalertService.loading('Mohon tunggu', 'Proses...');
       this.userService.updateUser(this.userId!, user).subscribe({
         next: () => {
           this.sweetalertService.alert('Ditambahkan!', 'Pengguna berhasil diperbarui', 'success');
           this.router.navigateByUrl('/users');
         },
         error: (error) => {
-          this.errorHandlerService.handleError(error);
+          console.log(error);
+          this.errorHandlerService.alertError(error);
         }
       });
     }

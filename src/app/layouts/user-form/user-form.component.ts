@@ -4,7 +4,7 @@ import { BaseInputComponent } from "../../components/input/base-input/base-input
 import { WhiteButtonComponent } from "../../components/button/white-button/white-button.component";
 import { BlueButtonComponent } from "../../components/button/blue-button/blue-button.component";
 import { FormsModule, NgForm } from '@angular/forms';
-import { Router, RouterLink } from '@angular/router';
+import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { AuthComponent } from "../../components/auth/auth.component";
 import { DropdownInputComponent } from "../../components/input/dropdown-input/dropdown-input.component";
@@ -54,7 +54,6 @@ export class UserFormComponent implements OnInit {
   currentUserRole: string | null = sessionStorage.getItem('currentUserRole');
 
   constructor(
-    private readonly router: Router,
     private readonly roleService: RoleService,
   ) {}
 
@@ -66,7 +65,6 @@ export class UserFormComponent implements OnInit {
           label: role.name,
           value: role.id
         }));
-        console.log(this.roleOptions)
       },
       error: (error) => {
         console.log(error);

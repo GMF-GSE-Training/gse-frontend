@@ -18,9 +18,3 @@ export interface UpdateCurriculumSyllabus {
       type?: string;
   }[];
 }
-
-export interface CurriculumSyllabusResponse {
-  code: number,
-  status: string,
-  data: string,
-}

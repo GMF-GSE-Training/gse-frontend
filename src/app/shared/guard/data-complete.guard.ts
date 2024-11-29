@@ -15,7 +15,7 @@ export const DataCompleteGuard: CanActivateFn = (route, state) => {
   if(cachedUserRole === 'user' && cachedParticipantId) {
     participantService.isDataComplete(cachedParticipantId).subscribe({
       next: (response) => {
-        if(!response) {
+        if(!response.data) {
           const alertState = sweetalertService.alert('Peringatan!', 'Anda tidak dapat melanjutkan ke halaman berikutnya karena data Anda belum lengkap. Silakan lengkapi data terlebih dahulu untuk melanjutkan.', 'warning');
           router.navigateByUrl(`/participants/${cachedParticipantId}/edit`, {
             state: { alert: alertState }

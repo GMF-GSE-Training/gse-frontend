@@ -21,7 +21,16 @@ export interface ResetPassword {
 }
 
 export interface AuthResponse {
-  code: number;
-  status: string;
-  data?: User | string;
+  id: string;
+  participantId?: string;
+  idNumber?: string;
+  email?: string;
+  name: string;
+  dinas?: string;
+  roleId?: string;
+  token?: string;
+  role: {
+      id: string,
+      name: string,
+  }
 }

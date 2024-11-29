@@ -13,12 +13,10 @@ import { AddCotComponent } from './pages/cot/add-cot/add-cot.component';
 import { CotListComponent } from './pages/cot/cot-list/cot-list.component';
 import { EditCotComponent } from './pages/cot/edit-cot/edit-cot.component';
 import { CotDetailComponent } from './pages/cot/cot-detail/cot-detail.component';
-import { CotFinishComponent } from './pages/cot/cot-finish/cot-finish.component';
 import { CreateSertifikatComponent } from './pages/cot/create-sertifikat/create-sertifikat.component';
-import { AddParticipantCotComponent } from './pages/cot/add-participant-cot/add-participant-cot.component';
 import { DownloadSertifikatComponent } from './pages/cot/download-sertifikat/download-sertifikat.component';
 import { UserListComponent } from './pages/users/user-list/user-list.component';
-import { AddUserComponent } from './pages/users/add-user/create-account.component';
+import { AddUserComponent } from './pages/users/add-user/add-user.component';
 import { AddSignComponent } from './pages/sign/add-sign/add-sign.component';
 import { EditUserComponent } from './pages/users/edit-user/edit-user.component';
 import { SignatureListComponent } from './pages/sign/signature-list/signature-list.component';
@@ -34,6 +32,7 @@ import { CapabilityDetailComponent } from './pages/capability/capability-detail/
 import { EditCurriculumSyllabusComponent } from './pages/curriculum-syllabus/edit-curriculum-syllabus/edit-curriculum-syllabus.component';
 import { NotFoundComponent } from './pages/errors/not-found/not-found.component';
 import { DataCompleteGuard } from './shared/guard/data-complete.guard';
+import { ProfileComponent } from './pages/users/profile/profile.component';
 
 export const routes: Routes = [
   {
@@ -150,18 +149,6 @@ export const routes: Routes = [
     data: { roles: ['super admin', 'supervisor', 'lcu', 'user'] }
   },
   {
-    path: 'cot/finish',
-    component: CotFinishComponent,
-    canActivate: [AuthAndRoleGuard],
-    data: { roles: ['super admin', 'supervisor', 'lcu', 'user'] }
-  },
-  {
-    path: 'participant-cot/add',
-    component: AddParticipantCotComponent,
-    canActivate: [AuthAndRoleGuard],
-    data: { roles: ['super admin', 'lcu'] }
-  },
-  {
     path: 'sertifikat/:id',
     component: CreateSertifikatComponent,
     canActivate: [AuthAndRoleGuard, DataCompleteGuard],
@@ -192,6 +179,12 @@ export const routes: Routes = [
     data: { roles: ['super admin', 'lcu'] }
   },
   {
+    path: 'users/:id/profile',
+    component: ProfileComponent,
+    canActivate: [AuthAndRoleGuard],
+    data: { roles: ['super admin', 'supervisor', 'lcu'] }
+  },
+  {
     path: 'e-sign/add',
     component: AddSignComponent,
     canActivate: [AuthAndRoleGuard],
@@ -201,7 +194,7 @@ export const routes: Routes = [
     path: 'e-sign',
     component: SignatureListComponent,
     canActivate: [AuthAndRoleGuard],
-    data: { roles: ['super admin', 'supervisor', 'lcu'] }
+    data: { roles: ['super admin', 'supervisor'] }
   },
   {
     path: 'e-sign/:id/edit',
@@ -221,12 +214,12 @@ export const routes: Routes = [
     canActivate: [AuthAndRoleGuard],
     data: { roles: ['super admin'] }
   },
-  {
-    path: 'not-found',
-    component: NotFoundComponent,
-  },
-  {
-    path: '**',
-    redirectTo: 'not-found'
-  }
+  // {
+  //   path: 'not-found',
+  //   component: NotFoundComponent,
+  // },
+  // {
+  //   path: '**',
+  //   redirectTo: 'not-found'
+  // }
 ];

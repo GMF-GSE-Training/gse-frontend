@@ -23,6 +23,10 @@ export class ForgotPasswordComponent {
 
   onSubmit(data: { email: string }) {
     this.sweetalertService.alert('', 'Bila email ada, maka email untuk mengubah password akan dikirim ke email yang Anda masukkan', 'success');
-    this.authService.forgotPassword(data).subscribe();
+    this.authService.forgotPassword(data).subscribe({
+      error: (error) => {
+        console.log(error);
+      }
+    });
   }
 }

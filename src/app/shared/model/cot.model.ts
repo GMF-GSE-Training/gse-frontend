@@ -39,21 +39,14 @@ export interface Cot {
 }
 
 export interface CotResponse {
-  code: number;
-  status: string;
-  data: Cot | string | Cot[];
-  actions: ActionAccessRigts,
-  paging: Paging;
-}
-
-type ActionAccessRigts = {
-  canEdit: boolean;
-  canDelete: boolean;
-  canView: boolean;
-}
-
-type Paging = {
-  currentPage: number;
-  totalPage: number;
-  size: number;
+  id: string;
+  startDate: string;
+  endDate: string;
+  trainingLocation: string;
+  theoryInstructorRegGse: string;
+  theoryInstructorCompetency: string;
+  practicalInstructor1: string;
+  practicalInstructor2: string;
+  status: boolean;
+  Capability: Capability;
 }

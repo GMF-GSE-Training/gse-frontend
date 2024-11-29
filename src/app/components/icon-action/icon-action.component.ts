@@ -21,6 +21,7 @@ export class IconActionComponent {
   @Input() showSelectIcon: boolean = false;
   @Input() select?: boolean | undefined = undefined;
   @Input() itemId?: number | string; // Properti untuk ID data
+  @Input() state: { data: any; } = { data: '' };
 
   @Output() selectChange = new EventEmitter<number | string>();
 

@@ -41,7 +41,7 @@ export class EditSignComponent {
         this.sweetalertService.alert('Berhasil', 'E-Sign berhasil ditambahkan', 'success');
       },
       error: (error) => {
-        this.errorHandlerService.handleError(error);
+        this.errorHandlerService.alertError(error);
       }
     })
   }

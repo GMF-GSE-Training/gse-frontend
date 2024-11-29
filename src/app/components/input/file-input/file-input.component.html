@@ -1,6 +1,6 @@
 <label [for]="idInput">
   {{ label }}
-  <p *ngIf="isRequired">*</p>
+  <span *ngIf="isRequired">*</span>
 </label>
 <div class="file-upload">
   <label [for]="idInput" class="file-upload-label">Pilih File</label>

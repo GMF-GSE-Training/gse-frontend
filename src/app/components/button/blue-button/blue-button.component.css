@@ -2,7 +2,7 @@
 .disabled-blue-button {
   width: 100%;
   height: 100%;
-  font-size: 30px;
+  font-size: 2em;
   border: none;
   border-radius: 50px;
   transition: background-color 0.3s ease;
@@ -18,11 +18,4 @@
 .blue-button:hover {
   cursor: pointer;
   background-color: #003a5c;
-}
-
-label {
-  display: block;
-  margin-top: 10px;
-  font-weight: bold;
-  font-size: 20px;
 }

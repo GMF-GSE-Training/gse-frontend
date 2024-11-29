@@ -66,10 +66,11 @@ export class AddParticipantDataComponent {
   onCreate(participant: any) {
     participant.qrCodeLink = environment.qrCodeLink;
     const formData = this.prepareFormData(participant);
+    this.sweetalertService.loading('Mohon tunggu', 'Proses...');
 
     this.participantService.createParticipant(formData).subscribe({
       next: (response) => {
-        const responseData = response.data as Participant;
+        const responseData = response.data;
         this.sweetalertService.alert('Ditambahkan!', 'Peserta berhasil ditambahkan', 'success');
         this.router.navigateByUrl(`/users/add`, {
           state: {
@@ -83,7 +84,7 @@ export class AddParticipantDataComponent {
         });
       },
       error: (error) => {
-        this.errorHandlerService.handleError(error, this.requiredFields);
+        this.errorHandlerService.alertError(error, this.requiredFields);
       }
     });
   }
@@ -101,7 +102,12 @@ export class AddParticipantDataComponent {
     const formData = new FormData();
     for (const key in participant) {
       if (participant.hasOwnProperty(key)) {
-        const value = participant[key];
+        let value = participant[key];
+
+        if(value === undefined || value === null) {
+          value = '';
+        }
+
         if (value instanceof File) {
           formData.append(key, value);
         } else if (value) {

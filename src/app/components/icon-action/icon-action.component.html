@@ -12,7 +12,7 @@
       <i class="fa-solid fa-trash-can action-icon" (click)="delete()"></i>
     </span>
     <span *ngIf="detailLink">
-      <i class="fa-solid fa-eye action-icon" [routerLink]="[detailLink]"></i>
+      <i class="fa-solid fa-eye action-icon" [routerLink]="[detailLink]" [state]="state"></i>
     </span>
     <span *ngIf="showSelectIcon" id="select-icon" (click)="toggleSelect()">
       <i [ngClass]="select ? 'fa-solid fa-square-check' : 'fa-regular fa-square'"></i>

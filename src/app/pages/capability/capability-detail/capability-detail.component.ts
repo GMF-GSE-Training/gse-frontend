@@ -50,42 +50,37 @@ export class CapabilityDetailComponent implements OnInit {
       this.editLink = `/curriculum-syllabus/${id}/edit`;
 
       this.capabilityService.getCapabilityById(id).subscribe({
-        next: (response) => {
-          if(typeof response.data === 'object') {
-            const data = response.data as Capability;
-            // Update capability data
-            this.capability = {
-              id: data.id,
-              ratingCode: data.ratingCode,
-              trainingCode: data.trainingCode,
-              trainingName: data.trainingName,
-            };
+        next: ({ data }) => {
+          // Update capability data
+          this.capability = {
+            id: data.id,
+            ratingCode: data.ratingCode,
+            trainingCode: data.trainingCode,
+            trainingName: data.trainingName,
+          };
 
-            // Filter and map curriculumSyllabus to regulasiGSEs and kompetensis
-            this.regulasiGSEs = data.curriculumSyllabus!
-              .filter(item => item.type === 'Regulasi GSE')
-              .map(item => ({
-                capabilityId: item.capabilityId,
-                name: item.name,
-                theoryDuration: item.theoryDuration,
-                practiceDuration: item.practiceDuration,
-                type: item.type,
-              }));
+          // Filter and map curriculumSyllabus to regulasiGSEs and kompetensis
+          this.regulasiGSEs = data.curriculumSyllabus!
+            .filter(item => item.type === 'Regulasi GSE')
+            .map(item => ({
+              capabilityId: item.capabilityId,
+              name: item.name,
+              theoryDuration: item.theoryDuration,
+              practiceDuration: item.practiceDuration,
+              type: item.type,
+            }));
 
-            this.kompetensis = data.curriculumSyllabus!
-              .filter(item => item.type === 'Kompetensi')
-              .map(item => ({
-                capabilityId: item.capabilityId,
-                name: item.name,
-                theoryDuration: item.theoryDuration,
-                practiceDuration: item.practiceDuration,
-                type: item.type,
-              }));
-          }
+          this.kompetensis = data.curriculumSyllabus!
+            .filter(item => item.type === 'Kompetensi')
+            .map(item => ({
+              capabilityId: item.capabilityId,
+              name: item.name,
+              theoryDuration: item.theoryDuration,
+              practiceDuration: item.practiceDuration,
+              type: item.type,
+            }));
         },
-        error: (error) => {
-          console.log(error);
-        }
+        error: (error) => console.log(error)
       });
     }
   }

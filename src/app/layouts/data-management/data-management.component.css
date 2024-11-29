@@ -6,6 +6,11 @@
   justify-content: space-between;
 }
 
+.date-filter {
+  margin-right: auto;
+  margin-left: 15px;
+}
+
 i {
   font-size: 30px;
   position: absolute;

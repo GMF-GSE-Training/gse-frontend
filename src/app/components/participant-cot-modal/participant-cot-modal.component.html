@@ -39,6 +39,6 @@
 </app-pagination>
 
 <div class="button-container">
-  <app-blue-button class="button" (click)="onSave()">Simpan</app-blue-button>
+  <app-blue-button class="button" (click)="onSave()" [disabled]="isSaveDisabled">Simpan</app-blue-button>
   <app-white-button class="button" (click)="onCancel()">Batal</app-white-button>
 </div>

@@ -17,6 +17,7 @@ import { IconActionComponent } from "../icon-action/icon-action.component";
 export class  TableComponent {
   @Input() columns: { header: string, field: string }[] = [];
   @Input() data: any[] = [];
+  @Input() state: { data: any; } = { data: '' };
 
   // Metode untuk memeriksa apakah kolom action memiliki nilai
   hasActionColumn(): boolean {

@@ -4,7 +4,7 @@
       <app-title pageTitle="Forgot password"></app-title>
 
       <div *ngIf="isSubmitted && getMessage()" [ngClass]="submitError ? 'error-message' : 'success-message'">
-        <p class="error">{{ getMessage() }}</p>
+        <span class="error">{{ getMessage() }}</span>
       </div>
 
       <div class="input-container" ngClass="email">
@@ -12,6 +12,7 @@
           class="input"
           label="Email"
           type="email"
+          autocomplete="email"
           inputMode="email"
           placeholder="Email"
           name="email"

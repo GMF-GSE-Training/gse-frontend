@@ -14,12 +14,12 @@
             {{ item[column.field] }}
           </ng-container>
           <a *ngIf="column.field === 'kurikulumSilabus'" [routerLink]="item.kurikulumSilabus">Lihat</a>
-          <a *ngIf="column.field === 'sim'" [routerLink]="item.sim">Lihat</a>
-          <a *ngIf="column.field === 'expSuratSehatButaWarna'" [routerLink]="item.expSuratSehatButaWarna.value">{{ item.expSuratSehatButaWarna.label }}</a>
-          <a *ngIf="column.field === 'expSuratBebasNarkoba'" [routerLink]="item.expSuratBebasNarkoba.value">{{ item.expSuratBebasNarkoba.label }}</a>
+          <a *ngIf="column.field === 'sim'" [routerLink]="item.sim" [state]="state">Lihat</a>
+          <a *ngIf="column.field === 'expSuratSehatButaWarna'" [routerLink]="item.expSuratSehatButaWarna.value" [state]="state">{{ item.expSuratSehatButaWarna.label }}</a>
+          <a *ngIf="column.field === 'expSuratBebasNarkoba'" [routerLink]="item.expSuratBebasNarkoba.value" [state]="state">{{ item.expSuratBebasNarkoba.label }}</a>
         </ng-container>
         <ng-template #actionTemplate>
-          <app-icon-action [printLink]="item.printLink" [addLink]="item.addLink" [editLink]="item.editLink" [delete]="item.deleteMethod" [detailLink]="item.detailLink" [select]="item.select"></app-icon-action>
+          <app-icon-action [printLink]="item.printLink" [addLink]="item.addLink" [editLink]="item.editLink" [delete]="item.deleteMethod" [detailLink]="item.detailLink" [select]="item.select" [state]="state"></app-icon-action>
         </ng-template>
       </td>
     </tr>

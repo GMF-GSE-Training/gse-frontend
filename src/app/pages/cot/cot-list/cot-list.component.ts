@@ -30,6 +30,13 @@ export class CotListComponent {
   totalPages: number = 1;
   itemsPerPage: number = 10;
   searchQuery: string = '';
+  dateFilter: {startDate: string, endDate: string} = {
+    startDate: '',
+    endDate: '',
+  };
+
+  startDate: string = '';
+  endDate: string = '';
 
   dateOptions: Intl.DateTimeFormatOptions = {
     day: 'numeric',
@@ -46,20 +53,22 @@ export class CotListComponent {
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
-      this.searchQuery = params['q'] || '';
+      this.searchQuery = params['keyword'] || '';
       this.currentPage =+ params['page'] || 1;
+      this.startDate = params['startDate'] || '';
+      this.endDate = params['endDate'] || '';
       if (this.searchQuery) {
-        this.getSearchCot(this.searchQuery, this.currentPage, this.itemsPerPage);
+        this.getSearchCot(this.searchQuery, this.currentPage, this.itemsPerPage, this.startDate, this.endDate);
       } else {
-        this.getListCot(this.currentPage, this.itemsPerPage);
+        this.getListCot(this.currentPage, this.itemsPerPage, this.startDate, this.endDate);
       }
     });
   }
 
-  getListCot(page: number, size: number): void {
-    this.cotService.listCot(page, size).subscribe({
-      next: ({ code, status, data, actions, paging }) => {
-        this.cot = (data as Cot[]).map((cot) => ({
+  getListCot(page: number, size: number, startDate: string, endDate: string): void {
+    this.cotService.listCot(page, size, startDate, endDate).subscribe({
+      next: ({ data, actions, paging }) => {
+        this.cot = data.map((cot) => ({
           startDate: new Date(cot.startDate).toLocaleDateString('id-ID', this.dateOptions),
           endDate: new Date(cot.endDate).toLocaleDateString('id-ID', this.dateOptions),
           ratingCode: cot.Capability?.ratingCode,
@@ -69,52 +78,74 @@ export class CotListComponent {
           deleteMethod: actions?.canDelete ? () => this.deleteCot(cot) : null,
         }));
 
-        this.totalPages = paging.totalPage;
+        this.totalPages = paging?.totalPage ?? 1;
       },
-      error: (error) => {
-        console.error(error);
-      }
+      error: (error) => console.log(error)
     });
   }
 
   async deleteCot(cot: Cot): Promise<void> {
     const isConfirmed = await this.sweetalertService.confirm('Anda Yakin?', `Apakah anda ingin menghapus COT ${cot.Capability.trainingName}?`, 'warning', 'Ya, hapus!');
     if (isConfirmed) {
+      this.sweetalertService.loading('Mohon tunggu', 'Proses...');
       this.cotService.deleteCot(cot.id).subscribe({
         next: () => {
           this.sweetalertService.alert('Dihapus!', 'Data COT berhasil dihapus', 'success');
           this.cot = this.cot.filter(c => c.id !== cot.id);
+
+          if(this.cot.length === 0 && this.currentPage > 0) {
+            this.currentPage -= 1;
+          }
+
+          if (this.searchQuery) {
+            this.getSearchCot(this.searchQuery, this.currentPage, this.itemsPerPage, this.startDate, this.endDate);
+          } else {
+            this.getListCot(this.currentPage, this.itemsPerPage, this.startDate, this.endDate);
+          }
+
+          // Cek apakah halaman saat ini lebih besar dari total halaman
+          if (this.currentPage > this.totalPages) {
+            this.currentPage = this.totalPages; // Pindah ke halaman sebelumnya
+          }
+
+          // Update query params dengan currentPage yang diperbarui
+          const queryParams = this.searchQuery
+            ? { keyword: this.searchQuery, page: this.currentPage }
+            : { page: this.currentPage };
+
+          this.router.navigate([], {
+            relativeTo: this.route,
+            queryParams,
+            queryParamsHandling: 'merge',
+          });
         },
-        error: () => {
-          this.sweetalertService.alert('Gagal!', 'Gagal menghapus data peserta', 'error');
+        error: (error) => {
+          console.log(error);
+          this.sweetalertService.alert('Gagal!', 'Terjadi kesalahan, coba lagi nanti', 'error');
         }
       });
     }
   }
 
-  getSearchCot(query: string, page: number, size: number) {
-    this.cotService.searchCot(query, page, size).subscribe({
-      next: ({ code, status, data, actions, paging }) => {
-        if (code === 200 && status === 'OK' && Array.isArray(data)) {
-          this.cot = data.map((cot: Cot) => ({
-            ...cot,
-            startDate: new Date(cot.startDate).toLocaleDateString('id-ID', this.dateOptions),
-            endDate: new Date(cot.endDate).toLocaleDateString('id-ID', this.dateOptions),
-            ratingCode: cot.Capability?.ratingCode,
-            trainingName: cot.Capability?.trainingName,
-            editLink: actions?.canEdit ? `/cot/${cot.id}/edit` : null,
-            detailLink: actions?.canView ? `/cot/${cot.id}/detail` : null,
-            deleteMethod: actions?.canDelete ? () => this.deleteCot(cot) : null,
-          }));
+  getSearchCot(query: string, page: number, size: number, startDate: string, endDate: string) {
+    this.cotService.searchCot(query, page, size, startDate, endDate).subscribe({
+      next: ({ data, actions, paging }) => {
+        this.cot = data.map((cot: Cot) => ({
+          ...cot,
+          startDate: new Date(cot.startDate).toLocaleDateString('id-ID', this.dateOptions),
+          endDate: new Date(cot.endDate).toLocaleDateString('id-ID', this.dateOptions),
+          ratingCode: cot.Capability?.ratingCode,
+          trainingName: cot.Capability?.trainingName,
+          editLink: actions?.canEdit ? `/cot/${cot.id}/edit` : null,
+          detailLink: actions?.canView ? `/cot/${cot.id}/detail` : null,
+          deleteMethod: actions?.canDelete ? () => this.deleteCot(cot) : null,
+        }));
 
-          this.totalPages = paging?.totalPage || 1;
-        } else {
-          this.cot = [];
-        }
+        this.totalPages = paging?.totalPage ?? 1;
       },
       error: (error) => {
+        console.log(error);
         console.error('Error fetching data:', error);
-        this.cot = [];
       }
     });
   }
@@ -122,15 +153,7 @@ export class CotListComponent {
   onSearchChanged(query: string): void {
     this.searchQuery = query;
     this.router.navigate([], {
-      queryParams: { search: query },
-      queryParamsHandling: 'merge',
-    });
-    this.getSearchCot(query, 1, this.itemsPerPage);
-  }
-
-  onPageChanged(page: number): void {
-    this.router.navigate([], {
-      queryParams: { page },
+      queryParams: { keyword: query, page: 1 },
       queryParamsHandling: 'merge',
     });
   }
@@ -138,10 +161,16 @@ export class CotListComponent {
   viewAll(): void {
     this.router.navigate([], {
       relativeTo: this.route,
-      queryParams: { q: null, page: null },
+      queryParams: { keyword: undefined, startDate: undefined, endDate: undefined, page: undefined },
       queryParamsHandling: 'merge',
     });
-
     this.searchQuery = '';
+  }
+
+  onPageChanged(page: number): void {
+    this.router.navigate([], {
+      queryParams: { page },
+      queryParamsHandling: 'merge',
+    });
   }
 }

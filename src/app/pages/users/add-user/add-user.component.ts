@@ -12,7 +12,7 @@ import { ErrorHandlerService } from '../../../shared/service/error-handler.servi
   imports: [
     UserFormComponent
 ],
-  templateUrl: './create-account.component.html',
+  templateUrl: './add-user.component.html',
 })
 export class AddUserComponent {
   createUser: CreateUserRequest = {
@@ -49,8 +49,7 @@ export class AddUserComponent {
   }
 
   onCreate(user: CreateUserRequest): void {
-    this.cleanEmptyFields(user);
-
+    this.sweetalertService.loading('Mohon tunggu', 'Proses...');
     // Panggil service untuk membuat user
     this.userService.createUser(user).subscribe({
       next: () => {
@@ -58,16 +57,9 @@ export class AddUserComponent {
         this.router.navigateByUrl('/users');
       },
       error: (error) => {
-        this.errorHandlerService.handleError(error, this.requiredFields);
+        console.log(error);
+        this.errorHandlerService.alertError(error, this.requiredFields);
       }
     });
-  }
-
-  private cleanEmptyFields(object: any): void {
-    for (const key in object) {
-      if (object.hasOwnProperty(key) && object[key] === '') {
-        object[key] = null;  // Atau bisa diubah menjadi undefined
-      }
-    }
   }
 }

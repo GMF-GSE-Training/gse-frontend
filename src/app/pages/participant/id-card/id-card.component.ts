@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { HeaderComponent } from '../../../components/header/header.component';
-import { WhiteButtonComponent } from '../../../components/button/white-button/white-button.component';
 import { BlueButtonComponent } from '../../../components/button/blue-button/blue-button.component';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { ParticipantService } from '../../../shared/service/participant.service';

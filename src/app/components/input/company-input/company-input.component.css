@@ -29,6 +29,6 @@ select, input {
   width: calc(100% - 23px);
 }
 
-p {
+span {
   color: red;
 }

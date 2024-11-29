@@ -8,15 +8,17 @@
   <app-data-management
     placeHolder="Cari participant"
     [columns]="columns"
-    [data]="participantsCot"
+    [data]="participantCots"
+    [state]="state"
     [totalPages]="totalPages"
     [currentPage]="currentPage"
+    (searchChange)="onSearchChanged($event)"
     (pageChange)="onPageChanged($event)"
     (viewAllChange)="viewAll()"
     whiteButtonRoute="/cot">
   </app-data-management>
 
-  <div class="add-button">
+  <div class="add-button" *appRoleBasedAccess="['super admin', 'lcu']">
     <app-white-button (click)="openModal()">
       <i class="fa-solid fa-plus"></i>
     </app-white-button>

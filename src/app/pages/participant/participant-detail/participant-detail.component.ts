@@ -33,13 +33,29 @@ export class ParticipantDetailComponent implements OnInit {
   foto: string | undefined;
   editLink: string = '';
   photoType: string | null = '';
+  backButtonRoute: string = '/participants';
+
+  dateOptions: Intl.DateTimeFormatOptions = {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric'
+  };
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private participantService: ParticipantService,
     private renderer: Renderer2
-  ) {}
+  ) {
+    const navigation = this.router.getCurrentNavigation();
+    const state = navigation?.extras.state;
+
+    if(state) {
+      this.backButtonRoute = state['data']
+    } else {
+      this.backButtonRoute = '/participants'
+    }
+  }
 
   columns = [
     { header: 'Nama Training', field: 'namaTraining' },
@@ -59,8 +75,7 @@ export class ParticipantDetailComponent implements OnInit {
     if (this.id) {
       this.participantService.getParticipantById(this.id).subscribe({
         next: (response) => {
-          if (response.status === 'OK' && response.code === 200) {
-            this.participant = response.data as Participant;
+          this.participant = response.data;
             this.editLink = `/participants/${this.participant.id}/edit`;
 
             this.leftTableData = [
@@ -73,20 +88,23 @@ export class ParticipantDetailComponent implements OnInit {
             ];
 
             this.rightTableData = [
-              { label: 'Tempat Lahir', value: this.participant!.placeOfBirth },
-              { label: 'Tanggal Lahir', value: this.participant!.dateOfBirth },
-              { label: 'SIM A', value: '-', link: `/participants/${this.participant!.id}/sim-a` },
-              { label: 'SIM B', value: '-', link: `/participants/${this.participant!.id}/sim-b` },
-              { label: 'KTP', value: '-', link: `/participants/${this.participant!.id}/ktp` },
-              { label: 'Surat Ket Sehat & Buta Warna', value: '-', link: `/participants/${this.participant!.id}/surat-sehat-buta-warna` },
-              { label: 'Surat Ket Bebas Narkoba', value: '-', link: `/participants/${this.participant!.id}/surat-bebas-narkoba` },
+              { label: 'Tempat Lahir', value: this.participant.placeOfBirth },
+              { label: 'Tanggal Lahir', value: new Date(this.participant.dateOfBirth).toLocaleDateString('id-ID', this.dateOptions) },
+              { label: 'SIM A', link: `/participants/${this.participant.id}/sim-a` },
+              { label: 'SIM B', link: `/participants/${this.participant.id}/sim-b` },
+              { label: 'KTP', link: `/participants/${this.participant.id}/ktp` },
+              { label: 'Exp Surat Sehat & Buta Warna',
+                value: `${new Date(new Date(this.participant.tglKeluarSuratSehatButaWarna).setMonth(new Date(this.participant.tglKeluarSuratSehatButaWarna).getMonth() + 6)).toLocaleDateString('id-ID', this.dateOptions)}`,
+                link: `/participants/${this.participant.id}/surat-sehat-buta-warna`
+              },
+              { label: 'Exp Surat Bebas Narkoba',
+                value: `${new Date(new Date(this.participant.tglKeluarSuratBebasNarkoba).setMonth(new Date(this.participant.tglKeluarSuratBebasNarkoba).getMonth() + 6)).toLocaleDateString('id-ID', this.dateOptions)}`,
+                link: `/participants/${this.participant.id}/surat-bebas-narkoba`
+              },
             ];
 
-            this.getFoto(this.participant!.id);
-            this.getQrCode(this.participant!.id);
-          } else {
-            console.error('Failed to load participant data');
-          }
+            this.getFoto(this.participant.id);
+            this.getQrCode(this.participant.id);
         },
         error: (error) => {
           console.log(error);
@@ -97,10 +115,10 @@ export class ParticipantDetailComponent implements OnInit {
 
   getFoto(id: string): void {
     this.participantService.getFoto(id).subscribe({
-      next: (response) => {
-        if(response) {
-          this.photoType = this.getMediaType(response.data as string);
-          this.foto = response.data as string;
+      next: (data) => {
+        if(data) {
+          this.photoType = this.getMediaType(data.data);
+          this.foto = data.data;
         }
       }
     });
@@ -108,7 +126,7 @@ export class ParticipantDetailComponent implements OnInit {
 
   getQrCode(id: string): void {
     this.participantService.getQrCode(id).pipe(
-      map(response => response.data as string)
+      map(response => response.data)
     ).subscribe((qrCode: string) => {
       this.qrCode = qrCode;
     });

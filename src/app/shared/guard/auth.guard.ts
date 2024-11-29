@@ -23,9 +23,7 @@ export const AuthAndRoleGuard: CanActivateFn = (route, state) => {
 
   // Fungsi untuk menghapus data dari session storage dan mengarahkan ke halaman login
   const clearStorageAndRedirect = () => {
-    sessionStorage.removeItem('currentUserRole'); // Hapus role user
-    sessionStorage.removeItem('participantId'); // Hapus ID participant
-    sessionStorage.removeItem('tokenExpiration'); // Hapus waktu kadaluarsa token
+    sessionStorage.clear();
     router.navigateByUrl('/login'); // Arahkan ke halaman login
     return false;
   };
@@ -40,7 +38,7 @@ export const AuthAndRoleGuard: CanActivateFn = (route, state) => {
 
   // Ambil role user dan ID participant dari session storage
   const cachedUserRole = sessionStorage.getItem('currentUserRole');
-  const cachedParticipantId = sessionStorage.getItem('participantId');
+  const cachedParticipantId = sessionStorage.getItem('participantId') || sessionStorage.getItem('id');
 
   if (cachedUserRole && cachedParticipantId) {
     // Jika ada data di cache, periksa apakah token sudah expired
@@ -60,7 +58,11 @@ export const AuthAndRoleGuard: CanActivateFn = (route, state) => {
       if (response.code === 200 || response.status === 'OK') { // Jika respons berhasil
         // Simpan data user dan waktu expired token di session storage
         sessionStorage.setItem('currentUserRole', response.data.role.name);
-        sessionStorage.setItem('participantId', response.data.participantId);
+        if(response.data.participantId) {
+          sessionStorage.setItem('participantId', response.data.participantId);
+        } else {
+          sessionStorage.setItem('id', response.data.id);
+        };
 
         // Set waktu kadaluarsa token (misalnya 1 jam dari sekarang)
         const expirationTime = new Date().getTime() + (60 * 60 * 1000);

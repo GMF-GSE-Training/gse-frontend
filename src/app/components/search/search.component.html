@@ -1,8 +1,10 @@
-<form (submit)="onSearch(inputElement.value)">
+<form (submit)="onSearch($event)">
   <input
+    [(ngModel)]="searchQuery"
     #inputElement
     name="q"
     type="search"
-    [placeholder]="placeHolder">
+    [placeholder]="placeHolder"
+    required>
   <button type="submit" class="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
 </form>

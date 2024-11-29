@@ -86,7 +86,7 @@
         #email="ngModel"
       >
     </app-base-input>
-    <p *appRoleBasedAccess="['user']">Anda dapat mengubah alamat email <a routerLink="/passwordreset">disini</a></p>
+    <span *appRoleBasedAccess="['user']">Anda dapat mengubah alamat email <a routerLink="/passwordreset">disini</a></span>
 
       <app-base-input
         [(ngModel)]="participant.phoneNumber"
@@ -154,7 +154,7 @@
         [required]="participant.simAFileName"
       >
     </app-file-input>
-    <p *ngIf="!participant.simAFileName && form.submitted" class="error-message">SIM A wajib diunggah</p>
+    <span *ngIf="!participant.simAFileName && form.submitted" class="error-message">SIM A wajib diunggah</span>
 
       <app-file-input
         idInput="sim_b_input"
@@ -176,7 +176,7 @@
         [fileName]="participant.ktpFileName"
         [fileType]="fileType">
       </app-file-input>
-      <p *ngIf="!participant.ktpFileName && form.submitted" class="error-message">KTP wajib diunggah</p>
+      <span *ngIf="!participant.ktpFileName && form.submitted" class="error-message">KTP wajib diunggah</span>
 
       <app-file-input
         idInput="foto_input"
@@ -187,7 +187,7 @@
         [fileName]="participant.fotoFileName"
         [fileType]="fileTypeFoto">
       </app-file-input>
-      <p *ngIf="!participant.fotoFileName && form.submitted" class="error-message">Pas Foto wajib diunggah</p>
+      <span *ngIf="!participant.fotoFileName && form.submitted" class="error-message">Pas Foto wajib diunggah</span>
 
       <app-file-input
         idInput="surat_sehat_input"
@@ -198,7 +198,7 @@
         [fileName]="participant.suratSehatButaWarnaFileName"
         [fileType]="fileType">
       </app-file-input>
-      <p *ngIf="!participant.suratSehatButaWarnaFileName && form.submitted" class="error-message">Surat Ket Sehat dan Buta Warna wajib diunggah</p>
+      <span *ngIf="!participant.suratSehatButaWarnaFileName && form.submitted" class="error-message">Surat Ket Sehat dan Buta Warna wajib diunggah</span>
 
       <app-base-input
         [(ngModel)]="participant.tglKeluarSuratSehatButaWarna"
@@ -223,7 +223,7 @@
         [fileType]="fileType"
       >
       </app-file-input>
-      <p *ngIf="!participant.suratBebasNarkobaFileName && form.submitted" class="error-message">Surat Ket Bebas Narkoba wajib diunggah</p>
+      <span *ngIf="!participant.suratBebasNarkobaFileName && form.submitted" class="error-message">Surat Ket Bebas Narkoba wajib diunggah</span>
 
       <app-base-input
         [(ngModel)]="participant.tglKeluarSuratBebasNarkoba"

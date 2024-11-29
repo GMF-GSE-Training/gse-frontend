@@ -58,7 +58,7 @@ export class EditCurriculumSyllabusComponent implements OnInit {
       this.capabilityService.getCapabilityById(this.capabilityId).subscribe({
         next: (response) => {
           if (typeof response.data === 'object') {
-            const data = response.data as Capability;
+            const data = response.data;
             this.capability = {
               id: data.id,
               ratingCode: data.ratingCode,
@@ -71,9 +71,7 @@ export class EditCurriculumSyllabusComponent implements OnInit {
             this.kompetensis = this.mapSyllabus(data.curriculumSyllabus!, 'Kompetensi');
           }
         },
-        error: (error) => {
-          console.log(error.error.errors);
-        }
+        error: (error) => console.log(error)
       });
     }
   }

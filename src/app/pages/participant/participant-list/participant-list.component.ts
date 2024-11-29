@@ -51,7 +51,7 @@ export class ParticipantListComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
-      this.searchQuery = params['q'] || '';
+      this.searchQuery = params['keyword'] || '';
       this.currentPage =+ params['page'] || 1;
       if (this.searchQuery) {
         this.getSearchParticipants(this.searchQuery, this.currentPage, this.itemsPerPage);
@@ -64,72 +64,72 @@ export class ParticipantListComponent implements OnInit {
   getListParticipants(page: number, size: number): void {
     this.participantService.listParticipants(page, size).subscribe({
       next: (response) => {
-        this.participants = (response.data as Participant[]).map((participant: Participant) => {
-          return {
-            ...participant,
-            idNumber: participant.idNumber ?? '-',
-            dinas: participant.dinas ?? '-',
-            bidang: participant.bidang ?? '-',
-            company: participant.company ?? '-',
-            editLink: response.actions.canEdit ? `/participants/${participant.id}/edit` : null,
-            detailLink: response.actions.canView ? `/participants/${participant.id}/detail` : null,
-            deleteMethod: response.actions.canDelete ? () => this.deleteParticipant(participant) : null,
-          };
-        });
-        this.totalPages = response.paging.totalPage;
+        this.participants = this.mapParticipants(response);
+        this.totalPages = response.paging?.totalPage ?? 1;
       },
-      error: (error) => {
-        console.log(error);
-      }
+      error: (error) => console.log(error),
+    });
+  }
+
+  getSearchParticipants(query: string, page: number, size: number): void {
+    this.participantService.searchParticipant(query, page, size).subscribe({
+      next: (response) => {
+        this.participants = this.mapParticipants(response);
+        this.totalPages = response.paging?.totalPage ?? 1;
+      },
+      error: (error) => console.log(error),
     });
   }
 
   async deleteParticipant(participant: Participant): Promise<void> {
     const isConfirmed = await this.sweetalertService.confirm('Anda Yakin?', `Apakah anda ingin menghapus peserta ini : ${participant.name}?`, 'warning', 'Ya, hapus!');
     if (isConfirmed) {
+      this.sweetalertService.loading('Mohon tunggu', 'Proses...');
       this.participantService.deleteParticipant(participant.id).subscribe({
         next: () => {
           this.sweetalertService.alert('Dihapus!', 'Data peserta berhasil dihapus', 'success');
           this.participants = this.participants.filter(p => p.id !== participant.id);
+
+          if(this.participants.length === 0 && this.currentPage > 0) {
+            this.currentPage -= 1;
+          }
+
+          if (this.searchQuery) {
+            this.getSearchParticipants(this.searchQuery, this.currentPage, this.itemsPerPage);
+          } else {
+            this.getListParticipants(this.currentPage, this.itemsPerPage);
+          }
+
+          // Cek apakah halaman saat ini lebih besar dari total halaman
+          if (this.currentPage > this.totalPages) {
+            this.currentPage = this.totalPages; // Pindah ke halaman sebelumnya
+          }
+
+          // Update query params dengan currentPage yang diperbarui
+          const queryParams = this.searchQuery
+            ? { keyword: this.searchQuery, page: this.currentPage }
+            : { page: this.currentPage };
+
+          this.router.navigate([], {
+            relativeTo: this.route,
+            queryParams,
+            queryParamsHandling: 'merge',
+          });
         },
-        error: () => {
-          this.sweetalertService.alert('Gagal!', 'Gagal menghapus data peserta', 'error');
+        error: (error) => {
+          console.log(error);
+          this.sweetalertService.alert('Gagal!', 'Terjadi kesalahan, coba lagi nanti', 'error');
         }
       });
     }
   }
 
-  getSearchParticipants(query: string, page: number, size: number) {
-    this.participantService.searchParticipant(query, page, size).subscribe({
-      next: (response) => {
-        this.participants = (response.data as Participant[]).map((participant: Participant) => {
-          return {
-            ...participant,
-            idNumber: participant.idNumber ?? '-',
-            dinas: participant.dinas ?? '-',
-            bidang: participant.bidang ?? '-',
-            company: participant.company ?? '-',
-            editLink: response.actions.canEdit ? `/participants/${participant.id}/edit` : null,
-            detailLink: response.actions.canView ? `/participants/${participant.id}/detail` : null,
-            deleteMethod: response.actions.canDelete ? () => this.deleteParticipant(participant) : null,
-          };
-        });
-        this.totalPages = response.paging.totalPage;
-      },
-      error: (error) => {
-        console.error('Error fetching users:', error);
-        this.participants = [];
-      }
-    });
-  }
-
   onSearchChanged(query: string): void {
     this.searchQuery = query;
     this.router.navigate([], {
-      queryParams: { search: query },
+      queryParams: { keyword: query, page: 1 },
       queryParamsHandling: 'merge',
     });
-    this.getSearchParticipants(query, 1, this.itemsPerPage);
   }
 
   onPageChanged(page: number): void {
@@ -142,10 +142,22 @@ export class ParticipantListComponent implements OnInit {
   viewAll(): void {
     this.router.navigate([], {
       relativeTo: this.route,
-      queryParams: { q: null, page: null },
+      queryParams: { keyword: undefined, page: undefined },
       queryParamsHandling: 'merge',
     });
-
     this.searchQuery = '';
+  }
+
+  private mapParticipants(response: any): Participant[] {
+    return response.data.map((participant: Participant) => ({
+      ...participant,
+      idNumber: participant.idNumber ?? '-',
+      dinas: participant.dinas ?? '-',
+      bidang: participant.bidang ?? '-',
+      company: participant.company ?? '-',
+      editLink: response.actions?.canEdit ? `/participants/${participant.id}/edit` : null,
+      detailLink: response.actions?.canView ? `/participants/${participant.id}/detail` : null,
+      deleteMethod: response.actions?.canDelete ? () => this.deleteParticipant(participant) : null,
+    }));
   }
 }

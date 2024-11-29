@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { TitleComponent } from "../../components/title/title.component";
 import { SearchComponent } from "../../components/search/search.component";
 import { ViewAllComponent } from "../../components/view-all/view-all.component";
@@ -8,6 +8,8 @@ import { BlueButtonComponent } from "../../components/button/blue-button/blue-bu
 import { PaginationComponent } from "../../components/pagination/pagination.component";
 import { RoleBasedAccessDirective } from '../../shared/directive/role-based-access.directive';
 import { RouterLink } from '@angular/router';
+import { DateFilterComponent } from "../../components/date-filter/date-filter.component";
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-data-management',
@@ -22,7 +24,9 @@ import { RouterLink } from '@angular/router';
     PaginationComponent,
     RoleBasedAccessDirective,
     RouterLink,
-  ],
+    DateFilterComponent,
+    CommonModule,
+],
   templateUrl: './data-management.component.html',
   styleUrl: './data-management.component.css'
 })
@@ -33,6 +37,9 @@ export class DataManagementComponent {
   // Komponen tabel
   @Input() columns: { header: string, field: string }[] = [];
   @Input() data: any[] = [];
+  @Input() state: { data: any; } = { data: '' };
+
+  @Input() isParticipantCot: boolean = false;
 
   // Komponen pagination
   @Input() totalPages: number = 0;
@@ -55,8 +62,11 @@ export class DataManagementComponent {
 
   // Komponen view all
   @Output() viewAllChange = new EventEmitter();
+  @ViewChild('dateFilterComponent') dateFilterComponent: DateFilterComponent | undefined;
 
-  viewAll() {
+  viewAll(searchComponent: SearchComponent, dateFilterComponent?: DateFilterComponent) {
+    searchComponent.resetSearch();
+    dateFilterComponent?.clearFilter();
     this.viewAllChange.emit();
   }
 
