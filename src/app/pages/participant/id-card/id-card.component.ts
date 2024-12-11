@@ -6,6 +6,7 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { saveAs } from 'file-saver';
 import { DisplayFilesComponent } from "../../../layouts/display-files/display-files.component";
 import { SweetalertService } from '../../../shared/service/sweetaler.service';
+import { ErrorHandlerService } from '../../../shared/service/error-handler.service';
 
 @Component({
   selector: 'app-id-card',
@@ -29,6 +30,7 @@ export class IdCardComponent implements OnInit {
     private readonly sanitizer: DomSanitizer,
     private readonly router: Router,
     private readonly sweetalertService: SweetalertService,
+    private readonly errorHandlerService: ErrorHandlerService,
   ){}
 
   ngOnInit(): void {
@@ -48,11 +50,14 @@ export class IdCardComponent implements OnInit {
 
   downloadIdCard() {
     if (this.id) {
+      this.sweetalertService.loading('Mohon tunggu', 'Proses...');
       this.participantService.downloadIdCard(this.id).subscribe({
-        next: (response: Blob) => {
-          saveAs(response, 'id-card.pdf');
+        next: (response) => {
+          saveAs(response);
+          this.sweetalertService.close();
         },
         error: (error) => {
+          this.errorHandlerService.alertError(error);
           console.log(error);
         }
       });

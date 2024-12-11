@@ -35,12 +35,11 @@ export class RegisterComponent {
   onRegister(user: RegisterUserRequest) {
     this.cleanEmptyFields(user);
     this.sweetalertService.loading('Mohon tunggu', 'Proses...');
-
     this.authService.register(user).subscribe({
       next: () => {
         this.sweetalertService.close();
         this.isSuccess = true;
-        this.registerMessage = 'Register berhasil, silahkan verifikasi email anda';
+        this.sweetalertService.alert('Berhasil', 'Register berhasil, link verifikasi akan dikirm ke-email anda', 'success');
       },
       error: (error) => {
         console.log(error);

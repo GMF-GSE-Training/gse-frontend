@@ -57,16 +57,12 @@ export class CotListComponent {
       this.currentPage =+ params['page'] || 1;
       this.startDate = params['startDate'] || '';
       this.endDate = params['endDate'] || '';
-      if (this.searchQuery) {
-        this.getSearchCot(this.searchQuery, this.currentPage, this.itemsPerPage, this.startDate, this.endDate);
-      } else {
-        this.getListCot(this.currentPage, this.itemsPerPage, this.startDate, this.endDate);
-      }
+      this.getListCot(this.searchQuery, this.currentPage, this.itemsPerPage, this.startDate, this.endDate);
     });
   }
 
-  getListCot(page: number, size: number, startDate: string, endDate: string): void {
-    this.cotService.listCot(page, size, startDate, endDate).subscribe({
+  getListCot(searchQuery: string, page: number, size: number, startDate: string, endDate: string): void {
+    this.cotService.listCot(searchQuery, page, size, startDate, endDate).subscribe({
       next: ({ data, actions, paging }) => {
         this.cot = data.map((cot) => ({
           startDate: new Date(cot.startDate).toLocaleDateString('id-ID', this.dateOptions),
@@ -97,11 +93,7 @@ export class CotListComponent {
             this.currentPage -= 1;
           }
 
-          if (this.searchQuery) {
-            this.getSearchCot(this.searchQuery, this.currentPage, this.itemsPerPage, this.startDate, this.endDate);
-          } else {
-            this.getListCot(this.currentPage, this.itemsPerPage, this.startDate, this.endDate);
-          }
+          this.getListCot(this.searchQuery, this.currentPage, this.itemsPerPage, this.startDate, this.endDate);
 
           // Cek apakah halaman saat ini lebih besar dari total halaman
           if (this.currentPage > this.totalPages) {
@@ -127,35 +119,18 @@ export class CotListComponent {
     }
   }
 
-  getSearchCot(query: string, page: number, size: number, startDate: string, endDate: string) {
-    this.cotService.searchCot(query, page, size, startDate, endDate).subscribe({
-      next: ({ data, actions, paging }) => {
-        this.cot = data.map((cot: Cot) => ({
-          ...cot,
-          startDate: new Date(cot.startDate).toLocaleDateString('id-ID', this.dateOptions),
-          endDate: new Date(cot.endDate).toLocaleDateString('id-ID', this.dateOptions),
-          ratingCode: cot.Capability?.ratingCode,
-          trainingName: cot.Capability?.trainingName,
-          editLink: actions?.canEdit ? `/cot/${cot.id}/edit` : null,
-          detailLink: actions?.canView ? `/cot/${cot.id}/detail` : null,
-          deleteMethod: actions?.canDelete ? () => this.deleteCot(cot) : null,
-        }));
-
-        this.totalPages = paging?.totalPage ?? 1;
-      },
-      error: (error) => {
-        console.log(error);
-        console.error('Error fetching data:', error);
-      }
-    });
-  }
-
   onSearchChanged(query: string): void {
-    this.searchQuery = query;
-    this.router.navigate([], {
-      queryParams: { keyword: query, page: 1 },
-      queryParamsHandling: 'merge',
-    });
+    if (query.trim() === '') {
+      this.router.navigate([], {
+        queryParams: { keyword: null, page: null },
+        queryParamsHandling: 'merge',
+      });
+    } else {
+      this.router.navigate([], {
+        queryParams: { keyword: query, page: 1 },
+        queryParamsHandling: 'merge',
+      });
+    }
   }
 
   viewAll(): void {

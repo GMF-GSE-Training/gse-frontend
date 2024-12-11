@@ -29,15 +29,8 @@ export class UserService {
     return this.http.patch<WebResponse<string>>(`${this.apiUrl}/${this.endpoints.base}/${id}`, request, { withCredentials: true });
   }
 
-  searchUser(q?: string, page?: number, size?: number): Observable<WebResponse<UserResponse[]>> {
-    return this.http.get<WebResponse<UserResponse[]>>(
-      `${this.apiUrl}/${this.endpoints.search}?q=${q}&page=${page}&size=${size}`,
-      { withCredentials: true }
-    );
-  }
-
-  listUsers(page?: number, size?: number): Observable<WebResponse<UserResponse[]>> {
-    return this.http.get<WebResponse<UserResponse[]>>(`${this.apiUrl}/${this.endpoints.list}?page=${page}&size=${size}`, { withCredentials: true });
+  listUsers(q?: string, page?: number, size?: number): Observable<WebResponse<UserResponse[]>> {
+    return this.http.get<WebResponse<UserResponse[]>>(`${this.apiUrl}/${this.endpoints.list}?q=${q}&page=${page}&size=${size}`, { withCredentials: true });
   }
 
   deleteUser(id: string): Observable<WebResponse<string>> {

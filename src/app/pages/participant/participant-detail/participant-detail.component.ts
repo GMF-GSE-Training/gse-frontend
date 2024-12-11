@@ -1,7 +1,7 @@
-import { Component, OnInit, Renderer2 } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { BlueButtonComponent } from '../../../components/button/blue-button/blue-button.component';
-import { DetailedViewComponent } from "../../../components/detailed-view/detailed-view.component";
+import { HorizontalTableComponent } from "../../../components/horizontal-table/horizontal-table.component";
 import { TableComponent } from "../../../components/table/table.component";
 import { ParticipantService } from '../../../shared/service/participant.service';
 import { Participant } from '../../../shared/model/participant.model';
@@ -9,6 +9,9 @@ import { map } from 'rxjs/operators';
 import { RoleBasedAccessDirective } from '../../../shared/directive/role-based-access.directive';
 import { CommonModule } from '@angular/common';
 import { WhiteButtonComponent } from "../../../components/button/white-button/white-button.component";
+import { SweetalertService } from '../../../shared/service/sweetaler.service';
+import { ErrorHandlerService } from '../../../shared/service/error-handler.service';
+import saveAs from 'file-saver';
 
 @Component({
   selector: 'app-participant-detail',
@@ -16,7 +19,7 @@ import { WhiteButtonComponent } from "../../../components/button/white-button/wh
   imports: [
     RouterLink,
     BlueButtonComponent,
-    DetailedViewComponent,
+    HorizontalTableComponent,
     TableComponent,
     RoleBasedAccessDirective,
     CommonModule,
@@ -42,10 +45,11 @@ export class ParticipantDetailComponent implements OnInit {
   };
 
   constructor(
-    private route: ActivatedRoute,
-    private router: Router,
-    private participantService: ParticipantService,
-    private renderer: Renderer2
+    private readonly route: ActivatedRoute,
+    private readonly router: Router,
+    private readonly participantService: ParticipantService,
+    private readonly sweetalertService: SweetalertService,
+    private readonly errorHandlerService: ErrorHandlerService,
   ) {
     const navigation = this.router.getCurrentNavigation();
     const state = navigation?.extras.state;
@@ -69,48 +73,39 @@ export class ParticipantDetailComponent implements OnInit {
     {namaTraining: "Air Conditioning System Refreshment", exp: "10 February 2026"},
   ]
 
-  id = this.route.snapshot.paramMap.get('id') || localStorage.getItem('participantId');
+  userProfile = JSON.parse(localStorage.getItem('user_profile') || '{}');
+  id = this.route.snapshot.paramMap.get('id') || this.userProfile.participant.id;
+  idCardLink: string = '';
 
   ngOnInit(): void {
-    if (this.id) {
-      this.participantService.getParticipantById(this.id).subscribe({
-        next: (response) => {
-          this.participant = response.data;
-            this.editLink = `/participants/${this.participant.id}/edit`;
-
-            this.leftTableData = [
-              { label: 'Nama Peserta', value: this.participant!.name },
-              { label: 'Dinas', value: this.participant?.dinas ?? '-'},
-              { label: 'Bidang', value: this.participant?.bidang ?? '-' },
-              { label: 'Perusahaan', value: this.participant!.company },
-              { label: 'Email', value: this.participant!.email },
-              { label: 'No Telp', value: this.participant!.phoneNumber }
-            ];
-
-            this.rightTableData = [
-              { label: 'Tempat Lahir', value: this.participant.placeOfBirth },
-              { label: 'Tanggal Lahir', value: new Date(this.participant.dateOfBirth).toLocaleDateString('id-ID', this.dateOptions) },
-              { label: 'SIM A', link: `/participants/${this.participant.id}/sim-a` },
-              { label: 'SIM B', link: `/participants/${this.participant.id}/sim-b` },
-              { label: 'KTP', link: `/participants/${this.participant.id}/ktp` },
-              { label: 'Exp Surat Sehat & Buta Warna',
-                value: `${new Date(new Date(this.participant.tglKeluarSuratSehatButaWarna).setMonth(new Date(this.participant.tglKeluarSuratSehatButaWarna).getMonth() + 6)).toLocaleDateString('id-ID', this.dateOptions)}`,
-                link: `/participants/${this.participant.id}/surat-sehat-buta-warna`
-              },
-              { label: 'Exp Surat Bebas Narkoba',
-                value: `${new Date(new Date(this.participant.tglKeluarSuratBebasNarkoba).setMonth(new Date(this.participant.tglKeluarSuratBebasNarkoba).getMonth() + 6)).toLocaleDateString('id-ID', this.dateOptions)}`,
-                link: `/participants/${this.participant.id}/surat-bebas-narkoba`
-              },
-            ];
-
-            this.getFoto(this.participant.id);
-            this.getQrCode(this.participant.id);
-        },
-        error: (error) => {
-          console.log(error);
-        }
-      });
+    if(this.id && this.userProfile !== '{}') {
+      if(this.userProfile.role === 'user') {
+        this.getParticipantFromLocalStorage();
+      } else {
+        this.getParticipantById();
+      }
     }
+  }
+
+  getParticipantFromLocalStorage() {
+    this.participant = this.userProfile.participant;
+    const participant = this.userProfile.participant;
+    if (participant) {
+      this.setParticipantData(participant);
+    }
+  }
+
+  getParticipantById() {
+    this.participantService.getParticipantById(this.id).subscribe({
+      next: (response) => {
+        if (response.data) {
+          this.setParticipantData(response.data);
+        }
+      },
+      error: (error) => {
+        console.error(error);
+      }
+    });
   }
 
   getFoto(id: string): void {
@@ -132,10 +127,54 @@ export class ParticipantDetailComponent implements OnInit {
     });
   }
 
-  cetakKartuPeserta(): void {
-    if (this.participant && this.participant.id) {
-      this.router.navigate([`/participants/${this.participant.id}/id-card`]); // Navigasi ke halaman id-card
+  downloadDocument() {
+    if (this.id) {
+      this.sweetalertService.loading('Mohon tunggu', 'Proses...');
+      this.participantService.downloadIdCard(this.id).subscribe({
+        next: (response) => {
+          saveAs(response);
+          this.sweetalertService.close();
+        },
+        error: (error) => {
+          this.errorHandlerService.alertError(error);
+          console.log(error);
+        }
+      });
     }
+  }
+
+  private setParticipantData(participant: Participant) {
+    this.participant = participant;
+    this.editLink = `/participants/${this.participant.id}/edit`;
+    this.idCardLink = `/participants/${this.participant.id}/id-card`;
+
+    this.leftTableData = [
+      { label: 'Nama Peserta', value: this.participant.name },
+      { label: 'Dinas', value: this.participant.dinas ?? '-' },
+      { label: 'Bidang', value: this.participant.bidang ?? '-' },
+      { label: 'Perusahaan', value: this.participant.company },
+      { label: 'Email', value: this.participant.email },
+      { label: 'No Telp', value: this.participant.phoneNumber }
+    ];
+
+    this.rightTableData = [
+      { label: 'Tempat Lahir', value: this.participant.placeOfBirth },
+      { label: 'Tanggal Lahir', value: new Date(this.participant.dateOfBirth).toLocaleDateString('id-ID', this.dateOptions) },
+      { label: 'SIM A', link: `/participants/${this.participant.id}/sim-a` },
+      { label: 'SIM B', link: `/participants/${this.participant.id}/sim-b` },
+      { label: 'KTP', link: `/participants/${this.participant.id}/ktp` },
+      { label: 'Exp Surat Sehat & Buta Warna',
+        value: `${new Date(new Date(this.participant.tglKeluarSuratSehatButaWarna).setMonth(new Date(this.participant.tglKeluarSuratSehatButaWarna).getMonth() + 6)).toLocaleDateString('id-ID', this.dateOptions)}`,
+        link: `/participants/${this.participant.id}/surat-sehat-buta-warna`
+      },
+      { label: 'Exp Surat Bebas Narkoba',
+        value: `${new Date(new Date(this.participant.tglKeluarSuratBebasNarkoba).setMonth(new Date(this.participant.tglKeluarSuratBebasNarkoba).getMonth() + 6)).toLocaleDateString('id-ID', this.dateOptions)}`,
+        link: `/participants/${this.participant.id}/surat-bebas-narkoba`
+      },
+    ];
+
+    this.getFoto(this.participant.id);
+    this.getQrCode(this.participant.id);
   }
 
   private getMediaType(base64String: string): string {
@@ -143,22 +182,6 @@ export class ParticipantDetailComponent implements OnInit {
     if (header === 'iVBO') return 'image/png';
     if (header === '\uFFFD\uD8FF') return 'image/jpeg';
     if (header === 'JVBE') return 'application/pdf';
-
-    return ''; // Unknown type
-  }
-
-  downloadQrCode(): void {
-    if (this.qrCode) {
-      const link = this.renderer.createElement('a');
-      this.renderer.setAttribute(link, 'href', `data:image/png;base64,${this.qrCode}`);
-      this.renderer.setAttribute(link, 'download', 'QR_Code.png');
-
-      // Memasukkan elemen ke dalam DOM agar kompatibilitas terjaga
-      this.renderer.appendChild(document.body, link);
-      link.click();
-      this.renderer.removeChild(document.body, link);
-    } else {
-      console.error('QR code is not available');
-    }
+    return '';
   }
 }

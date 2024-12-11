@@ -18,8 +18,6 @@ import { AuthService } from '../../shared/service/auth.service';
 export class SidebarComponent implements OnChanges {
   @Input() isMenuVisible: boolean = false;
   @Output() menuClose = new EventEmitter<void>();
-  participantId: string = sessionStorage.getItem('participantId')!;
-  id: string = sessionStorage.getItem('id')!;
 
   generalMenu = [
     {
@@ -28,7 +26,7 @@ export class SidebarComponent implements OnChanges {
     },
     {
       name: 'Profil',
-      routerLink: `/users/${this.id}/profil`
+      routerLink: `/users/${this.getUserProfile().id}/profil`
     },
     {
       name: 'Participants',
@@ -51,7 +49,7 @@ export class SidebarComponent implements OnChanges {
     },
     {
       name: 'Profil',
-      routerLink: `/participants/${this.id}/detail`
+      routerLink: `/participants/${this.getUserProfile().participant?.id}/detail`
     },
     {
       name: 'Capability',
@@ -77,58 +75,31 @@ export class SidebarComponent implements OnChanges {
   constructor(
     private authService: AuthService,
     private router: Router,
-  ) {
-  }
+  ) { }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes['isMenuVisible'] && changes['isMenuVisible'].currentValue === true) {
-      // Ambil ID ketika sidebar muncul
-      this.participantId = sessionStorage.getItem('participantId')!;
-      this.id = sessionStorage.getItem('id')!;
+    if (changes['isMenuVisible']?.currentValue === true) {
+      const userProfile = this.getUserProfile();
+      const { id, participant } = userProfile;
 
-      if(this.participantId) {
-        this.generalUserMenu = [
-          {
-            name: 'Home',
-            routerLink: ""
-          },
-          {
-            name: 'Profil',
-            routerLink: `/participants/${this.participantId}/detail`
-          },
-          {
-            name: 'Capability',
-            routerLink: "/capability"
-          },
-          {
-            name: 'COT',
-            routerLink: "/cot"
-          },
-        ];
-      } else if(this.id) {
-        this.generalMenu = [
-          {
-            name: 'Home',
-            routerLink: ""
-          },
-          {
-            name: 'Profil',
-            routerLink: `/users/${this.id}/profile`
-          },
-          {
-            name: 'Participants',
-            routerLink: "/participants"
-          },
-          {
-            name: 'Capability',
-            routerLink: "/capability"
-          },
-          {
-            name: 'COT',
-            routerLink: "/cot"
-          },
-        ];
-      }
+      this.generalMenu = id
+        ? [
+            { name: 'Home', routerLink: '' },
+            { name: 'Profil', routerLink: `/users/${id}/profile` },
+            { name: 'Participants', routerLink: '/participants' },
+            { name: 'Capability', routerLink: '/capability' },
+            { name: 'COT', routerLink: '/cot' },
+          ]
+        : [];
+
+      this.generalUserMenu = participant?.id
+        ? [
+            { name: 'Home', routerLink: '' },
+            { name: 'Profil', routerLink: `/participants/${participant.id}/detail` },
+            { name: 'Capability', routerLink: '/capability' },
+            { name: 'COT', routerLink: '/cot' },
+          ]
+        : [];
     }
   }
 
@@ -140,13 +111,23 @@ export class SidebarComponent implements OnChanges {
   logout() {
     this.authService.logout().subscribe({
       next: () => {
-        sessionStorage.clear(); // Clear all sessionStorage items
+        localStorage.clear();
+        this.authService.userProfile$.next(null);
         this.router.navigateByUrl('/login');
       },
       error: (error) => {
+        console.error('Logout failed', error);
         this.router.navigateByUrl('/login');
-        sessionStorage.clear();
-      }
+      },
     });
+  }
+
+  private getUserProfile(): { id?: string; participant?: { id: string } } {
+    try {
+      return JSON.parse(localStorage.getItem('user_profile') || '{}');
+    } catch (error) {
+      console.error('Error parsing user_profile from localStorage', error);
+      return {};
+    }
   }
 }

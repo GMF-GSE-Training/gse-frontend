@@ -1,5 +1,4 @@
 import { Directive, Input, TemplateRef, ViewContainerRef } from '@angular/core';
-import { AuthService } from '../service/auth.service';
 
 @Directive({
   selector: '[appRoleBasedAccess]',
@@ -13,7 +12,6 @@ export class RoleBasedAccessDirective {
   constructor(
     private templateRef: TemplateRef<any>,
     private viewContainer: ViewContainerRef,
-    private authService: AuthService
   ) {
     this.loadRoleFromCache();
   }
@@ -25,21 +23,10 @@ export class RoleBasedAccessDirective {
 
   // Load role from cache if available
   private loadRoleFromCache(): void {
-    const cachedRole = sessionStorage.getItem('currentUserRole');
-    if (cachedRole) {
-      this.currentUserRole = cachedRole;
+    const userProfile = JSON.parse(localStorage.getItem('user_profile') || '{}');
+    if (userProfile && userProfile.role.name) {
+      this.currentUserRole = userProfile.role.name;
       this.updateView();
-    } else {
-      this.authService.me().subscribe({
-        next: (user) => {
-          this.currentUserRole = user.data.role.name;
-          sessionStorage.setItem('currentUserRole', this.currentUserRole);
-          this.updateView();
-        },
-        error: (error) => {
-          console.log(error);
-        }
-      });
     }
   }
 

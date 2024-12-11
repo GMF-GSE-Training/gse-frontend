@@ -241,7 +241,7 @@
   </div>
 
   <div class="container-button">
-    <app-white-button type="button" routerLink="/participants" class="button">Kembali</app-white-button>
+    <app-white-button type="button" [routerLink]="backButtonRoute" class="button">Kembali</app-white-button>
     <app-blue-button type="submit" class="button" [disabled]="form.invalid!">Simpan</app-blue-button>
   </div>
 </form>

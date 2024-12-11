@@ -53,26 +53,12 @@ export class ParticipantListComponent implements OnInit {
     this.route.queryParams.subscribe(params => {
       this.searchQuery = params['keyword'] || '';
       this.currentPage =+ params['page'] || 1;
-      if (this.searchQuery) {
-        this.getSearchParticipants(this.searchQuery, this.currentPage, this.itemsPerPage);
-      } else {
-        this.getListParticipants(this.currentPage, this.itemsPerPage);
-      }
+      this.getListParticipants(this.searchQuery, this.currentPage, this.itemsPerPage);
     });
   }
 
-  getListParticipants(page: number, size: number): void {
-    this.participantService.listParticipants(page, size).subscribe({
-      next: (response) => {
-        this.participants = this.mapParticipants(response);
-        this.totalPages = response.paging?.totalPage ?? 1;
-      },
-      error: (error) => console.log(error),
-    });
-  }
-
-  getSearchParticipants(query: string, page: number, size: number): void {
-    this.participantService.searchParticipant(query, page, size).subscribe({
+  getListParticipants(query: string, page: number, size: number): void {
+    this.participantService.listParticipants(query, page, size).subscribe({
       next: (response) => {
         this.participants = this.mapParticipants(response);
         this.totalPages = response.paging?.totalPage ?? 1;
@@ -94,11 +80,7 @@ export class ParticipantListComponent implements OnInit {
             this.currentPage -= 1;
           }
 
-          if (this.searchQuery) {
-            this.getSearchParticipants(this.searchQuery, this.currentPage, this.itemsPerPage);
-          } else {
-            this.getListParticipants(this.currentPage, this.itemsPerPage);
-          }
+          this.getListParticipants(this.searchQuery, this.currentPage, this.itemsPerPage);
 
           // Cek apakah halaman saat ini lebih besar dari total halaman
           if (this.currentPage > this.totalPages) {
@@ -125,11 +107,17 @@ export class ParticipantListComponent implements OnInit {
   }
 
   onSearchChanged(query: string): void {
-    this.searchQuery = query;
-    this.router.navigate([], {
-      queryParams: { keyword: query, page: 1 },
-      queryParamsHandling: 'merge',
-    });
+    if (query.trim() === '') {
+      this.router.navigate([], {
+        queryParams: { keyword: null, page: null },
+        queryParamsHandling: 'merge',
+      });
+    } else {
+      this.router.navigate([], {
+        queryParams: { keyword: query, page: 1 },
+        queryParamsHandling: 'merge',
+      });
+    }
   }
 
   onPageChanged(page: number): void {

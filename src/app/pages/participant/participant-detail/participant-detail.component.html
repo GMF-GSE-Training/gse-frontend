@@ -13,13 +13,13 @@
       <img src="data:image/png;base64,{{ qrCode }}" alt="QR Code" class="file">
     </div>
     <div class="download">
-      <span *appRoleBasedAccess="['super admin', 'supervisor', 'lcu']"><a (click)="cetakKartuPeserta()">Cetak Kartu Peserta</a></span>
-      <span (click)="downloadQrCode()"><a>Download</a></span>
+      <span *appRoleBasedAccess="['super admin', 'supervisor', 'lcu']" [routerLink]="idCardLink"><a>Cetak Kartu Peserta</a></span>
+      <span><a href="data:image/png;base64,{{ qrCode }}" download="QR_Code.png">Download</a></span>
     </div>
   </div>
 </div>
 
-<app-detailed-view [leftTableData]="leftTableData" [rightTableData]="rightTableData"></app-detailed-view>
+<app-horizontal-table [isParticipantDetail]="true" [leftTableData]="leftTableData" [rightTableData]="rightTableData"></app-horizontal-table>
 
 <div class="table-container">
   <app-table [columns]="columns" [data]="data"></app-table>

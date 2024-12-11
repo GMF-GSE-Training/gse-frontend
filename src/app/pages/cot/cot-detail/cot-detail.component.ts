@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { DetailedViewComponent } from '../../../components/detailed-view/detailed-view.component';
+import { HorizontalTableComponent } from '../../../components/horizontal-table/horizontal-table.component';
 import { WhiteButtonComponent } from "../../../components/button/white-button/white-button.component";
 import { ActivatedRoute, Router } from '@angular/router';
 import { SweetalertService } from '../../../shared/service/sweetaler.service';
@@ -14,7 +14,7 @@ import { ErrorHandlerService } from '../../../shared/service/error-handler.servi
   selector: 'app-cot-detail',
   standalone: true,
   imports: [
-    DetailedViewComponent,
+    HorizontalTableComponent,
     WhiteButtonComponent,
     DataManagementComponent,
     ParticipantCotModalComponent,
@@ -33,7 +33,7 @@ export class CotDetailComponent {
     private readonly errorHandlerService: ErrorHandlerService,
   ) { }
 
-  id = this.route.snapshot.paramMap.get('id');
+  cotId = this.route.snapshot.paramMap.get('id');
 
   leftTableData: any[] = [];
   rightTableData: any[] = [];
@@ -82,18 +82,14 @@ export class CotDetailComponent {
     this.route.queryParams.subscribe(params => {
       this.searchQuery = params['keyword'] || '';
       this.currentPage =+ params['page'] || 1;
-      if(this.id) {
-        if(this.searchQuery) {
-          this.getSearchParticipantCot(this.id, this.searchQuery, this.currentPage, this.itemsPerPage);
-        } else {
-          this.getListParticipantCot(this.id, this.currentPage, this.itemsPerPage);
-        }
+      if(this.cotId) {
+        this.getListParticipantCot(this.cotId, this.searchQuery, this.currentPage, this.itemsPerPage);
       }
     });
   }
 
-  getListParticipantCot(cotId: string, currentPage: number, itemsPerPage: number) {
-    this.participantCotService.listParticipantCot(cotId, currentPage, itemsPerPage).subscribe({
+  getListParticipantCot(cotId: string, searchQuery: string, currentPage: number, itemsPerPage: number) {
+    this.participantCotService.listParticipantCot(cotId, searchQuery, currentPage, itemsPerPage).subscribe({
       next: ({ data }) => {
         const cot = data.cot;
         const participantCot = cot.participants;
@@ -136,66 +132,15 @@ export class CotDetailComponent {
           };
         }).filter((item: null) => item !== null); // Filter out null items
 
-        this.state.data = `/cot/${this.id}/detail`;
+        this.state.data = `/cot/${this.cotId}/detail`;
         this.totalPages = participantCot.paging.totalPage;
       },
       error: (error) => console.log(error)
     });
   }
 
-  getSearchParticipantCot(cotId: string, query: string, currentPage: number, itemsPerPage: number) {
-    this.participantCotService.searchParticipantCot(cotId, query, currentPage, itemsPerPage).subscribe({
-      next: ({ data }) => {
-        const cot = data.cot;
-        const participantCot = cot.participants;
-        this.leftTableData = [
-          { label: 'Kode Rating', value: cot.capability.ratingCode },
-          { label: 'Nama training', value: cot.capability.trainingName },
-          { label: 'Tanggal Mulai', value: new Date(cot.startDate).toLocaleDateString('id-ID', this.dateOptions) },
-          { label: 'Tanggal Selesai', value: new Date(cot.endDate).toLocaleDateString('id-ID', this.dateOptions) },
-          { label: 'Lokasi Training', value: cot.trainingLocation },
-        ];
-
-        this.rightTableData = [
-          { label: 'Instruktur Regulasi GSE', value: cot.theoryInstructorRegGse },
-          { label: 'Instruktur Teori Rating', value: cot.theoryInstructorCompetency },
-          { label: 'Instruktur Praktek 1', value: cot.practicalInstructor1 },
-          { label: 'Instruktur Praktek 2', value: cot.practicalInstructor2 },
-          { label: 'Jumlah Peserta', value: participantCot.data.length },
-          { label: 'Status', value: cot.status },
-        ];
-
-        this.participantCots = participantCot.data?.map((participant: any) => {
-          if (!participant) return null; // Skip jika participant null
-
-          return {
-            ...participant,
-            idNumber: participant.idNumber ?? '-',
-            sim: participant?.id ? `/participants/${participant.id}/${participant.simB ? 'sim-b' : 'sim-a'}` : null,
-            expSuratSehatButaWarna: participant?.id ? {
-              label: new Date(new Date(participant.tglKeluarSuratSehatButaWarna).setMonth(new Date(participant.tglKeluarSuratSehatButaWarna).getMonth() + 6)).toLocaleDateString('id-ID', this.dateOptions),
-              value: `/participants/${participant.id}/surat-sehat-buta-warna`
-            } : null,
-            expSuratBebasNarkoba: participant?.id ? {
-                label: new Date(new Date(participant.tglKeluarSuratBebasNarkoba).setMonth(new Date(participant.tglKeluarSuratBebasNarkoba).getMonth() + 6)).toLocaleDateString('id-ID', this.dateOptions),
-                value: `/participants/${participant.id}/surat-bebas-narkoba`
-            } : null,
-            keterangan: '-',
-            printLink: participantCot.actions?.canPrint && participant?.id ? `/sertifikat/${participant.id}` : null,
-            detailLink: participantCot.actions?.canView && participant?.id ? `/participants/${participant.id}/detail` : null,
-            deleteMethod: participantCot.actions?.canDelete ? () => this.deleteParticipantFromCot(data.cot.id, participant?.id) : null,
-          };
-        }).filter((item: null) => item !== null); // Filter out null items
-
-        this.state.data = `/cot/${this.id}/detail`;
-        this.totalPages = participantCot.paging.totalPage;
-      },
-      error: (error) => console.log(error)
-    });
-  }
-
-  getUnregisteredParticipants(cotId: string, currentPage: number, itemsPerPage: number) {
-    this.participantCotService.getUnregisteredParticipants(cotId, currentPage, itemsPerPage).subscribe({
+  getUnregisteredParticipants(cotId: string, searchQuery: string, currentPage: number, itemsPerPage: number) {
+    this.participantCotService.getUnregisteredParticipants(cotId, searchQuery, currentPage, itemsPerPage).subscribe({
       next: ({ paging, data }) => {
         this.modalCurrentPage = this.modalCurrentPage;
         this.modalTotalPages = paging?.totalPage ?? 1;
@@ -212,11 +157,17 @@ export class CotDetailComponent {
   }
 
   onSearchChanged(query: string): void {
-    this.searchQuery = query;
-    this.router.navigate([], {
-      queryParams: { keyword: query, page: 1 },
-      queryParamsHandling: 'merge',
-    });
+    if (query.trim() === '') {
+      this.router.navigate([], {
+        queryParams: { keyword: null, page: null },
+        queryParamsHandling: 'merge',
+      });
+    } else {
+      this.router.navigate([], {
+        queryParams: { keyword: query, page: 1 },
+        queryParamsHandling: 'merge',
+      });
+    }
   }
 
   async deleteParticipantFromCot(cotId: string, participantId: string) {
@@ -232,12 +183,8 @@ export class CotDetailComponent {
             this.currentPage -= 1;
           }
 
-          if(this.id) {
-            if(this.searchQuery) {
-              this.getSearchParticipantCot(this.id, this.searchQuery, this.currentPage, this.itemsPerPage);
-            } else {
-              this.getListParticipantCot(this.id, this.currentPage, this.itemsPerPage);
-            }
+          if(this.cotId) {
+            this.getListParticipantCot(this.cotId, this.searchQuery, this.currentPage, this.itemsPerPage);
           }
 
           // Cek apakah halaman saat ini lebih besar dari total halaman
@@ -282,8 +229,8 @@ export class CotDetailComponent {
 
   openModal() {
     this.showModal = true;
-    if(this.id && this.showModal) {
-      this.getUnregisteredParticipants(this.id, this.modalCurrentPage, this.modalItemsPerPage);
+    if(this.cotId && this.showModal) {
+      this.getUnregisteredParticipants(this.cotId, '', this.modalCurrentPage, this.modalItemsPerPage);
     }
   }
 
@@ -292,14 +239,23 @@ export class CotDetailComponent {
     this.showModal = false;
   }
 
-  modalSearchChanged(query: string) {
-    console.log(query);
+  modalSearchChanged(searchQuery: string) {
+    this.modalCurrentPage = 1;
+    if(this.cotId && this.showModal) {
+      this.getUnregisteredParticipants(this.cotId, searchQuery, this.modalCurrentPage, this.itemsPerPage);
+    }
+  }
+
+  modalSearchCleared() {
+    if(this.cotId && this.showModal) {
+      this.getUnregisteredParticipants(this.cotId, '', this.modalCurrentPage, this.itemsPerPage);
+    }
   }
 
   modalPageChanged(page: number) {
     this.modalCurrentPage = page;
-    if(this.id && this.showModal) {
-      this.getUnregisteredParticipants(this.id, this.modalCurrentPage, this.modalItemsPerPage);
+    if(this.cotId && this.showModal) {
+      this.getUnregisteredParticipants(this.cotId, '', this.modalCurrentPage, this.modalItemsPerPage);
     }
   }
 
@@ -308,23 +264,19 @@ export class CotDetailComponent {
   }
 
   saveSelectedParticipants() {
-    if(this.id) {
+    if(this.cotId) {
       const requestPayload = {
         participantIds: this.selectedParticipantIds
       };
 
       this.sweetalertService.loading('Mohon tunggu', 'Proses...');
-      this.participantCotService.addParticipantToCot(this.id, requestPayload).subscribe({
+      this.participantCotService.addParticipantToCot(this.cotId, requestPayload).subscribe({
         next: () => {
           this.sweetalertService.alert('Berhasil!', 'Berhasil menambahkan participant ke COT', 'success');
           this.closeModal();
 
-          if(this.id) {
-            if(this.searchQuery) {
-              this.getSearchParticipantCot(this.id, this.searchQuery, this.currentPage, this.itemsPerPage);
-            } else {
-              this.getListParticipantCot(this.id, this.currentPage, this.itemsPerPage);
-            }
+          if(this.cotId) {
+            this.getListParticipantCot(this.cotId, this.searchQuery, this.currentPage, this.itemsPerPage);
           }
         },
         error: (error) => {

@@ -19,9 +19,7 @@ export interface Participant {
   tglKeluarSuratSehatButaWarna: string;
   suratBebasNarkoba: File | null;
   tglKeluarSuratBebasNarkoba: string;
-  qrCodeLink?: string;
   qrCode?: string | File;
-  gmfNonGmf?: string;
 }
 
 export interface UpdateParticipant {
@@ -49,7 +47,6 @@ export interface UpdateParticipant {
   suratBebasNarkobaFileName?: string;
   tglKeluarSuratSehatButaWarna?: string;
   tglKeluarSuratBebasNarkoba?: string;
-  qrCodeLink?: string;
 }
 
 export interface CreateParticipant {
@@ -78,7 +75,6 @@ export interface CreateParticipant {
   suratBebasNarkobaFileName: string;
   tglKeluarSuratSehatButaWarna: string;
   tglKeluarSuratBebasNarkoba: string;
-  qrCodeLink: string;
 }
 
 export interface ParticipantResponse {

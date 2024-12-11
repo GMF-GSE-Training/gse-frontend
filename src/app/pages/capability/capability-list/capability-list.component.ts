@@ -50,16 +50,12 @@ export class CapabilityListComponent implements OnInit {
     this.route.queryParams.subscribe(params => {
       this.searchQuery = params['keyword'] || '';
       this.currentPage =+ params['page'] || 1;
-      if (this.searchQuery) {
-        this.getSearchCapability(this.searchQuery, this.currentPage, this.itemsPerPage);
-      } else {
-        this.getListCapability(this.currentPage, this.itemsPerPage);
-      }
+      this.getListCapability(this.searchQuery, this.currentPage, this.itemsPerPage);
     });
   }
 
-  getListCapability(page: number, size: number): void {
-    this.capabilityService.listCapability(page, size).subscribe({
+  getListCapability(query: string, page: number, size: number): void {
+    this.capabilityService.listCapability(query, page, size).subscribe({
       next: ({ data, actions, paging }) => {
         this.capability = data.map((capability: any) => {
           return {
@@ -81,28 +77,6 @@ export class CapabilityListComponent implements OnInit {
     });
   }
 
-  getSearchCapability(query: string, page: number, size: number) {
-    this.capabilityService.searchCapability(query, page, size).subscribe({
-      next: ({ data, actions, paging }) => {
-        this.capability = data.map((capability: any) => {
-          return {
-            ratingCode: capability.ratingCode,
-            trainingCode: capability.trainingCode,
-            trainingName: capability.trainingName,
-            durasiMateriRegulasGSE: capability.totalMaterialDurationRegGse,
-            durasiMateriRating: capability.totalMaterialDurationCompetency,
-            totalDuration: capability.totalDuration || "-",
-            kurikulumSilabus: `/capability/${capability.id}/detail`,
-            editLink: actions?.canEdit ? `/capability/${capability.id}/edit` : null,
-            deleteMethod: actions?.canDelete ? () => this.deleteCapability(capability) : null,
-          };
-        });
-        this.totalPages = paging?.totalPage ?? 1;
-      },
-      error: (error) => console.log(error)
-    });
-  }
-
   async deleteCapability(capability: Capability): Promise<void> {
     const isConfirmed = await this.sweetalertService.confirm('Anda Yakin?', `Apakah anda ingin menghapus capability ini : ${capability.trainingName}?`, 'warning', 'Ya, hapus!');
     if (isConfirmed) {
@@ -116,11 +90,7 @@ export class CapabilityListComponent implements OnInit {
             this.currentPage -= 1;
           }
 
-          if (this.searchQuery) {
-            this.getSearchCapability(this.searchQuery, this.currentPage, this.itemsPerPage);
-          } else {
-            this.getListCapability(this.currentPage, this.itemsPerPage);
-          }
+          this.getListCapability(this.searchQuery, this.currentPage, this.itemsPerPage);
 
           // Cek apakah halaman saat ini lebih besar dari total halaman
           if (this.currentPage > this.totalPages) {
@@ -146,11 +116,17 @@ export class CapabilityListComponent implements OnInit {
   }
 
   onSearchChanged(query: string): void {
-    this.searchQuery = query;
-    this.router.navigate([], {
-      queryParams: { keyword: query },
-      queryParamsHandling: 'merge',
-    });
+    if (query.trim() === '') {
+      this.router.navigate([], {
+        queryParams: { keyword: null, page: null },
+        queryParamsHandling: 'merge',
+      });
+    } else {
+      this.router.navigate([], {
+        queryParams: { keyword: query, page: 1 },
+        queryParamsHandling: 'merge',
+      });
+    }
   }
 
   onPageChanged(page: number): void {

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { LoginUserRequest } from '../../../shared/model/auth.model';
@@ -30,8 +30,8 @@ export class LoginComponent {
   isLoading: boolean = false;
 
   constructor(
-    private router: Router,
-    private authService: AuthService,
+    private readonly router: Router,
+    private readonly authService: AuthService,
   ) { }
 
   passVisible() {
@@ -41,18 +41,19 @@ export class LoginComponent {
   login() {
     this.isLoading = true;
     this.authService.login(this.loginRequest).subscribe({
-      next: ({ data }) => {
-        const expirationTime = new Date().getTime() + (60 * 60 * 1000); // 30 menit
-        sessionStorage.setItem('tokenExpiration', expirationTime.toString());
-        sessionStorage.setItem('currentUserRole', data.role.name);
-        if(data.participantId) {
-          sessionStorage.setItem('participantId', data.participantId);
-        } else {
-          sessionStorage.setItem('id', data.id);
-        };
-        this.loginError = false;
-        this.isLoading = false;
-        this.router.navigateByUrl('/home');
+      next: () => {
+        this.authService.me().subscribe({
+          next: (response) => {
+            this.authService.setUserProfile(response.data);
+            localStorage.setItem('user_profile', JSON.stringify(response.data));
+            this.loginError = false;
+            this.isLoading = false;
+            this.router.navigateByUrl('/home');
+          },
+          error: (error) => {
+            console.log(error);
+          }
+        });
       },
       error: (error) => {
         console.log(error)
@@ -61,7 +62,9 @@ export class LoginComponent {
         if(error.status === 400) {
           this.message = 'Email atau Nomor Pegawai dan Password tidak boleh kosong';
         } else if(error.status === 401) {
-          this.message = 'Informasi login tidak valid. Silakan periksa kembali email atau nomor pegawai dan password Anda'
+          this.message = 'Informasi login tidak valid. Silakan periksa kembali email atau nomor pegawai dan password Anda';
+        } else if(error.status === 403) {
+          this.message = 'Akun belum diverifikasi, silahkan verifikasi akun terlebih dahulu';
         } else {
           this.message = 'Terjadi kesalahan pada server. Silakan coba lagi nanti.';
         }

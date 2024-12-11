@@ -32,13 +32,7 @@ export class CotService {
       return this.http.delete<WebResponse<string>>(`${this.apiUrl}/${this.endpoint.base}/${id}`, { withCredentials: true });
     }
 
-    listCot(page?: number, size?: number, startDate?: string, endDate?: string): Observable<WebResponse<CotResponse[]>> {
-      return this.http.get<WebResponse<CotResponse[]>>(`${this.apiUrl}/${this.endpoint.list}?page=${page}&size=${size}&startDate=${startDate}&endDate=${endDate}`, { withCredentials: true });
-    }
-
-    searchCot(q?: string, page?: number, size?: number, startDate?: string, endDate?: string): Observable<WebResponse<CotResponse[]>> {
-      return this.http.get<WebResponse<CotResponse[]>>(`${this.apiUrl}/${this.endpoint.search}?q=${q}&page=${page}&size=${size}&startDate=${startDate}&endDate=${endDate}`,
-        { withCredentials: true }
-      );
+    listCot(q?: string, page?: number, size?: number, startDate?: string, endDate?: string): Observable<WebResponse<CotResponse[]>> {
+      return this.http.get<WebResponse<CotResponse[]>>(`${this.apiUrl}/${this.endpoint.list}?q=${q}&page=${page}&size=${size}&startDate=${startDate}&endDate=${endDate}`, { withCredentials: true });
     }
 }

@@ -51,25 +51,31 @@ export class UserFormComponent implements OnInit {
   @Output() formSubmit = new EventEmitter<any>();
   @ViewChild('form') form!: NgForm;
 
-  currentUserRole: string | null = sessionStorage.getItem('currentUserRole');
+  cachedCurrentUser = localStorage.getItem('user_profile');;
+  currentUser: any;
+  currentUserRole: string = '';
 
   constructor(
     private readonly roleService: RoleService,
   ) {}
 
   ngOnInit(): void {
-    this.roleService.getAllRoles().subscribe({
-      next: (response) => {
-        this.roleData = response.data;
-        this.roleOptions = response.data.map(role => ({
-          label: role.name,
-          value: role.id
-        }));
-      },
-      error: (error) => {
-        console.log(error);
-      }
-    })
+    if(this.cachedCurrentUser) {
+      this.currentUser = JSON.parse(this.cachedCurrentUser);
+      this.currentUserRole = this.currentUser.role.name
+      this.roleService.getAllRoles().subscribe({
+        next: (response) => {
+          this.roleData = response.data;
+          this.roleOptions = response.data.map(role => ({
+            label: role.name,
+            value: role.id
+          }));
+        },
+        error: (error) => {
+          console.log(error);
+        }
+      });
+    }
   }
 
   onSubmit() {

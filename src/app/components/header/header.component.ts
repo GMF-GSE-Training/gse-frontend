@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RouterOutlet, RouterLink, Router } from '@angular/router';
-import { SearchComponent } from '../search/search.component';
+import { RouterLink, Router } from '@angular/router';
 import { SidebarComponent } from "../sidebar/sidebar.component";
 import { CommonModule } from '@angular/common';
 
@@ -8,9 +7,7 @@ import { CommonModule } from '@angular/common';
   selector: 'app-navbar',
   standalone: true,
   imports: [
-    RouterOutlet,
     RouterLink,
-    SearchComponent,
     SidebarComponent,
     CommonModule,
 ],
@@ -35,14 +32,13 @@ export class HeaderComponent implements OnInit {
     this.router.events.subscribe(() => {
       const currentRoute = this.router.url;
       this.shouldShowHeader = !(
-        currentRoute === '/login' ||
-        currentRoute === '/register' ||
-        currentRoute === '/reset-password' ||
-        currentRoute === '/passwordreset' ||
+        currentRoute.includes('/login') ||
+        currentRoute.includes('/register') ||
+        currentRoute.includes('/password-reset') ||
+        currentRoute.includes('/verification') ||
         currentRoute.includes('/reset') ||
         (currentRoute.includes('/users') && currentRoute.includes('/edit')) ||
-        (currentRoute.includes('/users') && currentRoute.includes('/add')) ||
-        currentRoute === '/not-found'
+        (currentRoute.includes('/users') && currentRoute.includes('/add'))
       );
     });
   }

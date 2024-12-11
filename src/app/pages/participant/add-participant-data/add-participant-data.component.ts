@@ -48,7 +48,6 @@ export class AddParticipantDataComponent {
     suratBebasNarkobaFileName: '',
     tglKeluarSuratSehatButaWarna: '',
     tglKeluarSuratBebasNarkoba: '',
-    qrCodeLink: ''
   };
 
   requiredFields = ['name', 'company', 'email', 'phoneNumber', 'kewarganegaraan',
@@ -64,7 +63,6 @@ export class AddParticipantDataComponent {
   ) {}
 
   onCreate(participant: any) {
-    participant.qrCodeLink = environment.qrCodeLink;
     const formData = this.prepareFormData(participant);
     this.sweetalertService.loading('Mohon tunggu', 'Proses...');
 

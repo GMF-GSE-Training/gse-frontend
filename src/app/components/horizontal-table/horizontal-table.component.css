@@ -1,5 +1,6 @@
 .container {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   padding: 20px;
@@ -7,6 +8,7 @@
   max-width: 80%;
   margin: 20px auto;
   font-size: 22px;
+  gap: 10px;
 }
 
 .info-section {
@@ -15,16 +17,16 @@
   width: 100%;
 }
 
-.fill {
+.fill, a {
   color: #266E99;
 }
 
-.fill a {
+a {
   cursor: pointer;
   text-decoration: underline;
 }
 
-.fill a:hover {
+a:hover {
   color: purple;
 }
 
@@ -36,4 +38,10 @@
 .user-table td {
   padding: 8px;
   border: 1px solid #ddd;
+}
+
+.download {
+  width: 100%;
+  display: flex;
+  justify-content: end;
 }

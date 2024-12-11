@@ -85,7 +85,7 @@
           #email="ngModel"
           [email]="true"
           required
-          [disabled]="!isCreate && (!currentUserRole || currentUserRole !== 'super admin')"
+          [disabled]="!isCreate && (!currentUser || currentUserRole !== 'super admin')"
         >
         </app-base-input>
 

@@ -25,13 +25,12 @@ import { RouterLink } from '@angular/router';
   styleUrls: ['./email-form.component.css', '../user-form/user-form.component.css']
 })
 export class EmailFormComponent {
+  @Input() pageTitle: string = '';
   @Input() isSubmitted: boolean = false;
   @Input() submitError: boolean = false;
   @Input() data: { email: string } = {
     email: '',
   };
-  @Input() parrentMessage: string = '';
-  message: string = '';
 
   @Output() formSubmit = new EventEmitter<any>();
   @ViewChild('form') form!: NgForm;
@@ -39,30 +38,6 @@ export class EmailFormComponent {
   onSubmit() {
     if (this.form.valid) {
       this.formSubmit.emit(this.data);
-    } else {
-      this.message = this.getMessage();  // Menampilkan pesan error di parent jika form tidak valid
     }
-  }
-
-  getMessage(): string {
-    if (!this.form) return '';
-
-    // Email
-    const emailControl = this.form.controls['email'];
-    if (emailControl?.invalid) {
-      if (emailControl.errors?.['required']) {
-        this.submitError = true;
-        return 'Email wajib diisi';
-      } else if (emailControl.errors?.['email']) {
-        this.submitError = true;
-        return 'Email tidak valid';
-      }
-    }
-
-    if(!this.parrentMessage) {
-      this.submitError = false;
-    }
-
-    return this.parrentMessage;
   }
 }

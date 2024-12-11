@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DetailedViewComponent } from './detailed-view.component';
+import { HorizontalTableComponent } from './horizontal-table.component';
 
-describe('DetailedViewComponent', () => {
-  let component: DetailedViewComponent;
-  let fixture: ComponentFixture<DetailedViewComponent>;
+describe('HorizontalTableComponent', () => {
+  let component: HorizontalTableComponent;
+  let fixture: ComponentFixture<HorizontalTableComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [DetailedViewComponent]
+      imports: [HorizontalTableComponent]
     })
     .compileComponents();
-    
-    fixture = TestBed.createComponent(DetailedViewComponent);
+
+    fixture = TestBed.createComponent(HorizontalTableComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

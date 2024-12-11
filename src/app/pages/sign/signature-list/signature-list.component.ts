@@ -75,12 +75,17 @@ export class SignatureListComponent {
   }
 
   onSearchChanged(query: string): void {
-    this.searchQuery = query;
-    this.router.navigate([], {
-      queryParams: { search: query },
-      queryParamsHandling: 'merge',
-    });
-    // this.getSearchParticipants(query, 1, this.itemsPerPage);
+    if (query.trim() === '') {
+      this.router.navigate([], {
+        queryParams: { keyword: null, page: null },
+        queryParamsHandling: 'merge',
+      });
+    } else {
+      this.router.navigate([], {
+        queryParams: { keyword: query, page: 1 },
+        queryParamsHandling: 'merge',
+      });
+    }
   }
 
   onPageChanged(page: number): void {

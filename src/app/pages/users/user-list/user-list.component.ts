@@ -49,16 +49,12 @@ export class UserListComponent implements OnInit {
     this.route.queryParams.subscribe(params => {
       this.searchQuery = params['keyword'] || '';
       this.currentPage =+ params['page'] || 1;
-      if (this.searchQuery) {
-        this.getSearchUsers(this.searchQuery, this.currentPage, this.itemsPerPage);
-      } else {
-        this.getListUsers(this.currentPage, this.itemsPerPage);
-      }
+      this.getListUsers(this.searchQuery, this.currentPage, this.itemsPerPage);
     });
   }
 
-  getListUsers(page: number, size: number): void {
-    this.userService.listUsers(page, size).subscribe({
+  getListUsers(searchQuery: string, page: number, size: number): void {
+    this.userService.listUsers(searchQuery, page, size).subscribe({
       next: ({ data, actions, paging }) => {
         this.users = data.map((user: User) => {
           return {
@@ -89,11 +85,7 @@ export class UserListComponent implements OnInit {
             this.currentPage -= 1;
           }
 
-          if (this.searchQuery) {
-            this.getSearchUsers(this.searchQuery, this.currentPage, this.itemsPerPage);
-          } else {
-            this.getListUsers(this.currentPage, this.itemsPerPage);
-          }
+          this.getListUsers(this.searchQuery, this.currentPage, this.itemsPerPage);
           // Cek apakah halaman saat ini lebih besar dari total halaman
           if (this.currentPage > this.totalPages) {
             this.currentPage = this.totalPages; // Pindah ke halaman sebelumnya
@@ -118,30 +110,18 @@ export class UserListComponent implements OnInit {
     }
   }
 
-  getSearchUsers(query: string, page: number, size: number) {
-    this.userService.searchUser(query, page, size).subscribe({
-      next: ({ data, actions, paging  }) => {
-        this.users = data.map((user: User) => ({
-          ...user,
-          idNumber: user.idNumber ?? '-',
-          dinas: user.dinas ?? '-',
-          roleName: user.role.name,
-          editLink: actions?.canEdit ? `/users/${user.id}/edit` : null,
-          detailLink: actions?.canView ? `/users/${user.id}/view` : null,
-          deleteMethod: actions?.canDelete ? () => this.deleteParticipant(user) : null,
-        }));
-        this.totalPages = paging?.totalPage ?? 1;
-      },
-      error: (error) => console.log(error),
-    });
-  }
-
   onSearchChanged(query: string): void {
-    this.searchQuery = query;
-    this.router.navigate([], {
-      queryParams: { keyword: query, page: 1 },
-      queryParamsHandling: 'merge',
-    });
+    if (query.trim() === '') {
+      this.router.navigate([], {
+        queryParams: { keyword: null, page: null },
+        queryParamsHandling: 'merge',
+      });
+    } else {
+      this.router.navigate([], {
+        queryParams: { keyword: query, page: 1 },
+        queryParamsHandling: 'merge',
+      });
+    }
   }
 
   onPageChanged(page: number): void {

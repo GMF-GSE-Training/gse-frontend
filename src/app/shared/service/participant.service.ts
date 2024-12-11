@@ -32,8 +32,8 @@ export class ParticipantService {
     return this.http.delete<WebResponse<ParticipantResponse>>(`${this.apiUrl}/${this.endpoints.base}/${id}`, { withCredentials: true });
   }
 
-  listParticipants(page?: number, size?: number): Observable<WebResponse<ParticipantResponse>> {
-    return this.http.get<WebResponse<ParticipantResponse>>(`${this.apiUrl}/${this.endpoints.list}?page=${page}&size=${size}`, { withCredentials: true });
+  listParticipants(q?: string, page?: number, size?: number): Observable<WebResponse<ParticipantResponse>> {
+    return this.http.get<WebResponse<ParticipantResponse>>(`${this.apiUrl}/${this.endpoints.list}?q=${q}&page=${page}&size=${size}`, { withCredentials: true });
   }
 
   getFile({ id }: { id: string; }, fileName: string): Observable<WebResponse<string>> {
@@ -49,24 +49,24 @@ export class ParticipantService {
   }
 
   downloadIdCard(id: string): Observable<Blob> {
-    return this.http.get(`${this.apiUrl}/${this.endpoints.base}/${id}/${this.endpoints.download_id_card}`, {
+    return this.http.get(`${this.apiUrl}/${this.endpoints.base}/${id}/${this.endpoints.downloadIdCard}`, {
+      withCredentials: true,
+      responseType: 'blob'
+    });
+  }
+
+  downloadDocument(id: string): Observable<Blob> {
+    return this.http.get(`${this.apiUrl}/${this.endpoints.base}/${id}/${this.endpoints.downloadDocument}`, {
       withCredentials: true,
       responseType: 'blob'
     });
   }
 
   viewIdCard(id: string): Observable<string> {
-      return this.http.get(`${this.apiUrl}/${this.endpoints.base}/${id}/${this.endpoints.id_card}`, {
+      return this.http.get(`${this.apiUrl}/${this.endpoints.base}/${id}/${this.endpoints.idCard}`, {
           responseType: 'text', // Mengatur responseType ke 'text'
           withCredentials: true
       });
-  }
-
-  searchParticipant(q?: string, page?: number, size?: number): Observable<WebResponse<ParticipantResponse[]>> {
-    return this.http.get<WebResponse<ParticipantResponse[]>>(
-      `${this.apiUrl}/${this.endpoints.search}?q=${q}&page=${page}&size=${size}`,
-      { withCredentials: true }
-    );
   }
 
   isDataComplete(id: string): Observable<WebResponse<boolean>> {

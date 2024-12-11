@@ -43,18 +43,26 @@ export class ParticipantFormComponent {
   @Input() selectedCompany: string = '';
   @Input() companyName: string = '';
   @Input() showCompanyInput: boolean = false;
+  @Input() backButtonRoute: string = '/participants';
 
   @ViewChild(CompanyInputComponent) companyInputComponent!: CompanyInputComponent;
   @ViewChild('form') form!: NgForm;
 
-  currentUserRole: string | null = sessionStorage.getItem('currentUserRole');
+  cachedUserProfile = JSON.parse(localStorage.getItem('user_profile') || '{}');
+  currentUserRole: string | undefined = this.cachedUserProfile.role.name ;
+
+  ngOnInit(): void {
+    this.currentUserRole = this.cachedUserProfile.role.name;
+  }
 
   onSubmit() {
     if (this.form.valid) {
       this.participant.company = this.companyInputComponent.getCompanyName();
       if(this.isUpdate) {
-        if(this.currentUserRole !== 'super admin') {
-          this.participant.email = undefined;
+        if(this.cachedUserProfile) {
+          if(this.currentUserRole !== 'super admin') {
+            delete this.participant.email;
+          }
         }
         this.formSubmit.emit(this.participant);
       } else {

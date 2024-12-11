@@ -36,13 +36,7 @@ export class CapabilityService {
     return this.http.delete<WebResponse<string>>(`${this.apiUrl}/${this.endpoint.base}/${id}`, { withCredentials: true });
   }
 
-  listCapability(page?: number, size?: number): Observable<WebResponse<CapabilityResponse[]>> {
-    return this.http.get<WebResponse<CapabilityResponse[]>>(`${this.apiUrl}/${this.endpoint.list}?page=${page}&size=${size}`, { withCredentials: true });
-  }
-
-  searchCapability(q?: string, page?: number, size?: number): Observable<WebResponse<CapabilityResponse[]>> {
-    return this.http.get<WebResponse<CapabilityResponse[]>>(`${this.apiUrl}/${this.endpoint.search}?q=${q}&page=${page}&size=${size}`,
-      { withCredentials: true }
-    );
+  listCapability(q?: string, page?: number, size?: number): Observable<WebResponse<CapabilityResponse[]>> {
+    return this.http.get<WebResponse<CapabilityResponse[]>>(`${this.apiUrl}/${this.endpoint.list}?q=${q}&page=${page}&size=${size}`, { withCredentials: true });
   }
 }

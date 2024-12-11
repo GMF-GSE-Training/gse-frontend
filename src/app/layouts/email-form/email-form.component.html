@@ -1,11 +1,7 @@
 <app-auth>
   <div class="form-container">
     <form #form="ngForm" (ngSubmit)="onSubmit()" class="form">
-      <app-title pageTitle="Forgot password"></app-title>
-
-      <div *ngIf="isSubmitted && getMessage()" [ngClass]="submitError ? 'error-message' : 'success-message'">
-        <span class="error">{{ getMessage() }}</span>
-      </div>
+      <app-title [pageTitle]="pageTitle"></app-title>
 
       <div class="input-container" ngClass="email">
         <app-base-input

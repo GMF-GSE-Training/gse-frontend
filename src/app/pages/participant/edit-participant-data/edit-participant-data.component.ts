@@ -53,7 +53,7 @@ export class EditParticipantDataComponent implements OnInit {
   @Input() companyName: string = '';
   @Input() showCompanyInput: boolean = false;
 
-  requiredFields = ['name', 'company', 'email', 'phoneNumber', 'kewarganegaraan',
+  private requiredFields = ['name', 'company', 'email', 'phoneNumber', 'kewarganegaraan',
                     'placeOfBirth', 'dateOfBirth', 'simA', 'ktp', 'foto',
                     'suratSehatButaWarna', 'tglKeluarSuratSehatButaWarna',
                     'suratBebasNarkoba', 'tglKeluarSuratSehatBebasNarkoba'];
@@ -67,8 +67,18 @@ export class EditParticipantDataComponent implements OnInit {
   ) {
   }
 
+  userProfile = JSON.parse(localStorage.getItem('user_profile') || '{}');
+  id = this.route.snapshot.paramMap.get('id') || this.userProfile.participant.id;
+  backButtonRoute: string = '/participants';
+
   ngOnInit(): void {
-    this.loadParticipant();
+    if(this.participantId) {
+      if(this.userProfile !== '{}') {
+        this.getParticipantFromLocalStorage();
+      } else {
+        this.getParticipantById();
+      }
+    }
     this.route.queryParams.subscribe(params => {
       if (params['showAlert']) {
         this.sweetalertService.alert(
@@ -85,44 +95,49 @@ export class EditParticipantDataComponent implements OnInit {
         });
       }
     });
+
+    if(this.id && (this.userProfile.role.name === 'user')) {
+      this.backButtonRoute = `/participants/${this.id}/detail`;
+    }
   }
 
-  loadParticipant(): void {
-    this.participantService.getParticipantById(this.participantId!).subscribe({
-      next: (response) => {
-        const responseData = response.data;
-        this.updateParticipant = {
-          ...responseData,
-          dateOfBirth: this.formatDateToISO(responseData.dateOfBirth),
-          tglKeluarSuratSehatButaWarna : this.formatDateToISO(responseData.tglKeluarSuratSehatButaWarna),
-          tglKeluarSuratBebasNarkoba : this.formatDateToISO(responseData.tglKeluarSuratBebasNarkoba),
-        };
+  getParticipantFromLocalStorage(): void {
+    const participantData = this.userProfile.participant;
+    if (participantData) {
+      this.setParticipantData(participantData);
+    }
+  }
 
-        // Company Input
-        this.selectedCompany = responseData.gmfNonGmf ? responseData.gmfNonGmf : responseData.company;
-        if(responseData.gmfNonGmf !== 'GMF' || responseData.company !== 'GMF') {
-          this.companyName = responseData.company;
-          if(this.companyName) {
-            this.showCompanyInput = true;
-          } else {
-            this.selectedCompany = 'GMF'
-            this.companyName = 'GMF'
-            this.showCompanyInput = false;
+  getParticipantById(): void {
+    if (this.participantId) {
+      this.participantService.getParticipantById(this.participantId).subscribe({
+        next: (response) => {
+          const responseData = response.data;
+          if (responseData) {
+            this.setParticipantData(responseData);
           }
-        }
-      },
-      error: (error) => console.log(error)
-    });
+        },
+        error: (error) => console.log(error),
+      });
+    }
   }
 
   onUpdate(participant: UpdateParticipant) {
-    participant.qrCodeLink = environment.qrCodeLink;
     const formData = this.prepareFormData(participant);
     this.sweetalertService.loading('Mohon tunggu', 'Proses...');
 
     this.participantService.updateParticipant(this.participantId!, formData).subscribe({
       next: () => {
         this.sweetalertService.alert('Diperbarui!', 'Peserta berhasil diperbarui', 'success');
+        const participantData = this.userProfile.participant;
+        if(participantData) {
+          const participantEmail = participantData.email;
+          this.userProfile.participant = participant;
+          this.userProfile.participant.email = participantEmail;
+          participantData.gmfNonGmf = participantData.company.toLowerCase().includes('gmf') || participantData.company.toLowerCase().includes('garuda maintenance facility') ? 'GMF' : 'Non GMF';
+          localStorage.setItem('user_profile', JSON.stringify(this.userProfile));
+        }
+
         this.router.navigateByUrl(`/participants/${this.participantId}/detail`);
       },
       error: (error) => {
@@ -138,6 +153,27 @@ export class EditParticipantDataComponent implements OnInit {
       const fileNameProperty = `${property}FileName`;
       // Mengisi name file ke property yang sesuai
       (this.updateParticipant as any)[fileNameProperty] = file.name;
+    }
+  }
+
+  private setParticipantData(responseData: any): void {
+    this.updateParticipant = {
+      ...responseData,
+      dateOfBirth: this.formatDateToISO(responseData.dateOfBirth),
+      tglKeluarSuratSehatButaWarna: this.formatDateToISO(responseData.tglKeluarSuratSehatButaWarna),
+      tglKeluarSuratBebasNarkoba: this.formatDateToISO(responseData.tglKeluarSuratBebasNarkoba),
+    };
+
+    this.selectedCompany = responseData.gmfNonGmf ? responseData.gmfNonGmf : responseData.company;
+
+    if (responseData.gmfNonGmf !== 'GMF' || responseData.company !== 'GMF') {
+      this.companyName = responseData.company;
+      this.showCompanyInput = !!this.companyName;
+      if (!this.companyName) {
+        this.selectedCompany = 'GMF';
+        this.companyName = 'GMF';
+        this.showCompanyInput = false;
+      }
     }
   }
 

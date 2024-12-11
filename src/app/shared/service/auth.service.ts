@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { AuthResponse, LoginUserRequest, RegisterUserRequest, ResetPassword } from '../model/auth.model';
 import { environment } from '../../../environments/environment.development';
 import { WebResponse } from '../model/web.model';
@@ -15,7 +15,7 @@ export class AuthService {
 
   constructor(
     private readonly http: HttpClient,
-  ) {}
+  ) { }
 
   register(request: RegisterUserRequest): Observable<WebResponse<string>> {
     return this.http.post<WebResponse<string>>(`${this.apiUrl}/${this.endpoint.register}`, request);
@@ -26,7 +26,15 @@ export class AuthService {
   }
 
   me(): Observable<WebResponse<AuthResponse>> {
-    return this.http.get<WebResponse<AuthResponse>>(`${this.apiUrl}/${this.endpoint.base}`, { withCredentials: true });
+    return this.http.get<WebResponse<AuthResponse>>(`${this.apiUrl}/${this.endpoint.base}`, { withCredentials: true }).pipe(
+      tap((response) => {
+        this.userProfile$.next(response.data);
+      })
+    );
+  }
+
+  refreshToken(): Observable<WebResponse<string>> {
+    return this.http.get<WebResponse<string>>(`${this.apiUrl}/${this.endpoint.refreshToken}`, { withCredentials: true });
   }
 
   logout(): Observable<WebResponse<string>> {
@@ -34,10 +42,24 @@ export class AuthService {
   }
 
   forgotPassword(request: { email: string }): Observable<WebResponse<string>> {
-    return this.http.post<WebResponse<string>>(`${this.apiUrl}/${this.endpoint.requestResetPassword}`, request);
+    return this.http.post<WebResponse<string>>(`${this.apiUrl}/${this.endpoint.resetPasswordRequest}`, request);
   }
 
-  resetPassword(req: ResetPassword): Observable<WebResponse<string>> {
-    return this.http.post<WebResponse<string>>(`${this.apiUrl}/${this.endpoint.resetPassword}`, req);
+  resetPassword(request: ResetPassword): Observable<WebResponse<string>> {
+    return this.http.post<WebResponse<string>>(`${this.apiUrl}/${this.endpoint.resetPassword}`, request);
+  }
+
+  resendVerification(request: { email: string }): Observable<WebResponse<string>> {
+    return this.http.post<WebResponse<string>>(`${this.apiUrl}/${this.endpoint.accountVerificationRequest}`, request);
+  }
+
+  userProfile$ = new BehaviorSubject<AuthResponse | null | undefined>(undefined);
+
+  setUserProfile(data: any) {
+    if(data) {
+      this.userProfile$.next(data);
+    } else {
+      this.userProfile$.next(null);
+    }
   }
 }

@@ -17,8 +17,12 @@ export class ParticipantCotService {
   private apiUrl = environment.apiUrl;
   private endpoint = environment.endpoints.participantCot;
 
-  getUnregisteredParticipants(cotId: string, page: number = 1, size: number = 10): Observable<WebResponse<ParticipantResponse[]>> {
-    return this.http.get<WebResponse<ParticipantResponse[]>>(`${this.apiUrl}/${this.endpoint.unregisteredParticipants}/${cotId}?page=${page}&size=${size}`, { withCredentials: true });
+  // getUnregisteredParticipants(cotId: string, page?: number, size?: number): Observable<WebResponse<ParticipantResponse[]>> {
+  //   return this.http.get<WebResponse<ParticipantResponse[]>>(`${this.apiUrl}/${this.endpoint.listUnregisteredParticipants}/${cotId}?page=${page}&size=${size}`, { withCredentials: true });
+  // }
+
+  getUnregisteredParticipants(cotId: string, searchQuery?: string, page?: number, size?: number): Observable<WebResponse<ParticipantResponse[]>> {
+    return this.http.get<WebResponse<ParticipantResponse[]>>(`${this.apiUrl}/${this.endpoint.getUnregisteredParticipants}/${cotId}?q=${searchQuery}&page=${page}&size=${size}`, { withCredentials: true });
   }
 
   addParticipantToCot(cotId: string, participantIds: addParticipantToCot): Observable<WebResponse<string>> {
@@ -29,11 +33,7 @@ export class ParticipantCotService {
     return this.http.delete<WebResponse<string>>(`${this.apiUrl}/${this.endpoint.base}/${cotId}/${participantId}`, { withCredentials: true });
   }
 
-  listParticipantCot(cotId: string, page?: number, size?: number,): Observable<WebResponse<ListParticipantCotResponse>> {
-    return this.http.get<WebResponse<ListParticipantCotResponse>>(`${this.apiUrl}/${this.endpoint.base}/${cotId}/${this.endpoint.list}?page=${page}&size=${size}&`, { withCredentials: true });
-  }
-
-  searchParticipantCot(cotId: string, q?: string, page?: number, size?: number ): Observable<WebResponse<ListParticipantCotResponse>> {
-    return this.http.get<WebResponse<ListParticipantCotResponse>>(`${this.apiUrl}/${this.endpoint.base}/${cotId}/${this.endpoint.search}?q=${q}&page=${page}&size${size}`, { withCredentials: true });
+  listParticipantCot(cotId: string, q?: string,  page?: number, size?: number,): Observable<WebResponse<ListParticipantCotResponse>> {
+    return this.http.get<WebResponse<ListParticipantCotResponse>>(`${this.apiUrl}/${this.endpoint.base}/${cotId}/${this.endpoint.list}?q=${q}&page=${page}&size=${size}`, { withCredentials: true });
   }
 }

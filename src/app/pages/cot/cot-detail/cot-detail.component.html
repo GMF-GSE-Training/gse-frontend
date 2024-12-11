@@ -3,7 +3,7 @@
     <h1 class="title">Calender Of Training</h1>
   </div>
 
-  <app-detailed-view [leftTableData]="leftTableData" [rightTableData]="rightTableData"></app-detailed-view>
+  <app-horizontal-table [leftTableData]="leftTableData" [rightTableData]="rightTableData"></app-horizontal-table>
 
   <app-data-management
     placeHolder="Cari participant"
@@ -27,10 +27,13 @@
 
 <div *ngIf="showModal" class="modal-container">
   <app-modal
+    placeHolder="Cari Participant"
     [columns]="modalColumns"
     [data]="unregisteredParticipants"
     [currentPage]="modalCurrentPage"
     [totalPage]="modalTotalPages"
+    (searchChange)="modalSearchChanged($event)"
+    (searchCleared)="modalSearchCleared()"
     (pageChange)="modalPageChanged($event)"
     (selectedIdsChange)="onSelectedIdsChange($event)"
     (save)="saveSelectedParticipants()"

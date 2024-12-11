@@ -1,13 +1,14 @@
 export const environment = {
   production: false,
-  qrCodeLink: `${window.location.protocol}//${window.location.hostname}:${window.location.port}/participants/{id}/detail`,
   apiUrl: `http://${window.location.hostname}:3000`,
   endpoints: {
     auth: {
       base: 'auth/current',
       login: 'auth/login',
       register: 'auth/register',
-      requestResetPassword: 'auth/request-reset-password',
+      refreshToken: 'auth/token',
+      resetPasswordRequest: 'auth/request-reset-password',
+      accountVerificationRequest: 'auth/resend-verification',
       resetPassword: 'auth/reset-password',
     },
     user: {
@@ -20,17 +21,16 @@ export const environment = {
     },
     participant: {
       base: 'participants',
-      qr_code: 'qr-code',
-      id_card: 'id-card',
-      download_id_card: 'id-card/download',
+      qrCode: 'qr-code',
+      idCard: 'id-card',
+      downloadIdCard: 'id-card/download',
+      downloadDocument: 'download-document',
       list: 'participants/list/result',
-      search: 'participants/search/result',
       isComplete: 'participants/check-data-complete'
     },
     capability: {
       base: 'capability',
       list: 'capability/list/result',
-      search: 'capability/search/result',
     },
     curriculumSyllabus: {
       base: 'curriculum-syllabus',
@@ -38,14 +38,12 @@ export const environment = {
     },
     cot: {
       base: 'cot',
-      list: 'cot/list/result',
-      search: 'cot/search/result',
+      list: 'cot/list',
     },
     participantCot: {
       base: 'participant-cot',
-      unregisteredParticipants: 'participant-cot/unregistered',
+      getUnregisteredParticipants: 'participant-cot/unregistered',
       list: 'list/result',
-      search: 'search/result',
     },
     eSign: {
       base: 'e-sign',

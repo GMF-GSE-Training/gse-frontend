@@ -1,30 +1,32 @@
 import { Component, OnInit } from '@angular/core';
+import { EmailFormComponent } from "../../../layouts/email-form/email-form.component";
 import { AuthService } from '../../../shared/service/auth.service';
 import { SweetalertService } from '../../../shared/service/sweetaler.service';
-import { EmailFormComponent } from "../../../layouts/email-form/email-form.component";
+import { ErrorHandlerService } from '../../../shared/service/error-handler.service';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
-  selector: 'app-forgot-password',
+  selector: 'app-account-verification',
   standalone: true,
   imports: [EmailFormComponent],
-  templateUrl: './forgot-password.component.html',
-  styleUrl: './forgot-password.component.css'
+  templateUrl: './account-verification.component.html',
+  styleUrl: './account-verification.component.css'
 })
-export class ForgotPasswordComponent implements OnInit {
-  constructor(
-    private readonly authService: AuthService,
-    private readonly sweetalertService: SweetalertService,
-    private readonly route: ActivatedRoute,
-    private readonly router: Router,
-  ) {}
-
+export class AccountVerificationComponent implements OnInit {
   data = {
     email: ''
   };
-  errorMessage: string = '';
+  message: string = '';
 
-  ngOnInit(): void {
+  constructor(
+    private readonly authService: AuthService,
+    private readonly sweetalertService: SweetalertService,
+    private readonly errorHandlerService: ErrorHandlerService,
+    private readonly route: ActivatedRoute,
+    private readonly router: Router,
+  ) { }
+
+  ngOnInit() {
     this.route.queryParams.subscribe(params => {
       if (params['error']) {
         const errorMessage = params['error'];
@@ -44,12 +46,12 @@ export class ForgotPasswordComponent implements OnInit {
 
   onSubmit(data: { email: string }) {
     this.sweetalertService.loading('Mohon tunggu', 'Proses...');
-    this.authService.forgotPassword(data).subscribe({
+    this.authService.resendVerification(data).subscribe({
       next: () => {
         this.sweetalertService.alert('', 'Bila email ada, maka email untuk mengubah password akan dikirim ke email yang Anda masukkan', 'success');
       },
       error: (error) => {
-        this.sweetalertService.alert('Gagal!', 'Terjadi kesalahan, silakan coba lagi nanti.', 'error');
+        this.errorHandlerService.alertError(error);
         console.log(error);
       }
     });

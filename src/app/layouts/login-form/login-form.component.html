@@ -6,37 +6,45 @@
     <form #form="ngForm" (ngSubmit)="onSubmit()" class="login-form">
       <app-title pageTitle="Login Account"></app-title>
 
-      <i class="fa-solid fa-user user-icon"></i>
+      <div>
+        <i class="fa-solid fa-user user-icon"></i>
 
-      <input
-        [(ngModel)]="loginRequest.identifier"
-        type="username"
-        name="identifier"
-        autocomplete="username"
-        placeholder="Email atau No Pegawai"
-        #identifier="ngModel"
-        required=""
-      >
+        <input
+          [(ngModel)]="loginRequest.identifier"
+          type="username"
+          name="identifier"
+          autocomplete="username"
+          placeholder="Email atau No Pegawai"
+          #identifier="ngModel"
+          required
+        >
 
-      <i class="fa-solid fa-lock pass-icon"></i>
+        <i class="fa-solid fa-lock pass-icon"></i>
 
-      <app-toggle-password-visibility
-        [isPassVisible]="isPassVisible"
-        (togglePassClick)="passVisible()">
-      </app-toggle-password-visibility>
+        <app-toggle-password-visibility
+          [isPassVisible]="isPassVisible"
+          (togglePassClick)="passVisible()">
+        </app-toggle-password-visibility>
 
-      <input
-        [(ngModel)]="loginRequest.password"
-        [type]="isPassVisible ? 'text' : 'password'"
-        name="password"
-        autocomplete="pasword"
-        placeholder="Password"
-        #password="ngModel"
-        required=""
-      >
+        <input
+          [(ngModel)]="loginRequest.password"
+          [type]="isPassVisible ? 'text' : 'password'"
+          name="password"
+          autocomplete="pasword"
+          placeholder="Password"
+          #password="ngModel"
+          required
+        >
+      </div>
 
-      <a routerLink="/passwordreset" class="forgotPassword">Lupa password?</a>
-      <span class="isRegistered">Belum punya akun? <a routerLink="/register">Daftar</a></span>
+      <div>
+        <a routerLink="/password-reset" class="auth-helper-links">Lupa Password?</a>
+        <a routerLink="/verification" class="auth-helper-links">Kirim Ulang Link Verifikasi Akun</a>
+      </div>
+
+      <div class="register-link-container">
+        <span class="register-link">Belum punya akun? <a routerLink="/register">Daftar</a></span>
+      </div>
 
       <app-blue-button [type]="'submit'" class="button" [disabled]="form.invalid || isLoading">Masuk</app-blue-button>
     </form>

@@ -1,7 +1,7 @@
 <app-title [pageTitle]="pageTitle" (click)="$event.stopPropagation()"></app-title>
 
-<div class="back" (routerLink)="navigationLinks">
-  <i class="fa-solid fa-arrow-left"></i>
+<div class="button-container">
+  <app-white-button class="button" (routerLink)="navigationLinks">Kembali</app-white-button>
 </div>
 
 <div class="display-container" (click)="$event.stopPropagation()">

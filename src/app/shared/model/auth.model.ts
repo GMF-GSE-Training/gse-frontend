@@ -22,15 +22,15 @@ export interface ResetPassword {
 
 export interface AuthResponse {
   id: string;
-  participantId?: string;
   idNumber?: string;
   email?: string;
-  name: string;
+  name?: string;
   dinas?: string;
   roleId?: string;
   token?: string;
-  role: {
-      id: string,
-      name: string,
+  role?: {
+      id?: string;
+      name?: string;
   }
+  participant: Object;
 }
