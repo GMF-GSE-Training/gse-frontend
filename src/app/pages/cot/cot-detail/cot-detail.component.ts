@@ -3,7 +3,7 @@ import { HorizontalTableComponent } from '../../../components/horizontal-table/h
 import { WhiteButtonComponent } from "../../../components/button/white-button/white-button.component";
 import { ActivatedRoute, Router } from '@angular/router';
 import { SweetalertService } from '../../../shared/service/sweetaler.service';
-import { DataManagementComponent } from "../../../layouts/data-management/data-management.component";
+import { DataManagementComponent } from "../../../contents/data-management/data-management.component";
 import { ParticipantCotModalComponent } from "../../../components/participant-cot-modal/participant-cot-modal.component";
 import { CommonModule } from '@angular/common';
 import { ParticipantCotService } from '../../../shared/service/participant-cot.service';

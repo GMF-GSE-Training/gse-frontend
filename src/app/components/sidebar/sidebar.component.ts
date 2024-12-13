@@ -48,8 +48,8 @@ export class SidebarComponent implements OnChanges {
       routerLink: ""
     },
     {
-      name: 'Profil',
-      routerLink: `/participants/${this.getUserProfile().participant?.id}/detail`
+      name: 'Profile',
+      routerLink: `/participants/${this.getUserProfile().participant?.id}/profile/personal`
     },
     {
       name: 'Capability',
@@ -85,7 +85,7 @@ export class SidebarComponent implements OnChanges {
       this.generalMenu = id
         ? [
             { name: 'Home', routerLink: '' },
-            { name: 'Profil', routerLink: `/users/${id}/profile` },
+            { name: 'Profile', routerLink: `/users/${id}/profile` },
             { name: 'Participants', routerLink: '/participants' },
             { name: 'Capability', routerLink: '/capability' },
             { name: 'COT', routerLink: '/cot' },
@@ -95,7 +95,7 @@ export class SidebarComponent implements OnChanges {
       this.generalUserMenu = participant?.id
         ? [
             { name: 'Home', routerLink: '' },
-            { name: 'Profil', routerLink: `/participants/${participant.id}/detail` },
+            { name: 'Profile', routerLink: `/participants/${participant.id}/profile/personal` },
             { name: 'Capability', routerLink: '/capability' },
             { name: 'COT', routerLink: '/cot' },
           ]

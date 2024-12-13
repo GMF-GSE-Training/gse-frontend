@@ -40,7 +40,7 @@ export class UserFormComponent implements OnInit {
   // role-input
   roleOptions: { label: string, value: string }[] = [];
   roleData: any[] = []; // Store the full training data
-  selectedRole: any = '';
+  selectedRole: string = '';
   @Input() initialRole: string = '';
 
   isPassVisible: boolean = false;
@@ -92,7 +92,7 @@ export class UserFormComponent implements OnInit {
   }
 
   onRoleSelected(role: any) {
-    this.selectedRole = this.roleData.find(r => r.id === role);
+    this.selectedRole = this.roleData.find(r => r.id === role.name);
     this.user.roleId = role;
   }
 }

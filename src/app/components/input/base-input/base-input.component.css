@@ -25,14 +25,16 @@ div {
   font-size: 15px;
 }
 
-app-toggle-password-visibility {
+.input-group {
   position: relative;
-  left: 40em;
-  bottom: 2.2em;
+  display: flex;
 }
 
-.container {
-  margin-bottom: -25px;
+.password-visibility-toggle {
+  position: absolute;
+  top: 50%;
+  left: 93%;
+  transform: translateY(-50%);
 }
 
 .error-message,

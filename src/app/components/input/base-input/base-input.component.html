@@ -1,25 +1,35 @@
 <label>{{ label }}<span *ngIf="isRequired" class="required-label">*</span></label>
 
 <div [ngClass]="name === 'password' ? 'container' : ''">
-  <input
-    [ngStyle]="{ 'outline': readOnly || disabled ? 'none' : '#000'  }"
-    [type]="type"
-    [autocomplete]="autocomplete"
-    [inputMode]="inputMode"
-    [placeholder]="placeholder"
-    [name]="name"
-    [(ngModel)]="value"
-    (input)="onValueChange()"
-    [disabled]="disabled"
-    [ngClass]="{'error-input': (inputControl.invalid && inputControl.touched)}"
-    (keydown)="onKeyDown($event)"
-    [readOnly]="readOnly"
-    [required]="isRequired"
-    [minlength]="minLength"
-    [email]="email"
-    [pattern]="pattern"
-    #inputControl="ngModel"
-  />
+  <div class="input-group">
+    <input
+      [ngStyle]="{ 'outline': readOnly || disabled ? 'none' : '#000'  }"
+      [type]="type"
+      [autocomplete]="autocomplete"
+      [inputMode]="inputMode"
+      [placeholder]="placeholder"
+      [name]="name"
+      [(ngModel)]="value"
+      (input)="onValueChange()"
+      [disabled]="disabled"
+      [ngClass]="{'error-input': (inputControl.invalid && inputControl.touched)}"
+      (keydown)="onKeyDown($event)"
+      [readOnly]="readOnly"
+      [required]="isRequired"
+      [minlength]="minLength"
+      [email]="email"
+      [pattern]="pattern"
+      #inputControl="ngModel"
+    />
+
+    <app-toggle-password-visibility
+      class="password-visibility-toggle"
+      *ngIf="name.toLowerCase().includes('password')"
+      [isPassVisible]="isPassVisible"
+      (togglePassClick)="passVisible()">
+    </app-toggle-password-visibility>
+  </div>
+    <!-- [ngStyle]="{ 'bottom': inputControl.invalid && inputControl.touched ? '3.2em' : '2.2em' }" -->
 
   <ng-content></ng-content>
 
@@ -48,11 +58,4 @@
     <!-- Tampilkan pesan default jika tidak ada error atau belum disentuh -->
     <span *ngIf="!inputControl.errors || (!inputControl.dirty && !inputControl.touched)">{{ helperMessage }}</span>
   </div>
-
-  <app-toggle-password-visibility
-    *ngIf="name === 'password' || name === 'newPassword'"
-    [ngStyle]="{ 'bottom': inputControl.invalid && inputControl.touched ? '3.2em' : '2.2em' }"
-    [isPassVisible]="isPassVisible"
-    (togglePassClick)="passVisible()"
-  ></app-toggle-password-visibility>
 </div>

@@ -29,16 +29,13 @@ export class ResetPasswordFormComponent {
     newPassword: '',
     confirmNewPassword: '',
   };
+  
   passwordMismatch: boolean = false;
   message: string = '';
-
   isPassVisible: boolean = false;
   passVisible() {
     this.isPassVisible = !this.isPassVisible;
   }
-
-  @Input() parrentMessage: string = '';
-  @Input() isSuccess: boolean = false;
 
   @Output() formSubmit = new EventEmitter<any>();
   @ViewChild('form') form!: NgForm;

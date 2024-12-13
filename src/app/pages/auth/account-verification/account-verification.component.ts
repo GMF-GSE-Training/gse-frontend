@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { EmailFormComponent } from "../../../layouts/email-form/email-form.component";
+import { EmailFormComponent } from "../../../contents/email-form/email-form.component";
 import { AuthService } from '../../../shared/service/auth.service';
 import { SweetalertService } from '../../../shared/service/sweetaler.service';
 import { ErrorHandlerService } from '../../../shared/service/error-handler.service';

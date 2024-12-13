@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { RegisterUserRequest } from '../../../shared/model/auth.model';
 import { AuthService } from '../../../shared/service/auth.service';
-import { UserFormComponent } from '../../../layouts/user-form/user-form.component';
+import { UserFormComponent } from '../../../contents/user-form/user-form.component';
 import { SweetalertService } from '../../../shared/service/sweetaler.service';
 import { ErrorHandlerService } from '../../../shared/service/error-handler.service';
 

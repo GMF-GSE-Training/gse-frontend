@@ -24,6 +24,11 @@
   padding-bottom: 5px;
 }
 
+.cot-table {
+  padding-right: 3em;
+  padding-left: 3em;
+}
+
 /* Modal tetap bisa diinteraksi */
 .modal-container {
   position: fixed;

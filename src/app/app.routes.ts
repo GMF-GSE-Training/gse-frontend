@@ -86,7 +86,19 @@ export const routes: Routes = [
     path: 'participants/:id/detail',
     component: ParticipantDetailComponent,
     canActivate: [AuthGuard, RoleGuard, DataCompleteGuard],
-    data: { roles: ['super admin', 'supervisor', 'lcu', 'user'] }
+    data: { roles: ['super admin', 'supervisor', 'lcu'] }
+  },
+  {
+    path: 'participants/:id/profile/personal',
+    component: ParticipantDetailComponent,
+    canActivate: [AuthGuard, RoleGuard, DataCompleteGuard],
+    data: { roles: ['user'] }
+  },
+  {
+    path: 'participants/:id/profile/account',
+    component: ParticipantDetailComponent,
+    canActivate: [AuthGuard, RoleGuard, DataCompleteGuard],
+    data: { roles: ['user'] }
   },
   {
     path: 'participants/:id/id-card',

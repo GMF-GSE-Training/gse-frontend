@@ -5,7 +5,7 @@ import { LoginUserRequest } from '../../../shared/model/auth.model';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../../shared/service/auth.service';
-import { LoginFormComponent } from "../../../layouts/login-form/login-form.component";
+import { LoginFormComponent } from "../../../contents/login-form/login-form.component";
 
 @Component({
   selector: 'app-login',

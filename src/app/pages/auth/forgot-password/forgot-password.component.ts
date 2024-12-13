@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../../shared/service/auth.service';
 import { SweetalertService } from '../../../shared/service/sweetaler.service';
-import { EmailFormComponent } from "../../../layouts/email-form/email-form.component";
+import { EmailFormComponent } from "../../../contents/email-form/email-form.component";
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({

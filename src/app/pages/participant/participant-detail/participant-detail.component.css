@@ -1,3 +1,12 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 3em;
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-bottom: 15px;
+}
+
 .section {
   display: flex;
   justify-content: center;
@@ -46,23 +55,77 @@
   text-decoration: underline;
 }
 
-.table-container {
-  width: 95%;
-  margin-top: 50px;
+.data-section {
+  display: flex;
+  gap: 1em;
+  padding-right: 3em;
+  padding-left: 1em;
+}
+
+.settings-nav {
+  display: flex;
+  flex-direction: column;
+  justify-content: top;
+  font-size: 20px;
+  width: 12%;
+}
+
+.settings-nav div {
+  height: 50px;
+}
+
+.menu-setting-item {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  gap: 10px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-left 0.2s ease;
+}
+
+.menu-setting-item i {
+  margin-left: 1em;
+}
+
+.menu-setting-item:hover {
+  background-color: #d8dadb;
+}
+
+.menu-setting-item.active {
+  border-left: 5px solid #02507E;
+}
+
+.card {
+  height: 100%;
+  border: 1px solid #ccc;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.account-form {
+  display: flex;
+  padding: 20px;
+  gap: 5%;
+}
+
+.form-content {
+  margin: 0;
+  width: 100%;
+  height: auth;
+  padding-right: 10%;
+}
+
+.certificate-table {
+  width: 97%;
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  margin: 25px;
 }
 
-.container-button {
+.button-container {
   display: flex;
   justify-content: center;
   gap: 4em;
   width: 100%;
-  margin-top: 15px;
-  margin-bottom: 15px;
-  margin-left: 4em;
 }
 
 .button {
@@ -70,16 +133,16 @@
   height: 45px;
 }
 
-a {
+.download a {
   color: #000;
 }
 
-a:hover {
+.download a:hover {
   cursor: pointer;
   color: #266E99;
 }
 
-span:hover {
+.section span:hover {
   cursor: pointer;
   color: #266E99;
 }

@@ -12,6 +12,8 @@ import { WhiteButtonComponent } from "../../../components/button/white-button/wh
 import { SweetalertService } from '../../../shared/service/sweetaler.service';
 import { ErrorHandlerService } from '../../../shared/service/error-handler.service';
 import saveAs from 'file-saver';
+import { EmailFormCardComponent } from "../../../components/card/email-form-card/email-form-card.component";
+import { PasswordUpdateFormCardComponent } from "../../../components/card/password-update-form-card/password-update-form-card.component";
 
 @Component({
   selector: 'app-participant-detail',
@@ -23,7 +25,10 @@ import saveAs from 'file-saver';
     TableComponent,
     RoleBasedAccessDirective,
     CommonModule,
-    WhiteButtonComponent
+    WhiteButtonComponent,
+    RoleBasedAccessDirective,
+    EmailFormCardComponent,
+    PasswordUpdateFormCardComponent,
 ],
   templateUrl: './participant-detail.component.html',
   styleUrl: './participant-detail.component.css'
@@ -32,17 +37,34 @@ export class ParticipantDetailComponent implements OnInit {
   participant: Participant | null = null;
   leftTableData: any[] = [];
   rightTableData: any[] = [];
-  qrCode: string | undefined;
-  foto: string | undefined;
   editLink: string = '';
   photoType: string | null = '';
   backButtonRoute: string = '/participants';
+  selectedItem: number = 0; // Elemen aktif
 
   dateOptions: Intl.DateTimeFormatOptions = {
     day: 'numeric',
     month: 'long',
     year: 'numeric'
   };
+
+  columns = [
+    { header: 'Nama Training', field: 'namaTraining' },
+    { header: 'Exp', field: 'exp' },
+  ];
+
+  data = [
+    {namaTraining: "Forklift", exp: "10 February 2026"},
+    {namaTraining: "Regulasi GSE", exp: "10 February 2026"},
+    {namaTraining: "Baggage Towing Tractor", exp: "10 February 2026"},
+    {namaTraining: "Air Conditioning System Refreshment", exp: "10 February 2026"},
+  ]
+
+  userProfile = JSON.parse(localStorage.getItem('user_profile') || '{}');
+  pasFoto = localStorage.getItem('pas_foto');
+  qrCode = localStorage.getItem('qr_code');
+  id = this.route.snapshot.paramMap.get('id') || this.userProfile.participant.id;
+  idCardLink: string = '';
 
   constructor(
     private readonly route: ActivatedRoute,
@@ -61,25 +83,18 @@ export class ParticipantDetailComponent implements OnInit {
     }
   }
 
-  columns = [
-    { header: 'Nama Training', field: 'namaTraining' },
-    { header: 'Exp', field: 'exp' },
-  ];
-
-  data = [
-    {namaTraining: "Forklift", exp: "10 February 2026"},
-    {namaTraining: "Regulasi GSE", exp: "10 February 2026"},
-    {namaTraining: "Baggage Towing Tractor", exp: "10 February 2026"},
-    {namaTraining: "Air Conditioning System Refreshment", exp: "10 February 2026"},
-  ]
-
-  userProfile = JSON.parse(localStorage.getItem('user_profile') || '{}');
-  id = this.route.snapshot.paramMap.get('id') || this.userProfile.participant.id;
-  idCardLink: string = '';
-
   ngOnInit(): void {
+    this.route.url.subscribe(urlSegments => {
+      const url = urlSegments.map(segment => segment.path).join('/');
+      if (url === `participants/${this.id}/profile/personal`) {
+        this.selectedItem = 0;
+      } else if (url === `participants/${this.id}/profile/account`) {
+        this.selectedItem = 1;
+      }
+    });
+
     if(this.id && this.userProfile !== '{}') {
-      if(this.userProfile.role === 'user') {
+      if(this.userProfile.role.name === 'user') {
         this.getParticipantFromLocalStorage();
       } else {
         this.getParticipantById();
@@ -87,7 +102,7 @@ export class ParticipantDetailComponent implements OnInit {
     }
   }
 
-  getParticipantFromLocalStorage() {
+  private getParticipantFromLocalStorage() {
     this.participant = this.userProfile.participant;
     const participant = this.userProfile.participant;
     if (participant) {
@@ -95,7 +110,7 @@ export class ParticipantDetailComponent implements OnInit {
     }
   }
 
-  getParticipantById() {
+  private getParticipantById() {
     this.participantService.getParticipantById(this.id).subscribe({
       next: (response) => {
         if (response.data) {
@@ -109,14 +124,15 @@ export class ParticipantDetailComponent implements OnInit {
   }
 
   getFoto(id: string): void {
-    this.participantService.getFoto(id).subscribe({
-      next: (data) => {
-        if(data) {
-          this.photoType = this.getMediaType(data.data);
-          this.foto = data.data;
-        }
+    this.participantService.getFoto(id).pipe(
+      map(response => response.data)
+    ).subscribe((foto: string) => {
+      this.photoType = this.getMediaType(foto);
+      this.pasFoto = foto;
+      if(this.userProfile.role.name === 'user') {
+        localStorage.setItem('pas_foto', foto);
       }
-    });
+    })
   }
 
   getQrCode(id: string): void {
@@ -124,6 +140,9 @@ export class ParticipantDetailComponent implements OnInit {
       map(response => response.data)
     ).subscribe((qrCode: string) => {
       this.qrCode = qrCode;
+      if(this.userProfile.role.name === 'user') {
+        localStorage.setItem('qr_code', qrCode);
+      }
     });
   }
 
@@ -173,8 +192,12 @@ export class ParticipantDetailComponent implements OnInit {
       },
     ];
 
-    this.getFoto(this.participant.id);
-    this.getQrCode(this.participant.id);
+    if(!this.pasFoto) {
+      this.getFoto(this.participant.id);
+    }
+    if(!this.qrCode) {
+      this.getQrCode(this.participant.id);
+    }
   }
 
   private getMediaType(base64String: string): string {

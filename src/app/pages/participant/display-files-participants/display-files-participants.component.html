@@ -2,18 +2,8 @@
   [pageTitle]="pageTitle"
   [routerLink]="navigationLink"
 >
-  <div *ngIf="fileType === 'application/pdf'; else imageTemplate" class="pdf-container">
-    <iframe
-      [src]="safeUrl"
-      frameborder="0"
-      class="pdf">
-    </iframe>
-  </div>
-
-  <ng-template #imageTemplate>
-    <img
-      [src]="safeUrl"
-      alt="files"
-      class="image">
-  </ng-template>
+  <img
+    [src]="safeUrl"
+    alt="files"
+    class="image">
 </app-display-files>

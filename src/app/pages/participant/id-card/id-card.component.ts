@@ -4,7 +4,7 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { ParticipantService } from '../../../shared/service/participant.service';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { saveAs } from 'file-saver';
-import { DisplayFilesComponent } from "../../../layouts/display-files/display-files.component";
+import { DisplayFilesComponent } from "../../../contents/display-files/display-files.component";
 import { SweetalertService } from '../../../shared/service/sweetaler.service';
 import { ErrorHandlerService } from '../../../shared/service/error-handler.service';
 

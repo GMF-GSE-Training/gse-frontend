@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { DataManagementComponent } from "../../../layouts/data-management/data-management.component";
+import { DataManagementComponent } from "../../../contents/data-management/data-management.component";
 import { CapabilityService } from '../../../shared/service/capability.service';
 import { SweetalertService } from '../../../shared/service/sweetaler.service';
 import { Capability } from '../../../shared/model/capability.model';

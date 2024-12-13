@@ -1,11 +1,10 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Participant, UpdateParticipant } from '../../../shared/model/participant.model';
+import { UpdateParticipant } from '../../../shared/model/participant.model';
 import { ParticipantService } from '../../../shared/service/participant.service';
 import { SweetalertService } from '../../../shared/service/sweetaler.service';
 import { CompanyInputComponent } from '../../../components/input/company-input/company-input.component';
-import { ParticipantFormComponent } from '../../../layouts/participant-form/participant-form.component';
-import { environment } from '../../../../environments/environment.development';
+import { ParticipantFormComponent } from '../../../contents/participant-form/participant-form.component';
 import { ErrorHandlerService } from '../../../shared/service/error-handler.service';
 
 @Component({
@@ -72,8 +71,8 @@ export class EditParticipantDataComponent implements OnInit {
   backButtonRoute: string = '/participants';
 
   ngOnInit(): void {
-    if(this.participantId) {
-      if(this.userProfile !== '{}') {
+    if(this.participantId && this.userProfile !== '{}') {
+      if(this.userProfile.role === 'user') {
         this.getParticipantFromLocalStorage();
       } else {
         this.getParticipantById();
@@ -97,7 +96,7 @@ export class EditParticipantDataComponent implements OnInit {
     });
 
     if(this.id && (this.userProfile.role.name === 'user')) {
-      this.backButtonRoute = `/participants/${this.id}/detail`;
+      this.backButtonRoute = `/participants/${this.id}/profile/personal`;
     }
   }
 
@@ -138,7 +137,13 @@ export class EditParticipantDataComponent implements OnInit {
           localStorage.setItem('user_profile', JSON.stringify(this.userProfile));
         }
 
-        this.router.navigateByUrl(`/participants/${this.participantId}/detail`);
+        if((this.userProfile.role.name === 'user')) {
+          localStorage.removeItem('pas_foto');
+          localStorage.removeItem('qr_code');
+          this.router.navigateByUrl(`/participants/${this.participantId}/profile/personal`);
+        } else {
+          this.router.navigateByUrl(`/participants/${this.participantId}/detail`);
+        }
       },
       error: (error) => {
         console.log(error);
