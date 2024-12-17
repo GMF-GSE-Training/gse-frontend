@@ -4,14 +4,17 @@ import { CapabilityService } from '../../../shared/service/capability.service';
 import { CurriculumSyllabusService } from '../../../shared/service/curriculum-syllabus.service';
 import { SweetalertService } from '../../../shared/service/sweetaler.service';
 import { CurriculumSyllabusFormComponent } from "../../../contents/curriculum-syllabus-form/curriculum-syllabus-form.component";
+import { LoaderComponent } from "../../../components/loader/loader.component";
 
 @Component({
   selector: 'app-edit-curriculum-syllabus',
   standalone: true,
   imports: [
-    CurriculumSyllabusFormComponent
+    CurriculumSyllabusFormComponent,
+    LoaderComponent
 ],
   templateUrl: './edit-curriculum-syllabus.component.html',
+  styleUrl: './edit-curriculum-syllabus.component.css'
 })
 export class EditCurriculumSyllabusComponent implements OnInit {
   clas: string = 'add-button delete-button';
@@ -48,13 +51,17 @@ export class EditCurriculumSyllabusComponent implements OnInit {
     private readonly curriculumSyllabusService: CurriculumSyllabusService,
   ) { }
 
-  capabilityId: string | null = null; // Allow null initially
+  capabilityId = this.route.snapshot.paramMap.get('id');
+  isLoading: boolean = false;
 
   ngOnInit(): void {
-    this.capabilityId = this.route.snapshot.paramMap.get('id');
+    this.getCapabilityById();
+  }
 
+  private getCapabilityById(): void {
     if (this.capabilityId) {
-      this.capabilityService.getCapabilityById(this.capabilityId).subscribe({
+      this.isLoading = true;
+      this.capabilityService.getCurriculumSyllabus(this.capabilityId).subscribe({
         next: (response) => {
           if (typeof response.data === 'object') {
             const data = response.data;
@@ -70,7 +77,13 @@ export class EditCurriculumSyllabusComponent implements OnInit {
             this.kompetensis = this.mapSyllabus(data.curriculumSyllabus!, 'Kompetensi');
           }
         },
-        error: (error) => console.log(error)
+        error: (error) => {
+          console.log(error);
+          this.isLoading = false;
+        },
+        complete: () => {
+          this.isLoading = false;
+        }
       });
     }
   }

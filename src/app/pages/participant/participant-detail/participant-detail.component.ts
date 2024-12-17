@@ -14,6 +14,9 @@ import { ErrorHandlerService } from '../../../shared/service/error-handler.servi
 import saveAs from 'file-saver';
 import { EmailFormCardComponent } from "../../../components/card/email-form-card/email-form-card.component";
 import { PasswordUpdateFormCardComponent } from "../../../components/card/password-update-form-card/password-update-form-card.component";
+import { LoaderComponent } from "../../../components/loader/loader.component";
+import { AuthService } from '../../../shared/service/auth.service';
+import { UpdatePassword } from '../../../shared/model/auth.model';
 
 @Component({
   selector: 'app-participant-detail',
@@ -29,6 +32,7 @@ import { PasswordUpdateFormCardComponent } from "../../../components/card/passwo
     RoleBasedAccessDirective,
     EmailFormCardComponent,
     PasswordUpdateFormCardComponent,
+    LoaderComponent
 ],
   templateUrl: './participant-detail.component.html',
   styleUrl: './participant-detail.component.css'
@@ -40,7 +44,8 @@ export class ParticipantDetailComponent implements OnInit {
   editLink: string = '';
   photoType: string | null = '';
   backButtonRoute: string = '/participants';
-  selectedItem: number = 0; // Elemen aktif
+  selectedItem: number = 0;
+  isLoading: boolean = false;
 
   dateOptions: Intl.DateTimeFormatOptions = {
     day: 'numeric',
@@ -66,10 +71,15 @@ export class ParticipantDetailComponent implements OnInit {
   id = this.route.snapshot.paramMap.get('id') || this.userProfile.participant.id;
   idCardLink: string = '';
 
+  updateEmail: { email: string } = {
+    email: '',
+  };
+
   constructor(
     private readonly route: ActivatedRoute,
     private readonly router: Router,
     private readonly participantService: ParticipantService,
+    private readonly authService: AuthService,
     private readonly sweetalertService: SweetalertService,
     private readonly errorHandlerService: ErrorHandlerService,
   ) {
@@ -93,24 +103,25 @@ export class ParticipantDetailComponent implements OnInit {
       }
     });
 
-    if(this.id && this.userProfile !== '{}') {
-      if(this.userProfile.role.name === 'user') {
-        this.getParticipantFromLocalStorage();
-      } else {
-        this.getParticipantById();
-      }
+    if(this.userProfile.role.name === 'user') {
+      this.getParticipantFromLocalStorage();
+    } else {
+      this.getParticipantById();
     }
   }
 
   private getParticipantFromLocalStorage() {
+    this.isLoading = true;
     this.participant = this.userProfile.participant;
     const participant = this.userProfile.participant;
     if (participant) {
       this.setParticipantData(participant);
     }
+    this.isLoading = false;
   }
 
   private getParticipantById() {
+    this.isLoading = true;
     this.participantService.getParticipantById(this.id).subscribe({
       next: (response) => {
         if (response.data) {
@@ -119,11 +130,15 @@ export class ParticipantDetailComponent implements OnInit {
       },
       error: (error) => {
         console.error(error);
+        this.isLoading = false;
+      },
+      complete: () => {
+        this.isLoading = false;
       }
     });
   }
 
-  getFoto(id: string): void {
+  private getFoto(id: string): void {
     this.participantService.getFoto(id).pipe(
       map(response => response.data)
     ).subscribe((foto: string) => {
@@ -135,7 +150,7 @@ export class ParticipantDetailComponent implements OnInit {
     })
   }
 
-  getQrCode(id: string): void {
+  private getQrCode(id: string): void {
     this.participantService.getQrCode(id).pipe(
       map(response => response.data)
     ).subscribe((qrCode: string) => {
@@ -149,17 +164,49 @@ export class ParticipantDetailComponent implements OnInit {
   downloadDocument() {
     if (this.id) {
       this.sweetalertService.loading('Mohon tunggu', 'Proses...');
-      this.participantService.downloadIdCard(this.id).subscribe({
+      this.participantService.downloadDocument(this.id).subscribe({
         next: (response) => {
           saveAs(response);
           this.sweetalertService.close();
         },
-        error: (error) => {
+        error: (error ) => {
           this.errorHandlerService.alertError(error);
           console.log(error);
         }
       });
     }
+  }
+
+  updateEmailSubmit(data: { email: string }): void{
+    this.sweetalertService.loading('Mohon tunggu', 'Proses...');
+    this.authService.updateEmailRequest(data).subscribe({
+      next: () => {
+        this.sweetalertService.alert(
+          'Berhasil',
+          `Kami telah mengirimkan email berisi tautan verifikasi ke email baru Anda (${data.email}). Silahkan buka tautan verifikasi untuk menyelesaikan proses ini`,
+          'success');
+      },
+      error: (error) => {
+        console.log(error);
+        this.errorHandlerService.alertError(error);
+      }
+    });
+  }
+
+  updatePasswordSubmit(data: UpdatePassword): void{
+    this.sweetalertService.loading('Mohon tunggu', 'Proses...');
+    this.authService.updatePassword(data).subscribe({
+      next: () => {
+        this.sweetalertService.alert(
+          'Berhasil',
+          'Password berhadil diubah',
+          'success');
+      },
+      error: (error) => {
+        console.log(error);
+        this.errorHandlerService.alertError(error);
+      }
+    });
   }
 
   private setParticipantData(participant: Participant) {
@@ -171,13 +218,13 @@ export class ParticipantDetailComponent implements OnInit {
       { label: 'Nama Peserta', value: this.participant.name },
       { label: 'Dinas', value: this.participant.dinas ?? '-' },
       { label: 'Bidang', value: this.participant.bidang ?? '-' },
-      { label: 'Perusahaan', value: this.participant.company },
+      { label: 'Perusahaan', value: this.participant.company ?? '-' },
       { label: 'Email', value: this.participant.email },
-      { label: 'No Telp', value: this.participant.phoneNumber }
+      { label: 'No Telp', value: this.participant.phoneNumber ?? '-'}
     ];
 
     this.rightTableData = [
-      { label: 'Tempat Lahir', value: this.participant.placeOfBirth },
+      { label: 'Tempat Lahir', value: this.participant.placeOfBirth ?? '-' },
       { label: 'Tanggal Lahir', value: new Date(this.participant.dateOfBirth).toLocaleDateString('id-ID', this.dateOptions) },
       { label: 'SIM A', link: `/participants/${this.participant.id}/sim-a` },
       { label: 'SIM B', link: `/participants/${this.participant.id}/sim-b` },

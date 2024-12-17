@@ -10,6 +10,8 @@ export const environment = {
       resetPasswordRequest: 'auth/request-reset-password',
       accountVerificationRequest: 'auth/resend-verification',
       resetPassword: 'auth/reset-password',
+      updateEmailRequest: 'auth/update-email',
+      updatePassword: 'auth/update-password',
     },
     user: {
       base: 'users',

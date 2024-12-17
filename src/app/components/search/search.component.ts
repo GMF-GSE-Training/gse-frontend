@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { debounceTime, Subject } from 'rxjs';
 
 @Component({
@@ -17,7 +18,15 @@ export class SearchComponent {
   private searchSubject = new Subject<string>();
   searchQuery: string = '';
 
+  constructor(private route: ActivatedRoute) { }
+
   ngOnInit() {
+    this.route.queryParams.subscribe(params => {
+      if(params['keyword']) {
+        this.searchQuery = params['keyword'];
+      }
+    });
+
     this.searchSubject.pipe(debounceTime(300)).subscribe((query) => {
       this.searchChange.emit(query);
     });

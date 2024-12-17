@@ -18,13 +18,15 @@
   <app-table
     [columns]="columns"
     [data]="data"
-    [state]="state">
+    [state]="state"
+    [isLoading]="isLoading">
   </app-table>
 </div>
 
 <app-pagination
   [totalPages]="totalPages"
   [currentPage]="currentPage"
+  [isLoading]="isLoadingPagination"
   (pageChange)="onPageChanged($event)">
 </app-pagination>
 

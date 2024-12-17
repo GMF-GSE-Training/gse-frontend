@@ -28,7 +28,7 @@ import { DisplayFilesParticipantsComponent } from './pages/participant/display-f
 import { guestGuard } from './shared/guard/guest.guard';
 import { ResetPasswordComponent } from './pages/auth/reset-password/reset-password.component';
 import { ForgotPasswordComponent } from './pages/auth/forgot-password/forgot-password.component';
-import { CapabilityDetailComponent } from './pages/capability/capability-detail/capability-detail.component';
+import { ViewCurriculumSyllabusComponent } from './pages/curriculum-syllabus/view-curriculum-syllabus/view-curriculum-syllabus.component';
 import { EditCurriculumSyllabusComponent } from './pages/curriculum-syllabus/edit-curriculum-syllabus/edit-curriculum-syllabus.component';
 import { NotFoundComponent } from './pages/errors/not-found/not-found.component';
 import { ProfileComponent } from './pages/users/profile/profile.component';
@@ -161,8 +161,8 @@ export const routes: Routes = [
     data: { roles: ['super admin'] }
   },
   {
-    path: 'capability/:id/detail',
-    component: CapabilityDetailComponent,
+    path: 'capability/:id/curriculum-syllabus',
+    component: ViewCurriculumSyllabusComponent,
     canActivate: [AuthGuard, RoleGuard, DataCompleteGuard],
     data: { roles: ['super admin', 'supervisor', 'lcu', 'user'] }
   },
@@ -222,6 +222,12 @@ export const routes: Routes = [
   },
   {
     path: 'users/:id/profile',
+    component: ProfileComponent,
+    canActivate: [AuthGuard, RoleGuard],
+    data: { roles: ['super admin', 'supervisor', 'lcu'] }
+  },
+  {
+    path: 'users/:id/account',
     component: ProfileComponent,
     canActivate: [AuthGuard, RoleGuard],
     data: { roles: ['super admin', 'supervisor', 'lcu'] }

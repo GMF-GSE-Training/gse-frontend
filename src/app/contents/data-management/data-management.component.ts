@@ -38,16 +38,18 @@ export class DataManagementComponent {
   @Input() columns: { header: string, field: string }[] = [];
   @Input() data: any[] = [];
   @Input() state: { data: any; } = { data: '' };
+  @Input() isLoading: boolean = false;
 
   @Input() isParticipantCot: boolean = false;
 
   // Komponen pagination
   @Input() totalPages: number = 0;
   @Input() currentPage = 1;
+  @Input() isLoadingPagination: boolean = false;
   @Output() pageChange = new EventEmitter<number>();
 
   onPageChanged(page: number | string) {
-    if (typeof page === 'number' && page !== this.currentPage) {
+    if (typeof page === 'number' && page !== this.currentPage && !this.isLoading) {
       this.pageChange.emit(page);
     }
   }

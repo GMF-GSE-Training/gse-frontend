@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
-import { ResetPassword } from '../../../shared/model/auth.model';
+import { UpdatePassword } from '../../../shared/model/auth.model';
 import { AuthService } from '../../../shared/service/auth.service';
 import { SweetalertService } from '../../../shared/service/sweetaler.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ResetPasswordFormComponent } from "../../../contents/reset-password-form/reset-password-form.component";
+import { ErrorHandlerService } from '../../../shared/service/error-handler.service';
 
 @Component({
   selector: 'app-reset-password',
@@ -24,9 +25,10 @@ export class ResetPasswordComponent {
     private readonly router: Router,
     private readonly authService: AuthService,
     private readonly sweetalertService: SweetalertService,
+    private readonly errorHandlerService: ErrorHandlerService,
   ) { }
 
-  onResetPassword(newPassword: ResetPassword) {
+  onResetPassword(newPassword: UpdatePassword) {
     this.authService.resetPassword(newPassword).subscribe({
       next: () => {
         this.sweetalertService.alert('Berhasil!', 'Password berhasil diperbarui', 'success');
@@ -34,8 +36,8 @@ export class ResetPasswordComponent {
       },
       error: (error) => {
         console.log(error)
-        const e = error.error.errors;
-        this.sweetalertService.alert('Gagal!', e, 'error');
+        console.log(error);
+        this.errorHandlerService.alertError(error);
       }
     })
   }

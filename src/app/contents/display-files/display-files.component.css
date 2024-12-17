@@ -1,8 +1,8 @@
 .display-container {
   width: 95%;
   height: 100vh;
-  margin: 30px;
   padding: 0;
+  margin: 0 35px 35px 35px;
   border-radius: 25px;
   border: 4px #02507E solid;
   display: flex;
@@ -12,12 +12,25 @@
   overflow: hidden;
 }
 
-.button-container {
+.icon-container {
   position: relative;
-  top: 700px;
+  top: 70px;
   left: 60px;
   display: flex;
   justify-content: start;
+}
+
+i {
+  padding: 8px 10px 8px 10px;;
+  font-size: 25px;
+  border: 3px solid #02507E;
+  color: #02507E;
+  border-radius: 50%;
+}
+
+i:hover {
+  cursor: pointer;
+  opacity: 80%;
 }
 
 .button {

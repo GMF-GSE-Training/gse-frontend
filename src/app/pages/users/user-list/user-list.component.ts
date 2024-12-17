@@ -28,12 +28,14 @@ export class UserListComponent implements OnInit {
   ];
 
   users: User[] = [];
+  isLoading: boolean = false;
 
   // Komponen pagination
   currentPage: number = 1;
   itemsPerPage: number = 10;
   totalPages: number = 1;
   searchQuery: string = '';
+  isLoadingPagination: boolean = false;
 
   // Komponen Search
   placeHolder: string = 'Cari User';
@@ -54,6 +56,8 @@ export class UserListComponent implements OnInit {
   }
 
   getListUsers(searchQuery: string, page: number, size: number): void {
+    this.isLoading = true;
+    this.isLoadingPagination = true;
     this.userService.listUsers(searchQuery, page, size).subscribe({
       next: ({ data, actions, paging }) => {
         this.users = data.map((user: User) => {
@@ -68,7 +72,15 @@ export class UserListComponent implements OnInit {
         });
         this.totalPages = paging?.totalPage ?? 1;
       },
-      error: (error) => console.log(error),
+      error: (error) => {
+        console.log(error);
+        this.isLoading = false;
+        this.isLoadingPagination = false;
+      },
+      complete: () => {
+        this.isLoading = false;
+        this.isLoadingPagination = false;
+      }
     });
   }
 

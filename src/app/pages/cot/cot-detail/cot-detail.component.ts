@@ -9,6 +9,7 @@ import { CommonModule } from '@angular/common';
 import { ParticipantCotService } from '../../../shared/service/participant-cot.service';
 import { RoleBasedAccessDirective } from '../../../shared/directive/role-based-access.directive';
 import { ErrorHandlerService } from '../../../shared/service/error-handler.service';
+import { LoaderComponent } from "../../../components/loader/loader.component";
 
 @Component({
   selector: 'app-cot-detail',
@@ -20,6 +21,7 @@ import { ErrorHandlerService } from '../../../shared/service/error-handler.servi
     ParticipantCotModalComponent,
     CommonModule,
     RoleBasedAccessDirective,
+    LoaderComponent
 ],
   templateUrl: './cot-detail.component.html',
   styleUrl: './cot-detail.component.css',
@@ -55,6 +57,7 @@ export class CotDetailComponent {
     year: 'numeric'
   };
 
+  isLoading: boolean = false;
   participantCots: any[] = [];
   totalPages: number = 0;
   currentPage: number = 1;
@@ -77,6 +80,7 @@ export class CotDetailComponent {
   modalTotalPages: number = 0;
   modalCurrentPage: number = 1;
   modalItemsPerPage: number = 10;
+  isLoadingModal: boolean = false;
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
@@ -89,6 +93,7 @@ export class CotDetailComponent {
   }
 
   getListParticipantCot(cotId: string, searchQuery: string, currentPage: number, itemsPerPage: number) {
+    this.isLoading = true;
     this.participantCotService.listParticipantCot(cotId, searchQuery, currentPage, itemsPerPage).subscribe({
       next: ({ data }) => {
         const cot = data.cot;
@@ -135,11 +140,18 @@ export class CotDetailComponent {
         this.state.data = `/cot/${this.cotId}/detail`;
         this.totalPages = participantCot.paging.totalPage;
       },
-      error: (error) => console.log(error)
+      error: (error) => {
+        console.log(error);
+        this.isLoading = false;
+      },
+      complete: () => {
+        this.isLoading = false;
+      }
     });
   }
 
   getUnregisteredParticipants(cotId: string, searchQuery: string, currentPage: number, itemsPerPage: number) {
+    this.isLoadingModal = true;
     this.participantCotService.getUnregisteredParticipants(cotId, searchQuery, currentPage, itemsPerPage).subscribe({
       next: ({ paging, data }) => {
         this.modalCurrentPage = this.modalCurrentPage;
@@ -152,7 +164,13 @@ export class CotDetailComponent {
           );
         });
       },
-      error: (error) => console.log(error)
+      error: (error) => {
+        console.log(error);
+        this.isLoadingModal = false;
+      },
+      complete: () => {
+        this.isLoadingModal = false;
+      }
     })
   }
 

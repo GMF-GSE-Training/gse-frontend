@@ -10,12 +10,12 @@ form input {
   border-bottom-left-radius: 15px;
   font-size: 25px;
   padding-left: 10px;
-  border: 2px solid #000;
+  border: 1px solid #ccc;
   outline: none;
 }
 
 form input:focus {
-  border: 2px solid #02507E; /* Ubah border menjadi biru saat fokus */
+  border: 1px solid #02507E;
 }
 
 i {
@@ -26,19 +26,18 @@ i {
 }
 
 .submit {
+  padding-left: 10px;
+  padding-right: 10px;
   font-size: 30px;
-  background-color: #d8dadb;
+  background-color: #e0e0e0;
   border-top-right-radius: 15px;
   border-bottom-right-radius: 15px;
   cursor: pointer;
-  border: 2px solid #000;
+  border: 1px solid #ccc;
   border-left: none;
 }
 
 .submit:hover {
   cursor: pointer;
-}
-
-.submit:active {
-  color: grey;
+  background-color: #d8dadb;
 }

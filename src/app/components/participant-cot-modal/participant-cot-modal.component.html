@@ -10,25 +10,48 @@
   <table>
     <thead>
       <tr>
-        <th *ngFor="let column of columns">{{ column.header }}</th>
+        @for (column of columns; track $index) {
+          <th>{{ column.header }}</th>
+        }
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let item of data">
-        <td *ngFor="let column of columns">
-          <ng-container *ngIf="column.field !== 'action'; else actionTemplate">
-            {{ item[column.field] }}
-          </ng-container>
-          <ng-template #actionTemplate>
-            <app-icon-action
-              [showSelectIcon]="true"
-              [select]="item.select"
-              [itemId]="item.id"
-              (selectChange)="onSelectChange($event)">
-            </app-icon-action>
-          </ng-template>
-        </td>
-      </tr>
+      @if(!isLoading) {
+        @if(data.length > 0) {
+          @for (item of data; track $index) {
+            <tr>
+              @for (column of columns; track $index) {
+                <td>
+                  @if(column.field !== 'action'){
+                    <div>
+                      {{ item[column.field] }}
+                    </div>
+                  } @else {
+                    <div>
+                      <app-icon-action
+                        [showSelectIcon]="true"
+                        [select]="item.select"
+                        [itemId]="item.id"
+                        (selectChange)="onSelectChange($event)">
+                      </app-icon-action>
+                    </div>
+                  }
+                </td>
+              }
+            </tr>
+          }
+        } @else {
+          <p>Data tidak ditemukan!!</p>
+        }
+      } @else {
+        <tr *ngFor="let _ of [].constructor(placeholderRows)">
+          @for (column of columns; track $index) {
+            <td [class.hidden]="column.field === 'action' && !hasActionColumn()">
+              <div class="placeholder"></div>
+            </td>
+          }
+        </tr>
+      }
     </tbody>
   </table>
 </div>

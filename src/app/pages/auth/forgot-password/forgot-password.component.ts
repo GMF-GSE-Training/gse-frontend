@@ -3,6 +3,7 @@ import { AuthService } from '../../../shared/service/auth.service';
 import { SweetalertService } from '../../../shared/service/sweetaler.service';
 import { EmailFormComponent } from "../../../contents/email-form/email-form.component";
 import { ActivatedRoute, Router } from '@angular/router';
+import { ErrorHandlerService } from '../../../shared/service/error-handler.service';
 
 @Component({
   selector: 'app-forgot-password',
@@ -17,6 +18,7 @@ export class ForgotPasswordComponent implements OnInit {
     private readonly sweetalertService: SweetalertService,
     private readonly route: ActivatedRoute,
     private readonly router: Router,
+    private readonly errorHandlerService: ErrorHandlerService
   ) {}
 
   data = {
@@ -49,8 +51,8 @@ export class ForgotPasswordComponent implements OnInit {
         this.sweetalertService.alert('', 'Bila email ada, maka email untuk mengubah password akan dikirim ke email yang Anda masukkan', 'success');
       },
       error: (error) => {
-        this.sweetalertService.alert('Gagal!', 'Terjadi kesalahan, silakan coba lagi nanti.', 'error');
         console.log(error);
+        this.errorHandlerService.alertError(error);
       }
     });
   }

@@ -60,8 +60,6 @@ export class LoginComponent {
         this.loginError = true;
         this.isLoading = false;
         if(error.status === 400) {
-          this.message = 'Email atau Nomor Pegawai dan Password tidak boleh kosong';
-        } else if(error.status === 401) {
           this.message = 'Informasi login tidak valid. Silakan periksa kembali email atau nomor pegawai dan password Anda';
         } else if(error.status === 403) {
           this.message = 'Akun belum diverifikasi, silahkan verifikasi akun terlebih dahulu';

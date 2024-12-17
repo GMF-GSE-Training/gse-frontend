@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
-import { AuthResponse, LoginUserRequest, RegisterUserRequest, ResetPassword } from '../model/auth.model';
+import { AuthResponse, LoginUserRequest, RegisterUserRequest, UpdatePassword } from '../model/auth.model';
 import { environment } from '../../../environments/environment.development';
 import { WebResponse } from '../model/web.model';
 
@@ -37,20 +37,28 @@ export class AuthService {
     return this.http.get<WebResponse<string>>(`${this.apiUrl}/${this.endpoint.refreshToken}`, { withCredentials: true });
   }
 
-  logout(): Observable<WebResponse<string>> {
-    return this.http.delete<WebResponse<string>>(`${this.apiUrl}/${this.endpoint.base}`, { withCredentials: true });
-  }
-
   forgotPassword(request: { email: string }): Observable<WebResponse<string>> {
     return this.http.post<WebResponse<string>>(`${this.apiUrl}/${this.endpoint.resetPasswordRequest}`, request);
   }
 
-  resetPassword(request: ResetPassword): Observable<WebResponse<string>> {
+  resetPassword(request: UpdatePassword): Observable<WebResponse<string>> {
     return this.http.post<WebResponse<string>>(`${this.apiUrl}/${this.endpoint.resetPassword}`, request);
   }
 
   resendVerification(request: { email: string }): Observable<WebResponse<string>> {
     return this.http.post<WebResponse<string>>(`${this.apiUrl}/${this.endpoint.accountVerificationRequest}`, request);
+  }
+
+  updateEmailRequest(request: { email: string }): Observable<WebResponse<string>> {
+    return this.http.post<WebResponse<string>>(`${this.apiUrl}/${this.endpoint.updateEmailRequest}`, request, { withCredentials: true });
+  }
+
+  updatePassword(request: UpdatePassword): Observable<WebResponse<string>> {
+    return this.http.post<WebResponse<string>>(`${this.apiUrl}/${this.endpoint.updatePassword}`, request, { withCredentials: true });
+  }
+
+  logout(): Observable<WebResponse<string>> {
+    return this.http.delete<WebResponse<string>>(`${this.apiUrl}/${this.endpoint.base}`, { withCredentials: true });
   }
 
   userProfile$ = new BehaviorSubject<AuthResponse | null | undefined>(undefined);

@@ -29,6 +29,7 @@ export class ParticipantListComponent implements OnInit {
   ];
 
   participants: Participant[] = [];
+  isLoading: boolean = false;
 
   // Komponen pagination
   currentPage: number = 1;
@@ -58,12 +59,19 @@ export class ParticipantListComponent implements OnInit {
   }
 
   getListParticipants(query: string, page: number, size: number): void {
+    this.isLoading = true;
     this.participantService.listParticipants(query, page, size).subscribe({
       next: (response) => {
         this.participants = this.mapParticipants(response);
         this.totalPages = response.paging?.totalPage ?? 1;
       },
-      error: (error) => console.log(error),
+      error: (error) => {
+        console.log(error);
+        this.isLoading = false;
+      },
+      complete: () => {
+        this.isLoading = false;
+      }
     });
   }
 
@@ -128,6 +136,9 @@ export class ParticipantListComponent implements OnInit {
   }
 
   viewAll(): void {
+    if(this.participants.length > 0) {
+
+    }
     this.router.navigate([], {
       relativeTo: this.route,
       queryParams: { keyword: undefined, page: undefined },

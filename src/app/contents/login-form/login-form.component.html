@@ -1,5 +1,5 @@
 <app-auth>
-  <div>
+  <div class="form-container">
     <div *ngIf="loginError" class="error-message">
       <span>{{ message }}</span>
     </div>
@@ -13,7 +13,7 @@
           [(ngModel)]="loginRequest.identifier"
           type="username"
           name="identifier"
-          autocomplete="username"
+          autocomplete="email"
           placeholder="Email atau No Pegawai"
           #identifier="ngModel"
           required
@@ -30,7 +30,7 @@
           [(ngModel)]="loginRequest.password"
           [type]="isPassVisible ? 'text' : 'password'"
           name="password"
-          autocomplete="pasword"
+          autocomplete="current-password"
           placeholder="Password"
           #password="ngModel"
           required

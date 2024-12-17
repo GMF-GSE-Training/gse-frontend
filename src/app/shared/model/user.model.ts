@@ -23,7 +23,7 @@ export interface User {
   id: string;
   participantId?: string;
   idNumber?: string;
-  nik: string;
+  nik?: string;
   email: string;
   name: string;
   dinas?: string;

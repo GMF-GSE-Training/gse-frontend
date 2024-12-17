@@ -26,7 +26,7 @@ export class SidebarComponent implements OnChanges {
     },
     {
       name: 'Profil',
-      routerLink: `/users/${this.getUserProfile().id}/profil`
+      routerLink: `/users/${this.getUserProfile().id}/profile`
     },
     {
       name: 'Participants',

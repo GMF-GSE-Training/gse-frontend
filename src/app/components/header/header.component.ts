@@ -29,21 +29,6 @@ export class HeaderComponent implements OnInit {
     this.isMenuVisible = false;
   }
 
-  // ngOnInit() {
-  //   this.router.events.subscribe(() => {
-  //     const currentRoute = this.router.url;
-  //     this.shouldShowHeader = !(
-  //       currentRoute.includes('/login') ||
-  //       currentRoute.includes('/register') ||
-  //       currentRoute.includes('/password-reset') ||
-  //       currentRoute.includes('/verification') ||
-  //       currentRoute.includes('/reset') ||
-  //       (currentRoute.includes('/users') && currentRoute.includes('/edit')) ||
-  //       (currentRoute.includes('/users') && currentRoute.includes('/add'))
-  //     );
-  //   });
-  // }
-
   private destroy$ = new Subject<void>();
 
   ngOnInit() {
@@ -67,11 +52,11 @@ export class HeaderComponent implements OnInit {
     '/register',
     '/password-reset',
     '/verification',
-    '/reset',
-    '/users/add'
+    '/users/add',
   ];
 
   private excludedRoutesRegex: RegExp[] = [
     /^\/users\/[a-f0-9\-]+\/edit$/,  // Regex untuk '/users/:id/edit' yang mendukung UUID
+    /^\/reset\/[^/]+$/,              // Regex untuk '/reset/:token'
   ];
 }

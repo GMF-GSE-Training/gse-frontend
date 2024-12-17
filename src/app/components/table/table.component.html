@@ -1,27 +1,46 @@
 <table>
   <thead>
     <tr>
-      <th *ngFor="let column of columns" [ngClass]="{ 'hidden': column.field === 'action' && !hasActionColumn() }">
-        {{ column.header }}
-      </th>
+      @for (column of columns; track $index) {
+        <th [ngClass]="{ 'hidden': column.field === 'action' && !hasActionColumn() }">
+          {{ column.header }}
+        </th>
+      }
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let item of data">
-      <td *ngFor="let column of columns" [ngClass]="{ 'hidden': column.field === 'action' && !hasActionColumn() }">
-        <ng-container *ngIf="column.field !== 'action'; else actionTemplate">
-          <ng-container *ngIf="!['kurikulumSilabus', 'sim', 'expSuratSehatButaWarna', 'expSuratBebasNarkoba'].includes(column.field)">
-            {{ item[column.field] }}
-          </ng-container>
-          <a *ngIf="column.field === 'kurikulumSilabus'" [routerLink]="item.kurikulumSilabus">Lihat</a>
-          <a *ngIf="column.field === 'sim'" [routerLink]="item.sim" [state]="state">Lihat</a>
-          <a *ngIf="column.field === 'expSuratSehatButaWarna'" [routerLink]="item.expSuratSehatButaWarna.value" [state]="state">{{ item.expSuratSehatButaWarna.label }}</a>
-          <a *ngIf="column.field === 'expSuratBebasNarkoba'" [routerLink]="item.expSuratBebasNarkoba.value" [state]="state">{{ item.expSuratBebasNarkoba.label }}</a>
-        </ng-container>
-        <ng-template #actionTemplate>
-          <app-icon-action [printLink]="item.printLink" [addLink]="item.addLink" [editLink]="item.editLink" [delete]="item.deleteMethod" [detailLink]="item.detailLink" [select]="item.select" [state]="state"></app-icon-action>
-        </ng-template>
-      </td>
-    </tr>
+    @if (!isLoading) {
+      @if(data.length > 0) {
+        @for (item of data; track $index) {
+          <tr>
+            @for (column of columns; track $index) {
+              <td [class.hidden]="column.field === 'action' && !hasActionColumn()">
+                @if (column.field !== 'action') {
+                  <ng-container *ngIf="!['kurikulumSilabus', 'sim', 'expSuratSehatButaWarna', 'expSuratBebasNarkoba'].includes(column.field)">
+                    {{ item[column.field] }}
+                  </ng-container>
+                  <a *ngIf="column.field === 'kurikulumSilabus'" [routerLink]="item.kurikulumSilabus">Lihat</a>
+                  <a *ngIf="column.field === 'sim'" [routerLink]="item.sim" [state]="state">Lihat</a>
+                  <a *ngIf="column.field === 'expSuratSehatButaWarna'" [routerLink]="item.expSuratSehatButaWarna.value" [state]="state">{{ item.expSuratSehatButaWarna.label }}</a>
+                  <a *ngIf="column.field === 'expSuratBebasNarkoba'" [routerLink]="item.expSuratBebasNarkoba.value" [state]="state">{{ item.expSuratBebasNarkoba.label }}</a>
+                } @else {
+                  <app-icon-action [printLink]="item.printLink"[editLink]="item.editLink" [delete]="item.deleteMethod" [detailLink]="item.detailLink" [select]="item.select" [state]="state"></app-icon-action>
+                }
+              </td>
+            }
+          </tr>
+        }
+      } @else {
+        <p>Data Tidak ditemukan!!</p>
+      }
+    } @else {
+      <tr *ngFor="let _ of [].constructor(placeholderRows)">
+        @for (column of columns; track $index) {
+          <td [class.hidden]="column.field === 'action' && !hasActionColumn()">
+            <div class="placeholder"></div>
+          </td>
+        }
+      </tr>
+    }
   </tbody>
 </table>

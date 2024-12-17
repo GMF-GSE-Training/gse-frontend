@@ -2,17 +2,19 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CapabilityService } from '../../../shared/service/capability.service';
 import { CurriculumSyllabusFormComponent } from "../../../contents/curriculum-syllabus-form/curriculum-syllabus-form.component";
+import { LoaderComponent } from "../../../components/loader/loader.component";
 
 @Component({
-  selector: 'app-capability-detail',
+  selector: 'app-view-curriculum-syllabus',
   standalone: true,
   imports: [
-    CurriculumSyllabusFormComponent
+    CurriculumSyllabusFormComponent,
+    LoaderComponent
 ],
-  templateUrl: './capability-detail.component.html',
-  styleUrl: './capability-detail.component.css'
+  templateUrl: './view-curriculum-syllabus.component.html',
+  styleUrl: './view-curriculum-syllabus.component.css'
 })
-export class CapabilityDetailComponent implements OnInit {
+export class ViewCurriculumSyllabusComponent implements OnInit {
   capability = {
     id: '',
     ratingCode: '',
@@ -37,6 +39,8 @@ export class CapabilityDetailComponent implements OnInit {
   }];
 
   editLink: string = '';
+  isLoading: boolean = false;
+  id = this.route.snapshot.paramMap.get('id');
 
   constructor(
     private readonly route: ActivatedRoute,
@@ -44,11 +48,15 @@ export class CapabilityDetailComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    const id = this.route.snapshot.paramMap.get('id');
-    if (id) {
-      this.editLink = `/curriculum-syllabus/${id}/edit`;
+    this.getCapabilityById();
+  }
 
-      this.capabilityService.getCapabilityById(id).subscribe({
+  getCapabilityById(): void {
+    if(this.id) {
+      this.isLoading = true;
+      this.editLink = `/curriculum-syllabus/${this.id}/edit`;
+
+      this.capabilityService.getCurriculumSyllabus(this.id).subscribe({
         next: ({ data }) => {
           // Update capability data
           this.capability = {
@@ -79,7 +87,13 @@ export class CapabilityDetailComponent implements OnInit {
               type: item.type,
             }));
         },
-        error: (error) => console.log(error)
+        error: (error) => {
+          console.log(error);
+          this.isLoading = false;
+        },
+        complete: () => {
+          this.isLoading = false;
+        }
       });
     }
   }

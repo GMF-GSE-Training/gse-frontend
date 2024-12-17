@@ -13,7 +13,6 @@ import { RouterLink } from '@angular/router';
   styleUrl: './icon-action.component.css',
 })
 export class IconActionComponent {
-  @Input() addLink?: string;
   @Input() printLink?: string;
   @Input() editLink?: string;
   @Input() detailLink?: string;

@@ -17,10 +17,6 @@ export class ParticipantCotService {
   private apiUrl = environment.apiUrl;
   private endpoint = environment.endpoints.participantCot;
 
-  // getUnregisteredParticipants(cotId: string, page?: number, size?: number): Observable<WebResponse<ParticipantResponse[]>> {
-  //   return this.http.get<WebResponse<ParticipantResponse[]>>(`${this.apiUrl}/${this.endpoint.listUnregisteredParticipants}/${cotId}?page=${page}&size=${size}`, { withCredentials: true });
-  // }
-
   getUnregisteredParticipants(cotId: string, searchQuery?: string, page?: number, size?: number): Observable<WebResponse<ParticipantResponse[]>> {
     return this.http.get<WebResponse<ParticipantResponse[]>>(`${this.apiUrl}/${this.endpoint.getUnregisteredParticipants}/${cotId}?q=${searchQuery}&page=${page}&size=${size}`, { withCredentials: true });
   }

@@ -24,6 +24,10 @@ export class CapabilityService {
     return this.http.get<WebResponse<CapabilityResponse>>(`${this.apiUrl}/${this.endpoint.base}/${id}`, { withCredentials: true });
   }
 
+  getCurriculumSyllabus(id: string): Observable<WebResponse<CapabilityResponse>> {
+    return this.http.get<WebResponse<CapabilityResponse>>(`${this.apiUrl}/${this.endpoint.base}/${id}/curriculum-syllabus`, { withCredentials: true });
+  }
+
   getAllCapability(): Observable<WebResponse<CapabilityResponse[]>> {
     return this.http.get<WebResponse<CapabilityResponse[]>>(`${this.apiUrl}/${this.endpoint.base}`, { withCredentials: true });
   }

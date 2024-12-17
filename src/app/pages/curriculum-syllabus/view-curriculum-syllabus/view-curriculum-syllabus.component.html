@@ -4,10 +4,11 @@
   </div>
 } @else {
   <app-curriculum-syllabus-form
-    [pageTitle]="'Edit Curriculum & Syllabus'"
+    [pageTitle]="'View Curriculum & Syllabus'"
     [capability]="capability"
     [regulasiGSEs]="regulasiGSEs"
     [kompetensis]="kompetensis"
-    (formSubmit)="onSubmit()">
+    [isView]="true"
+    [blueButtonRoute]="editLink">
   </app-curriculum-syllabus-form>
 }

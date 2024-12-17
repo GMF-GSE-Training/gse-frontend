@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
 import { RoleBasedAccessDirective } from '../../shared/directive/role-based-access.directive';
@@ -21,11 +21,13 @@ export class HorizontalTableComponent {
   @Input() rightTableData: {label: string, value?: string, link?: string}[] = [];
   @Input() isParticipantDetail: boolean = false;
 
+  @Output() downloadDocumentClick = new EventEmitter<void>();
+
   lihatDokumen(link: string): void {
     this.router.navigate([link]);
   }
 
   downloadDocument() {
-
+    this.downloadDocumentClick.emit();
   }
 }

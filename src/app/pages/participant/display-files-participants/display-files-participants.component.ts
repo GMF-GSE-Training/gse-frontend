@@ -1,13 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { map } from 'rxjs/operators';
+import { finalize, map } from 'rxjs/operators';
 import { ParticipantService } from '../../../shared/service/participant.service';
 import { DisplayFilesComponent } from '../../../contents/display-files/display-files.component';
 import { CommonModule } from '@angular/common';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-import * as pdfjsLib from 'pdfjs-dist';
-
-pdfjsLib.GlobalWorkerOptions.workerSrc = './assets/pdf.worker.min.mjs';
+import { LoaderComponent } from "../../../components/loader/loader.component";
 
 @Component({
   selector: 'app-display-participants-files',
@@ -16,7 +14,8 @@ pdfjsLib.GlobalWorkerOptions.workerSrc = './assets/pdf.worker.min.mjs';
     DisplayFilesComponent,
     RouterLink,
     CommonModule,
-  ],
+    LoaderComponent
+],
   templateUrl: './display-files-participants.component.html',
   styleUrl: './display-files-participants.component.css'
 })
@@ -26,8 +25,9 @@ export class DisplayFilesParticipantsComponent implements OnInit {
   navigationLink: string = '';
   file: string | undefined;
   fileType: string = '';
-  safeUrl: SafeResourceUrl | string[] = [];
+  safeUrl: SafeResourceUrl | string = '';
   cachedUserProfile = localStorage.getItem('user_profile');
+  isLoading: boolean = false;
 
   constructor(
     private readonly route: ActivatedRoute,
@@ -71,16 +71,21 @@ export class DisplayFilesParticipantsComponent implements OnInit {
   }
 
   getFile(id: string, fileName: string): void {
+    this.isLoading = true;
     this.participantService.getFile({ id }, fileName).pipe(
-      map(response => response.data)
+      map(response => response.data),
+      finalize(() => {
+        this.isLoading = false;
+      })
     ).subscribe({
       next: (file) => {
         this.file = file;
         this.fileType = this.getMediaType(file);
+
         if (this.fileType === 'application/pdf') {
-          this.renderPdfAsImages(file); // Render PDF sebagai gambar
+          this.safeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(`data:${this.fileType};base64,${file}#toolbar=0`);
         } else {
-          this.safeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(`data:${this.fileType};base64,${this.file}`);
+          this.safeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(`data:${this.fileType};base64,${file}`);
         }
       },
       error: (error) => {
@@ -89,35 +94,14 @@ export class DisplayFilesParticipantsComponent implements OnInit {
     });
   }
 
-  private renderPdfAsImages(base64: string): void {
-    const pdfData = atob(base64); // Decode base64 string
-    const pdfUint8Array = new Uint8Array([...pdfData].map(char => char.charCodeAt(0)));
-
-    pdfjsLib.getDocument({ data: pdfUint8Array }).promise.then(pdfDoc => {
-      const pagesPromises = [];
-      for (let i = 1; i <= pdfDoc.numPages; i++) {
-        pagesPromises.push(
-          pdfDoc.getPage(i).then(page => this.renderPageAsImage(page))
-        );
-      }
-      return Promise.all(pagesPromises);
-    }).then(images => {
-      this.safeUrl = images;
-    }).catch(error => {
-      console.error('Error rendering PDF:', error);
-    });
+  onImageLoad() {
+    console.log("LOADING")
+    this.isLoading = false;
   }
 
-  private renderPageAsImage(page: any): string {
-    const viewport = page.getViewport({ scale: 1 });
-    const canvas = document.createElement('canvas');
-    const context = canvas.getContext('2d');
-    canvas.width = viewport.width;
-    canvas.height = viewport.height;
-
-    return page.render({ canvasContext: context, viewport }).promise.then(() => {
-      return canvas.toDataURL('image/png'); // Menghasilkan gambar dari canvas
-    });
+  onImageError() {
+    console.error('Failed to load image:', this.safeUrl);
+    this.isLoading = false; // Hindari spinner terus tampil
   }
 
   private getMediaType(base64String: string): string {

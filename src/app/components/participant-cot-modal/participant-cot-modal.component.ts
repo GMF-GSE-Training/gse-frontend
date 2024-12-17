@@ -23,6 +23,9 @@ import { WhiteButtonComponent } from "../button/white-button/white-button.compon
 export class ParticipantCotModalComponent {
   @Input() columns: { header: string, field: string }[] = [];
   @Input() data: any[] = [];
+  @Input() isLoading: boolean = false;
+  @Input() placeholderRows: number = 10;
+
   @Output() selectedIdsChange = new EventEmitter<Set<number | string>>();
   @Output() save = new EventEmitter<void>();
   @Output() cancel = new EventEmitter<void>();
@@ -39,6 +42,12 @@ export class ParticipantCotModalComponent {
 
   get isSaveDisabled(): boolean {
     return this.selectedIds.size === 0;
+  }
+
+  hasActionColumn(): boolean {
+    return this.data.some(item =>
+      item.printLink || item.addLink || item.editLink || item.deleteMethod || item.detailLink || item.select
+    );
   }
 
   onSearchChanged(query: string) {

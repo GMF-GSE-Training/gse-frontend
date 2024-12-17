@@ -24,6 +24,7 @@ export class CotListComponent {
   ];
 
   cot: any[] = [];
+  isLoading: boolean = false;
 
   // Komponen pagination
   currentPage: number = 1;
@@ -62,6 +63,7 @@ export class CotListComponent {
   }
 
   getListCot(searchQuery: string, page: number, size: number, startDate: string, endDate: string): void {
+    this.isLoading = true;
     this.cotService.listCot(searchQuery, page, size, startDate, endDate).subscribe({
       next: ({ data, actions, paging }) => {
         this.cot = data.map((cot) => ({
@@ -76,7 +78,13 @@ export class CotListComponent {
 
         this.totalPages = paging?.totalPage ?? 1;
       },
-      error: (error) => console.log(error)
+      error: (error) => {
+        console.log(error);
+        this.isLoading = false;
+      },
+      complete: () => {
+        this.isLoading = false;
+      }
     });
   }
 

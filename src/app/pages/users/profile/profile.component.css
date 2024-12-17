@@ -1,0 +1,69 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 3em;
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-bottom: 15px;
+}
+
+.data-section {
+  display: flex;
+  gap: 1em;
+  padding-right: 3em;
+  padding-left: 1em;
+}
+
+.settings-nav {
+  display: flex;
+  flex-direction: column;
+  justify-content: top;
+  font-size: 20px;
+  width: 12%;
+}
+
+.settings-nav div {
+  height: 50px;
+}
+
+.menu-setting-item {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  gap: 10px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-left 0.2s ease;
+}
+
+.menu-setting-item i {
+  margin-left: 1em;
+}
+
+.menu-setting-item:hover {
+  background-color: #d8dadb;
+}
+
+.menu-setting-item.active {
+  border-left: 5px solid #02507E;
+}
+
+.card {
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  width: 100%;
+  height: 100%;
+  background-color: white;
+}
+
+.account-form {
+  display: flex;
+  padding: 20px;
+  gap: 5%;
+}
+
+.form-content {
+  margin: 0;
+  width: 100%;
+  height: auth;
+  padding-right: 10%;
+}

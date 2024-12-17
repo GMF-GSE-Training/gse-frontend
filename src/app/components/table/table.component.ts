@@ -9,7 +9,7 @@ import { IconActionComponent } from "../icon-action/icon-action.component";
   imports: [
     CommonModule,
     RouterLink,
-    IconActionComponent
+    IconActionComponent,
 ],
   templateUrl: './table.component.html',
   styleUrl: './table.component.css'
@@ -18,6 +18,8 @@ export class  TableComponent {
   @Input() columns: { header: string, field: string }[] = [];
   @Input() data: any[] = [];
   @Input() state: { data: any; } = { data: '' };
+  @Input() placeholderRows: number = 10; // Jumlah baris placeholder
+  @Input() isLoading: boolean = false;
 
   // Metode untuk memeriksa apakah kolom action memiliki nilai
   hasActionColumn(): boolean {

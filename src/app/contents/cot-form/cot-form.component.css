@@ -1,20 +1,11 @@
-.title-container {
-  display: flex;
-  justify-content: center;
-  margin-top: 10px;
-}
-
-.title {
-  border-bottom: 4px solid #000;
-  font-size: 25px;
-}
-
 form {
   background: white;
   padding: 20px;
   border-radius: 5px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
   max-width: 90%;
-  margin: auto;
+  margin: 25px auto 25px auto;
 }
 
 .form-container {
@@ -36,10 +27,8 @@ form {
   display: flex;
   justify-content: center;
   gap: 4em;
-  width: 90%;
+  width: 100%;
   margin-top: 25px;
-  margin-bottom: 15px;
-  margin-left: 4em;
 }
 
 .button {

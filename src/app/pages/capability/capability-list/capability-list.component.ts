@@ -29,6 +29,7 @@ export class CapabilityListComponent implements OnInit {
   ];
 
   capability: any[] = [];
+  isLoading: boolean = false;
 
   // Komponen pagination
   currentPage: number = 1;
@@ -55,6 +56,7 @@ export class CapabilityListComponent implements OnInit {
   }
 
   getListCapability(query: string, page: number, size: number): void {
+    this.isLoading = true;
     this.capabilityService.listCapability(query, page, size).subscribe({
       next: ({ data, actions, paging }) => {
         this.capability = data.map((capability: any) => {
@@ -66,14 +68,20 @@ export class CapabilityListComponent implements OnInit {
             durasiMateriRegulasGSE: capability.totalMaterialDurationRegGse ?? "-",
             durasiMateriRating: capability.totalMaterialDurationCompetency,
             totalDuration: capability.totalDuration ?? "-",
-            kurikulumSilabus: `/capability/${capability.id}/detail`,
+            kurikulumSilabus: `/capability/${capability.id}/curriculum-syllabus`,
             editLink: actions?.canEdit ? `/capability/${capability.id}/edit` : null,
             deleteMethod: actions?.canDelete ? () => this.deleteCapability(capability) : null,
           };
         });
         this.totalPages = paging?.totalPage || 1;
       },
-      error: (error) => console.log(error)
+      error: (error) => {
+        console.log(error);
+        this.isLoading = false;
+      },
+      complete: () => {
+          this.isLoading = false;
+      },
     });
   }
 

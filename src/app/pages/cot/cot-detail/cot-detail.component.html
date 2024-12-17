@@ -1,30 +1,34 @@
-<div class="main-content" [class.modal-active]="showModal">
-  <div class="title-container">
-    <h1 class="title">Calender Of Training</h1>
-  </div>
+<div class="main-content" [class.modal-active]="showModal" [class.loading]="isLoading">
+  @if(isLoading) {
+    <app-loader></app-loader>
+  } @else {
+    <div class="title-container">
+      <h1 class="title">Calender Of Training</h1>
+    </div>
 
-  <div class="cot-table">
-    <app-horizontal-table [leftTableData]="leftTableData" [rightTableData]="rightTableData"></app-horizontal-table>
-  </div>
+    <div class="cot-table">
+      <app-horizontal-table [leftTableData]="leftTableData" [rightTableData]="rightTableData"></app-horizontal-table>
+    </div>
 
-  <app-data-management
-    placeHolder="Cari participant"
-    [columns]="columns"
-    [data]="participantCots"
-    [state]="state"
-    [totalPages]="totalPages"
-    [currentPage]="currentPage"
-    (searchChange)="onSearchChanged($event)"
-    (pageChange)="onPageChanged($event)"
-    (viewAllChange)="viewAll()"
-    whiteButtonRoute="/cot">
-  </app-data-management>
+    <app-data-management
+      placeHolder="Cari participant"
+      [columns]="columns"
+      [data]="participantCots"
+      [state]="state"
+      [totalPages]="totalPages"
+      [currentPage]="currentPage"
+      (searchChange)="onSearchChanged($event)"
+      (pageChange)="onPageChanged($event)"
+      (viewAllChange)="viewAll()"
+      whiteButtonRoute="/cot">
+    </app-data-management>
 
-  <div class="add-button" *appRoleBasedAccess="['super admin', 'lcu']">
-    <app-white-button (click)="openModal()">
-      <i class="fa-solid fa-plus"></i>
-    </app-white-button>
-  </div>
+    <div class="add-button" *appRoleBasedAccess="['super admin', 'lcu']">
+      <app-white-button (click)="openModal()">
+        <i class="fa-solid fa-plus"></i>
+      </app-white-button>
+    </div>
+  }
 </div>
 
 <div *ngIf="showModal" class="modal-container">
@@ -32,6 +36,7 @@
     placeHolder="Cari Participant"
     [columns]="modalColumns"
     [data]="unregisteredParticipants"
+    [isLoading]="isLoadingModal"
     [currentPage]="modalCurrentPage"
     [totalPage]="modalTotalPages"
     (searchChange)="modalSearchChanged($event)"

@@ -14,8 +14,8 @@ export interface RegisterUserRequest {
   dinas?: string;
 }
 
-export interface ResetPassword {
-  token: string;
+export interface UpdatePassword {
+  token?: string;
   newPassword: string;
   confirmNewPassword: string;
 }
@@ -32,5 +32,5 @@ export interface AuthResponse {
       id?: string;
       name?: string;
   }
-  participant: Object;
+  participant?: Object;
 }

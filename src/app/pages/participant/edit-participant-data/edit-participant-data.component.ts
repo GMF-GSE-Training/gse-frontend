@@ -131,8 +131,13 @@ export class EditParticipantDataComponent implements OnInit {
         const participantData = this.userProfile.participant;
         if(participantData) {
           const participantEmail = participantData.email;
-          this.userProfile.participant = participant;
+          this.userProfile.participant = JSON.parse(
+            JSON.stringify(participant, (key, value) =>
+                value instanceof File || value === null ? undefined : value
+            )
+          );
           this.userProfile.participant.email = participantEmail;
+          this.userProfile.isDataComplete = true;
           participantData.gmfNonGmf = participantData.company.toLowerCase().includes('gmf') || participantData.company.toLowerCase().includes('garuda maintenance facility') ? 'GMF' : 'Non GMF';
           localStorage.setItem('user_profile', JSON.stringify(this.userProfile));
         }
