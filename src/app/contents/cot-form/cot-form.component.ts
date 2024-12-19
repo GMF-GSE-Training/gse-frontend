@@ -8,7 +8,6 @@ import { DropdownInputComponent } from "../../components/input/dropdown-input/dr
 import { FormsModule, NgForm } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { CapabilityService } from '../../shared/service/capability.service';
-import { Capability } from '../../shared/model/capability.model';
 
 @Component({
   selector: 'app-cot-form',
@@ -39,8 +38,8 @@ export class CotFormComponent implements OnInit {
   @Output() formSubmit = new EventEmitter<any>();
   @ViewChild('form') form!: NgForm;
 
-  capabilityOptions: { label: string, value: string }[] = [];
-  capabilityData: any[] = []; // Store the full training data
+  capabilityOptions: any[] = [];
+  capabilityData: any = JSON.parse(localStorage.getItem('capability') || '{}');
   selectedCapabily: any = '';
   @Input() initialCapability: string = '';
 
@@ -61,17 +60,30 @@ export class CotFormComponent implements OnInit {
   statusData: any[] = []; // Store the full training data
   selectedStatus: any = '';
 
+  ngOnInit(): void {
+    if(this.capabilityData !== '{}') {
+      this.capabilityOptions = this.capabilityData.map((training: any) => ({
+        label: training.ratingCode,
+        value: training.id
+      }));
+    } else {
+      this.getAllCapability();
+    }
+  }
+
   onSubmit() {
     if (this.form.valid) {
       this.formSubmit.emit(this.cot);
     }
   }
 
-  ngOnInit(): void {
+  private getAllCapability(): void {
     this.capabilityService.getAllCapability().subscribe({
       next: (response) => {
-        const capability = response.data as Capability[];
+        const capability = response.data;
         this.capabilityData = capability;
+        console.log(this.capabilityData)
+        localStorage.setItem('capability', JSON.stringify(capability));
         this.capabilityOptions = capability.map(training => ({
           label: training.ratingCode,
           value: training.id
@@ -84,7 +96,7 @@ export class CotFormComponent implements OnInit {
   }
 
   onCapabilitySelected(capability: any) {
-    this.selectedCapabily = this.capabilityData.find(training => training.id === capability);
+    this.selectedCapabily = this.capabilityData.find((training: any) => training.id === capability);
     this.cot.capabilityId = capability;
   }
 

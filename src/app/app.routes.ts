@@ -24,7 +24,6 @@ import { EditSignComponent } from './pages/sign/edit-sign/edit-sign.component';
 import { AddCurriculumComponent } from './pages/curriculum-syllabus/add-curriculum/add-curriculum.component';
 import { RegisterComponent } from './pages/auth/register/register.component';
 import { AuthGuard } from './shared/guard/auth.guard';
-import { DisplayFilesParticipantsComponent } from './pages/participant/display-files-participants/display-files-participants.component';
 import { guestGuard } from './shared/guard/guest.guard';
 import { ResetPasswordComponent } from './pages/auth/reset-password/reset-password.component';
 import { ForgotPasswordComponent } from './pages/auth/forgot-password/forgot-password.component';
@@ -35,6 +34,7 @@ import { ProfileComponent } from './pages/users/profile/profile.component';
 import { RoleGuard } from './shared/guard/role.guard';
 import { DataCompleteGuard } from './shared/guard/data-complete.guard';
 import { AccountVerificationComponent } from './pages/auth/account-verification/account-verification.component';
+import { DisplaysParticipantFilesComponent } from './pages/participant/displays-participants-files/displays-participant-file.component';
 
 export const routes: Routes = [
   {
@@ -114,31 +114,31 @@ export const routes: Routes = [
   },
   {
     path: 'participants/:id/sim-a',
-    component: DisplayFilesParticipantsComponent,
+    component: DisplaysParticipantFilesComponent,
     canActivate: [AuthGuard, RoleGuard, DataCompleteGuard],
     data: { roles: ['super admin', 'supervisor', 'lcu', 'user'] }
   },
   {
     path: 'participants/:id/sim-b',
-    component: DisplayFilesParticipantsComponent,
+    component: DisplaysParticipantFilesComponent,
     canActivate: [AuthGuard, RoleGuard, DataCompleteGuard],
     data: { roles: ['super admin', 'supervisor', 'lcu', 'user'] }
   },
   {
     path: 'participants/:id/ktp',
-    component: DisplayFilesParticipantsComponent,
+    component: DisplaysParticipantFilesComponent,
     canActivate: [AuthGuard, RoleGuard, DataCompleteGuard],
     data: { roles: ['super admin', 'supervisor', 'lcu', 'user'] }
   },
   {
     path: 'participants/:id/surat-sehat-buta-warna',
-    component: DisplayFilesParticipantsComponent,
+    component: DisplaysParticipantFilesComponent,
     canActivate: [AuthGuard, RoleGuard, DataCompleteGuard],
     data: { roles: ['super admin', 'supervisor', 'lcu', 'user'] }
   },
   {
     path: 'participants/:id/surat-bebas-narkoba',
-    component: DisplayFilesParticipantsComponent,
+    component: DisplaysParticipantFilesComponent,
     canActivate: [AuthGuard, RoleGuard, DataCompleteGuard],
     data: { roles: ['super admin', 'supervisor', 'lcu', 'user'] }
   },
@@ -206,7 +206,7 @@ export const routes: Routes = [
     path: 'users',
     component: UserListComponent,
     canActivate: [AuthGuard, RoleGuard],
-    data: { roles: ['super admin', 'supervisor', 'lcu'] }
+    data: { roles: ['super admin', 'supervisor'] }
   },
   {
     path: 'users/add',
@@ -218,7 +218,7 @@ export const routes: Routes = [
     path: 'users/:id/edit',
     component: EditUserComponent,
     canActivate: [AuthGuard, RoleGuard],
-    data: { roles: ['super admin', 'lcu'] }
+    data: { roles: ['super admin'] }
   },
   {
     path: 'users/:id/profile',

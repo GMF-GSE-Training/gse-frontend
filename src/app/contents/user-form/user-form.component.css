@@ -1,9 +1,7 @@
+/* user-form.component.css */
 .form-container {
-  background-color: #ffffff;
   height: 100%;
-  width: 970px;
-  border-bottom-left-radius: 30px;
-  border-top-left-radius: 30px;
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -14,9 +12,8 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 100%;
-  margin-left: 10em;
-  margin-right: 10em;
+  width: 70%;
+  padding: 0 2em;
 }
 
 .input-container {
@@ -25,10 +22,9 @@
   justify-content: center;
   align-items: center;
   width: 100%;
-  margin: 0;
 }
 
-.buttons {
+.buttons-container {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -36,16 +32,16 @@
   margin-top: 25px;
 }
 
-app-white-button {
-  margin-right: 50px;
-  width: 190px;
-  height: 45px;
+.button {
+  margin-right: 20px;
+  width: 150px;
+  height: 40px;
 }
 
-app-blue-button {
-  margin-left: 50px;
-  width: 190px;
-  height: 45px;
+.button {
+  margin-left: 20px;
+  width: 150px;
+  height: 40px;
 }
 
 .input {
@@ -59,14 +55,6 @@ app-blue-button {
 
 .isRegistered a {
   color: #02507E;
-}
-
-.success-message {
-  margin-top: 15px;
-  padding: 4px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 .error-message-container {
@@ -87,12 +75,6 @@ app-blue-button {
   color: #000;
 }
 
-.submit {
-  margin: 0;
-  width: 190px;
-  height: 45px;
-}
-
 .register-message {
   display: flex;
   justify-content: center;
@@ -103,4 +85,25 @@ app-blue-button {
   top: 1em;
   color: #000;
   font-weight: bold;
+}
+
+@media screen and (max-width: 1024px) {
+  .form {
+    padding: 0 2em;
+  }
+
+  app-white-button, app-blue-button {
+    margin: 0 10px;
+    width: 120px;
+    height: 35px;
+  }
+
+  .buttons {
+    flex-direction: column;
+    gap: 1em;
+  }
+
+  .input {
+    width: 100%;
+  }
 }

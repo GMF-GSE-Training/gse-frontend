@@ -8,6 +8,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
 import { DropdownInputComponent } from "../../components/input/dropdown-input/dropdown-input.component";
 import { RouterLink } from '@angular/router';
+import { SignatureType } from '../../shared/model/e-sign.model';
 
 @Component({
   selector: 'app-e-sign-form',
@@ -29,6 +30,7 @@ import { RouterLink } from '@angular/router';
 export class ESignFormComponent {
   @Input() pageTitle: string = '';
   @Input() eSign: any = {};
+  @Input() isUpdate: boolean = false;
 
   @Output() formSubmit = new EventEmitter<any>();
   @Output() fileChange = new EventEmitter<{ property: string, file: File | null }>();
@@ -47,6 +49,17 @@ export class ESignFormComponent {
   ];
   status: boolean = false;
 
+  signatureTypeOptions: { label: string, value: string }[] = [
+    {
+      label: 'Tanda tangan 1',
+      value:  SignatureType.SIGNATURE1,
+    },
+    {
+      label: 'Tanda tangan 2',
+      value: SignatureType.SIGNATURE2,
+    }
+  ];
+
   onSubmit() {
     if (this.form.valid) {
       this.formSubmit.emit(this.eSign);
@@ -60,7 +73,11 @@ export class ESignFormComponent {
     this.fileChange.emit({ property, file });
   }
 
-  onStatusSelected(capability: any) {
-    this.eSign.status = capability;
+  onStatusSelected(status: boolean) {
+    this.eSign.status = status;
+  }
+
+  onSignatureTypeSelected(signatureType: SignatureType) {
+    this.eSign.signatureType = signatureType;
   }
 }

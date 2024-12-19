@@ -17,7 +17,6 @@ import { LoginFormComponent } from "../../../contents/login-form/login-form.comp
     LoginFormComponent
 ],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.css'
 })
 export class LoginComponent {
   isPassVisible: boolean = false;

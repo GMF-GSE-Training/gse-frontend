@@ -10,6 +10,8 @@ import { ParticipantCotService } from '../../../shared/service/participant-cot.s
 import { RoleBasedAccessDirective } from '../../../shared/directive/role-based-access.directive';
 import { ErrorHandlerService } from '../../../shared/service/error-handler.service';
 import { LoaderComponent } from "../../../components/loader/loader.component";
+import { CotService } from '../../../shared/service/cot.service';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-cot-detail',
@@ -30,12 +32,14 @@ export class CotDetailComponent {
   constructor(
     private readonly route: ActivatedRoute,
     private readonly participantCotService: ParticipantCotService,
+    private readonly cotService: CotService,
     private readonly sweetalertService: SweetalertService,
     private readonly router: Router,
     private readonly errorHandlerService: ErrorHandlerService,
   ) { }
 
   cotId = this.route.snapshot.paramMap.get('id');
+  userProfile = JSON.parse(localStorage.getItem('user_profile') || '{}');
 
   leftTableData: any[] = [];
   rightTableData: any[] = [];
@@ -44,9 +48,11 @@ export class CotDetailComponent {
     { header: 'No Pegawai', field: 'idNumber' },
     { header: 'Nama', field: 'name' },
     { header: 'Dinas', field: 'dinas' },
-    { header: 'SIM', field: 'sim' },
-    { header: 'Exp Surat Sehat & Buta Warna', field: 'expSuratSehatButaWarna' },
-    { header: 'Exp Surat Bebas Narkoba', field: 'expSuratBebasNarkoba' },
+    ...(this.userProfile.role.name !== 'user' ? [
+      { header: 'SIM', field: 'sim' },
+      { header: 'Exp Surat Sehat & Buta Warna', field: 'expSuratSehatButaWarna' },
+      { header: 'Exp Surat Bebas Narkoba', field: 'expSuratBebasNarkoba' },
+    ] : []),
     { header: 'Keterangan', field: 'keterangan' },
     { header: 'Action', field: 'action' },
   ];
@@ -64,6 +70,7 @@ export class CotDetailComponent {
   itemsPerPage: number = 10;
   searchQuery: string = '';
   state: { data: any; } = { data: '' };
+  isParticipantCotLoading: boolean = false;
 
   modalColumns = [
     { header: 'No Pegawai', field: 'idNumber' },
@@ -90,62 +97,90 @@ export class CotDetailComponent {
         this.getListParticipantCot(this.cotId, this.searchQuery, this.currentPage, this.itemsPerPage);
       }
     });
+    this.getCot();
+  }
+
+  getCot(): void {
+    if(this.cotId) {
+      this.isLoading = true;
+      this.cotService.getCotById(this.cotId).subscribe({
+        next: ({ data }) => {
+          console.log(data);
+          this.leftTableData = [
+            { label: 'Kode Rating', value: data.capability.ratingCode },
+            { label: 'Nama training', value: data.capability.trainingName },
+            { label: 'Tanggal Mulai', value: new Date(data.startDate).toLocaleDateString('id-ID', this.dateOptions) },
+            { label: 'Tanggal Selesai', value: new Date(data.endDate).toLocaleDateString('id-ID', this.dateOptions) },
+            { label: 'Lokasi Training', value: data.trainingLocation },
+          ];
+          this.rightTableData = [
+            { label: 'Instruktur Regulasi GSE', value: data.theoryInstructorRegGse },
+            { label: 'Instruktur Teori Rating', value: data.theoryInstructorCompetency },
+            { label: 'Instruktur Praktek 1', value: data.practicalInstructor1 },
+            { label: 'Instruktur Praktek 2', value: data.practicalInstructor2 },
+            { label: 'Jumlah Peserta', value: data.numberOfParticipants },
+            { label: 'Status', value: data.status },
+          ];
+        },
+        error: (error) => {
+          console.log(error);
+          this.isLoading = false;
+        },
+        complete: () => {
+          this.isLoading = false;
+        }
+      });
+    }
   }
 
   getListParticipantCot(cotId: string, searchQuery: string, currentPage: number, itemsPerPage: number) {
-    this.isLoading = true;
+    this.isParticipantCotLoading = true;
     this.participantCotService.listParticipantCot(cotId, searchQuery, currentPage, itemsPerPage).subscribe({
       next: ({ data }) => {
         const cot = data.cot;
         const participantCot = cot.participants;
-        this.leftTableData = [
-          { label: 'Kode Rating', value: cot.capability.ratingCode },
-          { label: 'Nama training', value: cot.capability.trainingName },
-          { label: 'Tanggal Mulai', value: new Date(cot.startDate).toLocaleDateString('id-ID', this.dateOptions) },
-          { label: 'Tanggal Selesai', value: new Date(cot.endDate).toLocaleDateString('id-ID', this.dateOptions) },
-          { label: 'Lokasi Training', value: cot.trainingLocation },
-        ];
-
-        this.rightTableData = [
-          { label: 'Instruktur Regulasi GSE', value: cot.theoryInstructorRegGse },
-          { label: 'Instruktur Teori Rating', value: cot.theoryInstructorCompetency },
-          { label: 'Instruktur Praktek 1', value: cot.practicalInstructor1 },
-          { label: 'Instruktur Praktek 2', value: cot.practicalInstructor2 },
-          { label: 'Jumlah Peserta', value: participantCot.data.length },
-          { label: 'Status', value: cot.status },
-        ];
-
         this.participantCots = participantCot.data?.map((participant: any) => {
-          if (!participant) return null; // Skip jika participant null
+          if (!participant) return null; // Lewati jika participant null
 
-          return {
+          const baseParticipant = {
             ...participant,
             idNumber: participant.idNumber ?? '-',
+            dinas: participant.dinas ?? '-',
+            keterangan: '-',
+            printLink: participantCot.actions?.canPrint && participant?.id ? `/sertifikat/${participant.id}` : null,
+            detailLink: participantCot.actions?.canView && participant?.id ? `/participants/${participant.id}/detail` : null,
+            deleteMethod: participantCot.actions?.canDelete ? () => this.deleteParticipantFromCot(data.cot.id, participant?.id) : null,
+          };
+
+          // Periksa apakah peran pengguna adalah 'user'
+          if (this.userProfile.role.name === 'user') {
+            return baseParticipant;
+          }
+
+          // Tambahkan field tambahan untuk peran non-user
+          return {
+            ...baseParticipant,
             sim: participant?.id ? `/participants/${participant.id}/${participant.simB ? 'sim-b' : 'sim-a'}` : null,
             expSuratSehatButaWarna: participant?.id ? {
               label: new Date(new Date(participant.tglKeluarSuratSehatButaWarna).setMonth(new Date(participant.tglKeluarSuratSehatButaWarna).getMonth() + 6)).toLocaleDateString('id-ID', this.dateOptions),
               value: `/participants/${participant.id}/surat-sehat-buta-warna`
             } : null,
             expSuratBebasNarkoba: participant?.id ? {
-                label: new Date(new Date(participant.tglKeluarSuratBebasNarkoba).setMonth(new Date(participant.tglKeluarSuratBebasNarkoba).getMonth() + 6)).toLocaleDateString('id-ID', this.dateOptions),
-                value: `/participants/${participant.id}/surat-bebas-narkoba`
+              label: new Date(new Date(participant.tglKeluarSuratBebasNarkoba).setMonth(new Date(participant.tglKeluarSuratBebasNarkoba).getMonth() + 6)).toLocaleDateString('id-ID', this.dateOptions),
+              value: `/participants/${participant.id}/surat-bebas-narkoba`
             } : null,
-            keterangan: '-',
-            printLink: participantCot.actions?.canPrint && participant?.id ? `/sertifikat/${participant.id}` : null,
-            detailLink: participantCot.actions?.canView && participant?.id ? `/participants/${participant.id}/detail` : null,
-            deleteMethod: participantCot.actions?.canDelete ? () => this.deleteParticipantFromCot(data.cot.id, participant?.id) : null,
           };
-        }).filter((item: null) => item !== null); // Filter out null items
+        }).filter((item: null) => item !== null); // Saring item null
 
         this.state.data = `/cot/${this.cotId}/detail`;
         this.totalPages = participantCot.paging.totalPage;
       },
       error: (error) => {
         console.log(error);
-        this.isLoading = false;
+        this.isParticipantCotLoading = false;
       },
       complete: () => {
-        this.isLoading = false;
+        this.isParticipantCotLoading = false;
       }
     });
   }

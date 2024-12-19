@@ -54,15 +54,15 @@ export class ParticipantDetailComponent implements OnInit {
   };
 
   columns = [
-    { header: 'Nama Training', field: 'namaTraining' },
-    { header: 'Exp', field: 'exp' },
+    { header: 'Kompetensi', field: 'trainingName' },
+    { header: 'Exp Sertifikat', field: 'exp' },
   ];
 
   data = [
-    {namaTraining: "Forklift", exp: "10 February 2026"},
-    {namaTraining: "Regulasi GSE", exp: "10 February 2026"},
-    {namaTraining: "Baggage Towing Tractor", exp: "10 February 2026"},
-    {namaTraining: "Air Conditioning System Refreshment", exp: "10 February 2026"},
+    {trainingName: "Forklift", exp: "10 February 2026"},
+    {trainingName: "Regulasi GSE", exp: "10 February 2026"},
+    {trainingName: "Baggage Towing Tractor", exp: "10 February 2026"},
+    {trainingName: "Air Conditioning System Refreshment", exp: "10 February 2026"},
   ]
 
   userProfile = JSON.parse(localStorage.getItem('user_profile') || '{}');
@@ -94,6 +94,35 @@ export class ParticipantDetailComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.route.queryParams.subscribe(params => {
+      if (params['error']) {
+        const errorMessage = params['error'];
+        // Tampilkan alert
+        this.sweetalertService.alert('Gagal', errorMessage, 'error');
+        // Navigasi hanya jika parameter ada
+        if (errorMessage) {
+          this.router.navigate([], {
+            relativeTo: this.route,
+            queryParams: { error: null },
+            queryParamsHandling: 'merge',
+          });
+        }
+      } else if (params['success']) {
+        const successMessage = params['success'];
+        // Tampilkan alert
+        this.sweetalertService.alert('Gagal', successMessage, 'success');
+        this.getParticipantById();
+        // Navigasi hanya jika parameter ada
+        if (successMessage) {
+          this.router.navigate([], {
+            relativeTo: this.route,
+            queryParams: { success: null },
+            queryParamsHandling: 'merge',
+          });
+        }
+      }
+    });
+
     this.route.url.subscribe(urlSegments => {
       const url = urlSegments.map(segment => segment.path).join('/');
       if (url === `participants/${this.id}/profile/personal`) {

@@ -7,8 +7,12 @@ export const RoleGuard: CanActivateFn = (route, state) => {
   const router = inject(Router);
   const authService = inject(AuthService);
 
-  const cachedUserProfile = localStorage.getItem('user_profile');
+  const redirect = () => {
+    router.navigateByUrl('/not-found');
+    return false;
+  };
 
+  const cachedUserProfile = localStorage.getItem('user_profile');
   if(cachedUserProfile) {
     const userProfile = JSON.parse(cachedUserProfile);
     const userRole = userProfile.role?.name?.toLowerCase();
@@ -17,6 +21,8 @@ export const RoleGuard: CanActivateFn = (route, state) => {
     if (allowedRoles.includes(userRole)) {
       return true;
     }
+
+    return redirect();
   }
 
   return authService.userProfile$.pipe(
@@ -26,8 +32,7 @@ export const RoleGuard: CanActivateFn = (route, state) => {
       if(allowedRoles.includes(currentUser?.role!.name!)) {
         return true;
       }
-      router.navigateByUrl('/not-found');
-      return false;
+      return redirect();
     })
   );
 };

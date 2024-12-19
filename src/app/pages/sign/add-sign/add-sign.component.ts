@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { ESignFormComponent } from "../../../contents/e-sign-form/e-sign-form.component";
-import { CreateESign } from '../../../shared/model/e-sign.model';
+import { CreateESign, SignatureType } from '../../../shared/model/e-sign.model';
 import { ESignService } from '../../../shared/service/e-sign.service';
 import { ErrorHandlerService } from '../../../shared/service/error-handler.service';
 import { SweetalertService } from '../../../shared/service/sweetaler.service';
@@ -28,13 +28,14 @@ export class AddSignComponent {
     role: '',
     name: '',
     eSign: undefined!,
-    signFileName: undefined,
-    status: false
+    eSignFileName: undefined,
+    signatureType: undefined,
+    status: undefined,
   }
 
   onSubmit(eSign: CreateESign) {
+    this.sweetalertService.loading('Mohon tunggu', 'Proses...');
     const formData = this.prepareFormData(eSign);
-    console.log(formData);
     this.eSignService.createESign(formData).subscribe({
       next: () => {
         this.router.navigateByUrl('/e-sign');
@@ -62,9 +63,9 @@ export class AddSignComponent {
         const value = eSign[key];
         if (value instanceof File) {
           formData.append(key, value);
-        } else if (value) {
-          formData.append(key, value);
-        }
+        } else if (value !== null && value !== undefined) {
+          formData.append(key, value.toString());
+      }
       }
     }
     return formData;

@@ -16,13 +16,19 @@
             @for (column of columns; track $index) {
               <td [class.hidden]="column.field === 'action' && !hasActionColumn()">
                 @if (column.field !== 'action') {
-                  <ng-container *ngIf="!['kurikulumSilabus', 'sim', 'expSuratSehatButaWarna', 'expSuratBebasNarkoba'].includes(column.field)">
+                  @if (column.field === 'kurikulumSilabus') {
+                    <a [routerLink]="item.kurikulumSilabus">Lihat</a>
+                  } @else if (column.field === 'sim') {
+                    <a [routerLink]="item.sim" [state]="state">Lihat</a>
+                  } @else if (column.field === 'expSuratSehatButaWarna') {
+                    <a [routerLink]="item.expSuratSehatButaWarna.value" [state]="state">{{ item.expSuratSehatButaWarna.label }}</a>
+                  } @else if (column.field === 'expSuratBebasNarkoba') {
+                    <a [routerLink]="item.expSuratBebasNarkoba.value" [state]="state">{{ item.expSuratBebasNarkoba.label }}</a>
+                  } @else if (column.field === 'eSign') {
+                    <a [routerLink]="item.eSign">lihat</a>
+                  } @else {
                     {{ item[column.field] }}
-                  </ng-container>
-                  <a *ngIf="column.field === 'kurikulumSilabus'" [routerLink]="item.kurikulumSilabus">Lihat</a>
-                  <a *ngIf="column.field === 'sim'" [routerLink]="item.sim" [state]="state">Lihat</a>
-                  <a *ngIf="column.field === 'expSuratSehatButaWarna'" [routerLink]="item.expSuratSehatButaWarna.value" [state]="state">{{ item.expSuratSehatButaWarna.label }}</a>
-                  <a *ngIf="column.field === 'expSuratBebasNarkoba'" [routerLink]="item.expSuratBebasNarkoba.value" [state]="state">{{ item.expSuratBebasNarkoba.label }}</a>
+                  }
                 } @else {
                   <app-icon-action [printLink]="item.printLink"[editLink]="item.editLink" [delete]="item.deleteMethod" [detailLink]="item.detailLink" [select]="item.select" [state]="state"></app-icon-action>
                 }

@@ -3,7 +3,7 @@ import { HorizontalTableComponent } from "../../../components/horizontal-table/h
 import { EmailFormCardComponent } from "../../../components/card/email-form-card/email-form-card.component";
 import { PasswordUpdateFormCardComponent } from "../../../components/card/password-update-form-card/password-update-form-card.component";
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { User } from '../../../shared/model/user.model';
 import { AuthService } from '../../../shared/service/auth.service';
 import { SweetalertService } from '../../../shared/service/sweetaler.service';
@@ -33,12 +33,42 @@ export class ProfileComponent implements OnInit {
 
   constructor(
     private readonly route: ActivatedRoute,
+    private readonly router: Router,
     private readonly authService: AuthService,
     private readonly sweetalertService: SweetalertService,
     private readonly errorHandlerService: ErrorHandlerService,
   ) { }
 
   ngOnInit(): void {
+    this.route.queryParams.subscribe(params => {
+      if (params['error']) {
+        const errorMessage = params['error'];
+        // Tampilkan alert
+        this.sweetalertService.alert('Gagal', errorMessage, 'error');
+        // Navigasi hanya jika parameter ada
+        if (errorMessage) {
+          this.router.navigate([], {
+            relativeTo: this.route,
+            queryParams: { error: null },
+            queryParamsHandling: 'merge',
+          });
+        }
+      } else if (params['success']) {
+        const successMessage = params['success'];
+        // Tampilkan alert
+        this.sweetalertService.alert('Gagal', successMessage, 'success');
+        this.getProfile();
+        // Navigasi hanya jika parameter ada
+        if (successMessage) {
+          this.router.navigate([], {
+            relativeTo: this.route,
+            queryParams: { success: null },
+            queryParamsHandling: 'merge',
+          });
+        }
+      }
+    });
+
     this.route.url.subscribe(urlSegments => {
       const url = urlSegments.map(segment => segment.path).join('/');
       if (url === `users/${this.id}/personal`) {
@@ -59,6 +89,17 @@ export class ProfileComponent implements OnInit {
     }
   }
 
+  private getProfile(): void {
+    this.authService.me().subscribe({
+      next: (response) => {
+        localStorage.setItem('user_profile', JSON.stringify(response.data));
+      },
+      error: (error) => {
+        console.log(error);
+      }
+    });
+  }
+
   updateEmailSubmit(data: { email: string }): void{
     this.sweetalertService.loading('Mohon tunggu', 'Proses...');
     this.authService.updateEmailRequest(data).subscribe({
@@ -66,7 +107,8 @@ export class ProfileComponent implements OnInit {
         this.sweetalertService.alert(
           'Berhasil',
           `Kami telah mengirimkan email berisi tautan verifikasi ke email baru Anda (${data.email}). Silahkan buka tautan verifikasi untuk menyelesaikan proses ini`,
-          'success');
+          'success'
+        );
       },
       error: (error) => {
         console.log(error);

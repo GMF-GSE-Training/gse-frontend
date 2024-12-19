@@ -1,18 +1,22 @@
 .auth-container {
-  background-image: url("/assets/image/bg.png");
-  height: 100vh;
-  background-size: cover;
-  background-position: 45%;
+  background-color: #02507E;
   display: flex;
   align-items: center;
-  gap: 100px;
-  padding-left: 135px;
-  position: fixed;
+  gap: 2em;
+  height: 100vh;
+  width: 100%;
+  overflow-x: hidden;
 }
 
 .auth-description {
+  width: 50%;
+  padding: 2em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: left;
   color: #ffffff;
-  font-size: 30px;
+  font-size: 2em;
 }
 
 .brand-logo {
@@ -25,8 +29,8 @@
 
 .form-container {
   background-color: #ffffff;
-  height: 100vh;
-  width: 60em;
+  height: 100%;
+  width: 100%;
   border-bottom-left-radius: 30px;
   border-top-left-radius: 30px;
   display: flex;
@@ -34,50 +38,44 @@
   justify-content: center;
 }
 
-.auth-form {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 90px;
+@media screen and (max-width: 1024px) {
+  .auth-description {
+    font-size: 25px;
+  }
 }
 
-.auth-title {
-  border-bottom: 4px solid #000;
-  font-size: 35px;
+@media screen and (max-width: 768px) {
+  .auth-container {
+    padding-top: 15px;
+    flex-direction: column;
+    gap: 1em;
+  }
+
+  .auth-description {
+    width: 100%;
+    text-align: center;
+    font-size: 1.5em;
+    padding: 1em;
+  }
+
+  .brand-logo {
+    position: static;
+    margin-bottom: 1em;
+    width: 200px;
+    height: auto;
+  }
+
+  .form-container {
+    width: 90%;
+    height: auto;
+    border-radius: 20px;
+    padding: 2em 1em;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  }
 }
 
-.auth-form input {
-  font-size: 20px;
-  font-weight: bold;
-  padding-left: 50px;
-}
-
-#username {
-  border: none;
-  outline: none;
-  border-bottom: 2px solid #000;
-  width: 400px;
-}
-
-#password {
-  border: none;
-  outline: none;
-  border-bottom: 2px solid #000;
-  width: 400px;
-}
-
-i {
-  font-size: 30px;
-  position: absolute;
-}
-
-.user-icon {
-  top: 265px;
-  right: 680px;
-}
-
-.pass-icon {
-  top: 380px;
-  right: 680px;
+@media screen and (max-width: 425px) {
+  .auth-description {
+    font-size: 20px;
+  }
 }

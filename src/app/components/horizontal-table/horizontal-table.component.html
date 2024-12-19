@@ -20,6 +20,6 @@
     </table>
   </div>
   <div *ngIf="isParticipantDetail" class="download">
-    <a *appRoleBasedAccess="['super admin', 'lcu']" (click)="downloadDocument()">Download Semua File</a>
+    <a *appRoleBasedAccess="['super admin']" (click)="downloadDocument()">Download Semua File</a>
   </div>
 </div>

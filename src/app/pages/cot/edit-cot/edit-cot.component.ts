@@ -49,7 +49,7 @@ export class EditCotComponent implements OnInit {
           // Mapping data dari response ke UpdateCot
           this.cot = {
             id: cotData.id,
-            capabilityId: cotData.Capability?.id, // Mengambil id dari Capability
+            capabilityId: cotData.capability?.id, // Mengambil id dari Capability
             startDate: cotData.startDate ? new Date(cotData.startDate).toISOString().split('T')[0] : undefined,
             endDate: cotData.endDate ? new Date(cotData.endDate).toISOString().split('T')[0] : undefined,
             trainingLocation: cotData.trainingLocation,

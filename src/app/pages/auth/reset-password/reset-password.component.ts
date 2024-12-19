@@ -11,7 +11,6 @@ import { ErrorHandlerService } from '../../../shared/service/error-handler.servi
   standalone: true,
   imports: [ResetPasswordFormComponent],
   templateUrl: './reset-password.component.html',
-  styleUrl: './reset-password.component.css'
 })
 export class ResetPasswordComponent {
   data = {

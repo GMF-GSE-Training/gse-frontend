@@ -97,7 +97,7 @@
           inputMode="text"
           label="Password"
           [isRequired]="isCreate"
-          placeholder="Gunakan minimal 8 karakter dengan kombinasi huruf besar, huruf kecil, dan angka"
+          placeholder="Password"
           name="password"
           [(ngModel)]="user.password"
           #password="ngModel"
@@ -121,9 +121,9 @@
       </div>
       <span *ngIf="isRegister" class="isRegistered">Sudah punya akun? <a routerLink="/login">Masuk</a></span>
 
-      <div class="buttons">
-        <app-white-button *ngIf="!isRegister" type="button" routerLink="/users">Kembali</app-white-button>
-        <app-blue-button type="submit" [ngClass]="isRegister ? 'submit' : ''" [disabled]="form.invalid!">{{ blueButtonLabel }}</app-blue-button>
+      <div class="buttons-container">
+        <app-white-button *ngIf="!isRegister" class="button" type="button" routerLink="/users">Kembali</app-white-button>
+        <app-blue-button class="button" type="submit" [ngClass]="isRegister ? 'submit' : ''" [disabled]="form.invalid! && isCreate">{{ blueButtonLabel }}</app-blue-button>
       </div>
     </form>
   </div>

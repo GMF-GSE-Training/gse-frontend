@@ -1,27 +1,22 @@
-<div class="menu" [ngClass]="{ 'visible': isMenuVisible }" *ngIf="isMenuVisible">
-  <ul class="nav-menu" *appRoleBasedAccess="['super admin', 'supervisor', 'LCU']">
-    <li class="nav-item" *ngFor="let item of generalMenu">
-      <a class="nav-link" (click)="closeMenu()" [routerLink]="item.routerLink">{{ item.name }}</a>
-    </li>
-  </ul>
-
-  <ul class="nav-menu" *appRoleBasedAccess="['user']">
-    <li class="nav-item" *ngFor="let item of generalUserMenu">
-      <a class="nav-link" (click)="closeMenu()" [routerLink]="item.routerLink">{{ item.name }}</a>
-    </li>
-  </ul>
-
-  <ng-container>
-    <ul *appRoleBasedAccess="['super admin', 'supervisor', 'LCU']" class="nav-menu optional-menu">
-      <li class="nav-item" *ngFor="let item of optionalMenu">
-          <a class="nav-link" (click)="closeMenu()" routerLink="{{ item.routerLink }}">{{ item.name }}</a>
-      </li>
-    </ul>
-  </ng-container>
-
-  <ul class="nav-menu general-menu">
-    <li class="definite-item">
-      <a (click)="logout()" class="nav-link" (click)="closeMenu()">Logout</a>
+<div class="menu" [class.visible]="isMenuVisible" *ngIf="isMenuVisible">
+  <ul class="nav-menu">
+    <li class="nav-item" *ngFor="let menu of sidebarMenu">
+      @if(menu.routerLink) {
+        <a
+          class="nav-link"
+          (click)="closeMenu()"
+          [routerLink]="menu.routerLink"
+        >
+          {{ menu.name }}
+        </a>
+      } @else {
+        <a
+          class="nav-link"
+          (click)="onLogout()"
+        >
+          {{ menu.name }}
+        </a>
+      }
     </li>
   </ul>
 </div>

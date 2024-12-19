@@ -35,7 +35,7 @@ export interface Cot {
   practicalInstructor1: string;
   practicalInstructor2: string;
   status: boolean;
-  Capability: Capability;
+  capability: Capability;
 }
 
 export interface CotResponse {
@@ -47,6 +47,7 @@ export interface CotResponse {
   theoryInstructorCompetency: string;
   practicalInstructor1: string;
   practicalInstructor2: string;
+  numberOfParticipants?: number;
   status: boolean;
-  Capability: Capability;
+  capability: Capability;
 }

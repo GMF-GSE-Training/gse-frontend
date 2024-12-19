@@ -17,15 +17,8 @@ export interface ListParticipantCotResponse {
     totalParticipants: number;
     status: string;
     capability: {
-        id: string;
         ratingCode: string;
-        trainingCode: string;
         trainingName: string;
-        totalTheoryDurationRegGse: number;
-        totalPracticeDurationRegGse: number;
-        totalTheoryDurationCompetency: number;
-        totalPracticeDurationCompetency: number;
-        totalDuration: number;
     };
     participants: {
         data: {

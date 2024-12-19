@@ -12,7 +12,6 @@ import { SweetalertService } from '../../../shared/service/sweetaler.service';
     DataManagementComponent
 ],
   templateUrl: './signature-list.component.html',
-  styleUrl: './signature-list.component.css'
 })
 export class SignatureListComponent {
   constructor(
@@ -23,55 +22,98 @@ export class SignatureListComponent {
   ) {}
 
   columns = [
-    { header: 'No Pegawai', field: 'noPegawai' },
+    { header: 'No Pegawai', field: 'idNumber' },
     { header: 'Role', field: 'role' },
     { header: 'Nama', field: 'name' },
-    { header: 'Tanda Tangan', field: 'tandaTangan' },
+    { header: 'Tipe Tanda Tangan', field: 'signatureType' },
+    { header: 'Status', field: 'status' },
+    { header: 'Tanda Tangan', field: 'eSign' },
     { header: 'Action', field: 'action' }
   ];
 
   eSign: ESign[] = [];
+  isLoading: boolean = false;
 
   // Komponen pagination
   currentPage: number = 1;
   totalPages: number = 1;
   itemsPerPage: number = 10;
   searchQuery: string = '';
+  isLoadingPagination: boolean = false;
+
+  eSignId = this.route.snapshot.paramMap.get('id');
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
-      this.searchQuery = params['q'] || '';
+      this.searchQuery = params['keyword'] || '';
       this.currentPage =+ params['page'] || 1;
-      if (this.searchQuery) {
-        this.getSearchESign(this.searchQuery, this.currentPage, this.itemsPerPage);
-      } else {
-        this.getListESign(this.currentPage, this.itemsPerPage);
+      this.getListESign(this.searchQuery, this.currentPage, this.itemsPerPage);
+    });
+  }
+
+  getListESign(query: string, page: number, size: number): void {
+    this.isLoading = true;
+    this.isLoadingPagination = true;
+    this.eSignService.listESign(query, page, size).subscribe({
+      next: ({ data, actions }) => {
+        this.eSign = data.map((eSign: any) => ({
+          ...eSign,
+          signatureType: eSign.signatureType
+            .replace('SIGNATURE1', 'Tanda tangan 1')
+            .replace('SIGNATURE2', 'Tanda tangan 2'),
+          status: eSign.status ? 'Aktif' : 'Tidak aktif',
+          eSign: `/capability/${eSign.id}/curriculum-syllabus`,
+          editLink: actions?.canEdit ? `/e-sign/${eSign.id}/edit` : null,
+          deleteMethod: actions?.canDelete ? () => this.delteSignature(eSign) : null,
+        }));
+      },
+      error: (error) => {
+        console.log(error);
+        this.isLoading = false;
+      },
+      complete: () => {
+        this.isLoading = false;
       }
     });
   }
 
-  getListESign(page: number, size: number): void {
-    this.eSignService.listESign(page, size).subscribe({
-      next: ({ code, status, data, actions, paging}) => {
-        if(code === 200 && status === 'OK' && Array.isArray(data)) {
-          this.eSign = data.map((eSign: ESign) => ({
-            ...eSign,
-            editLink: actions?.canEdit ? `/e-sign/${eSign.id}/edit` : null,
-            deleteMethod: actions?.canDelete ? () => this.deleteCot(eSign) : null,
-          }));
-        } else {
-          this.eSign = [];
+  async delteSignature(eSign: ESign): Promise<void> {
+    const isConfirmed = await this.sweetalertService.confirm('Anda Yakin?', `Apakah anda ingin menghapus E-Sign ini : ${eSign.name}?`, 'warning', 'Ya, hapus!');
+    if(isConfirmed) {
+      this.sweetalertService.loading('Mohon tunggu', 'Proses...');
+      this.eSignService.deleteESign(eSign.id).subscribe({
+        next: () => {
+          this.sweetalertService.alert('Dihapus!', 'Data E-Sign berhasil dihapus', 'success');
+          this.eSign = this.eSign.filter(p => p.id !== eSign.id);
+
+          if(this.eSign.length === 0 && this.currentPage > 0) {
+            this.currentPage -= 1;
+          }
+
+          this.getListESign(this.searchQuery, this.currentPage, this.itemsPerPage);
+
+          // Cek apakah halaman saat ini lebih besar dari total halaman
+          if (this.currentPage > this.totalPages) {
+            this.currentPage = this.totalPages; // Pindah ke halaman sebelumnya
+          }
+
+          // Update query params dengan currentPage yang diperbarui
+          const queryParams = this.searchQuery
+            ? { keyword: this.searchQuery, page: this.currentPage }
+            : { page: this.currentPage };
+
+          this.router.navigate([], {
+            relativeTo: this.route,
+            queryParams,
+            queryParamsHandling: 'merge',
+          });
+        },
+        error: (error) => {
+          console.log(error);
+          this.sweetalertService.alert('Gagal!', 'Terjadi kesalahan, coba lagi nanti', 'error');
         }
-      }
-    });
-  }
-
-  async deleteCot(cot: any): Promise<void> {
-
-  }
-
-  getSearchESign(query: string, page: number, size: number) {
-
+      });
+    }
   }
 
   onSearchChanged(query: string): void {
@@ -96,12 +138,14 @@ export class SignatureListComponent {
   }
 
   viewAll(): void {
+    if(this.eSign.length > 0) {
+
+    }
     this.router.navigate([], {
       relativeTo: this.route,
-      queryParams: { q: null, page: null },
+      queryParams: { keyword: undefined, page: undefined },
       queryParamsHandling: 'merge',
     });
-
     this.searchQuery = '';
   }
 }

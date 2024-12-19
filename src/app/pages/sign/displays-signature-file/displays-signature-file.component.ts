@@ -1,25 +1,22 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { finalize, map } from 'rxjs/operators';
-import { ParticipantService } from '../../../shared/service/participant.service';
-import { DisplayFilesComponent } from '../../../contents/display-files/display-files.component';
-import { CommonModule } from '@angular/common';
-import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { Component } from '@angular/core';
+import { DisplayFilesComponent } from "../../../contents/display-files/display-files.component";
 import { LoaderComponent } from "../../../components/loader/loader.component";
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ESignService } from '../../../shared/service/e-sign.service';
+import { finalize, map } from 'rxjs';
 
 @Component({
-  selector: 'app-display-participants-files',
+  selector: 'app-displays-signature-file',
   standalone: true,
   imports: [
     DisplayFilesComponent,
-    RouterLink,
-    CommonModule,
     LoaderComponent
 ],
-  templateUrl: './display-files-participants.component.html',
-  styleUrl: './display-files-participants.component.css'
+  templateUrl: './displays-signature-file.component.html',
+  styleUrl: './displays-signature-file.component.css'
 })
-export class DisplayFilesParticipantsComponent implements OnInit {
+export class DisplaysSignatureFileComponent {
   pageTitle: string = '';
   id = this.route.snapshot.paramMap.get('id');
   navigationLink: string = '';
@@ -31,7 +28,7 @@ export class DisplayFilesParticipantsComponent implements OnInit {
 
   constructor(
     private readonly route: ActivatedRoute,
-    private readonly participantService: ParticipantService,
+    private readonly eSignService: ESignService,
     private readonly router: Router,
     private readonly sanitizer: DomSanitizer
   ) {
@@ -53,26 +50,14 @@ export class DisplayFilesParticipantsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const path = this.router.url;
-    const fileTypes = [
-      'sim-a',
-      'sim-b',
-      'ktp',
-      'surat-sehat-buta-warna',
-      'surat-bebas-narkoba'
-    ];
-
-    const matchedType = fileTypes.find(type => path.includes(type));
-
-    if (matchedType) {
-      this.pageTitle = matchedType.toUpperCase().split('-').join(' ');
-      this.getFile(this.id!, matchedType);
+    if (this.id) {
+      this.getFile(this.id);
     }
   }
 
-  getFile(id: string, fileName: string): void {
+  getFile(id: string): void {
     this.isLoading = true;
-    this.participantService.getFile({ id }, fileName).pipe(
+    this.eSignService.getESignFile(id).pipe(
       map(response => response.data),
       finalize(() => {
         this.isLoading = false;
@@ -95,20 +80,28 @@ export class DisplayFilesParticipantsComponent implements OnInit {
   }
 
   onImageLoad() {
-    console.log("LOADING")
     this.isLoading = false;
   }
 
   onImageError() {
-    console.error('Failed to load image:', this.safeUrl);
+    console.log('Failed to load image:', this.safeUrl);
     this.isLoading = false; // Hindari spinner terus tampil
   }
 
   private getMediaType(base64String: string): string {
-    const header = base64String.slice(0, 4);
-    if (header === 'iVBO') return 'image/png';
-    if (header === '\uFFFD\uD8FF') return 'image/jpeg';
-    if (header === 'JVBE') return 'application/pdf';
+    const header = base64String.slice(0, 10);
+    if (header.startsWith('/9j/')) return 'image/jpeg';
+    if (header.startsWith('iVBORw0KGg')) return 'image/png';
+    if (header.startsWith('JVBER')) return 'application/pdf';
     return '';
+  }
+
+  getDownloadExtension(): string {
+    switch (this.fileType) {
+      case 'image/png': return '.png';
+      case 'image/jpeg': return '.jpeg';
+      case 'application/pdf': return '.pdf';
+      default: return '';
+    }
   }
 }

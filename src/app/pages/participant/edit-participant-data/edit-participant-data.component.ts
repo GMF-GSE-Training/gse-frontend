@@ -122,39 +122,41 @@ export class EditParticipantDataComponent implements OnInit {
   }
 
   onUpdate(participant: UpdateParticipant) {
-    const formData = this.prepareFormData(participant);
-    this.sweetalertService.loading('Mohon tunggu', 'Proses...');
+    if(this.participantId) {
+      const formData = this.prepareFormData(participant);
+      this.sweetalertService.loading('Mohon tunggu', 'Proses...');
 
-    this.participantService.updateParticipant(this.participantId!, formData).subscribe({
-      next: () => {
-        this.sweetalertService.alert('Diperbarui!', 'Peserta berhasil diperbarui', 'success');
-        const participantData = this.userProfile.participant;
-        if(participantData) {
-          const participantEmail = participantData.email;
-          this.userProfile.participant = JSON.parse(
-            JSON.stringify(participant, (key, value) =>
-                value instanceof File || value === null ? undefined : value
-            )
-          );
-          this.userProfile.participant.email = participantEmail;
-          this.userProfile.isDataComplete = true;
-          participantData.gmfNonGmf = participantData.company.toLowerCase().includes('gmf') || participantData.company.toLowerCase().includes('garuda maintenance facility') ? 'GMF' : 'Non GMF';
-          localStorage.setItem('user_profile', JSON.stringify(this.userProfile));
-        }
+      this.participantService.updateParticipant(this.participantId, formData).subscribe({
+        next: () => {
+          this.sweetalertService.alert('Diperbarui!', 'Peserta berhasil diperbarui', 'success');
+          const participantData = this.userProfile.participant;
+          if(participantData) {
+            const participantEmail = participantData.email;
+            this.userProfile.participant = JSON.parse(
+              JSON.stringify(participant, (_key, value) =>
+                  value instanceof File || value === null ? undefined : value
+              )
+            );
+            this.userProfile.participant.email = participantEmail;
+            this.userProfile.isDataComplete = true;
+            participantData.gmfNonGmf = participantData.company.toLowerCase().includes('gmf') || participantData.company.toLowerCase().includes('garuda maintenance facility') ? 'GMF' : 'Non GMF';
+            localStorage.setItem('user_profile', JSON.stringify(this.userProfile));
+          }
 
-        if((this.userProfile.role.name === 'user')) {
-          localStorage.removeItem('pas_foto');
-          localStorage.removeItem('qr_code');
-          this.router.navigateByUrl(`/participants/${this.participantId}/profile/personal`);
-        } else {
-          this.router.navigateByUrl(`/participants/${this.participantId}/detail`);
+          if((this.userProfile.role.name === 'user')) {
+            localStorage.removeItem('pas_foto');
+            localStorage.removeItem('qr_code');
+            this.router.navigateByUrl(`/participants/${this.participantId}/profile/personal`);
+          } else {
+            this.router.navigateByUrl(`/participants/${this.participantId}/detail`);
+          }
+        },
+        error: (error) => {
+          console.log(error);
+          this.errorHandlerService.alertError(error, this.requiredFields);
         }
-      },
-      error: (error) => {
-        console.log(error);
-        this.errorHandlerService.alertError(error, this.requiredFields);
-      }
-    });
+      });
+    }
   }
 
   onFileChange(property: string, file: File | null): void {
@@ -199,7 +201,7 @@ export class EditParticipantDataComponent implements OnInit {
 
         if (value instanceof File) {
           formData.append(key, value);
-        } else { // Menambahkan nilai kosong
+        } else {
           formData.append(key, value);
         }
       }

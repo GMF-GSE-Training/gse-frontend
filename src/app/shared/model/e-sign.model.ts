@@ -3,8 +3,9 @@ export interface CreateESign {
   role: string;
   name: string;
   eSign: Buffer;
-  signFileName?: string;
-  status: boolean;
+  eSignFileName?: string;
+  signatureType?: SignatureType;
+  status?: boolean;
 }
 
 export interface UpdateESign {
@@ -12,7 +13,8 @@ export interface UpdateESign {
   role?: string;
   name?: string;
   eSign?: File;
-  signFileName?: string;
+  eSignFileName?: string;
+  signatureType?: SignatureType;
   status?: boolean;
 }
 
@@ -22,7 +24,8 @@ export interface ESign {
   role: string;
   name: string;
   eSign: File;
-  signFileName: string;
+  eSignFileName: string;
+  signatureType: SignatureType;
   status: boolean;
 }
 
@@ -32,6 +35,12 @@ export interface ESignResponse {
   role: string;
   name: string;
   eSign: File;
-  signFileName: string;
+  eSignFileName: string;
+  signatureType: SignatureType;
   status: boolean;
+}
+
+export enum SignatureType {
+  SIGNATURE1 = 'SIGNATURE1',
+  SIGNATURE2 = 'SIGNATURE2',
 }

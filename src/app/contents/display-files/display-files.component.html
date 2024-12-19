@@ -1,9 +1,9 @@
-<app-title [pageTitle]="pageTitle" (click)="$event.stopPropagation()"></app-title>
+<app-title [pageTitle]="pageTitle"></app-title>
 
 <div class="icon-container">
   <i class="fa-solid fa-arrow-left"></i>
 </div>
 
-<div class="display-container" (click)="$event.stopPropagation()">
+<div class="display-container">
   <ng-content></ng-content>
 </div>

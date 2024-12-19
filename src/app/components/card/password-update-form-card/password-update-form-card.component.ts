@@ -52,10 +52,6 @@ export class PasswordUpdateFormCardComponent {
   onSubmit() {
     if (this.form.valid) {
       this.formSubmit.emit(this.data);
-      this.data = {
-        newPassword: '',
-        confirmNewPassword: '',
-      };
       this.form.resetForm();
     }
   }

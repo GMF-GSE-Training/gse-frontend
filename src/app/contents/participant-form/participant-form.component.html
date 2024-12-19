@@ -109,7 +109,7 @@
         name="nationality"
         label="Kewarganegaraan"
         [isRequired]="true"
-        placeholder="Isi kewarganegaraan sesuai KTP"
+        placeholder="Isi kewarganegaraan sesuai KTP/Paspor"
         type="text"
         autocomplete="country"
         inputMode="text"
@@ -122,7 +122,7 @@
         name="placeOfBirth"
         label="Tempat Lahir"
         [isRequired]="true"
-        placeholder="Isi Tempat Lahir sesuai KTP"
+        placeholder="Isi Tempat Lahir sesuai KTP/Paspor"
         type="text"
         autocomplete="address-level2"
         inputMode="text"
@@ -139,7 +139,7 @@
         type="date"
         inputmode="date"
         #dateOfBirth="ngModel"
-        defaultMessage="Isi Tanggal Lahir sesuai KTP"
+        defaultMessage="Isi Tanggal Lahir sesuai KTP/Paspor"
       >
       </app-base-input>
 
@@ -169,10 +169,9 @@
       <app-file-input
         idInput="ktp_input"
         (valueChange)="onFileChange('ktp', $event)"
-        label="KTP"
+        label="KTP/Paspor"
         placeholder="Unggah file maksimal 2 MB dengan format png, jpg, jpeg, atau pdf."
         [isRequired]="true"
-        [required]="participant.ktpFileName"
         [fileName]="participant.ktpFileName"
         [fileType]="fileType">
       </app-file-input>
@@ -242,6 +241,6 @@
 
   <div class="container-button">
     <app-white-button type="button" [routerLink]="backButtonRoute" class="button">Kembali</app-white-button>
-    <app-blue-button type="submit" class="button" [disabled]="form.invalid!">Simpan</app-blue-button>
+    <app-blue-button type="submit" class="button" [disabled]="form.invalid! && !isUpdate">Simpan</app-blue-button>
   </div>
 </form>

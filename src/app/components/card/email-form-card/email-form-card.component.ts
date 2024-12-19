@@ -26,7 +26,6 @@ export class EmailFormCardComponent {
   onSubmit() {
     if (this.form.valid) {
       this.formSubmit.emit(this.data);
-      this.data.email = '';
       this.form.resetForm();
     }
   }

@@ -30,7 +30,7 @@ export class DropdownInputComponent implements OnChanges {
     this.filteredOptions = [...this.options]; // Initialize filteredOptions with all options
 
     // Handle initial value selection
-    if (this.initialValue) {
+    if (this.initialValue !== null || this.initialValue !== undefined) {
       const selectedOption = this.options.find(option => option.value === this.initialValue);
       if (selectedOption) {
         this.selectedValue = selectedOption.label;

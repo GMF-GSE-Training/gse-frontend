@@ -10,7 +10,6 @@ import { ErrorHandlerService } from '../../../shared/service/error-handler.servi
   standalone: true,
   imports: [EmailFormComponent],
   templateUrl: './forgot-password.component.html',
-  styleUrl: './forgot-password.component.css'
 })
 export class ForgotPasswordComponent implements OnInit {
   constructor(

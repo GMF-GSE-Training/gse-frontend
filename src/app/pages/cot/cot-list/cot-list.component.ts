@@ -69,8 +69,8 @@ export class CotListComponent {
         this.cot = data.map((cot) => ({
           startDate: new Date(cot.startDate).toLocaleDateString('id-ID', this.dateOptions),
           endDate: new Date(cot.endDate).toLocaleDateString('id-ID', this.dateOptions),
-          ratingCode: cot.Capability?.ratingCode,
-          trainingName: cot.Capability?.trainingName,
+          ratingCode: cot.capability?.ratingCode,
+          trainingName: cot.capability?.trainingName,
           editLink: actions?.canEdit ? `/cot/${cot.id}/edit` : null,
           detailLink: actions?.canView ? `/cot/${cot.id}/detail` : null,
           deleteMethod: actions?.canDelete ? () => this.deleteCot(cot) : null,
@@ -89,7 +89,7 @@ export class CotListComponent {
   }
 
   async deleteCot(cot: Cot): Promise<void> {
-    const isConfirmed = await this.sweetalertService.confirm('Anda Yakin?', `Apakah anda ingin menghapus COT ${cot.Capability.trainingName}?`, 'warning', 'Ya, hapus!');
+    const isConfirmed = await this.sweetalertService.confirm('Anda Yakin?', `Apakah anda ingin menghapus COT ${cot.capability.trainingName}?`, 'warning', 'Ya, hapus!');
     if (isConfirmed) {
       this.sweetalertService.loading('Mohon tunggu', 'Proses...');
       this.cotService.deleteCot(cot.id).subscribe({

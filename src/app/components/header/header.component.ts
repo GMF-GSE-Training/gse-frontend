@@ -56,7 +56,12 @@ export class HeaderComponent implements OnInit {
   ];
 
   private excludedRoutesRegex: RegExp[] = [
-    /^\/users\/[a-f0-9\-]+\/edit$/,  // Regex untuk '/users/:id/edit' yang mendukung UUID
-    /^\/reset\/[^/]+$/,              // Regex untuk '/reset/:token'
+    /^\/users\/[a-f0-9\-]+\/edit(\?.*)?$/,
+    /^\/users\/add(\?.*)?$/,
+    /^\/reset\/[^/]+(\?.*)?$/,
+    /^\/login(\?.*)?$/,
+    /^\/register(\?.*)?$/,
+    /^\/reset\/[^/]+$/,
+    /^\/verification\/[^/]+$/,
   ];
 }
