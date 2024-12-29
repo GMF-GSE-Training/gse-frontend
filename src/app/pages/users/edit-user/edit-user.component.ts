@@ -24,7 +24,7 @@ export class EditUserComponent implements OnInit {
     roleId: ''
   }
 
-  userId = this.route.snapshot.paramMap.get('id');
+  userId = this.route.snapshot.paramMap.get('userId');
 
   constructor(
     private route: ActivatedRoute,

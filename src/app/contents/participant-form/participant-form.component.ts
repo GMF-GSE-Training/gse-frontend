@@ -9,6 +9,7 @@ import { TitleComponent } from '../../components/title/title.component';
 import { FormsModule, NgForm } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { RoleBasedAccessDirective } from '../../shared/directive/role-based-access.directive';
+import { HeaderComponent } from "../../components/header/header.component";
 
 @Component({
   selector: 'app-participant-form',
@@ -24,7 +25,8 @@ import { RoleBasedAccessDirective } from '../../shared/directive/role-based-acce
     TitleComponent,
     CommonModule,
     RoleBasedAccessDirective,
-  ],
+    HeaderComponent
+],
   templateUrl: './participant-form.component.html',
   styleUrl: './participant-form.component.css',
 })

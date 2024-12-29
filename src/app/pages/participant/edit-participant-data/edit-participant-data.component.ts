@@ -45,7 +45,7 @@ export class EditParticipantDataComponent implements OnInit {
     tglKeluarSuratBebasNarkoba: '',
   };
 
-  participantId = this.route.snapshot.paramMap.get('id');
+  participantId = this.route.snapshot.paramMap.get('participantId');
 
   // Company Input
   @Input() selectedCompany: string = '';
@@ -67,7 +67,7 @@ export class EditParticipantDataComponent implements OnInit {
   }
 
   userProfile = JSON.parse(localStorage.getItem('user_profile') || '{}');
-  id = this.route.snapshot.paramMap.get('id') || this.userProfile.participant.id;
+  id = this.route.snapshot.paramMap.get('participantId') || this.userProfile.participant.id;
   backButtonRoute: string = '/participants';
 
   ngOnInit(): void {
@@ -139,7 +139,8 @@ export class EditParticipantDataComponent implements OnInit {
             );
             this.userProfile.participant.email = participantEmail;
             this.userProfile.isDataComplete = true;
-            participantData.gmfNonGmf = participantData.company.toLowerCase().includes('gmf') || participantData.company.toLowerCase().includes('garuda maintenance facility') ? 'GMF' : 'Non GMF';
+            console.log(this.userProfile.isDataComplete)
+            // participantData.gmfNonGmf = participantData.company.includes('gmf') || participantData.company.includes('garuda maintenance facility') ? 'GMF' : 'Non GMF';
             localStorage.setItem('user_profile', JSON.stringify(this.userProfile));
           }
 

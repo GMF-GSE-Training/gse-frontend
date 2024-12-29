@@ -10,7 +10,6 @@ import { SweetalertService } from '../../../shared/service/sweetaler.service';
   standalone: true,
   imports: [CapabilityFormComponent],
   templateUrl: './add-capability.component.html',
-  styleUrl: './add-capability.component.css'
 })
 export class AddCapabilityComponent {
   capability = {

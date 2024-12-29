@@ -39,7 +39,7 @@ export class EditCotComponent implements OnInit {
   initialCapability: string = '';
 
   ngOnInit(): void {
-    const id = this.route.snapshot.paramMap.get('id');
+    const id = this.route.snapshot.paramMap.get('cotId');
     if(id) {
       this.cotService.getCotById(id).subscribe({
         next: (response) => {

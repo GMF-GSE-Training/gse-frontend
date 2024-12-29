@@ -51,7 +51,7 @@ export class EditCurriculumSyllabusComponent implements OnInit {
     private readonly curriculumSyllabusService: CurriculumSyllabusService,
   ) { }
 
-  capabilityId = this.route.snapshot.paramMap.get('id');
+  capabilityId = this.route.snapshot.paramMap.get('capabilityId');
   isLoading: boolean = false;
 
   ngOnInit(): void {

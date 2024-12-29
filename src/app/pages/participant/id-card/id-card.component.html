@@ -1,7 +1,14 @@
 <app-display-files
   pageTitle="ID Card"
-  [routerLink]="navigationLink"
+  [isLoading]="isLoading"
+  [navigationLinks]="navigationLink"
+  (downloadChange)="downloadIdCard()"
 >
-  <div id="idCard" class="card" [innerHTML]="id_card"></div>
-  <app-blue-button (click)="downloadIdCard()" class="button">Download</app-blue-button>
+  @if(id_card) {
+    <div [innerHTML]="id_card"></div>
+  } @else {
+    <div class="no-files">
+      <p>ID Card Error. Silahkan cek kembali apakah data anda sudah lengkap atau belum.</p>
+    </div>
+  }
 </app-display-files>

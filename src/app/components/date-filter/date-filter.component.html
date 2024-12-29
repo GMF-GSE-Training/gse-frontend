@@ -9,7 +9,7 @@
   <i class="fa-solid" [ngClass]="isFilterVisible ? 'fa-caret-up' : 'fa-caret-down'"></i>
 </button>
 
-<form *ngIf="isFilterVisible" #filterForm="ngForm" (ngSubmit)="applyFilter()" class="filter-container">
+<form *ngIf="isFilterVisible" #filterForm="ngForm" (ngSubmit)="applyFilter(startDate, endDate)" class="date-filter-form">
   <div class="input-container">
     <app-base-input
       [(ngModel)]="startDate"

@@ -1,8 +1,5 @@
 .header {
-  background-image: url("/assets/image/bg.png");
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: 100%;
+  background-color: #02507E;
   border-bottom-right-radius: 30px;
   border-bottom-left-radius: 30px;
   display: flex;
@@ -11,36 +8,63 @@
   padding-left: 70px;
   padding-right: 70px;
   height: 150px;
+  width: 100%;
 }
 
 img:hover {
   cursor: pointer;
 }
 
-.logo {
-  width: 235px;
-  height: 48px;
+.header-logo {
+  width: 15em;
+  height: auto;
 }
 
 .menu {
-  font-size: 32px;
+  font-size: 2em;
   color: #ffffff;
-}
-
-.menu i{
-  transition: transform 0.3s ease, color 0.3s ease;
-  margin-left: 5px;
-}
-
-.menu i.fa-x {
-  transform: rotate(180deg);
+  padding: 8px 16px;
+  border-radius: 8px;
 }
 
 .menu:hover {
-  opacity: 50%;
-  cursor: pointer;
+  opacity: 0.5;
+  background-color: rgba(255, 255, 255, 0.1);
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-.menu:active i {
+.menu:active {
   color: #3E799B;
+}
+
+/* Responsiveness for tablets */
+@media (max-width: 769px) {
+  .header {
+    padding-left: 40px;
+    padding-right: 40px;
+    height: 120px;
+  }
+
+  .header-logo {
+    width: 10em;
+  }
+}
+
+/* Responsiveness for mobiles */
+@media (max-width: 426px) {
+  .header {
+    padding-left: 20px;
+    padding-right: 20px;
+    height: 80px;
+  }
+
+  .menu {
+    font-size: 1.5em;
+  }
+}
+
+@media (max-width: 320px) {
+  h1 span {
+    display: none;
+  }
 }

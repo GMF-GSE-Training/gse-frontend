@@ -1,13 +1,15 @@
 table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 18px;
+  font-size: 1em;
 }
 
 th, td {
   padding: 6px;
   text-align: center;
   border: 2px solid #dddddd;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 th {
@@ -19,7 +21,8 @@ tbody tr:nth-child(even) {
   background-color: #f2f2f2;
 }
 
-tbody p {
+p {
+  width: 100%;
   margin-top: 10px;
 }
 
@@ -29,7 +32,7 @@ span {
   margin: 0;
   padding:0;
   gap: 25px;
-  font-size: 20px;
+  font-size: 2em;
 }
 
 a {

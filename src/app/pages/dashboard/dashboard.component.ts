@@ -5,21 +5,23 @@ import { DataTotalSertifikatAktifComponent } from '../../components/chart/data-t
 import { DataJumlahPemegangSertifikatComponent } from '../../components/chart/data-jumlah-pemegang-sertifikat/data-jumlah-pemegang-sertifikat.component';
 import { TableComponent } from "../../components/table/table.component";
 import { Router } from '@angular/router';
+import { HeaderComponent } from "../../components/header/header.component";
 
 @Component({
-  selector: 'app-home',
+  selector: 'app-dashboard',
   standalone: true,
   imports: [
     RealisasiCotChartComponent,
     DataPemegangKompetensiGseOperatorComponent,
     DataTotalSertifikatAktifComponent,
     DataJumlahPemegangSertifikatComponent,
-    TableComponent
+    TableComponent,
+    HeaderComponent
 ],
-  templateUrl: './home.component.html',
-  styleUrl: './home.component.css'
+  templateUrl: './dashboard.component.html',
+  styleUrl: './dashboard.component.css'
 })
-export class HomeComponent {
+export class DashboardComponent {
   columns = [
     { header: 'Nama Training', field: 'namaTraining' },
     { header: 'Mulai', field: 'mulai' },

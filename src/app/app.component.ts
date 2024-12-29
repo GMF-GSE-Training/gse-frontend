@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
-import { HeaderComponent } from "./components/header/header.component";
 import { CommonModule } from '@angular/common';
 import { filter, Subject, takeUntil } from 'rxjs';
 
@@ -9,7 +8,6 @@ import { filter, Subject, takeUntil } from 'rxjs';
   standalone: true,
   imports: [
     RouterOutlet,
-    HeaderComponent,
     CommonModule,
 ],
   templateUrl: './app.component.html',

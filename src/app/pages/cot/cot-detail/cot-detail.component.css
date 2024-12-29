@@ -1,6 +1,10 @@
 /* Container untuk seluruh konten utama */
 .main-content {
-  transition: all 0.3s ease;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 2em;
+  padding: 2em;
 }
 
 .main-content.loading {
@@ -33,8 +37,11 @@
 }
 
 .cot-table {
-  padding-right: 3em;
-  padding-left: 3em;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  height: 100%;
+  width: 100%;
+  background-color: white;
 }
 
 /* Modal tetap bisa diinteraksi */
@@ -45,16 +52,16 @@
   transform: translate(-50%, -50%);
   width: 80%;
   max-width: 1000px;
-  max-height: 80vh;
+  max-height: 100%;
   background-color: #ffffff;
   border: 1px solid #126A9E;
   border-radius: 10px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
   padding: 20px;
   margin: 0;
-  overflow: hidden;
   z-index: 1000;
   pointer-events: auto; /* Memastikan modal tetap bisa diinteraksi */
+  overflow: auto;
 }
 
 /* Add button styling */
@@ -68,6 +75,10 @@
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
+  .main-content {
+    padding: 1em;
+  }
+
   .modal-container {
     width: 95%;
     padding: 15px;
@@ -76,36 +87,4 @@
   .title {
     font-size: 20px;
   }
-}
-
-/* Button container styles */
-.container-button {
-  display: flex;
-  justify-content: flex-end;  /* Changed from center */
-  gap: 20px;
-  padding: 15px;
-  border-top: 1px solid #eee;
-  margin-top: 20px;
-}
-
-.button {
-  width: 150px;  /* Slightly reduced width */
-  height: 40px;  /* Slightly reduced height */
-  border-radius: 5px;
-}
-
-/* Search container refinements */
-.search-container {
-  margin: 20px;
-  width: 100%;
-  max-width: 350px;
-}
-
-.search-container input {
-  width: 100%;
-  height: 40px;
-  border-radius: 8px;
-  font-size: 16px;
-  padding: 0 15px;
-  border: 1px solid #ccc;
 }

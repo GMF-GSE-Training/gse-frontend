@@ -22,7 +22,7 @@
   background-color: #d8dadb;
 }
 
-.filter-container {
+.date-filter-form {
   position: absolute;
   display: flex;
   flex-direction: column;
@@ -30,17 +30,19 @@
   padding: 0;
   background-color: #fff;
   padding: 10px;
-  border: 2px solid black;
-  border-radius: 25px;;
+  border: 2px solid #ccc;
+  border-radius: 25px;
 }
 
 .input-container {
   display: flex;
-  gap: 25px;
+  gap: 1em;
+  width: 100%;
 }
 
 .input {
   font-size: 10px;
+  width: 100%;
 }
 
 .filter-button {
@@ -48,9 +50,17 @@
   width: 125px;
   font-size: 10px;
   margin-left: auto;
-  margin-right: 0;
+  width: 100%;
 }
 
 .filter-button-container {
+  padding: 0;
   display: flex;
+  gap: 1em;
+}
+
+@media (max-width: 768px) {
+  .date-filter-form {
+    width: 80%;
+  }
 }

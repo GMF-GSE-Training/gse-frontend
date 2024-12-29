@@ -1,27 +1,24 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { Component, ElementRef, OnInit, Renderer2 } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { finalize, map } from 'rxjs/operators';
 import { ParticipantService } from '../../../shared/service/participant.service';
 import { DisplayFilesComponent } from '../../../contents/display-files/display-files.component';
 import { CommonModule } from '@angular/common';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-import { LoaderComponent } from "../../../components/loader/loader.component";
 
 @Component({
   selector: 'app-displays-participant-file',
   standalone: true,
   imports: [
     DisplayFilesComponent,
-    RouterLink,
     CommonModule,
-    LoaderComponent
 ],
   templateUrl: './displays-participant-file.component.html',
   styleUrl: './displays-participant-file.component.css'
 })
 export class DisplaysParticipantFilesComponent implements OnInit {
   pageTitle: string = '';
-  id = this.route.snapshot.paramMap.get('id');
+  id = this.route.snapshot.paramMap.get('participantId');
   navigationLink: string = '';
   file: string | undefined;
   fileType: string = '';
@@ -33,7 +30,9 @@ export class DisplaysParticipantFilesComponent implements OnInit {
     private readonly route: ActivatedRoute,
     private readonly participantService: ParticipantService,
     private readonly router: Router,
-    private readonly sanitizer: DomSanitizer
+    private readonly sanitizer: DomSanitizer,
+    private readonly renderer: Renderer2,
+    private readonly el: ElementRef
   ) {
     const navigation = this.router.getCurrentNavigation();
     const state = navigation?.extras.state;
@@ -120,5 +119,15 @@ export class DisplaysParticipantFilesComponent implements OnInit {
       case 'application/pdf': return '.pdf';
       default: return '';
     }
+  }
+
+  downloadFile(): void {
+    const fileUrl = `data:${this.fileType};base64,${this.file}`;
+    const link = this.renderer.createElement('a');
+    this.renderer.setAttribute(link, 'href', fileUrl);
+    this.renderer.setAttribute(link, 'download', `${this.pageTitle}${this.getDownloadExtension()}`);
+    this.renderer.appendChild(this.el.nativeElement, link);
+    link.click();
+    this.renderer.removeChild(this.el.nativeElement, link);
   }
 }

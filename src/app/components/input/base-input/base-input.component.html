@@ -1,6 +1,6 @@
 <label>{{ label }}<span *ngIf="isRequired" class="required-label">*</span></label>
 
-<div [ngClass]="name === 'password' ? 'container' : ''">
+<div [class.container]="name === 'password'">
   <div class="input-group">
     <input
       [ngStyle]="{ 'outline': readOnly || disabled ? 'none' : '#000'  }"

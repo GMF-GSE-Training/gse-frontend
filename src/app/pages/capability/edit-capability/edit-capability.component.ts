@@ -12,7 +12,6 @@ import { ErrorHandlerService } from '../../../shared/service/error-handler.servi
     CapabilityFormComponent
   ],
   templateUrl: './edit-capability.component.html',
-  styleUrl: './edit-capability.component.css'
 })
 export class EditCapabilityComponent implements OnInit {
   capability = {
@@ -31,7 +30,7 @@ export class EditCapabilityComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    const id = this.route.snapshot.paramMap.get('id');
+    const id = this.route.snapshot.paramMap.get('capabilityId');
     if(id) {
       this.capabilityService.getCapabilityById(id).subscribe({
         next: (response) => {

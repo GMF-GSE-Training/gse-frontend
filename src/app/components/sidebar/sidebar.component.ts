@@ -63,17 +63,17 @@ export class SidebarComponent {
     switch (role) {
       case 'user':
         this.sidebarMenu = [
-          { name: 'Home', routerLink: '/home' },
+          { name: 'Dashboard', routerLink: '/dashboard' },
           { name: 'Profile', routerLink: `/participants/${participantId}/profile/personal` },
           { name: 'Capability', routerLink: '/capability' },
-          { name: 'COT', routerLink: '/cot' },
+          { name: 'My Class', routerLink: '/cot' },
           { name: 'Logout' },
         ];
         break;
 
       case 'lcu':
         this.sidebarMenu = [
-          { name: 'Home', routerLink: '/home' },
+          { name: 'Dashboard', routerLink: '/dashboard' },
           { name: 'Profile', routerLink: `/users/${id}/profile` },
           { name: 'Participants', routerLink: '/participants' },
           { name: 'Capability', routerLink: '/capability' },
@@ -85,7 +85,7 @@ export class SidebarComponent {
       case 'supervisor':
       case 'super admin':
         this.sidebarMenu = [
-          { name: 'Home', routerLink: '/home' },
+          { name: 'Dashboard', routerLink: '/dashboard' },
           { name: 'Profile', routerLink: `/users/${id}/profile` },
           { name: 'Participants', routerLink: '/participants' },
           { name: 'Capability', routerLink: '/capability' },
@@ -104,6 +104,10 @@ export class SidebarComponent {
   closeMenu() {
     this.isMenuVisible = false;
     this.menuClose.emit();
+  }
+
+  onOverlayClick() {
+    this.closeMenu();
   }
 
   onLogout() {

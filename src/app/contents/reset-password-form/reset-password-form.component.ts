@@ -29,12 +29,18 @@ export class ResetPasswordFormComponent {
     newPassword: '',
     confirmNewPassword: '',
   };
-  
+
   passwordMismatch: boolean = false;
   message: string = '';
-  isPassVisible: boolean = false;
-  passVisible() {
-    this.isPassVisible = !this.isPassVisible;
+  isNewPassVisible: boolean = false;
+  isConfirmNewPassVisible: boolean = false;
+
+  newPassVisible() {
+    this.isNewPassVisible = !this.isNewPassVisible;
+  }
+
+  confirmNewPassVisible() {
+    this.isConfirmNewPassVisible = !this.isConfirmNewPassVisible;
   }
 
   @Output() formSubmit = new EventEmitter<any>();

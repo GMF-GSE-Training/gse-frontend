@@ -19,7 +19,7 @@ import { NG_VALUE_ACCESSOR } from '@angular/forms';
 export class FileInputComponent {
   @Input() label: string = '';
   @Input() idInput!: string;
-  @Input() placeholder: string = '';
+  @Input() placeholder: string = 'Maksimal 2 MB';
   @Input() fileName: string | null = null;
   @Input() fileType: string = '';
   @Input() required: boolean = false;

@@ -4,7 +4,7 @@
 }
 
 .title {
-  border-bottom: 4px solid #000;
+  text-decoration: underline 4px;
   font-size: 30px;
   text-align: center;
 }

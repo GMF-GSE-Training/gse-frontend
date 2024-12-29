@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { debounceTime, Subject } from 'rxjs';
@@ -10,7 +10,7 @@ import { debounceTime, Subject } from 'rxjs';
   templateUrl: './search.component.html',
   styleUrl: './search.component.css'
 })
-export class SearchComponent {
+export class SearchComponent implements OnInit {
   @Input() placeHolder: string = '';
   @Input() autoSearchClear: boolean = false;
   @Output() searchChange = new EventEmitter<string>();

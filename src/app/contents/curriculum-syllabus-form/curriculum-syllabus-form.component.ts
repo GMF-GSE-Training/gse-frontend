@@ -8,6 +8,7 @@ import { Capability } from '../../shared/model/capability.model';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { RoleBasedAccessDirective } from '../../shared/directive/role-based-access.directive';
+import { HeaderComponent } from "../../components/header/header.component";
 
 @Component({
   selector: 'app-curriculum-syllabus-form',
@@ -21,7 +22,8 @@ import { RoleBasedAccessDirective } from '../../shared/directive/role-based-acce
     CommonModule,
     RouterLink,
     RoleBasedAccessDirective,
-  ],
+    HeaderComponent
+],
   templateUrl: './curriculum-syllabus-form.component.html',
   styleUrl: './curriculum-syllabus-form.component.css'
 })

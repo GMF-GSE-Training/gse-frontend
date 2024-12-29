@@ -7,7 +7,7 @@ label {
   display: flex;
   margin-top: 15px;
   font-weight: bold;
-  font-size: 20px;
+  font-size: 1em;
 }
 
 select, input {
@@ -15,7 +15,7 @@ select, input {
   align-items: center;
   border-radius: 25px;
   overflow: hidden;
-  width: calc(100%);
+  width: 100%;
   margin-top: 5px;
   border: 3px solid #ccc;
   height: 40px;
@@ -24,11 +24,12 @@ select, input {
   font-size: 15px
 }
 
-#company-input {
-  height: 35px;
-  width: calc(100% - 23px);
-}
-
 span {
   color: red;
+}
+
+@media(max-width: 768px) {
+  input {
+    border: 2px solid #ccc;
+  }
 }

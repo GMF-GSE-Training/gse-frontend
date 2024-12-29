@@ -1,5 +1,7 @@
+<app-header></app-header>
+
 <div class="container">
-  <div class="data-section">
+  <div class="section">
     <div class="settings-nav">
       <div
         class="menu-setting-item"
@@ -17,7 +19,7 @@
       </div>
     </div>
     <div class="card">
-      <app-horizontal-table *ngIf="selectedItem === 0" [leftTableData]="leftTableData" [rightTableData]="rightTableData"></app-horizontal-table>
+      <app-vertical-table *ngIf="selectedItem === 0" [data]="verticalTableData"></app-vertical-table>
       <div *ngIf="selectedItem === 1" class="account-form">
         <div class="form-content">
           <app-email-form-card
@@ -35,3 +37,4 @@
     </div>
   </div>
 </div>
+

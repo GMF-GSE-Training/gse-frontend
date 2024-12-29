@@ -5,7 +5,15 @@
 
 .pdf {
   width: 40%;
-  height: 100%;
+  min-height: 100vh;
+}
+
+.no-files {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2em;
+  height: 50vh;
 }
 
 a {

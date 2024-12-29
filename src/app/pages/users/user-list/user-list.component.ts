@@ -4,12 +4,14 @@ import { User } from '../../../shared/model/user.model';
 import { UserService } from '../../../shared/service/user.service';
 import { SweetalertService } from '../../../shared/service/sweetaler.service';
 import { DataManagementComponent } from "../../../contents/data-management/data-management.component";
+import { HeaderComponent } from "../../../components/header/header.component";
 
 @Component({
   selector: 'app-user-list',
   standalone: true,
   imports: [
-    DataManagementComponent
+    DataManagementComponent,
+    HeaderComponent
 ],
   templateUrl: './user-list.component.html',
 })

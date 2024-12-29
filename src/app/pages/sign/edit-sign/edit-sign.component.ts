@@ -34,7 +34,7 @@ export class EditSignComponent implements OnInit {
     status: false,
   }
 
-  eSignId = this.route.snapshot.paramMap.get('id');
+  eSignId = this.route.snapshot.paramMap.get('eSignId');
 
   ngOnInit(): void {
     this.getESignById();

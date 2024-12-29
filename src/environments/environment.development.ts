@@ -50,6 +50,9 @@ export const environment = {
     eSign: {
       base: 'e-sign',
       list: 'e-sign/list/result',
+    },
+    certificate: {
+      base: 'certificate'
     }
   },
 };

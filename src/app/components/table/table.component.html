@@ -30,14 +30,12 @@
                     {{ item[column.field] }}
                   }
                 } @else {
-                  <app-icon-action [printLink]="item.printLink"[editLink]="item.editLink" [delete]="item.deleteMethod" [detailLink]="item.detailLink" [select]="item.select" [state]="state"></app-icon-action>
+                  <app-icon-action [printLink]="item.printLink"[editLink]="item.editLink" [delete]="item.deleteMethod" [detailLink]="item.detailLink" [select]="item.select" [state]="state" [certificateState]="certificateState"></app-icon-action>
                 }
               </td>
             }
           </tr>
         }
-      } @else {
-        <p>Data Tidak ditemukan!!</p>
       }
     } @else {
       <tr *ngFor="let _ of [].constructor(placeholderRows)">
@@ -50,3 +48,8 @@
     }
   </tbody>
 </table>
+
+@if (!isLoading && data.length === 0) {
+  <p>Data Tidak ditemukan!!</p>
+}
+

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { BlueButtonComponent } from '../../../components/button/blue-button/blue-button.component';
-import { HorizontalTableComponent } from "../../../components/horizontal-table/horizontal-table.component";
+import { VerticalTableComponent } from "../../../components/vertical-table/vertical-table.component";
 import { TableComponent } from "../../../components/table/table.component";
 import { ParticipantService } from '../../../shared/service/participant.service';
 import { Participant } from '../../../shared/model/participant.model';
@@ -17,6 +17,7 @@ import { PasswordUpdateFormCardComponent } from "../../../components/card/passwo
 import { LoaderComponent } from "../../../components/loader/loader.component";
 import { AuthService } from '../../../shared/service/auth.service';
 import { UpdatePassword } from '../../../shared/model/auth.model';
+import { HeaderComponent } from "../../../components/header/header.component";
 
 @Component({
   selector: 'app-participant-detail',
@@ -24,7 +25,7 @@ import { UpdatePassword } from '../../../shared/model/auth.model';
   imports: [
     RouterLink,
     BlueButtonComponent,
-    HorizontalTableComponent,
+    VerticalTableComponent,
     TableComponent,
     RoleBasedAccessDirective,
     CommonModule,
@@ -32,15 +33,15 @@ import { UpdatePassword } from '../../../shared/model/auth.model';
     RoleBasedAccessDirective,
     EmailFormCardComponent,
     PasswordUpdateFormCardComponent,
-    LoaderComponent
+    LoaderComponent,
+    HeaderComponent
 ],
   templateUrl: './participant-detail.component.html',
   styleUrl: './participant-detail.component.css'
 })
 export class ParticipantDetailComponent implements OnInit {
   participant: Participant | null = null;
-  leftTableData: any[] = [];
-  rightTableData: any[] = [];
+  verticalTableData: any[] = [];
   editLink: string = '';
   photoType: string | null = '';
   backButtonRoute: string = '/participants';
@@ -68,7 +69,7 @@ export class ParticipantDetailComponent implements OnInit {
   userProfile = JSON.parse(localStorage.getItem('user_profile') || '{}');
   pasFoto = localStorage.getItem('pas_foto');
   qrCode = localStorage.getItem('qr_code');
-  id = this.route.snapshot.paramMap.get('id') || this.userProfile.participant.id;
+  id = this.route.snapshot.paramMap.get('participantId') || this.userProfile.participant.id;
   idCardLink: string = '';
 
   updateEmail: { email: string } = {
@@ -243,16 +244,13 @@ export class ParticipantDetailComponent implements OnInit {
     this.editLink = `/participants/${this.participant.id}/edit`;
     this.idCardLink = `/participants/${this.participant.id}/id-card`;
 
-    this.leftTableData = [
+    this.verticalTableData = [
       { label: 'Nama Peserta', value: this.participant.name },
       { label: 'Dinas', value: this.participant.dinas ?? '-' },
       { label: 'Bidang', value: this.participant.bidang ?? '-' },
       { label: 'Perusahaan', value: this.participant.company ?? '-' },
       { label: 'Email', value: this.participant.email },
-      { label: 'No Telp', value: this.participant.phoneNumber ?? '-'}
-    ];
-
-    this.rightTableData = [
+      { label: 'No Telp', value: this.participant.phoneNumber ?? '-'},
       { label: 'Tempat Lahir', value: this.participant.placeOfBirth ?? '-' },
       { label: 'Tanggal Lahir', value: new Date(this.participant.dateOfBirth).toLocaleDateString('id-ID', this.dateOptions) },
       { label: 'SIM A', link: `/participants/${this.participant.id}/sim-a` },

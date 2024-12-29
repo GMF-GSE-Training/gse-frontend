@@ -4,21 +4,20 @@ import { Router, RouterLink } from '@angular/router';
 import { RoleBasedAccessDirective } from '../../shared/directive/role-based-access.directive';
 
 @Component({
-  selector: 'app-horizontal-table',
+  selector: 'app-vertical-table',
   standalone: true,
   imports: [
     CommonModule,
     RouterLink,
     RoleBasedAccessDirective
 ],
-  templateUrl: './horizontal-table.component.html',
-  styleUrl: './horizontal-table.component.css'
+  templateUrl: './vertical-table.component.html',
+  styleUrl: './vertical-table.component.css'
 })
-export class HorizontalTableComponent {
+export class VerticalTableComponent {
   constructor(private router:Router) {}
 
-  @Input() leftTableData: {label: string, value?: string, link?: string}[] = [];
-  @Input() rightTableData: {label: string, value?: string, link?: string}[] = [];
+  @Input() data: {label: string, value?: string, link?: string}[] = [];
   @Input() isParticipantDetail: boolean = false;
 
   @Output() downloadDocumentClick = new EventEmitter<void>();
@@ -29,5 +28,13 @@ export class HorizontalTableComponent {
 
   downloadDocument() {
     this.downloadDocumentClick.emit();
+  }
+
+  get firstHalf() {
+    return this.data.slice(0, Math.ceil(this.data.length / 2));
+  }
+
+  get secondHalf() {
+    return this.data.slice(Math.ceil(this.data.length / 2));
   }
 }

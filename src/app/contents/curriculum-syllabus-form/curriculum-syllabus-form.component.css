@@ -1,10 +1,24 @@
+.container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 2em;
+  padding: 2em;
+}
+
+form {
+  background: white;
+  padding: 2em;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  width: 100%;
+  margin: 25px auto 25px auto;
+}
+
 .top-form-container,
 .bottom-form-container {
-  max-width: 100%;
+  width: 100%;
   display: flex;
-  margin-top: 25px;
-  margin-left: 25px;
-  margin-right: 25px;
 }
 
 .top-form-container {
@@ -24,7 +38,7 @@
 
 .input-group {
   display: grid;
-  grid-template-columns: 50% 20% 20% 1%;
+  grid-template-columns: 80% 20%;
   gap: 1em;
 }
 
@@ -32,13 +46,13 @@
   border-right: 5px double grey;
 }
 
-.add-input-button-container {
+.add-form-button-container {
   display: flex;
   justify-content: end;
   width: 100%;
 }
 
-app-white-button {
+.add-form-button-container app-white-button {
   width: 125px;
   margin-right: 50px;
 }
@@ -59,17 +73,89 @@ i {
   color: red;
 }
 
-.container-button {
+.buttons-container {
   display: flex;
   justify-content: center;
-  gap: 10em;
-  width: 90%;
-  margin-top: 50px;
-  margin-bottom: 15px;
-  margin-left: 4em;
+  gap: 4em;
+  width: 100%;
+  margin-top: 2em;
 }
 
 .button {
   width: 190px;
   height: 45px;
+}
+
+@media (max-width: 1024px) {
+  .container {
+    padding: 2em 1em;
+  }
+
+  form {
+    padding: 1em
+  }
+
+  .top-form-container,
+  .bottom-form-container {
+    flex-direction: column;
+    gap: 1em;
+  }
+
+  .top-form-container {
+    gap: 0;
+  }
+
+  .bottom-form-container {
+    margin-top: 2em;
+  }
+
+  .form-section {
+    width: 100%;
+    gap: 15px;
+  }
+
+  .input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+  }
+
+  .duration {
+    width: 50%;
+    margin-right: 0;
+    margin-left: auto;
+  }
+
+  #reg-gse {
+    border-right: none;
+    border-bottom: 5px double grey;
+    padding-bottom: 1em;
+  }
+
+  .add-form-button-container {
+    justify-content: end;
+    padding-right: 0;
+    padding-left: auto;
+    margin-top: 1em;
+  }
+
+  i {
+    font-size: 20px;
+  }
+
+  .delete-button {
+    margin-right: 0;
+    margin-left: auto;
+  }
+
+  .buttons-container {
+    flex-direction: column;
+    gap: 1em;
+    margin-top: 1.5em;
+  }
+
+  .button {
+    width: 100%;
+    height: 50px;
+  }
 }

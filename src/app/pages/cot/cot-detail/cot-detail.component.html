@@ -1,3 +1,4 @@
+<app-header></app-header>
 <div class="main-content" [class.modal-active]="showModal" [class.loading]="isLoading">
   @if(isLoading) {
     <app-loader></app-loader>
@@ -7,15 +8,18 @@
     </div>
 
     <div class="cot-table">
-      <app-horizontal-table [leftTableData]="leftTableData" [rightTableData]="rightTableData"></app-horizontal-table>
+      <app-vertical-table [data]="verticalTableData"></app-vertical-table>
     </div>
 
     <app-data-management
       placeHolder="Cari participant"
       [columns]="columns"
       [data]="participantCots"
+      [roleBassedAccess]="['super admin', 'lcu']"
+      (onClickChange)="openModal()"
       [isLoading]="isParticipantCotLoading"
       [state]="state"
+      [certificateState]="certificateState"
       [totalPages]="totalPages"
       [currentPage]="currentPage"
       (searchChange)="onSearchChanged($event)"
@@ -23,12 +27,6 @@
       (viewAllChange)="viewAll()"
       whiteButtonRoute="/cot">
     </app-data-management>
-
-    <div class="add-button" *appRoleBasedAccess="['super admin', 'lcu']">
-      <app-white-button (click)="openModal()">
-        <i class="fa-solid fa-plus"></i>
-      </app-white-button>
-    </div>
   }
 </div>
 

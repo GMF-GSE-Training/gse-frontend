@@ -4,12 +4,14 @@ import { DataManagementComponent } from "../../../contents/data-management/data-
 import { CotService } from '../../../shared/service/cot.service';
 import { Cot } from '../../../shared/model/cot.model';
 import { SweetalertService } from '../../../shared/service/sweetaler.service';
+import { HeaderComponent } from "../../../components/header/header.component";
 
 @Component({
   selector: 'app-cot-list',
   standalone: true,
   imports: [
-    DataManagementComponent
+    DataManagementComponent,
+    HeaderComponent
 ],
   templateUrl: './cot-list.component.html',
   styleUrl: './cot-list.component.css',

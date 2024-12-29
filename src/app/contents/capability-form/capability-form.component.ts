@@ -6,6 +6,7 @@ import { BlueButtonComponent } from "../../components/button/blue-button/blue-bu
 import { FormsModule, NgForm } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { HeaderComponent } from "../../components/header/header.component";
 
 @Component({
   selector: 'app-capability-form',
@@ -18,6 +19,7 @@ import { RouterLink } from '@angular/router';
     FormsModule,
     CommonModule,
     RouterLink,
+    HeaderComponent
 ],
   templateUrl: './capability-form.component.html',
   styleUrl: './capability-form.component.css'

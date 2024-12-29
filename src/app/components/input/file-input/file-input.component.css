@@ -23,16 +23,17 @@
 }
 
 .file-upload-text {
-  padding-left:20px;
+  padding-left: 1em;
   color: #000;
   flex-grow: 1;
+  overflow-x: auto;
 }
 
 label {
   display: flex;
   margin-top: 15px;
   font-weight: bold;
-  font-size: 20px;
+  font-size: 1em;
 }
 
 .error-message,

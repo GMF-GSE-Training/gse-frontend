@@ -1,3 +1,5 @@
+<app-header></app-header>
+
 <div class="container" [class.loading]="isLoading">
   @if(isLoading) {
     <app-loader></app-loader>
@@ -43,14 +45,13 @@
           <span>Akun</span>
         </div>
       </div>
-      <div class="card" [ngStyle]="{ 'width': userProfile.role.name === 'user' ? '87%' : '100%' }">
+      <div class="card" >
         @if(selectedItem === 0) {
-          <app-horizontal-table
+          <app-vertical-table
             [isParticipantDetail]="true"
-            [leftTableData]="leftTableData"
-            [rightTableData]="rightTableData"
+            [data]="verticalTableData"
             (downloadDocumentClick)="downloadDocument()">
-          </app-horizontal-table>
+          </app-vertical-table>
         } @else if(selectedItem === 1) {
           <div class="account-form">
             <div class="form-content">

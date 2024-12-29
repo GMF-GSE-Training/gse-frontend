@@ -1,8 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, Renderer2 } from '@angular/core';
 import { DisplayFilesComponent } from "../../../contents/display-files/display-files.component";
 import { LoaderComponent } from "../../../components/loader/loader.component";
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { ESignService } from '../../../shared/service/e-sign.service';
 import { finalize, map } from 'rxjs';
 
@@ -18,8 +18,7 @@ import { finalize, map } from 'rxjs';
 })
 export class DisplaysSignatureFileComponent {
   pageTitle: string = '';
-  id = this.route.snapshot.paramMap.get('id');
-  navigationLink: string = '';
+  id = this.route.snapshot.paramMap.get('eSignId');
   file: string | undefined;
   fileType: string = '';
   safeUrl: SafeResourceUrl | string = '';
@@ -29,25 +28,10 @@ export class DisplaysSignatureFileComponent {
   constructor(
     private readonly route: ActivatedRoute,
     private readonly eSignService: ESignService,
-    private readonly router: Router,
-    private readonly sanitizer: DomSanitizer
-  ) {
-    const navigation = this.router.getCurrentNavigation();
-    const state = navigation?.extras.state;
-
-    if(state) {
-      this.navigationLink = state['data']
-    } else {
-      if(this.cachedUserProfile) {
-        const userProfile = JSON.parse(this.cachedUserProfile);
-        if(userProfile.role.name === 'user') {
-          this.navigationLink = `/participants/${this.id}/profile/personal`;
-        } else {
-          this.navigationLink = `/participants/${this.id}/detail`;
-        }
-      }
-    }
-  }
+    private readonly sanitizer: DomSanitizer,
+    private readonly renderer: Renderer2,
+    private readonly el: ElementRef
+  ) { }
 
   ngOnInit(): void {
     if (this.id) {
@@ -86,6 +70,16 @@ export class DisplaysSignatureFileComponent {
   onImageError() {
     console.log('Failed to load image:', this.safeUrl);
     this.isLoading = false; // Hindari spinner terus tampil
+  }
+
+  downloadFile(): void {
+    const fileUrl = `data:${this.fileType};base64,${this.file}`;
+    const link = this.renderer.createElement('a');
+    this.renderer.setAttribute(link, 'href', fileUrl);
+    this.renderer.setAttribute(link, 'download', `${this.pageTitle}${this.getDownloadExtension()}`);
+    this.renderer.appendChild(this.el.nativeElement, link);
+    link.click();
+    this.renderer.removeChild(this.el.nativeElement, link);
   }
 
   private getMediaType(base64String: string): string {

@@ -4,15 +4,16 @@ import { DataManagementComponent } from "../../../contents/data-management/data-
 import { CapabilityService } from '../../../shared/service/capability.service';
 import { SweetalertService } from '../../../shared/service/sweetaler.service';
 import { Capability } from '../../../shared/model/capability.model';
+import { HeaderComponent } from "../../../components/header/header.component";
 
 @Component({
   selector: 'app-capability-list',
   standalone: true,
   imports: [
-    DataManagementComponent
+    DataManagementComponent,
+    HeaderComponent
 ],
   templateUrl: './capability-list.component.html',
-  styleUrl: './capability-list.component.css'
 })
 export class CapabilityListComponent implements OnInit {
   pageTitle: string = "Capability";

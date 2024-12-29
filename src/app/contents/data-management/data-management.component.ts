@@ -38,6 +38,7 @@ export class DataManagementComponent {
   @Input() columns: { header: string, field: string }[] = [];
   @Input() data: any[] = [];
   @Input() state: { data: any; } = { data: '' };
+  @Input() certificateState: any;
   @Input() isLoading: boolean = false;
 
   @Input() isParticipantCot: boolean = false;
@@ -78,4 +79,10 @@ export class DataManagementComponent {
 
   // Role Based Access
   @Input() roleBassedAccess: string[] = [];
+
+  @Output() onClickChange = new EventEmitter<void>();
+
+  onClickChanged() {
+    this.onClickChange.emit();
+  }
 }

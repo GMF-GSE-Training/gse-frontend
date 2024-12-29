@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { HorizontalTableComponent } from "../../../components/horizontal-table/horizontal-table.component";
+import { VerticalTableComponent } from "../../../components/vertical-table/vertical-table.component";
 import { EmailFormCardComponent } from "../../../components/card/email-form-card/email-form-card.component";
 import { PasswordUpdateFormCardComponent } from "../../../components/card/password-update-form-card/password-update-form-card.component";
 import { CommonModule } from '@angular/common';
@@ -9,17 +9,19 @@ import { AuthService } from '../../../shared/service/auth.service';
 import { SweetalertService } from '../../../shared/service/sweetaler.service';
 import { UpdatePassword } from '../../../shared/model/auth.model';
 import { ErrorHandlerService } from '../../../shared/service/error-handler.service';
+import { HeaderComponent } from "../../../components/header/header.component";
 
 @Component({
   selector: 'app-profile',
   standalone: true,
   imports: [
-    HorizontalTableComponent,
+    VerticalTableComponent,
     EmailFormCardComponent,
     PasswordUpdateFormCardComponent,
     CommonModule,
     RouterLink,
-  ],
+    HeaderComponent
+],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.css'
 })
@@ -28,8 +30,7 @@ export class ProfileComponent implements OnInit {
   userProfile = JSON.parse(localStorage.getItem('user_profile') || '{}');
   id = this.route.snapshot.paramMap.get('id') || this.userProfile.id;
   user: User | null = null;
-  leftTableData: any[] = [];
-  rightTableData: any[] = [];
+  verticalTableData: any[] = [];
 
   constructor(
     private readonly route: ActivatedRoute,
@@ -56,7 +57,7 @@ export class ProfileComponent implements OnInit {
       } else if (params['success']) {
         const successMessage = params['success'];
         // Tampilkan alert
-        this.sweetalertService.alert('Gagal', successMessage, 'success');
+        this.sweetalertService.alert('Berhasil', successMessage, 'success');
         this.getProfile();
         // Navigasi hanya jika parameter ada
         if (successMessage) {
@@ -136,13 +137,10 @@ export class ProfileComponent implements OnInit {
   private setParticipantData(user: User) {
     this.user = user;
 
-    this.leftTableData = [
+    this.verticalTableData = [
       { label: 'No Pegawai', value: this.user.idNumber },
       { label: 'Nama', value: this.user.name },
       { label: 'Dinas', value: this.user.dinas ?? '-' },
-    ];
-
-    this.rightTableData = [
       { label: 'Email', value: this.user.email },
       { label: 'Role', value: this.user.role.name },
     ];

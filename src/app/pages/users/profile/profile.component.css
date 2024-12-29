@@ -1,17 +1,14 @@
 .container {
+  width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 3em;
-  padding-left: 15px;
-  padding-right: 15px;
-  padding-bottom: 15px;
+  gap: 2em;
+  padding: 2em;
 }
 
-.data-section {
+.section {
   display: flex;
   gap: 1em;
-  padding-right: 3em;
-  padding-left: 1em;
 }
 
 .settings-nav {
@@ -19,6 +16,18 @@
   flex-direction: column;
   justify-content: top;
   font-size: 20px;
+  width: 12%;
+}
+
+.settings-nav div {
+  height: 50px;
+}
+
+.settings-nav {
+  display: flex;
+  flex-direction: column;
+  justify-content: top;
+  font-size: 1em;
   width: 12%;
 }
 
@@ -66,4 +75,31 @@
   width: 100%;
   height: auth;
   padding-right: 10%;
+}
+
+
+@media (max-width: 768px) {
+  .container {
+    padding: 1em;
+  }
+
+  .section {
+    flex-direction: column;
+    gap: 1em;
+  }
+
+  .settings-nav {
+    flex-direction: row;
+    width: 50%;
+  }
+
+  .menu-setting-item.active {
+    border-left: none;
+    border-bottom: 5px solid #02507E;
+  }
+
+  .account-form {
+    flex-direction: column;
+    gap: 3em;
+  }
 }

@@ -40,7 +40,7 @@ export class ViewCurriculumSyllabusComponent implements OnInit {
 
   editLink: string = '';
   isLoading: boolean = false;
-  id = this.route.snapshot.paramMap.get('id');
+  id = this.route.snapshot.paramMap.get('capabilityId');
 
   constructor(
     private readonly route: ActivatedRoute,

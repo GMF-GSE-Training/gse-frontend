@@ -1,42 +1,23 @@
 <app-display-files
   pageTitle="View E-Sign"
+  navigationLinks="/e-sign"
+  (downloadChange)="downloadFile()"
 >
   @if(isLoading) {
     <app-loader></app-loader>
   } @else {
     @if(safeUrl) {
-        @if(fileType === 'application/pdf') {
-          <embed
-            [src]="safeUrl"
-            (load)="onImageLoad()"
-            (error)="onImageError()"
-            loading="lazy"
-            type="application/pdf"
-            class="pdf"
-          >
-          <a
-            [href]="safeUrl"
-            [download]="pageTitle + getDownloadExtension()"
-          >
-            Download
-          </a>
-        } @else {
-          <img
-            [src]="safeUrl"
-            (load)="onImageLoad()"
-            (error)="onImageError()"
-            loading="lazy"
-            class="image"
-          >
-          <a
-            [href]="safeUrl"
-            [download]="pageTitle + getDownloadExtension()"
-          >
-            Download
-          </a>
-        }
+        <img
+          [src]="safeUrl"
+          (load)="onImageLoad()"
+          (error)="onImageError()"
+          loading="lazy"
+          class="image"
+        >
       } @else {
-        <p>File tidak ditemukan!!</p>
+        <div class="no-files">
+          <p>File tidak ditemukan!!</p>
+        </div>
       }
     }
 </app-display-files>

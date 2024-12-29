@@ -2,16 +2,18 @@ form {
   display: flex;
   width: 100%;
   height: 100%;
+  min-height: 40px;
 }
 
 form input {
   width: 100%;
   border-top-left-radius: 15px;
   border-bottom-left-radius: 15px;
-  font-size: 25px;
+  font-size: 1.5em;
   padding-left: 10px;
   border: 1px solid #ccc;
   outline: none;
+  transition: border-color 0.3s ease;
 }
 
 form input:focus {
@@ -35,9 +37,26 @@ i {
   cursor: pointer;
   border: 1px solid #ccc;
   border-left: none;
+  transition: background-color 0.3s ease;
 }
 
 .submit:hover {
   cursor: pointer;
   background-color: #d8dadb;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .submit {
+    font-size: 25px;
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .submit {
+    padding-left: 5px;
+    padding-right: 5px;
+  }
 }

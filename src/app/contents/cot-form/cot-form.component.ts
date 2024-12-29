@@ -8,6 +8,7 @@ import { DropdownInputComponent } from "../../components/input/dropdown-input/dr
 import { FormsModule, NgForm } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { CapabilityService } from '../../shared/service/capability.service';
+import { HeaderComponent } from "../../components/header/header.component";
 
 @Component({
   selector: 'app-cot-form',
@@ -21,6 +22,7 @@ import { CapabilityService } from '../../shared/service/capability.service';
     DropdownInputComponent,
     FormsModule,
     CommonModule,
+    HeaderComponent
 ],
   templateUrl: './cot-form.component.html',
   styleUrl: './cot-form.component.css'
@@ -39,6 +41,7 @@ export class CotFormComponent implements OnInit {
   @ViewChild('form') form!: NgForm;
 
   capabilityOptions: any[] = [];
+  cachedCapability = localStorage.getItem('capability');
   capabilityData: any = JSON.parse(localStorage.getItem('capability') || '{}');
   selectedCapabily: any = '';
   @Input() initialCapability: string = '';
@@ -61,7 +64,7 @@ export class CotFormComponent implements OnInit {
   selectedStatus: any = '';
 
   ngOnInit(): void {
-    if(this.capabilityData !== '{}') {
+    if(this.cachedCapability && this.cachedCapability !== '{}') {
       this.capabilityOptions = this.capabilityData.map((training: any) => ({
         label: training.ratingCode,
         value: training.id
@@ -82,7 +85,6 @@ export class CotFormComponent implements OnInit {
       next: (response) => {
         const capability = response.data;
         this.capabilityData = capability;
-        console.log(this.capabilityData)
         localStorage.setItem('capability', JSON.stringify(capability));
         this.capabilityOptions = capability.map(training => ({
           label: training.ratingCode,

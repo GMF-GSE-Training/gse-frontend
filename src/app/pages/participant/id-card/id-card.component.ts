@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { BlueButtonComponent } from '../../../components/button/blue-button/blue-button.component';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { ParticipantService } from '../../../shared/service/participant.service';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { saveAs } from 'file-saver';
@@ -12,8 +11,6 @@ import { ErrorHandlerService } from '../../../shared/service/error-handler.servi
   selector: 'app-id-card',
   standalone: true,
   imports: [
-    BlueButtonComponent,
-    RouterLink,
     DisplayFilesComponent
 ],
   templateUrl: './id-card.component.html',
@@ -21,29 +18,34 @@ import { ErrorHandlerService } from '../../../shared/service/error-handler.servi
 })
 export class IdCardComponent implements OnInit {
   id_card: SafeHtml = '';
-  id = this.route.snapshot.paramMap.get('id');
+  id = this.route.snapshot.paramMap.get('participantId');
   navigationLink: string = `/participants/${this.id}/detail`;
+  isLoading: boolean = false;
 
   constructor(
     private readonly route: ActivatedRoute,
     private readonly participantService: ParticipantService,
     private readonly sanitizer: DomSanitizer,
-    private readonly router: Router,
     private readonly sweetalertService: SweetalertService,
     private readonly errorHandlerService: ErrorHandlerService,
   ){}
 
   ngOnInit(): void {
+    this.getIdCard();
+  }
+
+  getIdCard(): void {
+    this.isLoading = true;
     this.participantService.viewIdCard(this.id!).subscribe({
       next: (response) => {
         this.id_card = this.sanitizer.bypassSecurityTrustHtml(response);
       },
       error: (error) => {
-        const parsingError = JSON.parse(error.error);
-        this.router.navigateByUrl(this.navigationLink ? this.navigationLink : '/participants');
-        if(parsingError.code === 400) {
-          this.sweetalertService.alert('Data Participant Belum Lengkap', 'Untuk melihat ID Card, pastikan semua data participant telah lengkap.', 'warning');
-        }
+        console.log(error);
+        this.isLoading = false;
+      },
+      complete: () => {
+        this.isLoading = false;
       }
     });
   }
@@ -57,8 +59,8 @@ export class IdCardComponent implements OnInit {
           this.sweetalertService.close();
         },
         error: (error) => {
-          this.errorHandlerService.alertError(error);
           console.log(error);
+          this.errorHandlerService.alertError(error);
         }
       });
     }

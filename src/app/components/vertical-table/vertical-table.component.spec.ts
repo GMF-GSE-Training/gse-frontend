@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { NotFoundComponent } from './not-found.component';
+import { VerticalTableComponent } from './vertical-table.component';
 
-describe('NotFoundComponent', () => {
-  let component: NotFoundComponent;
-  let fixture: ComponentFixture<NotFoundComponent>;
+describe('VerticalTableComponent', () => {
+  let component: VerticalTableComponent;
+  let fixture: ComponentFixture<VerticalTableComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [NotFoundComponent]
+      imports: [VerticalTableComponent]
     })
     .compileComponents();
-    
-    fixture = TestBed.createComponent(NotFoundComponent);
+
+    fixture = TestBed.createComponent(VerticalTableComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -18,14 +18,14 @@ export class ErrorHandlerService {
     if (this.isObject(errorDetails) || Array.isArray(errorDetails)) {
       const formattedError = this.formatErrors(errorDetails);
 
-      if (formattedError) {
-        this.sweetalertService.alert('Gagal!', formattedError, 'error');
-      } else if (this.hasRequiredFields(errorDetails, requiredFields!)) {
+      if (this.hasRequiredFields(errorDetails, requiredFields!)) {
         this.sweetalertService.alert(
           'Gagal!',
           'Kolom dengan tanda bintang (*) wajib diisi',
           'error'
         );
+      } else if (formattedError) {
+        this.sweetalertService.alert('Gagal!', formattedError, 'error');
       }
     } else if (typeof errorDetails === 'string') {
       this.sweetalertService.alert('Gagal!', errorDetails, 'error');

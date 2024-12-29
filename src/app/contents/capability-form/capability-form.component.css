@@ -1,9 +1,17 @@
+.container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 2em;
+  padding: 2em;
+}
+
 form {
   background: white;
-  padding: 20px;
+  padding: 2em;
   border: 1px solid #e0e0e0;
   border-radius: 8px;
-  max-width: 90%;
+  width: 100%;
   margin: 25px auto 25px auto;
 }
 
@@ -11,6 +19,7 @@ form {
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 100%;
 }
 
 .input-column {
@@ -33,4 +42,18 @@ form {
 
 p {
   color: red;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 2em 1em;
+  }
+
+  form {
+    padding: 1em
+  }
+
+  .input-column {
+    width: 100%;
+  }
 }

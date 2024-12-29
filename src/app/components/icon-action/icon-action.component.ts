@@ -19,8 +19,9 @@ export class IconActionComponent {
   @Input() delete?: () => any;
   @Input() showSelectIcon: boolean = false;
   @Input() select?: boolean | undefined = undefined;
-  @Input() itemId?: number | string; // Properti untuk ID data
+  @Input() itemId?: number | string;
   @Input() state: { data: any; } = { data: '' };
+  @Input() certificateState: any;
 
   @Output() selectChange = new EventEmitter<number | string>();
 

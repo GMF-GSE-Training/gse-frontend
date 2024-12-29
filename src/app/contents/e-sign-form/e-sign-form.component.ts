@@ -9,6 +9,7 @@ import { FormsModule, NgForm } from '@angular/forms';
 import { DropdownInputComponent } from "../../components/input/dropdown-input/dropdown-input.component";
 import { RouterLink } from '@angular/router';
 import { SignatureType } from '../../shared/model/e-sign.model';
+import { HeaderComponent } from "../../components/header/header.component";
 
 @Component({
   selector: 'app-e-sign-form',
@@ -23,6 +24,7 @@ import { SignatureType } from '../../shared/model/e-sign.model';
     FormsModule,
     DropdownInputComponent,
     RouterLink,
+    HeaderComponent
 ],
   templateUrl: './e-sign-form.component.html',
   styleUrl: './e-sign-form.component.css'

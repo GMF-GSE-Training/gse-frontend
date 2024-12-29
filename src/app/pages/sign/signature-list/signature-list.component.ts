@@ -4,12 +4,14 @@ import { DataManagementComponent } from "../../../contents/data-management/data-
 import { ESign } from '../../../shared/model/e-sign.model';
 import { ESignService } from '../../../shared/service/e-sign.service';
 import { SweetalertService } from '../../../shared/service/sweetaler.service';
+import { HeaderComponent } from "../../../components/header/header.component";
 
 @Component({
   selector: 'app-sign-list',
   standalone: true,
   imports: [
-    DataManagementComponent
+    DataManagementComponent,
+    HeaderComponent
 ],
   templateUrl: './signature-list.component.html',
 })
@@ -62,7 +64,7 @@ export class SignatureListComponent {
             .replace('SIGNATURE1', 'Tanda tangan 1')
             .replace('SIGNATURE2', 'Tanda tangan 2'),
           status: eSign.status ? 'Aktif' : 'Tidak aktif',
-          eSign: `/capability/${eSign.id}/curriculum-syllabus`,
+          eSign: `/e-sign/${eSign.id}/view`,
           editLink: actions?.canEdit ? `/e-sign/${eSign.id}/edit` : null,
           deleteMethod: actions?.canDelete ? () => this.delteSignature(eSign) : null,
         }));

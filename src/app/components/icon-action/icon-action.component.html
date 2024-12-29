@@ -1,6 +1,6 @@
 <div>
     <span *ngIf="printLink">
-      <i class="fa-solid fa-print" [routerLink]="[printLink]" title="Buat Sertifikat"></i>
+      <i class="fa-solid fa-print" [routerLink]="[printLink]" [state]="certificateState" title="Buat Sertifikat"></i>
     </span>
     <span *ngIf="editLink">
       <i class="fa-solid fa-pen-to-square" [routerLink]="[editLink]" title="Edit"></i>

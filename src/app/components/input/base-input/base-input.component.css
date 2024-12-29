@@ -15,9 +15,9 @@ input {
 
 label {
   display: flex;
-  margin-top: 15px;
+  margin-top: 1em;
   font-weight: bold;
-  font-size: 20px;
+  font-size: 1rem;
 }
 
 div {
@@ -32,7 +32,7 @@ div {
 .password-visibility-toggle {
   position: absolute;
   top: 50%;
-  left: 93%;
+  left: 90%;
   transform: translateY(-50%);
 }
 
@@ -45,4 +45,10 @@ div {
   margin-left: 15px;
   margin-top: 3px;
   font-size: 14px;
+}
+
+@media(max-width: 768px) {
+  input {
+    border: 2px solid #ccc;
+  }
 }

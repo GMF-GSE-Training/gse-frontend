@@ -1,29 +1,26 @@
 import { Component } from '@angular/core';
-import { HorizontalTableComponent } from '../../../components/horizontal-table/horizontal-table.component';
-import { WhiteButtonComponent } from "../../../components/button/white-button/white-button.component";
+import { VerticalTableComponent } from '../../../components/vertical-table/vertical-table.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SweetalertService } from '../../../shared/service/sweetaler.service';
 import { DataManagementComponent } from "../../../contents/data-management/data-management.component";
 import { ParticipantCotModalComponent } from "../../../components/participant-cot-modal/participant-cot-modal.component";
 import { CommonModule } from '@angular/common';
 import { ParticipantCotService } from '../../../shared/service/participant-cot.service';
-import { RoleBasedAccessDirective } from '../../../shared/directive/role-based-access.directive';
 import { ErrorHandlerService } from '../../../shared/service/error-handler.service';
 import { LoaderComponent } from "../../../components/loader/loader.component";
 import { CotService } from '../../../shared/service/cot.service';
-import { forkJoin } from 'rxjs';
+import { HeaderComponent } from "../../../components/header/header.component";
 
 @Component({
   selector: 'app-cot-detail',
   standalone: true,
   imports: [
-    HorizontalTableComponent,
-    WhiteButtonComponent,
+    VerticalTableComponent,
     DataManagementComponent,
     ParticipantCotModalComponent,
     CommonModule,
-    RoleBasedAccessDirective,
-    LoaderComponent
+    LoaderComponent,
+    HeaderComponent
 ],
   templateUrl: './cot-detail.component.html',
   styleUrl: './cot-detail.component.css',
@@ -38,11 +35,10 @@ export class CotDetailComponent {
     private readonly errorHandlerService: ErrorHandlerService,
   ) { }
 
-  cotId = this.route.snapshot.paramMap.get('id');
+  cotId = this.route.snapshot.paramMap.get('cotId');
   userProfile = JSON.parse(localStorage.getItem('user_profile') || '{}');
 
-  leftTableData: any[] = [];
-  rightTableData: any[] = [];
+  verticalTableData: any[] = [];
 
   columns = [
     { header: 'No Pegawai', field: 'idNumber' },
@@ -53,7 +49,6 @@ export class CotDetailComponent {
       { header: 'Exp Surat Sehat & Buta Warna', field: 'expSuratSehatButaWarna' },
       { header: 'Exp Surat Bebas Narkoba', field: 'expSuratBebasNarkoba' },
     ] : []),
-    { header: 'Keterangan', field: 'keterangan' },
     { header: 'Action', field: 'action' },
   ];
 
@@ -69,7 +64,8 @@ export class CotDetailComponent {
   currentPage: number = 1;
   itemsPerPage: number = 10;
   searchQuery: string = '';
-  state: { data: any; } = { data: '' };
+  state: { data: any } = { data: '' };
+  certificateState: any;
   isParticipantCotLoading: boolean = false;
 
   modalColumns = [
@@ -81,6 +77,8 @@ export class CotDetailComponent {
     { header: 'Action', field: 'action' },
   ];
 
+  trainingName: string = '';
+
   showModal: boolean = false;
   selectedParticipantIds: any[] = [];
   unregisteredParticipants: any[] = [];
@@ -90,6 +88,7 @@ export class CotDetailComponent {
   isLoadingModal: boolean = false;
 
   ngOnInit(): void {
+    this.getCot();
     this.route.queryParams.subscribe(params => {
       this.searchQuery = params['keyword'] || '';
       this.currentPage =+ params['page'] || 1;
@@ -97,7 +96,6 @@ export class CotDetailComponent {
         this.getListParticipantCot(this.cotId, this.searchQuery, this.currentPage, this.itemsPerPage);
       }
     });
-    this.getCot();
   }
 
   getCot(): void {
@@ -105,15 +103,14 @@ export class CotDetailComponent {
       this.isLoading = true;
       this.cotService.getCotById(this.cotId).subscribe({
         next: ({ data }) => {
-          console.log(data);
-          this.leftTableData = [
+          this.trainingName = data.capability.trainingName;
+
+          this.verticalTableData = [
             { label: 'Kode Rating', value: data.capability.ratingCode },
             { label: 'Nama training', value: data.capability.trainingName },
             { label: 'Tanggal Mulai', value: new Date(data.startDate).toLocaleDateString('id-ID', this.dateOptions) },
             { label: 'Tanggal Selesai', value: new Date(data.endDate).toLocaleDateString('id-ID', this.dateOptions) },
             { label: 'Lokasi Training', value: data.trainingLocation },
-          ];
-          this.rightTableData = [
             { label: 'Instruktur Regulasi GSE', value: data.theoryInstructorRegGse },
             { label: 'Instruktur Teori Rating', value: data.theoryInstructorCompetency },
             { label: 'Instruktur Praktek 1', value: data.practicalInstructor1 },
@@ -139,6 +136,12 @@ export class CotDetailComponent {
       next: ({ data }) => {
         const cot = data.cot;
         const participantCot = cot.participants;
+
+        this.certificateState = participantCot.data?.map((participant: any) => ({
+          idNumber: participant?.idNumber ?? '-',
+          name: participant?.name ?? '-',
+        })) ?? [];
+
         this.participantCots = participantCot.data?.map((participant: any) => {
           if (!participant) return null; // Lewati jika participant null
 
@@ -146,8 +149,7 @@ export class CotDetailComponent {
             ...participant,
             idNumber: participant.idNumber ?? '-',
             dinas: participant.dinas ?? '-',
-            keterangan: '-',
-            printLink: participantCot.actions?.canPrint && participant?.id ? `/sertifikat/${participant.id}` : null,
+            printLink: participantCot.actions?.canPrint && participant?.id ? `/certificate/${this.cotId}/create/${participant.id}` : null,
             detailLink: participantCot.actions?.canView && participant?.id ? `/participants/${participant.id}/detail` : null,
             deleteMethod: participantCot.actions?.canDelete ? () => this.deleteParticipantFromCot(data.cot.id, participant?.id) : null,
           };
@@ -170,7 +172,15 @@ export class CotDetailComponent {
               value: `/participants/${participant.id}/surat-bebas-narkoba`
             } : null,
           };
-        }).filter((item: null) => item !== null); // Saring item null
+        }).filter((item: null) => item !== null);
+
+        this.certificateState = participantCot.data?.map((participant: any) => ({
+          participantIdd: participant.id,
+          link: `/cot/${this.cotId}/detail`,
+          idNumber: participant?.idNumber ?? '-',
+          name: participant?.name ?? '-',
+          trainingName: this.trainingName,
+        })) ?? [];
 
         this.state.data = `/cot/${this.cotId}/detail`;
         this.totalPages = participantCot.paging.totalPage;

@@ -1,5 +1,4 @@
-.blue-button,
-.disabled-blue-button {
+.blue-button {
   width: 100%;
   height: 100%;
   font-size: 2em;
@@ -18,4 +17,10 @@
 .blue-button:hover {
   cursor: pointer;
   background-color: #003a5c;
+}
+
+@media (max-width: 768px) {
+  .blue-button {
+    font-size: 1.5em;
+  }
 }
