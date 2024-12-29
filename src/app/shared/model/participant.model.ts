@@ -45,8 +45,8 @@ export interface UpdateParticipant {
   suratSehatButaWarnaFileName?: string;
   suratBebasNarkoba?: File | null;
   suratBebasNarkobaFileName?: string;
-  tglKeluarSuratSehatButaWarna?: string;
-  tglKeluarSuratBebasNarkoba?: string;
+  tglKeluarSuratSehatButaWarna?: string | null;
+  tglKeluarSuratBebasNarkoba?: string | null;
 }
 
 export interface CreateParticipant {

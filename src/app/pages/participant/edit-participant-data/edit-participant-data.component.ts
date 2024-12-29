@@ -41,8 +41,8 @@ export class EditParticipantDataComponent implements OnInit {
     suratSehatButaWarnaFileName: '',
     suratBebasNarkoba: null,
     suratBebasNarkobaFileName: '',
-    tglKeluarSuratSehatButaWarna: '',
-    tglKeluarSuratBebasNarkoba: '',
+    tglKeluarSuratSehatButaWarna: null,
+    tglKeluarSuratBebasNarkoba: null,
   };
 
   participantId = this.route.snapshot.paramMap.get('participantId');
@@ -139,7 +139,6 @@ export class EditParticipantDataComponent implements OnInit {
             );
             this.userProfile.participant.email = participantEmail;
             this.userProfile.isDataComplete = true;
-            console.log(this.userProfile.isDataComplete)
             // participantData.gmfNonGmf = participantData.company.includes('gmf') || participantData.company.includes('garuda maintenance facility') ? 'GMF' : 'Non GMF';
             localStorage.setItem('user_profile', JSON.stringify(this.userProfile));
           }

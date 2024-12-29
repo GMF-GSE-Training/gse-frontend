@@ -339,6 +339,7 @@ export class CotDetailComponent {
           this.closeModal();
 
           if(this.cotId) {
+            this.getCot();
             this.getListParticipantCot(this.cotId, this.searchQuery, this.currentPage, this.itemsPerPage);
           }
         },

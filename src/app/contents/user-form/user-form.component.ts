@@ -94,5 +94,8 @@ export class UserFormComponent implements OnInit {
   onRoleSelected(roleId: any) {
     this.selectedRole = this.roleData.find(r => r.id === roleId).name;
     this.user.roleId = roleId;
+    if(this.selectedRole !== 'user') {
+      this.user.nik = null;
+    }
   }
 }

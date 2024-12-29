@@ -12,7 +12,7 @@
           label="No Pegawai"
           placeholder="No Pegawai"
           type="text"
-          autocomplete="idNumber"
+          autocomplete="on"
           inputMode="tel">
         </app-base-input>
 
@@ -114,7 +114,7 @@
           [isRequired]="true"
           placeholder="Isi kewarganegaraan sesuai KTP/Paspor"
           type="text"
-          autocomplete="country"
+          autocomplete="country-name"
           inputMode="text"
           #nationality="ngModel"
           >
@@ -252,8 +252,7 @@
           !participant.ktp ||
           !participant.foto ||
           !participant.suratSehatButaWarna ||
-          !participant.suratBebasNarkoba) &&
-          !isUpdate"
+          !participant.suratBebasNarkoba)"
         >
           Simpan
         </app-blue-button>

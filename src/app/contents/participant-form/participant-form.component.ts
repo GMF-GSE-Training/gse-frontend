@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FileInputComponent } from '../../components/input/file-input/file-input.component';
 import { CompanyInputComponent } from '../../components/input/company-input/company-input.component';
 import { WhiteButtonComponent } from '../../components/button/white-button/white-button.component';
@@ -8,7 +8,6 @@ import { RouterLink } from '@angular/router';
 import { TitleComponent } from '../../components/title/title.component';
 import { FormsModule, NgForm } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { RoleBasedAccessDirective } from '../../shared/directive/role-based-access.directive';
 import { HeaderComponent } from "../../components/header/header.component";
 
 @Component({
@@ -24,13 +23,12 @@ import { HeaderComponent } from "../../components/header/header.component";
     FormsModule,
     TitleComponent,
     CommonModule,
-    RoleBasedAccessDirective,
     HeaderComponent
 ],
   templateUrl: './participant-form.component.html',
   styleUrl: './participant-form.component.css',
 })
-export class ParticipantFormComponent {
+export class ParticipantFormComponent implements OnInit {
   @Input() pageTitle: string = '';
   @Input() participant: any = {};
   @Input() isUpdate: boolean = false;

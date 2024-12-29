@@ -245,6 +245,7 @@ export class ParticipantDetailComponent implements OnInit {
     this.idCardLink = `/participants/${this.participant.id}/id-card`;
 
     this.verticalTableData = [
+      { label: 'No Pegawai', value: this.participant.idNumber ?? '-' },
       { label: 'Nama Peserta', value: this.participant.name },
       { label: 'Dinas', value: this.participant.dinas ?? '-' },
       { label: 'Bidang', value: this.participant.bidang ?? '-' },
