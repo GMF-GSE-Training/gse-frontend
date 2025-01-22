@@ -3,6 +3,7 @@ import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../shared/service/auth.service';
 import { Subscription } from 'rxjs';
+import { SweetalertService } from '../../shared/service/sweetaler.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -18,6 +19,7 @@ export class SidebarComponent {
   constructor(
     private authService: AuthService,
     private router: Router,
+    private readonly sweetalertService: SweetalertService,
   ) { }
 
   @Input() isMenuVisible: boolean = false;
@@ -115,18 +117,23 @@ export class SidebarComponent {
     this.logout();
   }
 
-  private logout() {
-    this.authService.logout().subscribe({
-      next: () => {
-        localStorage.clear();
-        this.authService.userProfile$.next(null);
-        this.router.navigateByUrl('/login');
-      },
-      error: (error) => {
-        console.error('Logout failed', error);
-        this.router.navigateByUrl('/login');
-      },
-    });
+  private async logout() {
+    const isConfirmed = await this.sweetalertService.confirm('Anda Yakin?', 'Apakah anda ingin keluar?', 'warning', 'Ya, keluar!');
+    if(isConfirmed) {
+      this.sweetalertService.loading('Mohon tunggu', 'Proses...');
+      this.authService.logout().subscribe({
+        next: () => {
+          this.sweetalertService.close();
+          localStorage.clear();
+          this.authService.userProfile$.next(null);
+          this.router.navigateByUrl('/login');
+        },
+        error: (error) => {
+          this.sweetalertService.close();
+          console.log('Logout failed', error);
+        },
+      });
+    }
   }
 }
 
