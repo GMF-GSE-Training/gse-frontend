@@ -4,8 +4,8 @@ import { DataPemegangKompetensiGseOperatorComponent } from '../../components/cha
 import { DataTotalSertifikatAktifComponent } from '../../components/chart/data-total-sertifikat-aktif/data-total-sertifikat-aktif.component';
 import { DataJumlahPemegangSertifikatComponent } from '../../components/chart/data-jumlah-pemegang-sertifikat/data-jumlah-pemegang-sertifikat.component';
 import { TableComponent } from "../../components/table/table.component";
-import { Router } from '@angular/router';
 import { HeaderComponent } from "../../components/header/header.component";
+import { CotService } from '../../shared/service/cot.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -22,70 +22,61 @@ import { HeaderComponent } from "../../components/header/header.component";
   styleUrl: './dashboard.component.css'
 })
 export class DashboardComponent {
+  constructor(
+    private readonly cotService: CotService,
+  ){ }
+
+  isLoading: boolean = false;
+  startDate: string = '';
+  endDate: string = '';
+  dateOptions: Intl.DateTimeFormatOptions = {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric' // Pastikan nilai-nilai ini sesuai dengan spesifikasi Intl.DateTimeFormatOptions
+  };
+
   columns = [
-    { header: 'Nama Training', field: 'namaTraining' },
-    { header: 'Mulai', field: 'mulai' },
-    { header: 'Selesai', field: 'selesai' },
-    { header: 'Kode Rating', field: 'kodeRating' },
-    { header: 'Jumlah Peserta', field: 'jumlahPeserta' },
-    { header: 'Lokasi Training', field: 'lokasiTraining' },
+    { header: 'Nama Training', field: 'trainingName' },
+    { header: 'Mulai', field: 'startDate' },
+    { header: 'Selesai', field: 'endDate' },
+    { header: 'Kode Rating', field: 'ratingCode' },
+    { header: 'Jumlah Peserta', field: 'numberOfParticipants' },
+    { header: 'Lokasi Training', field: 'trainingLocation' },
   ];
 
-  data = [
-    { kodeRating: 'BTT', namaTraining: 'Baggage Towing Tractor', },
-    { kodeRating: 'FLT', namaTraining: 'Forklift', },
-    { kodeRating: 'RDS', namaTraining: 'Refueling Defueling System', },
-    { kodeRating: 'GPS', namaTraining: 'Ground Power System', },
-    { kodeRating: 'ACS', namaTraining: 'Air Conditioning System', },
-    { kodeRating: 'ATT', namaTraining: 'Aircraft Towing Tractor', },
-    { kodeRating: 'LSS', namaTraining: 'Lavatory Service System', },
-    { kodeRating: 'WSS', namaTraining: 'Water Service System', },
-    { kodeRating: 'ASS', namaTraining: 'Air Starter System', },
-    { kodeRating: 'MUV', namaTraining: 'Maintenance Unit Vehicle', },
-    { kodeRating: 'BTT', namaTraining: 'Baggage Towing Tractor', },
-    { kodeRating: 'FLT', namaTraining: 'Forklift', },
-    { kodeRating: 'RDS', namaTraining: 'Refueling Defueling System', },
-    { kodeRating: 'GPS', namaTraining: 'Ground Power System', },
-    { kodeRating: 'ACS', namaTraining: 'Air Conditioning System', },
-    { kodeRating: 'ATT', namaTraining: 'Aircraft Towing Tractor', },
-    { kodeRating: 'LSS', namaTraining: 'Lavatory Service System', },
-    { kodeRating: 'WSS', namaTraining: 'Water Service System', },
-    { kodeRating: 'ASS', namaTraining: 'Air Starter System', },
-    { kodeRating: 'MUV', namaTraining: 'Maintenance Unit Vehicle', },
-    { kodeRating: 'BTT', namaTraining: 'Baggage Towing Tractor', },
-    { kodeRating: 'FLT', namaTraining: 'Forklift', },
-    { kodeRating: 'RDS', namaTraining: 'Refueling Defueling System', },
-    { kodeRating: 'GPS', namaTraining: 'Ground Power System', },
-    { kodeRating: 'ACS', namaTraining: 'Air Conditioning System', },
-    { kodeRating: 'ATT', namaTraining: 'Aircraft Towing Tractor', },
-    { kodeRating: 'LSS', namaTraining: 'Lavatory Service System', },
-    { kodeRating: 'WSS', namaTraining: 'Water Service System', },
-    { kodeRating: 'ASS', namaTraining: 'Air Starter System', },
-    { kodeRating: 'MUV', namaTraining: 'Maintenance Unit Vehicle', },
-    { kodeRating: 'BTT', namaTraining: 'Baggage Towing Tractor', },
-    { kodeRating: 'FLT', namaTraining: 'Forklift', },
-    { kodeRating: 'RDS', namaTraining: 'Refueling Defueling System', },
-    { kodeRating: 'GPS', namaTraining: 'Ground Power System', },
-    { kodeRating: 'ACS', namaTraining: 'Air Conditioning System', },
-    { kodeRating: 'ATT', namaTraining: 'Aircraft Towing Tractor', },
-    { kodeRating: 'LSS', namaTraining: 'Lavatory Service System', },
-    { kodeRating: 'WSS', namaTraining: 'Water Service System', },
-    { kodeRating: 'ASS', namaTraining: 'Air Starter System', },
-    { kodeRating: 'MUV', namaTraining: 'Maintenance Unit Vehicle', }
-  ];
+  cot: any[] = [];
 
   currentPage = 1;
   itemsPerPage = 6;
+  totalPages: number = 1;
 
-  constructor(private readonly router: Router) { }
-
-  get paginatedData() {
-    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
-    const endIndex = startIndex + this.itemsPerPage;
-    return this.data.slice(startIndex, endIndex);
+  ngOnInit(): void {
+    this.getListCot();
   }
 
-  get totalPages() {
-    return Math.ceil(this.data.length / this.itemsPerPage);
+  getListCot(): void {
+    this.isLoading = true;
+    this.cotService.listCot('', 1, 10, '', '').subscribe({
+      next: ({ data, paging }) => {
+        this.cot = data.map((cot) => ({
+          trainingName: cot.capability?.trainingName,
+          ratingCode: cot.capability?.ratingCode,
+          startDate: new Date(cot.startDate).toLocaleDateString('id-ID', this.dateOptions),
+          endDate: new Date(cot.endDate).toLocaleDateString('id-ID', this.dateOptions),
+          numberOfParticipants: cot.numberOfParticipants,
+          trainingLocation: cot.trainingLocation,
+        }));
+
+        console.log(this.cot)
+        this.totalPages = paging?.totalPage ?? 1;
+      },
+      error: (error) => {
+        console.log(error);
+        this.isLoading = false;
+      },
+      complete: () => {
+        this.isLoading = false;
+      }
+    });
   }
 }
