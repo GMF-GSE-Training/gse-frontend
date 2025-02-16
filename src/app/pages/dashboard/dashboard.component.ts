@@ -6,6 +6,7 @@ import { DataJumlahPemegangSertifikatComponent } from '../../components/chart/da
 import { TableComponent } from "../../components/table/table.component";
 import { HeaderComponent } from "../../components/header/header.component";
 import { CotService } from '../../shared/service/cot.service';
+import { PaginationComponent } from "../../components/pagination/pagination.component";
 
 @Component({
   selector: 'app-dashboard',
@@ -16,7 +17,8 @@ import { CotService } from '../../shared/service/cot.service';
     DataTotalSertifikatAktifComponent,
     DataJumlahPemegangSertifikatComponent,
     TableComponent,
-    HeaderComponent
+    HeaderComponent,
+    PaginationComponent
 ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
@@ -27,8 +29,6 @@ export class DashboardComponent {
   ){ }
 
   isLoading: boolean = false;
-  startDate: string = '';
-  endDate: string = '';
   dateOptions: Intl.DateTimeFormatOptions = {
     day: 'numeric',
     month: 'long',
@@ -48,15 +48,15 @@ export class DashboardComponent {
 
   currentPage = 1;
   itemsPerPage = 6;
-  totalPages: number = 1;
+  totalPages: number = 0;
 
   ngOnInit(): void {
-    this.getListCot();
+    this.getListCot('', this.currentPage, this.itemsPerPage, '', '');
   }
 
-  getListCot(): void {
+  getListCot(searchQuery: string, page: number, size: number, startDate: string, endDate: string): void {
     this.isLoading = true;
-    this.cotService.listCot('', 1, 10, '', '').subscribe({
+    this.cotService.listCot(searchQuery, page, size, startDate, endDate).subscribe({
       next: ({ data, paging }) => {
         this.cot = data.map((cot) => ({
           trainingName: cot.capability?.trainingName,
@@ -67,7 +67,6 @@ export class DashboardComponent {
           trainingLocation: cot.trainingLocation,
         }));
 
-        console.log(this.cot)
         this.totalPages = paging?.totalPage ?? 1;
       },
       error: (error) => {
@@ -78,5 +77,10 @@ export class DashboardComponent {
         this.isLoading = false;
       }
     });
+  }
+
+  onPageChanged(page: number) {
+    this.currentPage = page;
+    this.getListCot('', this.currentPage, this.itemsPerPage, '', '');
   }
 }
