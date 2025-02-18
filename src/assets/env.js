@@ -1,10 +1,11 @@
 (function(window) {
+    window._env = window._env || {};
     window.__env = window.__env || {};
 
-    // Variabel environment
+    // Variable environment
+    window._env.LOCAL_URL = `http://${window.location.hostname}:3000`;
     window.__env.BACKEND_URL = 'https://api.gmf-training.publicvm.com';
-
-    // Tambahkan variabel environment lainnya jika diperlukan
-    // window.__env.API_KEY = 'your-api-key-here';
+    window._env.BASE_URL = window._env.LOCAL_URL;
+    window.__env.API_URL = window.__env.BACKEND_URL;
     // window.__env.DEFAULT_LANGUAGE = 'en';
 })(this);

@@ -1,16 +1,17 @@
 #!/bin/sh
 set -e
 
-# Validasi environment variable
+# Validasi bahwa environment variable API_URL telah diset
 if [ -z "$API_URL" ]; then
   echo "ERROR: API_URL environment variable is required"
   exit 1
 fi
 
-# Generate config Nginx
-envsubst '$API_URL' < /etc/nginx/conf.d/nginx.conf.template > /etc/nginx/conf.d/default.conf
+# Envsubst ganti $API_URL ke Nginx
+envsubst '$API_URL' < /etc/nginx/nginx.conf > /etc/nginx/nginx.conf
 
-# Inject environment variables ke Angular
+# Inject ke env.js
 echo "window.__env = { API_URL: '$API_URL' };" > /usr/share/nginx/html/assets/env.js
 
+# Jalankan Nginx di foreground
 exec nginx -g "daemon off;"

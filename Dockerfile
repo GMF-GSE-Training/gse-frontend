@@ -1,4 +1,4 @@
-# Stage 1: Build
+# Tahap 1: Build Aplikasi Angular
 FROM node:20-alpine AS builder
 WORKDIR /app
 
@@ -6,20 +6,21 @@ COPY package*.json ./
 RUN npm ci --legacy-peer-deps
 
 COPY . .
+
 RUN npm run build -- --configuration=production
 
-# Stage 2: Runtime
+# Tahap 2: Menyajikan aplikasi dengan Nginx
 FROM nginx:1.25-alpine
 
-# Copy config
-COPY docker/nginx/nginx.conf.template /etc/nginx/conf.d/
+RUN rm /etc/nginx/conf.d/default.conf
+
+COPY docker/nginx.conf /etc/nginx/nginx.conf
+
+COPY --from=builder /app/dist/ /usr/share/nginx/html
+
 COPY docker/entrypoint.sh /entrypoint.sh
-
-# Copy build hasil
-COPY --from=builder /app/dist/frontend /usr/share/nginx/html
-
-# Permission
 RUN chmod +x /entrypoint.sh
 
 EXPOSE 8080
+
 CMD ["/entrypoint.sh"]
