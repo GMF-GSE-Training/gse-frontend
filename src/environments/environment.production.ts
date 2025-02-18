@@ -1,8 +1,17 @@
-declare const window: any;
+interface EnvConfigProd {
+  BACKEND_URL?: string;
+  API_URL?: string;
+}
+
+declare global {
+  interface Window {
+    __env?: EnvConfigProd;
+  }
+}
 
 export const environment = {
   production: true,
-  apiUrl: window.__env?.API_URL || '/api', // Fallback ke proxy
+  apiUrl: window.__env?.API_URL || '/',
   endpoints: {
     auth: {
       base: 'auth/current',

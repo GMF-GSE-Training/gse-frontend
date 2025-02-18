@@ -5,7 +5,9 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build --configuration=production",
-    "watch": "ng build --watch --configuration development",
+    "watch": "ng build --watch --configuration=development",
+    "prod": "ng build --configuration production",
+    "serve:prod": "serve -s dist/frontend-projek-sertifikat-berbasis-web",
     "test": "ng test"
   },
   "private": true,
@@ -46,6 +48,7 @@
     "karma-coverage": "~2.2.1",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
-    "typescript": "~5.7.3"
+    "typescript": "^5.7.3",
+    "serve": "^14.0.1"
   }
 }

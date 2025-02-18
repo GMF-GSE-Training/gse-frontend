@@ -1,6 +1,17 @@
+interface EnvConfigDev {
+  LOCAL_URL?: string;
+  BASE_URL?: string;
+}
+
+declare global {
+  interface Window {
+    _env?: EnvConfigDev;
+  }
+}
+
 export const environment = {
   production: false,
-  apiUrl: `http://${window.location.hostname}:3000`,
+  apiUrl: window._env?.BASE_URL || `http://${window.location.hostname}:3000`,
   endpoints: {
     auth: {
       base: 'auth/current',
