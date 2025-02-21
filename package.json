@@ -1,13 +1,12 @@
 {
   "name": "frontend-web-based-certificate-project",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ng serve --host 0.0.0.0",
     "build": "ng build --configuration=production",
     "watch": "ng build --watch --configuration=development",
-    "prod": "ng build --configuration production",
-    "serve:prod": "serve -s dist/frontend-projek-sertifikat-berbasis-web",
+    "http-server": "http-server dist/frontend-projek-sertifikat-berbasis-web/browser -s index.html -a 0.0.0.0 -p 4200",
     "test": "ng test"
   },
   "private": true,
@@ -49,6 +48,6 @@
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
     "typescript": "^5.7.3",
-    "serve": "^14.0.1"
+    "http-server": "^14.1.1"
   }
 }
