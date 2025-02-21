@@ -106,11 +106,35 @@
           name="password"
           [(ngModel)]="user.password"
           #password="ngModel"
+          (ngModelChange)="checkPasswordMatch()"
           [required]="isCreate"
           minLength="8"
           pattern="^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9]).+$"
           minLengthErrorMessage="Password harus berisi minimal 8 karakter dengan kombinasi huruf besar, huruf kecil, dan angka"
           patternErrorMessage="Password harus berisi minimal 8 karakter dengan kombinasi huruf besar, huruf kecil, dan angka"
+          >
+        </app-base-input>
+
+        <app-base-input
+          class="input"
+          [type]="isConfirmPassVisible ? 'text' : 'password'"
+          [isPassVisible]="isConfirmPassVisible"
+          (togglePassClick)="confirmPassVisible()"
+          inputMode="text"
+          label="Konfirmasi Password"
+          autocomplete="password"
+          [isRequired]="isCreate"
+          placeholder="Konfirmasi Password"
+          name="confirmPassword"
+          [(ngModel)]="user.confirmPassword"
+          #confirmPassword="ngModel"
+          (ngModelChange)="checkPasswordMatch()"
+          [required]="isCreate"
+          minLength="8"
+          pattern="^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9]).+$"
+          minLengthErrorMessage="Konfirmasi Password harus berisi minimal 8 karakter dengan kombinasi huruf besar, huruf kecil, dan angka"
+          patternErrorMessage="Konfirmasi Password harus berisi minimal 8 karakter dengan kombinasi huruf besar, huruf kecil, dan angka"
+          [customErrorMessage]="mismatchErrorMessage"
           >
         </app-base-input>
 

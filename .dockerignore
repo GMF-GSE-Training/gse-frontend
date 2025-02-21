@@ -1,0 +1,41 @@
+# Node.js dependencies
+node_modules/
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+
+# Output build folder
+dist/
+
+# Environment files
+.env
+*.env.local
+*.env.development
+*.env.production
+
+# Angular-specific files
+.angular/
+.angular-cli.json
+.idea/
+.vscode/
+
+# Temporary files and logs
+*.log
+*.lock
+*.pid
+*.seed
+*.pid.lock
+
+# OS generated files
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+
+# Ignore Docker-related files (if not needed)
+docker-compose.yml
+.docker/
+
+# Ignore Git-related files
+.git/
+.gitignore

@@ -1,17 +1,17 @@
-interface EnvConfigDev {
-  LOCAL_URL?: string;
-  BASE_URL?: string;
+interface EnvConfigProd {
+  BACKEND_URL?: string;
+  API_URL?: string;
 }
 
 declare global {
   interface Window {
-    _env?: EnvConfigDev;
+    __env?: EnvConfigProd;
   }
 }
 
 export const environment = {
-  production: false,
-  apiUrl: window._env?.BASE_URL || `http://${window.location.hostname}:3000`,
+  production: true,
+  apiUrl: window.__env?.API_URL || '/',
   endpoints: {
     auth: {
       base: 'auth/current',
@@ -27,7 +27,7 @@ export const environment = {
     user: {
       base: 'users',
       list: 'users/list/result',
-      search: 'users/search/result'
+      search: 'users/search/result',
     },
     role: {
       base: 'roles',
@@ -39,7 +39,7 @@ export const environment = {
       downloadIdCard: 'id-card/download',
       downloadDocument: 'download-document',
       list: 'participants/list/result',
-      isComplete: 'participants/check-data-complete'
+      isComplete: 'participants/check-data-complete',
     },
     capability: {
       base: 'capability',
@@ -63,7 +63,7 @@ export const environment = {
       list: 'e-sign/list/result',
     },
     certificate: {
-      base: 'certificate'
-    }
+      base: 'certificate',
+    },
   },
 };

@@ -48,6 +48,24 @@ export class UserFormComponent implements OnInit {
     this.isPassVisible = !this.isPassVisible;
   }
 
+  isConfirmPassVisible: boolean = false;
+  confirmPassVisible() {
+    this.isConfirmPassVisible = !this.isConfirmPassVisible;
+  }
+
+  passwordMismatch: boolean = false;
+  mismatchErrorMessage: string = "";
+  checkPasswordMatch() {
+    if (this.user.password && this.user.confirmPassword) {
+      this.passwordMismatch = this.user.password !== this.user.confirmPassword;
+      if (this.passwordMismatch) {
+        this.mismatchErrorMessage = 'Password tidak sama';
+      } else {
+        this.mismatchErrorMessage = '';
+      }
+    }
+  }
+
   @Output() formSubmit = new EventEmitter<any>();
   @ViewChild('form') form!: NgForm;
 

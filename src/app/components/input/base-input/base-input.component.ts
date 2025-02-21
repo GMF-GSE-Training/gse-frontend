@@ -36,6 +36,7 @@ export class BaseInputComponent {
   @Input() helperMessage: string = '';
   @Input() minLengthErrorMessage: string = 'Panjang input minimum tidak terpenuhi';
   @Input() patternErrorMessage: string = 'Pattern input tidak terpenuhi';
+  @Input() customErrorMessage: string = "";
 
   // Komponen toggle-password-visibility
   @Input() isPassVisible: boolean = false;

@@ -9,6 +9,11 @@
 
   <div class="table-container">
     <h1>Calendar Of Training</h1>
-    <app-table [columns]="columns" [data]="paginatedData"></app-table>
+    <app-table [columns]="columns" [data]="cot"></app-table>
+    <app-pagination
+      [currentPage]="currentPage"
+      [totalPages]="totalPages"
+      (pageChange)="onPageChanged($event)">
+    </app-pagination>
   </div>
 </div>
