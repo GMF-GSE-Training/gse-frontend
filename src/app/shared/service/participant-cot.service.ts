@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { environment } from "../../../environments/environment.development";
+import { environment } from "../../../environments/environment";
 import { Observable } from "rxjs";
 import { ParticipantResponse } from "../model/participant.model";
 import { addParticipantToCot, ListParticipantCotResponse } from "../model/participant-cot.model";
