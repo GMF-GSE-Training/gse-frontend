@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { environment } from "../../../environments/environment";
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpResponse } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { ParticipantResponse } from "../model/participant.model";
 import { WebResponse } from "../model/web.model";
@@ -51,7 +51,7 @@ export class ParticipantService {
   downloadIdCard(id: string): Observable<Blob> {
     return this.http.get(`${this.apiUrl}/${this.endpoints.base}/${id}/${this.endpoints.downloadIdCard}`, {
       withCredentials: true,
-      responseType: 'blob'
+      responseType: 'blob',
     });
   }
 
