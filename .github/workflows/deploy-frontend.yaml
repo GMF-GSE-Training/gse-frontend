@@ -42,4 +42,4 @@ jobs:
             --platform managed \
             --region asia-southeast2 \ 
             --allow-unauthenticated \  
-            --set-env-vars API_URL=https://api.gmf-aeroasia.publicvm.com 
+            --set-env-vars "API_URL=https://api.gmf-aeroasia.publicvm.com"
