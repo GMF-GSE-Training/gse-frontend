@@ -28,7 +28,7 @@ COPY --from=builder /app/dist/frontend-projek-sertifikat-berbasis-web/browser /u
 COPY docker/entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
-# Ekspos port 8080 (default untuk Cloud Run)
+# Ekspos port 8080
 EXPOSE 8080
 
 # Gunakan entrypoint.sh sebagai command
