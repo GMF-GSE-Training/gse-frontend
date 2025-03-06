@@ -1,0 +1,45 @@
+name: Deploy Frontend to Cloud Run
+
+on:
+  push:
+    branches:
+      - dev
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v1
+        with:
+          credentials_json: ${{ secrets.GCP_SA_KEY }}
+          project_id: gmf-training 
+
+      - name: Set up Google Cloud SDK
+        uses: google-github-actions/setup-gcloud@v1
+        with:
+          project_id: gmf-training 
+
+      - name: Configure Docker for GCR
+        run: |
+          gcloud auth configure-docker --quiet
+
+      - name: Build Docker image
+        run: |
+          docker build -t gcr.io/gmf-training/frontend-web-server:latest .
+
+      - name: Push to Google Container Registry
+        run: |
+          docker push gcr.io/gmf-training/frontend-web-server:latest
+
+      - name: Deploy to Cloud Run
+        run: |
+          gcloud run deploy frontend-service \
+          --image gcr.io/gmf-training/frontend-web-server:latest \
+          --platform managed \
+          --region us-central1 \
+          --allow-unauthenticated \
+          --set-env-vars "API_URL=https://api.gmf-aeroasia.publicvm.com"
