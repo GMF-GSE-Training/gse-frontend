@@ -15,8 +15,8 @@ RUN npm ci --legacy-peer-deps
 # Salin seluruh kode sumber
 COPY . .
 
-# Build dengan konfigurasi production
-RUN npm run build -- --configuration=production
+# Build konfigurasi
+RUN npm run build
 
 # Tahap 2: Menyajikan aplikasi dengan Nginx
 FROM nginx:1.25-alpine
