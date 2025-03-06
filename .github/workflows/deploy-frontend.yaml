@@ -41,4 +41,5 @@ jobs:
           --image gcr.io/gmf-training/frontend-web-server:latest \
           --platform managed \
           --region asia-southeast2 \
-          --allow-unauthenticated
+          --allow-unauthenticated \
+          --set-env-vars "API_URL=https://api.gmf-aeroasia.publicvm.com"
