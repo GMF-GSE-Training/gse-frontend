@@ -8,8 +8,6 @@ if [ -z "$API_URL" ]; then
   exit 1
 fi
 
-mkdir -p /usr/share/nginx/html/server/assets
-
 echo "window.__env = { API_URL: '$API_URL' };" > /usr/share/nginx/html/server/assets/env-7JDVT4U3.js
 
 exec nginx -g "daemon off;"

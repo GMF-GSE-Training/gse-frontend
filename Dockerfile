@@ -27,6 +27,8 @@ RUN rm /etc/nginx/conf.d/default.conf
 # Salin konfigurasi Nginx yang disederhanakan
 COPY docker/nginx.conf /etc/nginx/conf.d/default.conf
 
+RUN mkdir -p /usr/share/nginx/html/server
+
 # Salin hasil build dari tahap builder
 COPY --from=builder /app/dist/frontend-projek-sertifikat-berbasis-web/browser /usr/share/nginx/html/server
 
