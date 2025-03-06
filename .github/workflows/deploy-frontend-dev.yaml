@@ -3,7 +3,7 @@ name: Deploy Frontend to Cloud Run
 on:
   push:
     branches:
-      - staging
+      - dev
 
 jobs:
   deploy:
@@ -29,17 +29,17 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker build -t gcr.io/gmf-training/frontend-web-server:latest .
+          docker build -t gcr.io/gmf-training/dev-frontend-web-server:latest .
 
       - name: Push to Google Container Registry
         run: |
-          docker push gcr.io/gmf-training/frontend-web-server:latest
+          docker push gcr.io/gmf-training/dev-frontend-web-server:latest
 
       - name: Deploy to Cloud Run
         run: |
-          gcloud run deploy frontend-service \
-          --image gcr.io/gmf-training/frontend-web-server:latest \
+          gcloud run deploy dev-frontend-service \
+          --image gcr.io/gmf-training/dev-frontend-web-server:latest \
           --platform managed \
-          --region us-central1 \
+          --region asia-southeast1 \
           --allow-unauthenticated \
-          --set-env-vars "API_URL=https://api.gmf-aeroasia.publicvm.com"
+          --set-env-vars "API_URL=https://dev-api.gmf-aeroasia.publicvm.com"
