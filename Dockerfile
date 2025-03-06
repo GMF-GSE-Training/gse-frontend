@@ -38,4 +38,4 @@ RUN chmod +x /entrypoint.sh
 EXPOSE 8080
 
 # Gunakan entrypoint.sh sebagai command
-CMD ["/entrypoint.sh"]
+CMD ["./entrypoint.sh"]
