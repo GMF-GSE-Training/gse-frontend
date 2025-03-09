@@ -14,11 +14,31 @@ export class ErrorHandlerService {
    */
   alertError(error?: any, requiredFields?: string[]): void {
     const errorDetails = error?.error?.errors;
+    const status = error?.status; // Ambil status HTTP
 
+    // Tangani error berdasarkan status HTTP
+    if (status) {
+      switch (status) {
+        case 400:
+          this.sweetalertService.alert('Gagal!', 'Data tidak valid, periksa input Anda.', 'error');
+          return;
+        case 409:
+          this.sweetalertService.alert('Gagal!', 'Jadwal bertabrakan, silakan pilih waktu lain.', 'error');
+          return;
+        case 404:
+          this.sweetalertService.alert('Gagal!', 'Data tidak ditemukan.', 'error');
+          return;
+        case 500:
+          this.sweetalertService.alert('Gagal!', 'Kesalahan server, silakan coba lagi nanti.', 'error');
+          return;
+      }
+    }
+
+    // Tangani error berbasis errorDetails (dari backend)
     if (this.isObject(errorDetails) || Array.isArray(errorDetails)) {
       const formattedError = this.formatErrors(errorDetails);
 
-      if (this.hasRequiredFields(errorDetails, requiredFields!)) {
+      if (this.hasRequiredFields(errorDetails, requiredFields || [])) {
         this.sweetalertService.alert(
           'Gagal!',
           'Kolom dengan tanda bintang (*) wajib diisi',
@@ -46,13 +66,25 @@ export class ErrorHandlerService {
    */
   getErrorMessage(error?: any, requiredFields?: string[]): string {
     const errorDetails = error?.error?.errors;
+    const status = error?.status;
 
+    // Tangani berdasarkan status HTTP
+    if (status) {
+      switch (status) {
+        case 400: return 'Data tidak valid, periksa input Anda.';
+        case 409: return 'Jadwal bertabrakan, silakan pilih waktu lain.';
+        case 404: return 'Data tidak ditemukan.';
+        case 500: return 'Kesalahan server, silakan coba lagi nanti.';
+      }
+    }
+
+    // Tangani error berbasis errorDetails
     if (this.isObject(errorDetails) || Array.isArray(errorDetails)) {
       const formattedError = this.formatErrors(errorDetails);
 
       if (formattedError) {
         return formattedError;
-      } else if (this.hasRequiredFields(errorDetails, requiredFields!)) {
+      } else if (this.hasRequiredFields(errorDetails, requiredFields || [])) {
         return 'Kolom dengan tanda bintang (*) wajib diisi';
       }
     } else if (typeof errorDetails === 'string') {
@@ -65,7 +97,7 @@ export class ErrorHandlerService {
   /**
    * Memformat error menjadi string yang dapat dibaca pengguna.
    * @param errors Objek atau array error dari backend.
-   * @returns Pesan error yang diformat.
+   * @returns Pesan error yang diformat atau null jika tidak bisa diformat.
    */
   private formatErrors(errors: Record<string, string[]> | string[] | any): string | null {
     if (Array.isArray(errors)) {
@@ -76,6 +108,7 @@ export class ErrorHandlerService {
           }
           return error;
         })
+        .filter(Boolean)
         .join('\n');
     } else if (this.isObject(errors)) {
       return Object.entries(errors)
@@ -92,7 +125,7 @@ export class ErrorHandlerService {
    * @returns `true` jika salah satu field ditemukan, `false` jika tidak.
    */
   private hasRequiredFields(obj: any, fields: string[]): boolean {
-    if (!this.isObject(obj)) {
+    if (!this.isObject(obj) || fields.length === 0) {
       return false;
     }
     return fields.some((field) => obj[field]);

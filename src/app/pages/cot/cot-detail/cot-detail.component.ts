@@ -1,15 +1,20 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { VerticalTableComponent } from '../../../components/vertical-table/vertical-table.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SweetalertService } from '../../../shared/service/sweetaler.service';
-import { DataManagementComponent } from "../../../contents/data-management/data-management.component";
-import { ParticipantCotModalComponent } from "../../../components/participant-cot-modal/participant-cot-modal.component";
+import { DataManagementComponent } from '../../../contents/data-management/data-management.component';
+import { ParticipantCotModalComponent } from '../../../components/participant-cot-modal/participant-cot-modal.component';
 import { CommonModule } from '@angular/common';
 import { ParticipantCotService } from '../../../shared/service/participant-cot.service';
 import { ErrorHandlerService } from '../../../shared/service/error-handler.service';
-import { LoaderComponent } from "../../../components/loader/loader.component";
+import { LoaderComponent } from '../../../components/loader/loader.component';
 import { CotService } from '../../../shared/service/cot.service';
-import { HeaderComponent } from "../../../components/header/header.component";
+import { HeaderComponent } from '../../../components/header/header.component';
+
+interface TableData {
+  label: string;
+  value: string | undefined;
+}
 
 @Component({
   selector: 'app-cot-detail',
@@ -21,25 +26,15 @@ import { HeaderComponent } from "../../../components/header/header.component";
     CommonModule,
     LoaderComponent,
     HeaderComponent
-],
+  ],
   templateUrl: './cot-detail.component.html',
   styleUrl: './cot-detail.component.css',
 })
-export class CotDetailComponent {
-  constructor(
-    private readonly route: ActivatedRoute,
-    private readonly participantCotService: ParticipantCotService,
-    private readonly cotService: CotService,
-    private readonly sweetalertService: SweetalertService,
-    private readonly router: Router,
-    private readonly errorHandlerService: ErrorHandlerService,
-  ) { }
-
-  cotId = this.route.snapshot.paramMap.get('cotId');
+export class CotDetailComponent implements OnInit {
+  cotId!: string;
   userProfile = JSON.parse(localStorage.getItem('user_profile') || '{}');
-
-  verticalTableData: any[] = [];
-
+  verticalTableData: TableData[] = [];
+  
   columns = [
     { header: 'No Pegawai', field: 'idNumber' },
     { header: 'Nama', field: 'name' },
@@ -64,8 +59,8 @@ export class CotDetailComponent {
   currentPage: number = 1;
   itemsPerPage: number = 10;
   searchQuery: string = '';
-  state: { data: any } = { data: '' };
-  certificateState: any;
+  state: { data: string } = { data: '' };
+  certificateState: any[] = [];
   isParticipantCotLoading: boolean = false;
 
   modalColumns = [
@@ -78,59 +73,68 @@ export class CotDetailComponent {
   ];
 
   trainingName: string = '';
-
   showModal: boolean = false;
-  selectedParticipantIds: any[] = [];
+  selectedParticipantIds: (number | string)[] = [];
   unregisteredParticipants: any[] = [];
   modalTotalPages: number = 0;
   modalCurrentPage: number = 1;
   modalItemsPerPage: number = 10;
   isLoadingModal: boolean = false;
+  updatedCount: number = 0;
+  addedParticipants: string[] = [];
+
+  constructor(
+    private readonly route: ActivatedRoute,
+    private readonly participantCotService: ParticipantCotService,
+    private readonly cotService: CotService,
+    private readonly sweetalertService: SweetalertService,
+    private readonly router: Router,
+    private readonly errorHandlerService: ErrorHandlerService,
+  ) {
+    const cotIdFromRoute = this.route.snapshot.paramMap.get('cotId');
+    if (!cotIdFromRoute) {
+      this.router.navigate(['/cot']);
+      this.errorHandlerService.alertError(new Error('cotId tidak ditemukan di URL'));
+      return;
+    }
+    this.cotId = cotIdFromRoute;
+  }
 
   ngOnInit(): void {
     this.getCot();
     this.route.queryParams.subscribe(params => {
       this.searchQuery = params['keyword'] || '';
-      this.currentPage =+ params['page'] || 1;
-      if(this.cotId) {
-        this.getListParticipantCot(this.cotId, this.searchQuery, this.currentPage, this.itemsPerPage);
-      }
+      this.currentPage = +params['page'] || 1;
+      this.getListParticipantCot(this.cotId, this.searchQuery, this.currentPage, this.itemsPerPage);
     });
   }
 
   getCot(): void {
-    if(this.cotId) {
-      this.isLoading = true;
-      this.cotService.getCotById(this.cotId).subscribe({
-        next: ({ data }) => {
-          this.trainingName = data.capability.trainingName;
-
-          this.verticalTableData = [
-            { label: 'Kode Rating', value: data.capability.ratingCode },
-            { label: 'Nama training', value: data.capability.trainingName },
-            { label: 'Tanggal Mulai', value: new Date(data.startDate).toLocaleDateString('id-ID', this.dateOptions) },
-            { label: 'Tanggal Selesai', value: new Date(data.endDate).toLocaleDateString('id-ID', this.dateOptions) },
-            { label: 'Lokasi Training', value: data.trainingLocation },
-            { label: 'Instruktur Regulasi GSE', value: data.theoryInstructorRegGse },
-            { label: 'Instruktur Teori Rating', value: data.theoryInstructorCompetency },
-            { label: 'Instruktur Praktek 1', value: data.practicalInstructor1 },
-            { label: 'Instruktur Praktek 2', value: data.practicalInstructor2 },
-            { label: 'Jumlah Peserta', value: data.numberOfParticipants },
-            { label: 'Status', value: data.status },
-          ];
-        },
-        error: (error) => {
-          console.log(error);
-          this.isLoading = false;
-        },
-        complete: () => {
-          this.isLoading = false;
-        }
-      });
-    }
+    this.isLoading = true;
+    this.cotService.getCotById(this.cotId).subscribe({
+      next: ({ data }) => {
+        this.trainingName = data.capability.trainingName ?? '';
+        this.verticalTableData = [
+          { label: 'Kode Rating', value: data.capability.ratingCode ?? '-' },
+          { label: 'Nama training', value: data.capability.trainingName ?? '-' },
+          { label: 'Tanggal Mulai', value: data.startDate ? new Date(data.startDate).toLocaleDateString('id-ID', this.dateOptions) : '-' },
+          { label: 'Tanggal Selesai', value: data.endDate ? new Date(data.endDate).toLocaleDateString('id-ID', this.dateOptions) : '-' },
+          { label: 'Lokasi Training', value: data.trainingLocation ?? '-' },
+          { label: 'Instruktur Regulasi GSE', value: data.theoryInstructorRegGse ?? '-' },
+          { label: 'Instruktur Teori Rating', value: data.theoryInstructorCompetency ?? '-' },
+          { label: 'Instruktur Praktek 1', value: data.practicalInstructor1 ?? '-' },
+          { label: 'Instruktur Praktek 2', value: data.practicalInstructor2 ?? '-' },
+          { label: 'Jumlah Peserta', value: (data.numberOfParticipants ?? 0).toString() },
+          { label: 'Status', value: data.status !== undefined ? String(data.status) : '-' },
+        ];
+        this.updatedCount = data.numberOfParticipants ?? 0;
+      },
+      error: (error) => this.errorHandlerService.alertError(error),
+      complete: () => this.isLoading = false
+    });
   }
 
-  getListParticipantCot(cotId: string, searchQuery: string, currentPage: number, itemsPerPage: number) {
+  getListParticipantCot(cotId: string, searchQuery: string, currentPage: number, itemsPerPage: number): void {
     this.isParticipantCotLoading = true;
     this.participantCotService.listParticipantCot(cotId, searchQuery, currentPage, itemsPerPage).subscribe({
       next: ({ data }) => {
@@ -138,12 +142,15 @@ export class CotDetailComponent {
         const participantCot = cot.participants;
 
         this.certificateState = participantCot.data?.map((participant: any) => ({
+          participantIdd: participant.id,
+          link: `/cot/${this.cotId}/detail`,
           idNumber: participant?.idNumber ?? '-',
           name: participant?.name ?? '-',
+          trainingName: this.trainingName,
         })) ?? [];
 
         this.participantCots = participantCot.data?.map((participant: any) => {
-          if (!participant) return null; // Lewati jika participant null
+          if (!participant) return null;
 
           const baseParticipant = {
             ...participant,
@@ -151,16 +158,10 @@ export class CotDetailComponent {
             dinas: participant.dinas ?? '-',
             printLink: participantCot.actions?.canPrint && participant?.id ? `/certificate/${this.cotId}/create/${participant.id}` : null,
             detailLink: participantCot.actions?.canView && participant?.id ? `/participants/${participant.id}/detail` : null,
-            deleteMethod: participantCot.actions?.canDelete ? () => this.deleteParticipantFromCot(data.cot.id, participant?.id) : null,
+            deleteMethod: participantCot.actions?.canDelete ? () => this.deleteParticipantFromCot(cotId, participant?.id) : null,
           };
 
-          // Periksa apakah peran pengguna adalah 'user'
-          if (this.userProfile.role.name === 'user') {
-            return baseParticipant;
-          }
-
-          // Tambahkan field tambahan untuk peran non-user
-          return {
+          return this.userProfile.role.name === 'user' ? baseParticipant : {
             ...baseParticipant,
             sim: participant?.id ? `/participants/${participant.id}/${participant.simB ? 'sim-b' : 'sim-a'}` : null,
             expSuratSehatButaWarna: participant?.id ? {
@@ -172,182 +173,127 @@ export class CotDetailComponent {
               value: `/participants/${participant.id}/surat-bebas-narkoba`
             } : null,
           };
-        }).filter((item: null) => item !== null);
-
-        this.certificateState = participantCot.data?.map((participant: any) => ({
-          participantIdd: participant.id,
-          link: `/cot/${this.cotId}/detail`,
-          idNumber: participant?.idNumber ?? '-',
-          name: participant?.name ?? '-',
-          trainingName: this.trainingName,
-        })) ?? [];
+        }).filter(Boolean) ?? [];
 
         this.state.data = `/cot/${this.cotId}/detail`;
         this.totalPages = participantCot.paging.totalPage;
       },
-      error: (error) => {
-        console.log(error);
-        this.isParticipantCotLoading = false;
-      },
-      complete: () => {
-        this.isParticipantCotLoading = false;
-      }
+      error: (error) => this.errorHandlerService.alertError(error),
+      complete: () => this.isParticipantCotLoading = false
     });
   }
 
-  getUnregisteredParticipants(cotId: string, searchQuery: string, currentPage: number, itemsPerPage: number) {
+  getUnregisteredParticipants(cotId: string, searchQuery: string, currentPage: number, itemsPerPage: number): void {
     this.isLoadingModal = true;
     this.participantCotService.getUnregisteredParticipants(cotId, searchQuery, currentPage, itemsPerPage).subscribe({
       next: ({ paging, data }) => {
-        this.modalCurrentPage = this.modalCurrentPage;
         this.modalTotalPages = paging?.totalPage ?? 1;
-        // Proses data untuk mengganti nilai null dengan "-"
-        this.unregisteredParticipants = data.map((item: any) => {
-          // Iterasi setiap properti dari item
-          return Object.fromEntries(
-            Object.entries(item).map(([key, value]) => [key, value === null ? '-' : value])
-          );
-        });
+        this.unregisteredParticipants = data.map((item: any) => 
+          Object.fromEntries(
+            Object.entries(item).map(([key, value]) => [key, value ?? '-'])
+          )
+        );
       },
-      error: (error) => {
-        console.log(error);
-        this.isLoadingModal = false;
-      },
-      complete: () => {
-        this.isLoadingModal = false;
-      }
-    })
+      error: (error) => this.errorHandlerService.alertError(error),
+      complete: () => this.isLoadingModal = false
+    });
   }
 
   onSearchChanged(query: string): void {
-    if (query.trim() === '') {
-      this.router.navigate([], {
-        queryParams: { keyword: null, page: null },
-        queryParamsHandling: 'merge',
-      });
-    } else {
-      this.router.navigate([], {
-        queryParams: { keyword: query, page: 1 },
-        queryParamsHandling: 'merge',
-      });
-    }
+    this.router.navigate([], {
+      queryParams: { keyword: query.trim() || null, page: query.trim() ? 1 : null },
+      queryParamsHandling: 'merge',
+    });
   }
 
-  async deleteParticipantFromCot(cotId: string, participantId: string) {
-    const isConfirmed = await this.sweetalertService.confirm('Anda Yakin?', `Apakah anda ingin menghapus peserta ini dari COT?`, 'warning', 'Ya, hapus!');
-    if(isConfirmed) {
-      this.sweetalertService.loading('Mohon tunggu', 'Proses...');
-      this.participantCotService.deleteParticipantFromCot(cotId, participantId).subscribe({
-        next: () => {
-          this.sweetalertService.alert('Berhasil!', 'Participant berhasil dihapus dari COT ini', 'success');
-          this.participantCots = this.participantCots.filter(p => p.id !== participantId);
+  async deleteParticipantFromCot(cotId: string, participantId: string): Promise<void> {
+    const isConfirmed = await this.sweetalertService.confirm('Anda Yakin?', 'Apakah anda ingin menghapus peserta ini dari COT?', 'warning', 'Ya, hapus!');
+    if (!isConfirmed) return;
 
-          if(this.participantCots.length === 0 && this.currentPage > 0) {
-            this.currentPage -= 1;
-          }
+    this.sweetalertService.loading('Mohon tunggu', 'Proses...');
+    this.participantCotService.deleteParticipantFromCot(cotId, participantId).subscribe({
+      next: () => {
+        this.sweetalertService.alert('Berhasil!', 'Participant berhasil dihapus dari COT ini', 'success');
+        this.participantCots = this.participantCots.filter(p => p.id !== participantId);
+        this.currentPage = this.participantCots.length === 0 && this.currentPage > 1 ? this.currentPage - 1 : this.currentPage;
+        
+        this.getCot();
+        this.getListParticipantCot(cotId, this.searchQuery, this.currentPage, this.itemsPerPage);
 
-          if(this.cotId) {
-            this.getListParticipantCot(this.cotId, this.searchQuery, this.currentPage, this.itemsPerPage);
-          }
-
-          // Cek apakah halaman saat ini lebih besar dari total halaman
-          if (this.currentPage > this.totalPages) {
-            this.currentPage = this.totalPages; // Pindah ke halaman sebelumnya
-          }
-
-          // Update query params dengan currentPage yang diperbarui
-          const queryParams = this.searchQuery
-            ? { keyword: this.searchQuery, page: this.currentPage }
-            : { page: this.currentPage };
-
-          this.router.navigate([], {
-            relativeTo: this.route,
-            queryParams,
-            queryParamsHandling: 'merge',
-          });
-        },
-        error: (error) => {
-          console.log(error);
-          this.sweetalertService.alert('Gagal!', 'Terjadi kesalahan, silahkan coba lagi nanti', 'error');
-        }
-      })
-    }
+        this.router.navigate([], {
+          relativeTo: this.route,
+          queryParams: this.searchQuery ? { keyword: this.searchQuery, page: this.currentPage } : { page: this.currentPage },
+          queryParamsHandling: 'merge',
+        });
+      },
+      error: (error) => {
+        console.error('Error deleting participant:', error);
+        this.errorHandlerService.alertError(error);
+      }
+    });
   }
 
   onPageChanged(page: number): void {
-    this.router.navigate([], {
-      queryParams: { page },
-      queryParamsHandling: 'merge',
-    });
+    this.router.navigate([], { queryParams: { page }, queryParamsHandling: 'merge' });
   }
 
   viewAll(): void {
-    this.router.navigate([], {
-      relativeTo: this.route,
-      queryParams: { keyword: undefined, page: undefined },
-      queryParamsHandling: 'merge',
-    });
     this.searchQuery = '';
+    this.router.navigate([], { relativeTo: this.route, queryParams: { keyword: null, page: null }, queryParamsHandling: 'merge' });
   }
 
-  openModal() {
+  openModal(): void {
     this.showModal = true;
-    if(this.cotId && this.showModal) {
-      this.getUnregisteredParticipants(this.cotId, '', this.modalCurrentPage, this.modalItemsPerPage);
-    }
+    this.getUnregisteredParticipants(this.cotId, '', this.modalCurrentPage, this.modalItemsPerPage);
   }
 
-  closeModal() {
+  closeModal(): void {
     this.selectedParticipantIds = [];
     this.showModal = false;
   }
 
-  modalSearchChanged(searchQuery: string) {
+  modalSearchChanged(searchQuery: string): void {
     this.modalCurrentPage = 1;
-    if(this.cotId && this.showModal) {
-      this.getUnregisteredParticipants(this.cotId, searchQuery, this.modalCurrentPage, this.itemsPerPage);
-    }
+    this.getUnregisteredParticipants(this.cotId, searchQuery, this.modalCurrentPage, this.itemsPerPage);
   }
 
-  modalSearchCleared() {
-    if(this.cotId && this.showModal) {
-      this.getUnregisteredParticipants(this.cotId, '', this.modalCurrentPage, this.itemsPerPage);
-    }
+  modalSearchCleared(): void {
+    this.getUnregisteredParticipants(this.cotId, '', this.modalCurrentPage, this.itemsPerPage);
   }
 
-  modalPageChanged(page: number) {
+  modalPageChanged(page: number): void {
     this.modalCurrentPage = page;
-    if(this.cotId && this.showModal) {
-      this.getUnregisteredParticipants(this.cotId, '', this.modalCurrentPage, this.modalItemsPerPage);
-    }
+    this.getUnregisteredParticipants(this.cotId, '', this.modalCurrentPage, this.modalItemsPerPage);
   }
 
-  onSelectedIdsChange(ids: Set<number | string>) {
-    this.selectedParticipantIds = Array.from(ids) as number[];
+  onSelectedIdsChange(ids: Set<number | string>): void {
+    this.selectedParticipantIds = Array.from(ids);
   }
 
-  saveSelectedParticipants() {
-    if(this.cotId) {
-      const requestPayload = {
-        participantIds: this.selectedParticipantIds
-      };
+  saveSelectedParticipants(): void {
+    if (!this.cotId) return;
 
-      this.sweetalertService.loading('Mohon tunggu', 'Proses...');
-      this.participantCotService.addParticipantToCot(this.cotId, requestPayload).subscribe({
-        next: () => {
-          this.sweetalertService.alert('Berhasil!', 'Berhasil menambahkan participant ke COT', 'success');
-          this.closeModal();
+    const requestPayload = {
+      participantIds: this.selectedParticipantIds.map(id => String(id))
+    };
+    this.sweetalertService.loading('Mohon tunggu', 'Proses...');
+    this.participantCotService.addParticipantToCot(this.cotId, requestPayload).subscribe({
+      next: (response) => {
+        this.sweetalertService.alert('Berhasil!', response.data.message, 'success');
+        this.updatedCount = response.data.updatedCount ?? this.updatedCount;
+        this.addedParticipants = response.data.addedParticipants || [];
 
-          if(this.cotId) {
-            this.getCot();
-            this.getListParticipantCot(this.cotId, this.searchQuery, this.currentPage, this.itemsPerPage);
-          }
-        },
-        error: (error) => {
-          console.log(error);
-          this.errorHandlerService.alertError(error);
-        }
-      })
-    }
+        this.verticalTableData = this.verticalTableData.map(item =>
+          item.label === 'Jumlah Peserta' ? { ...item, value: this.updatedCount.toString() } : item
+        );
+
+        this.getListParticipantCot(this.cotId, this.searchQuery, this.currentPage, this.itemsPerPage);
+        this.closeModal();
+      },
+      error: (error) => {
+        console.error('Error adding participants:', error);
+        this.errorHandlerService.alertError(error);
+      }
+    });
   }
 }
