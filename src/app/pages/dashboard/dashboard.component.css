@@ -1,6 +1,7 @@
 .container {
   padding: 1em;
   box-sizing: border-box;
+  margin: 0 auto;
 }
 
 .chart-container {
@@ -8,39 +9,123 @@
   grid-template-columns: 50% 50%;
   gap: 20px;
   box-sizing: border-box;
-  padding-right: 1.2em
+  padding-right: 1.2em;
+}
+
+.table-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #3E799B;
+  padding: 10px;
+  border-radius: 5px 5px 0 0;
+  margin-top: 50px;
+}
+
+h1 {
+  color: #ffffff;
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.refresh-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background-color: #ffffff;
+  color: #3E799B;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
+
+.refresh-btn:hover {
+  background-color: #e0e0e0;
+}
+
+.refresh-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.refresh-icon {
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: #3E799B;
+  stroke-width: 2;
+}
+
+.refresh-icon.spin {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .table-container {
   width: 100%;
-  margin-top: 50px;
   background: linear-gradient(to bottom, #3E799B, #3E799B00);
   padding: 1em;
-  border-radius: 10px;
+  border-radius: 0 0 10px 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
+  overflow-x: auto;
+  max-height: 400px;
+  overflow-y: auto;
 }
 
-h1 {
+.loading {
   text-align: center;
-  color: #ffffff;
+  color: #3E799B;
+  padding: 20px;
+}
+
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  padding: 10px 0;
 }
 
 @media screen and (max-width: 768px) {
   .chart-container {
+    grid-template-columns: 1fr;
     display: flex;
     flex-direction: column;
   }
 
+  .table-header {
+    flex-direction: row;
+    gap: 10px;
+    margin-top: 20px;
+  }
+
   h1 {
-    text-align: start;
-    margin-bottom: 20px;
+    font-size: 1.2rem;
+    text-align: left;
+    flex: 1;
+  }
+
+  .refresh-btn {
+    font-size: 0.9rem;
+    padding: 6px 12px;
   }
 
   .table-container {
-    overflow-x: scroll;
+    padding: 0.5em;
+    max-height: 300px;
+  }
+
+  .pagination-container {
+    padding: 5px 0;
   }
 }
