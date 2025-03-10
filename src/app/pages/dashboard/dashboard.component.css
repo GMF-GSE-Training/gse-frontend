@@ -25,7 +25,7 @@
 h1 {
   color: #ffffff;
   margin: 0;
-  font-size: 1.5rem;
+  font-size: 1.8rem;
 }
 
 .refresh-btn {
@@ -60,7 +60,7 @@ h1 {
 }
 
 .refresh-icon.spin {
-  animation: spin 1s linear infinite;
+  animation: spin 0.75s linear infinite;
 }
 
 @keyframes spin {
@@ -110,7 +110,7 @@ h1 {
   }
 
   h1 {
-    font-size: 1.2rem;
+    font-size: 1.8rem;
     text-align: left;
     flex: 1;
   }
