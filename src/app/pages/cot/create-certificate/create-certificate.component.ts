@@ -39,7 +39,7 @@ export class CreateCertificateComponent {
       this.certificateService.createCertificate(this.cotId, this.participantId, certificate).subscribe({
         next: (response) => {
           saveAs(response);
-          this.sweetalertService.alert('Berhasil', 'Sertifikat berhadil dibuat', 'success');
+          this.sweetalertService.alert('Berhasil', 'Sertifikat berhasil dibuat', 'success');
           this.router.navigateByUrl(`/cot/${this.cotId}/detail`);
         },
         error: (error) => {

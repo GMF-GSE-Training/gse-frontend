@@ -124,7 +124,7 @@ export class ProfileComponent implements OnInit {
       next: () => {
         this.sweetalertService.alert(
           'Berhasil',
-          'Password berhadil diubah',
+          'Password berhasil diubah',
           'success');
       },
       error: (error) => {
