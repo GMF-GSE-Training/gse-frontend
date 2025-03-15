@@ -2,21 +2,47 @@
   padding: 1em;
   box-sizing: border-box;
   margin: 0 auto;
+  width: 100%;
 }
 
 .chart-container {
+  width: 100%;
   display: grid;
-  grid-template-columns: 50% 50%;
+  grid-template-columns: repeat(4, minmax(310px, 1fr));
   gap: 20px;
-  box-sizing: border-box;
   padding-right: 1.2em;
+  overflow-x: auto;
+  margin-bottom: 20px;
+}
+
+@media screen and (max-width: 1200px) {
+  .chart-container {
+    grid-template-columns: repeat(2, minmax(310px, 1fr));
+    overflow-x: hidden;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .chart-container {
+    grid-template-columns: repeat(1, minmax(210px, 1fr));
+    overflow-x: hidden;
+    padding: 0 0.5em; /* Mengurangi padding untuk mobile */
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .chart-container {
+    grid-template-columns: repeat (1, minmax(200px, 1fr));
+    padding: 0 0.2em;
+    overflow-x: auto;
+  }
 }
 
 .table-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: #3E799B;
+  background: #3e799b;
   padding: 10px;
   border-radius: 5px 5px 0 0;
   margin-top: 50px;
@@ -26,6 +52,7 @@ h1 {
   color: #ffffff;
   margin: 0;
   font-size: 1.8rem;
+  font-family: 'Petrona', Arial, sans-serif;
 }
 
 .refresh-btn {
@@ -33,17 +60,17 @@ h1 {
   align-items: center;
   gap: 8px;
   padding: 8px 16px;
-  background-color: #ffffff;
-  color: #3E799B;
-  border: none;
+  background-color: transparent;
+  color: #ffffff;
+  border: 1px solid #ffffff;
   border-radius: 5px;
   cursor: pointer;
   font-weight: bold;
-  transition: background-color 0.3s;
+  transition: background-color 0.3s ease;
 }
 
 .refresh-btn:hover {
-  background-color: #e0e0e0;
+  background-color: rgba(255, 255, 255, 0.1);
 }
 
 .refresh-btn:disabled {
@@ -55,7 +82,7 @@ h1 {
   width: 20px;
   height: 20px;
   fill: none;
-  stroke: #3E799B;
+  stroke: #ffffff;
   stroke-width: 2;
 }
 
@@ -74,19 +101,16 @@ h1 {
 
 .table-container {
   width: 100%;
-  background: linear-gradient(to bottom, #3E799B, #3E799B00);
+  background: linear-gradient(to bottom, #3e799b, #3e799b00);
   padding: 1em;
   border-radius: 0 0 10px 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  box-sizing: border-box;
   overflow-x: auto;
-  max-height: 400px;
-  overflow-y: auto;
 }
 
 .loading {
   text-align: center;
-  color: #3E799B;
+  color: #3e799b;
   padding: 20px;
 }
 
@@ -97,35 +121,17 @@ h1 {
 }
 
 @media screen and (max-width: 768px) {
-  .chart-container {
-    grid-template-columns: 1fr;
-    display: flex;
-    flex-direction: column;
-  }
-
-  .table-header {
-    flex-direction: row;
-    gap: 10px;
-    margin-top: 20px;
-  }
-
-  h1 {
-    font-size: 1.8rem;
-    text-align: left;
-    flex: 1;
-  }
-
-  .refresh-btn {
-    font-size: 0.9rem;
-    padding: 6px 12px;
-  }
-
   .table-container {
     padding: 0.5em;
-    max-height: 300px;
   }
-
-  .pagination-container {
-    padding: 5px 0;
+  .table-header {
+    margin-top: 20px;
+  }
+  h1 {
+    font-size: 1.5rem;
+  }
+  .refresh-btn {
+    padding: 6px 12px;
+    font-size: 0.9rem;
   }
 }

@@ -4,6 +4,7 @@ import { CotService } from '../../shared/service/cot.service';
 import { of } from 'rxjs';
 import { CotResponse } from '../../shared/model/cot.model';
 import { WebResponse } from '../../shared/model/web.model';
+import { CommonModule } from '@angular/common';
 
 describe('DashboardComponent', () => {
   let component: DashboardComponent;
@@ -11,48 +12,42 @@ describe('DashboardComponent', () => {
   let mockCotService: jasmine.SpyObj<CotService>;
 
   beforeEach(async () => {
-    // Buat mock untuk CotService
     mockCotService = jasmine.createSpyObj('CotService', ['listCot']);
 
-    // Mock data yang sesuai dengan CotResponse dan Capability
     const mockCotResponse: CotResponse[] = [
       {
         id: 'cot1',
         startDate: '2025-03-01',
         endDate: '2025-03-09',
         trainingLocation: 'Jakarta',
-        theoryInstructorRegGse: 'Instr1',
-        theoryInstructorCompetency: 'Instr2',
-        practicalInstructor1: 'Instr3',
-        practicalInstructor2: 'Instr4',
         numberOfParticipants: 1,
         status: true,
         capability: {
-          id: 'cap1',              // Wajib
-          ratingCode: 'A1',        // Wajib
-          trainingCode: 'TC001',   // Wajib
-          trainingName: 'Ground Power System' // Wajib
-        }
-      }
+          id: 'cap1',
+          ratingCode: 'A1',
+          trainingCode: 'TC001',
+          trainingName: 'Ground Power System',
+        },
+        theoryInstructorRegGse: '',
+        theoryInstructorCompetency: '',
+        practicalInstructor1: '',
+        practicalInstructor2: '',
+      },
     ];
 
     const mockResponse: WebResponse<CotResponse[]> = {
       code: 200,
       status: 'success',
       data: mockCotResponse,
-      paging: {
-        totalPage: 1,
-        currentPage: 1,
-        size: 6
-      }
+      paging: { totalPage: 1, currentPage: 1, size: 6 },
     };
 
     mockCotService.listCot.and.returnValue(of(mockResponse));
 
-    // Konfigurasi TestBed
     await TestBed.configureTestingModule({
+      imports: [CommonModule],
       declarations: [DashboardComponent],
-      providers: [{ provide: CotService, useValue: mockCotService }]
+      providers: [{ provide: CotService, useValue: mockCotService }],
     }).compileComponents();
 
     fixture = TestBed.createComponent(DashboardComponent);
@@ -64,18 +59,10 @@ describe('DashboardComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should call getListCot on refreshData', () => {
-    spyOn(component, 'getListCot');
-    component.refreshData();
-    expect(component.getListCot).toHaveBeenCalledWith('', 1, 6, '', '');
-  });
-
-  it('should map cot data correctly', () => {
-    component.getListCot('', 1, 6, '', '');
-    fixture.detectChanges();
+  it('should map cot data correctly', async () => {
+    await component['fetchData']();
     expect(component.cot.length).toBe(1);
-    expect(component.cot[0].capability.trainingName).toBe('Ground Power System');
-    expect(component.cot[0].numberOfParticipants).toBe(1);
-    expect(component.cot[0].capability.ratingCode).toBe('A1');
+    expect(component.cot[0].trainingName).toBe('Ground Power System');
+    expect(component.cot[0].ratingCode).toBe('A1');
   });
 });
