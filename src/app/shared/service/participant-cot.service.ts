@@ -6,7 +6,7 @@ import { ParticipantResponse } from '../model/participant.model';
 import {
   addParticipantToCot,
   ListParticipantCotResponse,
-  AddParticipantResponse, // Import the new interface
+  AddParticipantResponse,
 } from '../model/participant-cot.model';
 import { WebResponse } from '../model/web.model';
 
