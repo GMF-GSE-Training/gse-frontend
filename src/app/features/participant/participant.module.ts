@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { ParticipantRoutingModule } from './participant-routing.module';
-
 import { ParticipantListComponent } from './participant-list/participant-list.component';
 import { AddParticipantDataComponent } from './add-participant-data/add-participant-data.component';
 import { ParticipantDetailComponent } from './participant-detail/participant-detail.component';
@@ -18,6 +17,7 @@ import { DisplaysParticipantFilesComponent } from './displays-participants-files
     FormsModule,
     ReactiveFormsModule,
     ParticipantRoutingModule,
+    // Import standalone components that are used in routes
     ParticipantListComponent,
     AddParticipantDataComponent,
     ParticipantDetailComponent,
