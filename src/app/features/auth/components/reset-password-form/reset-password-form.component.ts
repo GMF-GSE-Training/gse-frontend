@@ -1,9 +1,9 @@
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
-import { AuthComponent } from "../../components/auth/auth.component";
-import { TitleComponent } from "../../components/title/title.component";
-import { BaseInputComponent } from '../../components/input/base-input/base-input.component';
-import { WhiteButtonComponent } from "../../components/button/white-button/white-button.component";
-import { BlueButtonComponent } from "../../components/button/blue-button/blue-button.component";
+import { AuthComponent } from "../../../../components/auth/auth.component";
+import { TitleComponent } from "../../../../components/title/title.component";
+import { BaseInputComponent } from '../../../../components/input/base-input/base-input.component';
+import { WhiteButtonComponent } from "../../../../components/button/white-button/white-button.component";
+import { BlueButtonComponent } from "../../../../components/button/blue-button/blue-button.component";
 import { FormsModule, NgForm } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
@@ -22,7 +22,7 @@ import { RouterLink } from '@angular/router';
     RouterLink,
 ],
   templateUrl: './reset-password-form.component.html',
-  styleUrls: ['./reset-password-form.component.css', '../user-form/user-form.component.css']
+  styleUrls: ['./reset-password-form.component.css', '../../../../contents/user-form/user-form.component.css']
 })
 export class ResetPasswordFormComponent {
   @Input() data: { newPassword: string, confirmNewPassword: string } = {

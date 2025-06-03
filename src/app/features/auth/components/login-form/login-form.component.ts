@@ -1,12 +1,12 @@
 import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
-import { AuthComponent } from "../../components/auth/auth.component";
-import { TitleComponent } from "../../components/title/title.component";
-import { TogglePasswordVisibilityComponent } from "../../components/toggle-password-visibility/toggle-password-visibility.component";
-import { BlueButtonComponent } from "../../components/button/blue-button/blue-button.component";
+import { AuthComponent } from "../../../../components/auth/auth.component";
+import { TitleComponent } from "../../../../components/title/title.component";
+import { TogglePasswordVisibilityComponent } from "../../../../components/toggle-password-visibility/toggle-password-visibility.component";
+import { BlueButtonComponent } from "../../../../components/button/blue-button/blue-button.component";
 import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
-import { LoginUserRequest } from '../../shared/model/auth.model';
+import { LoginUserRequest } from '../../../../shared/model/auth.model';
 
 @Component({
   selector: 'app-login-form',
