@@ -1,11 +1,6 @@
 import { Routes } from '@angular/router';
 import { LoginComponent } from './pages/auth/login/login.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
-import { ParticipantListComponent } from './pages/participant/participant-list/participant-list.component';
-import { AddParticipantDataComponent } from './pages/participant/add-participant-data/add-participant-data.component';
-import { ParticipantDetailComponent } from './pages/participant/participant-detail/participant-detail.component';
-import { EditParticipantDataComponent } from './pages/participant/edit-participant-data/edit-participant-data.component';
-import { IdCardComponent } from './pages/participant/id-card/id-card.component';
 import { AddCotComponent } from './pages/cot/add-cot/add-cot.component';
 import { CotListComponent } from './pages/cot/cot-list/cot-list.component';
 import { EditCotComponent } from './pages/cot/edit-cot/edit-cot.component';
@@ -29,7 +24,6 @@ import { ProfileComponent } from './pages/users/profile/profile.component';
 import { RoleGuard } from './shared/guard/role.guard';
 import { DataCompleteGuard } from './shared/guard/data-complete.guard';
 import { AccountVerificationComponent } from './pages/auth/account-verification/account-verification.component';
-import { DisplaysParticipantFilesComponent } from './pages/participant/displays-participants-files/displays-participant-file.component';
 import { DisplaysSignatureFileComponent } from './pages/sign/displays-signature-file/displays-signature-file.component';
 
 export const routes: Routes = [
@@ -68,75 +62,8 @@ export const routes: Routes = [
   },
   {
     path: 'participants',
-    component: ParticipantListComponent,
-    canActivate: [AuthGuard, RoleGuard],
-    data: { roles: ['super admin', 'supervisor', 'lcu'] }
-  },
-  {
-    path: 'participants/add',
-    component: AddParticipantDataComponent,
-    canActivate: [AuthGuard, RoleGuard],
-    data: { roles: ['super admin', 'supervisor', 'lcu',] }
-  },
-  {
-    path: 'participants/:participantId/detail',
-    component: ParticipantDetailComponent,
-    canActivate: [AuthGuard, RoleGuard, DataCompleteGuard],
-    data: { roles: ['super admin', 'supervisor', 'lcu'] }
-  },
-  {
-    path: 'participants/:participantId/profile/personal',
-    component: ParticipantDetailComponent,
-    canActivate: [AuthGuard, RoleGuard, DataCompleteGuard],
-    data: { roles: ['user'] }
-  },
-  {
-    path: 'participants/:participantId/profile/account',
-    component: ParticipantDetailComponent,
-    canActivate: [AuthGuard, RoleGuard, DataCompleteGuard],
-    data: { roles: ['user'] }
-  },
-  {
-    path: 'participants/:participantId/id-card',
-    component: IdCardComponent,
-    canActivate: [AuthGuard, RoleGuard],
-    data: { roles: ['super admin', 'supervisor', 'lcu', 'user'] }
-  },
-  {
-    path: 'participants/:participantId/edit',
-    component: EditParticipantDataComponent,
-    canActivate: [AuthGuard, RoleGuard],
-    data: { roles: ['super admin', 'lcu', 'user'] }
-  },
-  {
-    path: 'participants/:participantId/sim-a',
-    component: DisplaysParticipantFilesComponent,
-    canActivate: [AuthGuard, RoleGuard, DataCompleteGuard],
-    data: { roles: ['super admin', 'supervisor', 'lcu', 'user'] }
-  },
-  {
-    path: 'participants/:participantId/sim-b',
-    component: DisplaysParticipantFilesComponent,
-    canActivate: [AuthGuard, RoleGuard, DataCompleteGuard],
-    data: { roles: ['super admin', 'supervisor', 'lcu', 'user'] }
-  },
-  {
-    path: 'participants/:participantId/ktp',
-    component: DisplaysParticipantFilesComponent,
-    canActivate: [AuthGuard, RoleGuard, DataCompleteGuard],
-    data: { roles: ['super admin', 'supervisor', 'lcu', 'user'] }
-  },
-  {
-    path: 'participants/:participantId/surat-sehat-buta-warna',
-    component: DisplaysParticipantFilesComponent,
-    canActivate: [AuthGuard, RoleGuard, DataCompleteGuard],
-    data: { roles: ['super admin', 'supervisor', 'lcu', 'user'] }
-  },
-  {
-    path: 'participants/:participantId/surat-bebas-narkoba',
-    component: DisplaysParticipantFilesComponent,
-    canActivate: [AuthGuard, RoleGuard, DataCompleteGuard],
-    data: { roles: ['super admin', 'supervisor', 'lcu', 'user'] }
+    loadChildren: () => import('./features/participant/participant.module').then(m => m.ParticipantModule),
+    canActivate: [AuthGuard], // RoleGuards are handled within ParticipantRoutingModule
   },
   {
     path: 'capability',
