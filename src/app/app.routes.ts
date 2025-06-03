@@ -14,6 +14,27 @@ export const routes: Routes = [
     path: 'auth', // Base path for all authentication routes
     loadChildren: () => import('./features/auth/auth.module').then(m => m.AuthModule),
   },
+  // Direct routes to auth pages for backward compatibility
+  {
+    path: 'login',
+    redirectTo: 'auth/login'
+  },
+  {
+    path: 'register',
+    redirectTo: 'auth/register'
+  },
+  {
+    path: 'password-reset',
+    redirectTo: 'auth/password-reset'
+  },
+  {
+    path: 'reset/:token',
+    redirectTo: 'auth/reset/:token'
+  },
+  {
+    path: 'verification',
+    redirectTo: 'auth/verification'
+  },
   {
     path: 'dashboard',
     loadChildren: () => import('./features/dashboard/dashboard.module').then(m => m.DashboardModule),
