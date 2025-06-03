@@ -1,9 +1,6 @@
 import { Routes } from '@angular/router';
-import { AddCurriculumComponent } from './pages/curriculum-syllabus/add-curriculum/add-curriculum.component';
 import { AuthGuard } from './shared/guard/auth.guard';
 import { guestGuard } from './shared/guard/guest.guard';
-import { ViewCurriculumSyllabusComponent } from './pages/curriculum-syllabus/view-curriculum-syllabus/view-curriculum-syllabus.component';
-import { EditCurriculumSyllabusComponent } from './pages/curriculum-syllabus/edit-curriculum-syllabus/edit-curriculum-syllabus.component';
 import { RoleGuard } from './shared/guard/role.guard';
 import { DataCompleteGuard } from './shared/guard/data-complete.guard';
 
@@ -49,16 +46,9 @@ export const routes: Routes = [
     canActivate: [AuthGuard], // Role guards are now in e-sign-routing.module.ts
   },
   {
-    path: 'curriculum-syllabus/add',
-    component: AddCurriculumComponent,
-    canActivate: [AuthGuard, RoleGuard],
-    data: { roles: ['super admin'] }
-  },
-  {
-    path: 'curriculum-syllabus/:capabilityId/edit',
-    component: EditCurriculumSyllabusComponent,
-    canActivate: [AuthGuard, RoleGuard],
-    data: { roles: ['super admin'] }
+    path: 'curriculum-syllabus',
+    loadChildren: () => import('./features/curriculum-syllabus/curriculum-syllabus.module').then(m => m.CurriculumSyllabusModule),
+    canActivate: [AuthGuard], // Role guards are now in curriculum-syllabus-routing.module.ts
   },
   {
     path: '**',
