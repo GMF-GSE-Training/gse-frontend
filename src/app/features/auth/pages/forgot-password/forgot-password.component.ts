@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../../shared/service/auth.service';
-import { SweetalertService } from '../../../shared/service/sweetaler.service';
-import { EmailFormComponent } from "../../../contents/email-form/email-form.component";
+import { AuthService } from '../../../../shared/service/auth.service';
+import { SweetalertService } from '../../../../shared/service/sweetaler.service';
+import { EmailFormComponent } from "../../../../contents/email-form/email-form.component";
 import { ActivatedRoute, Router } from '@angular/router';
-import { ErrorHandlerService } from '../../../shared/service/error-handler.service';
+import { ErrorHandlerService } from '../../../../shared/service/error-handler.service';
 
 @Component({
   selector: 'app-forgot-password',

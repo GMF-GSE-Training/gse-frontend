@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { UpdatePassword } from '../../../shared/model/auth.model';
-import { AuthService } from '../../../shared/service/auth.service';
-import { SweetalertService } from '../../../shared/service/sweetaler.service';
+import { UpdatePassword } from '../../../../shared/model/auth.model';
+import { AuthService } from '../../../../shared/service/auth.service';
+import { SweetalertService } from '../../../../shared/service/sweetaler.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ResetPasswordFormComponent } from "../../../contents/reset-password-form/reset-password-form.component";
-import { ErrorHandlerService } from '../../../shared/service/error-handler.service';
+import { ResetPasswordFormComponent } from "../../../../contents/reset-password-form/reset-password-form.component";
+import { ErrorHandlerService } from '../../../../shared/service/error-handler.service';
 
 @Component({
   selector: 'app-reset-password',

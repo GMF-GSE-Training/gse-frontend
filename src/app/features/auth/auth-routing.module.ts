@@ -34,12 +34,12 @@ const routes: Routes = [
     path: 'verification', // Will map to /verification or /auth/verification
     component: AccountVerificationComponent,
   },
-  // Optional: Add a default route for the auth feature if needed
-  // {
-  //   path: '',
-  //   redirectTo: 'login',
-  //   pathMatch: 'full'
-  // }
+  // Default route for auth feature
+  {
+    path: '',
+    redirectTo: 'login',
+    pathMatch: 'full'
+  }
 ];
 
 @NgModule({

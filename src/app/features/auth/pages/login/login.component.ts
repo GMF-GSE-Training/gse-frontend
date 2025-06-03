@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-import { LoginUserRequest } from '../../../shared/model/auth.model';
+import { LoginUserRequest } from '../../../../shared/model/auth.model';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
-import { AuthService } from '../../../shared/service/auth.service';
-import { LoginFormComponent } from "../../../contents/login-form/login-form.component";
+import { AuthService } from '../../../../shared/service/auth.service';
+import { LoginFormComponent } from "../../../../contents/login-form/login-form.component";
 
 @Component({
   selector: 'app-login',
@@ -47,7 +47,7 @@ export class LoginComponent {
             localStorage.setItem('user_profile', JSON.stringify(response.data));
             this.loginError = false;
             this.isLoading = false;
-            this.router.navigateByUrl('/home');
+            this.router.navigateByUrl('/dashboard');
           },
           error: (error) => {
             console.log(error);
