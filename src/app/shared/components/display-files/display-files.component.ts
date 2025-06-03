@@ -1,10 +1,10 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { TitleComponent } from "../../components/title/title.component";
-import { HeaderComponent } from "../../components/header/header.component";
+import { TitleComponent } from "../../../components/title/title.component";
+import { HeaderComponent } from "../../../components/header/header.component";
 import { RouterLink } from '@angular/router';
-import { LoaderComponent } from "../../components/loader/loader.component";
-import { WhiteButtonComponent } from "../../components/button/white-button/white-button.component";
-import { BlueButtonComponent } from "../../components/button/blue-button/blue-button.component";
+import { LoaderComponent } from "../../../components/loader/loader.component";
+import { WhiteButtonComponent } from "../../../components/button/white-button/white-button.component";
+import { BlueButtonComponent } from "../../../components/button/blue-button/blue-button.component";
 import { CommonModule } from '@angular/common';
 
 @Component({

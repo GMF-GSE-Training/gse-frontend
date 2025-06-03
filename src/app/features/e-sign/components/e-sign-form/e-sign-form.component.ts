@@ -1,15 +1,15 @@
 import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
-import { TitleComponent } from "../../components/title/title.component";
-import { BaseInputComponent } from "../../components/input/base-input/base-input.component";
-import { FileInputComponent } from "../../components/input/file-input/file-input.component";
-import { WhiteButtonComponent } from "../../components/button/white-button/white-button.component";
-import { BlueButtonComponent } from "../../components/button/blue-button/blue-button.component";
+import { TitleComponent } from "../../../../components/title/title.component";
+import { BaseInputComponent } from "../../../../components/input/base-input/base-input.component";
+import { FileInputComponent } from "../../../../components/input/file-input/file-input.component";
+import { WhiteButtonComponent } from "../../../../components/button/white-button/white-button.component";
+import { BlueButtonComponent } from "../../../../components/button/blue-button/blue-button.component";
 import { CommonModule } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
-import { DropdownInputComponent } from "../../components/input/dropdown-input/dropdown-input.component";
+import { DropdownInputComponent } from "../../../../components/input/dropdown-input/dropdown-input.component";
 import { RouterLink } from '@angular/router';
-import { SignatureType } from '../../shared/model/e-sign.model';
-import { HeaderComponent } from "../../components/header/header.component";
+import { SignatureType } from '../../../../shared/model/e-sign.model';
+import { HeaderComponent } from "../../../../components/header/header.component";
 
 @Component({
   selector: 'app-e-sign-form',

@@ -1,5 +1,5 @@
 import { Component, ElementRef, Renderer2 } from '@angular/core';
-import { DisplayFilesComponent } from "../../../../contents/display-files/display-files.component";
+import { DisplayFilesComponent } from "../../../../shared/components/display-files/display-files.component";
 import { LoaderComponent } from "../../../../components/loader/loader.component";
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';

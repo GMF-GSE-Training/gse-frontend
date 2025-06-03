@@ -1,14 +1,14 @@
 import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
-import { TitleComponent } from "../../components/title/title.component";
-import { SearchComponent } from "../../components/search/search.component";
-import { ViewAllComponent } from "../../components/view-all/view-all.component";
-import { TableComponent } from "../../components/table/table.component";
-import { WhiteButtonComponent } from "../../components/button/white-button/white-button.component";
-import { BlueButtonComponent } from "../../components/button/blue-button/blue-button.component";
-import { PaginationComponent } from "../../components/pagination/pagination.component";
-import { RoleBasedAccessDirective } from '../../shared/directive/role-based-access.directive';
+import { TitleComponent } from "../../../components/title/title.component";
+import { SearchComponent } from "../../../components/search/search.component";
+import { ViewAllComponent } from "../../../components/view-all/view-all.component";
+import { TableComponent } from "../../../components/table/table.component";
+import { WhiteButtonComponent } from "../../../components/button/white-button/white-button.component";
+import { BlueButtonComponent } from "../../../components/button/blue-button/blue-button.component";
+import { PaginationComponent } from "../../../components/pagination/pagination.component";
+import { RoleBasedAccessDirective } from '../../directive/role-based-access.directive';
 import { RouterLink } from '@angular/router';
-import { DateFilterComponent } from "../../components/date-filter/date-filter.component";
+import { DateFilterComponent } from "../../../components/date-filter/date-filter.component";
 import { CommonModule } from '@angular/common';
 
 @Component({

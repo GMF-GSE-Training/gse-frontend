@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { VerticalTableComponent } from '../../../../components/vertical-table/vertical-table.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SweetalertService } from '../../../../shared/service/sweetaler.service';
-import { DataManagementComponent } from '../../../../contents/data-management/data-management.component';
+import { DataManagementComponent } from '../../../../shared/components/data-management/data-management.component';
 import { ParticipantCotModalComponent } from '../../../../components/participant-cot-modal/participant-cot-modal.component';
 import { CommonModule } from '@angular/common';
 import { ParticipantCotService } from '../../../../shared/service/participant-cot.service';

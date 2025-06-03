@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ESignFormComponent } from "../../../../contents/e-sign-form/e-sign-form.component";
+import { ESignFormComponent } from "../../components/e-sign-form/e-sign-form.component";
 import { ESignService } from '../../../../shared/service/e-sign.service';
 import { ErrorHandlerService } from '../../../../shared/service/error-handler.service';
 import { SweetalertService } from '../../../../shared/service/sweetaler.service';
