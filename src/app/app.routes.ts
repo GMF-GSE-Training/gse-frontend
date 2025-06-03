@@ -1,5 +1,4 @@
 import { Routes } from '@angular/router';
-import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { AddCotComponent } from './pages/cot/add-cot/add-cot.component';
 import { CotListComponent } from './pages/cot/cot-list/cot-list.component';
 import { EditCotComponent } from './pages/cot/edit-cot/edit-cot.component';
@@ -33,9 +32,8 @@ export const routes: Routes = [
   },
   {
     path: 'dashboard',
-    component: DashboardComponent,
-    canActivate: [AuthGuard, RoleGuard, DataCompleteGuard],
-    data: { roles: ['super admin', 'supervisor', 'lcu', 'user'] }
+    loadChildren: () => import('./features/dashboard/dashboard.module').then(m => m.DashboardModule),
+    // Guards and data are now in dashboard-routing.module.ts
   },
   {
     path: 'participants',
