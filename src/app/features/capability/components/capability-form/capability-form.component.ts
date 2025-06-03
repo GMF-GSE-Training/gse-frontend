@@ -1,12 +1,12 @@
 import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
-import { TitleComponent } from "../../components/title/title.component";
-import { BaseInputComponent } from "../../components/input/base-input/base-input.component";
-import { WhiteButtonComponent } from "../../components/button/white-button/white-button.component";
-import { BlueButtonComponent } from "../../components/button/blue-button/blue-button.component";
+import { TitleComponent } from "../../../../components/title/title.component";
+import { BaseInputComponent } from "../../../../components/input/base-input/base-input.component";
+import { WhiteButtonComponent } from "../../../../components/button/white-button/white-button.component";
+import { BlueButtonComponent } from "../../../../components/button/blue-button/blue-button.component";
 import { FormsModule, NgForm } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
-import { HeaderComponent } from "../../components/header/header.component";
+import { HeaderComponent } from "../../../../components/header/header.component";
 
 @Component({
   selector: 'app-capability-form',
