@@ -1,5 +1,4 @@
 import { Routes } from '@angular/router';
-import { LoginComponent } from './pages/auth/login/login.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { AddCotComponent } from './pages/cot/add-cot/add-cot.component';
 import { CotListComponent } from './pages/cot/cot-list/cot-list.component';
@@ -13,17 +12,13 @@ import { EditUserComponent } from './pages/users/edit-user/edit-user.component';
 import { SignatureListComponent } from './pages/sign/signature-list/signature-list.component';
 import { EditSignComponent } from './pages/sign/edit-sign/edit-sign.component';
 import { AddCurriculumComponent } from './pages/curriculum-syllabus/add-curriculum/add-curriculum.component';
-import { RegisterComponent } from './pages/auth/register/register.component';
 import { AuthGuard } from './shared/guard/auth.guard';
 import { guestGuard } from './shared/guard/guest.guard';
-import { ResetPasswordComponent } from './pages/auth/reset-password/reset-password.component';
-import { ForgotPasswordComponent } from './pages/auth/forgot-password/forgot-password.component';
 import { ViewCurriculumSyllabusComponent } from './pages/curriculum-syllabus/view-curriculum-syllabus/view-curriculum-syllabus.component';
 import { EditCurriculumSyllabusComponent } from './pages/curriculum-syllabus/edit-curriculum-syllabus/edit-curriculum-syllabus.component';
 import { ProfileComponent } from './pages/users/profile/profile.component';
 import { RoleGuard } from './shared/guard/role.guard';
 import { DataCompleteGuard } from './shared/guard/data-complete.guard';
-import { AccountVerificationComponent } from './pages/auth/account-verification/account-verification.component';
 import { DisplaysSignatureFileComponent } from './pages/sign/displays-signature-file/displays-signature-file.component';
 
 export const routes: Routes = [
@@ -33,26 +28,8 @@ export const routes: Routes = [
     redirectTo: 'dashboard',
   },
   {
-    path: 'login',
-    component: LoginComponent,
-    canActivate: [guestGuard],
-  },
-  {
-    path: 'register',
-    component: RegisterComponent,
-    canActivate: [guestGuard],
-  },
-  {
-    path: 'password-reset',
-    component: ForgotPasswordComponent,
-  },
-  {
-    path: 'reset/:token',
-    component: ResetPasswordComponent,
-  },
-  {
-    path: 'verification',
-    component: AccountVerificationComponent,
+    path: 'auth', // Base path for all authentication routes
+    loadChildren: () => import('./features/auth/auth.module').then(m => m.AuthModule),
   },
   {
     path: 'dashboard',
