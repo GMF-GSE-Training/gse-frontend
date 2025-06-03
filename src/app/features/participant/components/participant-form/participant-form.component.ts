@@ -1,14 +1,14 @@
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
-import { FileInputComponent } from '../../components/input/file-input/file-input.component';
-import { CompanyInputComponent } from '../../components/input/company-input/company-input.component';
-import { WhiteButtonComponent } from '../../components/button/white-button/white-button.component';
-import { BlueButtonComponent } from '../../components/button/blue-button/blue-button.component';
-import { BaseInputComponent } from '../../components/input/base-input/base-input.component';
+import { FileInputComponent } from '../../../../components/input/file-input/file-input.component';
+import { CompanyInputComponent } from '../../../../components/input/company-input/company-input.component';
+import { WhiteButtonComponent } from '../../../../components/button/white-button/white-button.component';
+import { BlueButtonComponent } from '../../../../components/button/blue-button/blue-button.component';
+import { BaseInputComponent } from '../../../../components/input/base-input/base-input.component';
 import { RouterLink } from '@angular/router';
-import { TitleComponent } from '../../components/title/title.component';
+import { TitleComponent } from '../../../../components/title/title.component';
 import { FormsModule, NgForm } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { HeaderComponent } from "../../components/header/header.component";
+import { HeaderComponent } from "../../../../components/header/header.component";
 
 @Component({
   selector: 'app-participant-form',
