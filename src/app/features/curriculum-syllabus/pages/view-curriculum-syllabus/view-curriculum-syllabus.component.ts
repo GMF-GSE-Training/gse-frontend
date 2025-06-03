@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { CapabilityService } from '../../../shared/service/capability.service';
-import { CurriculumSyllabusFormComponent } from "../../../contents/curriculum-syllabus-form/curriculum-syllabus-form.component";
-import { LoaderComponent } from "../../../components/loader/loader.component";
+import { CapabilityService } from '../../../../shared/service/capability.service';
+import { CurriculumSyllabusFormComponent } from "../../../../contents/curriculum-syllabus-form/curriculum-syllabus-form.component";
+import { LoaderComponent } from "../../../../components/loader/loader.component";
 
 @Component({
   selector: 'app-view-curriculum-syllabus',

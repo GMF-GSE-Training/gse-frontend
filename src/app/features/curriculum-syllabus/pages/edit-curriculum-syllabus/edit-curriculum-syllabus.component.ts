@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CapabilityService } from '../../../shared/service/capability.service';
-import { CurriculumSyllabusService } from '../../../shared/service/curriculum-syllabus.service';
-import { SweetalertService } from '../../../shared/service/sweetaler.service';
-import { CurriculumSyllabusFormComponent } from "../../../contents/curriculum-syllabus-form/curriculum-syllabus-form.component";
-import { LoaderComponent } from "../../../components/loader/loader.component";
+import { CapabilityService } from '../../../../shared/service/capability.service';
+import { CurriculumSyllabusService } from '../../../../shared/service/curriculum-syllabus.service';
+import { SweetalertService } from '../../../../shared/service/sweetaler.service';
+import { CurriculumSyllabusFormComponent } from "../../../../contents/curriculum-syllabus-form/curriculum-syllabus-form.component";
+import { LoaderComponent } from "../../../../components/loader/loader.component";
 
 @Component({
   selector: 'app-edit-curriculum-syllabus',

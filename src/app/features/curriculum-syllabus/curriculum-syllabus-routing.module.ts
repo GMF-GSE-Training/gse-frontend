@@ -34,15 +34,14 @@ const routes: Routes = [
     component: ViewCurriculumSyllabusComponent,
     canActivate: [AuthGuard, RoleGuard], // Add appropriate guards
     data: { roles: ['super admin', 'supervisor', 'lcu', 'user'] } // Add appropriate roles
+  },
+  // Default route for curriculum-syllabus
+  {
+    path: '',
+    component: ViewCurriculumSyllabusComponent, // Using view component as default since there's no list component
+    canActivate: [AuthGuard, RoleGuard],
+    data: { roles: ['super admin', 'supervisor', 'lcu', 'user'] }
   }
-  // If there's a list component or a default view for '/curriculum-syllabus', it should be added with path: ''
-  // Example:
-  // {
-  //   path: '',
-  //   component: SomeCurriculumListComponent, // Replace with actual list component if it exists
-  //   canActivate: [AuthGuard, RoleGuard, DataCompleteGuard],
-  //   data: { roles: ['super admin', 'supervisor', 'lcu', 'user'] }
-  // }
 ];
 
 @NgModule({
