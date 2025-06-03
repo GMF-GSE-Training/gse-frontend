@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { ESignFormComponent } from "../../../contents/e-sign-form/e-sign-form.component";
-import { CreateESign, SignatureType } from '../../../shared/model/e-sign.model';
-import { ESignService } from '../../../shared/service/e-sign.service';
-import { ErrorHandlerService } from '../../../shared/service/error-handler.service';
-import { SweetalertService } from '../../../shared/service/sweetaler.service';
+import { ESignFormComponent } from "../../../../contents/e-sign-form/e-sign-form.component";
+import { CreateESign, SignatureType } from '../../../../shared/model/e-sign.model';
+import { ESignService } from '../../../../shared/service/e-sign.service';
+import { ErrorHandlerService } from '../../../../shared/service/error-handler.service';
+import { SweetalertService } from '../../../../shared/service/sweetaler.service';
 
 @Component({
   selector: 'app-add-sign',

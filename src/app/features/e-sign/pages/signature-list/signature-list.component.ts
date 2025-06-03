@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { DataManagementComponent } from "../../../contents/data-management/data-management.component";
-import { ESign } from '../../../shared/model/e-sign.model';
-import { ESignService } from '../../../shared/service/e-sign.service';
-import { SweetalertService } from '../../../shared/service/sweetaler.service';
-import { HeaderComponent } from "../../../components/header/header.component";
+import { DataManagementComponent } from "../../../../contents/data-management/data-management.component";
+import { ESign } from '../../../../shared/model/e-sign.model';
+import { ESignService } from '../../../../shared/service/e-sign.service';
+import { SweetalertService } from '../../../../shared/service/sweetaler.service';
+import { HeaderComponent } from "../../../../components/header/header.component";
 
 @Component({
   selector: 'app-sign-list',
