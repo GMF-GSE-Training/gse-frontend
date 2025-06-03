@@ -22,7 +22,7 @@ import { RouterLink } from '@angular/router';
     RouterLink,
 ],
   templateUrl: './reset-password-form.component.html',
-  styleUrls: ['./reset-password-form.component.css', '../../../../contents/user-form/user-form.component.css']
+  styleUrls: ['./reset-password-form.component.css', '../../../users/components/user-form/user-form.component.css']
 })
 export class ResetPasswordFormComponent {
   @Input() data: { newPassword: string, confirmNewPassword: string } = {

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { RegisterUserRequest } from '../../../../shared/model/auth.model';
 import { AuthService } from '../../../../shared/service/auth.service';
-import { UserFormComponent } from '../../../../contents/user-form/user-form.component';
+import { UserFormComponent } from '../../../users/components/user-form/user-form.component';
 import { SweetalertService } from '../../../../shared/service/sweetaler.service';
 import { ErrorHandlerService } from '../../../../shared/service/error-handler.service';
 
@@ -9,7 +9,7 @@ import { ErrorHandlerService } from '../../../../shared/service/error-handler.se
   selector: 'app-register',
   standalone: true,
   imports: [
-    UserFormComponent,
+    UserFormComponent
 ],
   templateUrl: './register.component.html'
 })
