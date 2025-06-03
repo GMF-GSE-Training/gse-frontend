@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CurriculumSyllabusService } from '../../../../shared/service/curriculum-syllabus.service';
 import { ErrorHandlerService } from '../../../../shared/service/error-handler.service';
-import { CurriculumSyllabusFormComponent } from "../../../../contents/curriculum-syllabus-form/curriculum-syllabus-form.component";
+import { CurriculumSyllabusFormComponent } from "../../components/curriculum-syllabus-form/curriculum-syllabus-form.component";
 import { SweetalertService } from '../../../../shared/service/sweetaler.service';
 
 @Component({
