@@ -1,9 +1,4 @@
 import { Routes } from '@angular/router';
-import { AddCotComponent } from './pages/cot/add-cot/add-cot.component';
-import { CotListComponent } from './pages/cot/cot-list/cot-list.component';
-import { EditCotComponent } from './pages/cot/edit-cot/edit-cot.component';
-import { CotDetailComponent } from './pages/cot/cot-detail/cot-detail.component';
-import { CreateCertificateComponent } from './pages/cot/create-certificate/create-certificate.component';
 import { UserListComponent } from './pages/users/user-list/user-list.component';
 import { AddUserComponent } from './pages/users/add-user/add-user.component';
 import { AddSignComponent } from './pages/sign/add-sign/add-sign.component';
@@ -48,33 +43,8 @@ export const routes: Routes = [
   },
   {
     path: 'cot',
-    component: CotListComponent,
-    canActivate: [AuthGuard, RoleGuard, DataCompleteGuard],
-    data: { roles: ['super admin', 'supervisor', 'lcu', 'user'] }
-  },
-  {
-    path: 'cot/add',
-    component: AddCotComponent,
-    canActivate: [AuthGuard, RoleGuard],
-    data: { roles: ['super admin'] }
-  },
-  {
-    path: 'cot/:cotId/edit',
-    component: EditCotComponent,
-    canActivate: [AuthGuard, RoleGuard],
-    data: { roles: ['super admin'] }
-  },
-  {
-    path: 'cot/:cotId/detail',
-    component: CotDetailComponent,
-    canActivate: [AuthGuard, RoleGuard, DataCompleteGuard],
-    data: { roles: ['super admin', 'supervisor', 'lcu', 'user'] }
-  },
-  {
-    path: 'certificate/:cotId/create/:participantId',
-    component: CreateCertificateComponent,
-    canActivate: [AuthGuard, RoleGuard],
-    data: { roles: ['super admin', 'supervisor', 'lcu', 'user'] }
+    loadChildren: () => import('./features/cot/cot.module').then(m => m.CotModule),
+    canActivate: [AuthGuard], // Role guards are now in cot-routing.module.ts
   },
   {
     path: 'users',
