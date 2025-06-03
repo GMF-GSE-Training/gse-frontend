@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { CotFormComponent } from "../../../contents/cot-form/cot-form.component";
-import { CreateCot } from '../../../shared/model/cot.model';
-import { ErrorHandlerService } from '../../../shared/service/error-handler.service';
-import { CotService } from '../../../shared/service/cot.service';
-import { SweetalertService } from '../../../shared/service/sweetaler.service';
+import { CotFormComponent } from "../../../../contents/cot-form/cot-form.component";
+import { CreateCot } from '../../../../shared/model/cot.model';
+import { ErrorHandlerService } from '../../../../shared/service/error-handler.service';
+import { CotService } from '../../../../shared/service/cot.service';
+import { SweetalertService } from '../../../../shared/service/sweetaler.service';
 
 @Component({
   selector: 'app-add-cot',

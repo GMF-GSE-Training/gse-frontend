@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { CertificateFormComponent } from "../../../contents/certificate-form/certificate-form.component";
-import { CertificateService } from '../../../shared/service/certificate.service';
-import { SweetalertService } from '../../../shared/service/sweetaler.service';
-import { CreateCertificate } from '../../../shared/model/certificate.model';
+import { CertificateFormComponent } from "../../../../contents/certificate-form/certificate-form.component";
+import { CertificateService } from '../../../../shared/service/certificate.service';
+import { SweetalertService } from '../../../../shared/service/sweetaler.service';
+import { CreateCertificate } from '../../../../shared/model/certificate.model';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ErrorHandlerService } from '../../../shared/service/error-handler.service';
+import { ErrorHandlerService } from '../../../../shared/service/error-handler.service';
 import { saveAs } from 'file-saver';
 
 @Component({

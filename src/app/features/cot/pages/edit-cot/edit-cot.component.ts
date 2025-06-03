@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CotFormComponent } from "../../../contents/cot-form/cot-form.component";
-import { CotService } from '../../../shared/service/cot.service';
-import { ErrorHandlerService } from '../../../shared/service/error-handler.service';
-import { SweetalertService } from '../../../shared/service/sweetaler.service';
-import { UpdateCot } from '../../../shared/model/cot.model';
+import { CotFormComponent } from "../../../../contents/cot-form/cot-form.component";
+import { CotService } from '../../../../shared/service/cot.service';
+import { ErrorHandlerService } from '../../../../shared/service/error-handler.service';
+import { SweetalertService } from '../../../../shared/service/sweetaler.service';
+import { UpdateCot } from '../../../../shared/model/cot.model';
 
 @Component({
   selector: 'app-edit-cot',

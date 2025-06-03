@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { VerticalTableComponent } from '../../../components/vertical-table/vertical-table.component';
+import { VerticalTableComponent } from '../../../../components/vertical-table/vertical-table.component';
 import { ActivatedRoute, Router } from '@angular/router';
-import { SweetalertService } from '../../../shared/service/sweetaler.service';
-import { DataManagementComponent } from '../../../contents/data-management/data-management.component';
-import { ParticipantCotModalComponent } from '../../../components/participant-cot-modal/participant-cot-modal.component';
+import { SweetalertService } from '../../../../shared/service/sweetaler.service';
+import { DataManagementComponent } from '../../../../contents/data-management/data-management.component';
+import { ParticipantCotModalComponent } from '../../../../components/participant-cot-modal/participant-cot-modal.component';
 import { CommonModule } from '@angular/common';
-import { ParticipantCotService } from '../../../shared/service/participant-cot.service';
-import { ErrorHandlerService } from '../../../shared/service/error-handler.service';
-import { LoaderComponent } from '../../../components/loader/loader.component';
-import { CotService } from '../../../shared/service/cot.service';
-import { HeaderComponent } from '../../../components/header/header.component';
+import { ParticipantCotService } from '../../../../shared/service/participant-cot.service';
+import { ErrorHandlerService } from '../../../../shared/service/error-handler.service';
+import { LoaderComponent } from '../../../../components/loader/loader.component';
+import { CotService } from '../../../../shared/service/cot.service';
+import { HeaderComponent } from '../../../../components/header/header.component';
 
 interface TableData {
   label: string;
