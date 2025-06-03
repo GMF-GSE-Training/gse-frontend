@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { VerticalTableComponent } from "../../../components/vertical-table/vertical-table.component";
-import { EmailFormCardComponent } from "../../../components/card/email-form-card/email-form-card.component";
-import { PasswordUpdateFormCardComponent } from "../../../components/card/password-update-form-card/password-update-form-card.component";
+import { VerticalTableComponent } from "../../../../components/vertical-table/vertical-table.component";
+import { EmailFormCardComponent } from "../../../../components/card/email-form-card/email-form-card.component";
+import { PasswordUpdateFormCardComponent } from "../../../../components/card/password-update-form-card/password-update-form-card.component";
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { User } from '../../../shared/model/user.model';
-import { AuthService } from '../../../shared/service/auth.service';
-import { SweetalertService } from '../../../shared/service/sweetaler.service';
-import { UpdatePassword } from '../../../shared/model/auth.model';
-import { ErrorHandlerService } from '../../../shared/service/error-handler.service';
-import { HeaderComponent } from "../../../components/header/header.component";
+import { User } from '../../../../shared/model/user.model';
+import { AuthService } from '../../../../shared/service/auth.service';
+import { SweetalertService } from '../../../../shared/service/sweetaler.service';
+import { UpdatePassword } from '../../../../shared/model/auth.model';
+import { ErrorHandlerService } from '../../../../shared/service/error-handler.service';
+import { HeaderComponent } from "../../../../components/header/header.component";
 
 @Component({
   selector: 'app-profile',

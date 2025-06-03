@@ -3,17 +3,17 @@ import { CommonModule } from '@angular/common';
 import { HttpHeaders } from '@angular/common/http';
 import { debounceTime } from 'rxjs/operators';
 import { Subject } from 'rxjs';
-import { RealisasiCotChartComponent } from '../../components/chart/realisasi-cot-chart/realisasi-cot-chart.component';
-import { DataPemegangKompetensiGseOperatorComponent } from '../../components/chart/data-pemegang-kompetensi-gse-operator/data-pemegang-kompetensi-gse-operator.component';
-import { DataTotalSertifikatAktifComponent } from '../../components/chart/data-total-sertifikat-aktif/data-total-sertifikat-aktif.component';
-import { DataJumlahPemegangSertifikatComponent } from '../../components/chart/data-jumlah-pemegang-sertifikat/data-jumlah-pemegang-sertifikat.component';
-import { TableComponent } from '../../components/table/table.component';
-import { HeaderComponent } from '../../components/header/header.component';
-import { PaginationComponent } from '../../components/pagination/pagination.component';
-import { CotService } from '../../shared/service/cot.service';
-import { CotResponse } from '../../shared/model/cot.model';
-import { WebResponse } from '../../shared/model/web.model';
-import { ErrorHandlerService } from '../../shared/service/error-handler.service';
+import { RealisasiCotChartComponent } from '../../../../components/chart/realisasi-cot-chart/realisasi-cot-chart.component';
+import { DataPemegangKompetensiGseOperatorComponent } from '../../../../components/chart/data-pemegang-kompetensi-gse-operator/data-pemegang-kompetensi-gse-operator.component';
+import { DataTotalSertifikatAktifComponent } from '../../../../components/chart/data-total-sertifikat-aktif/data-total-sertifikat-aktif.component';
+import { DataJumlahPemegangSertifikatComponent } from '../../../../components/chart/data-jumlah-pemegang-sertifikat/data-jumlah-pemegang-sertifikat.component';
+import { TableComponent } from '../../../../components/table/table.component';
+import { HeaderComponent } from '../../../../components/header/header.component';
+import { PaginationComponent } from '../../../../components/pagination/pagination.component';
+import { CotService } from '../../../../shared/service/cot.service';
+import { CotResponse } from '../../../../shared/model/cot.model';
+import { WebResponse } from '../../../../shared/model/web.model';
+import { ErrorHandlerService } from '../../../../shared/service/error-handler.service';
 
 interface DashboardCotItem {
   trainingName: string;

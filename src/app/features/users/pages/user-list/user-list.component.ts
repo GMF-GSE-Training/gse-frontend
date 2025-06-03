@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { User } from '../../../shared/model/user.model';
-import { UserService } from '../../../shared/service/user.service';
-import { SweetalertService } from '../../../shared/service/sweetaler.service';
-import { DataManagementComponent } from "../../../contents/data-management/data-management.component";
-import { HeaderComponent } from "../../../components/header/header.component";
+import { User } from '../../../../shared/model/user.model';
+import { UserService } from '../../../../shared/service/user.service';
+import { SweetalertService } from '../../../../shared/service/sweetaler.service';
+import { DataManagementComponent } from "../../../../contents/data-management/data-management.component";
+import { HeaderComponent } from "../../../../components/header/header.component";
 
 @Component({
   selector: 'app-user-list',

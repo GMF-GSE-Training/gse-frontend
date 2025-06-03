@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { DashboardRoutingModule } from './dashboard-routing.module';
-import { DashboardComponent } from './pages/dashboard/dashboard.component';
 
 // Import any Angular Material or other shared modules used by DashboardComponent
 // For example:
@@ -15,15 +14,14 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
 @NgModule({
   imports: [
     CommonModule,
-    DashboardRoutingModule,
-    DashboardComponent, // DashboardComponent is standalone
+    DashboardRoutingModule
     // Add Angular Material or other shared modules here
     // MatGridListModule,
     // MatCardModule,
     // MatMenuModule,
     // MatIconModule,
     // MatButtonModule,
-  ],
+  ]
   // No 'declarations' as DashboardComponent is standalone
 })
 export class DashboardModule { }

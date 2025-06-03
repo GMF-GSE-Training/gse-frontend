@@ -27,20 +27,6 @@ import { ProfileComponent } from './pages/profile/profile.component';
     FormsModule,
     ReactiveFormsModule,
     UsersRoutingModule,
-    // Import standalone components
-    UserListComponent,
-    AddUserComponent,
-    EditUserComponent,
-    ProfileComponent,
-    // Add Angular Material or other shared modules here
-    // MatTableModule,
-    // MatPaginatorModule,
-    // MatSortModule,
-    // MatFormFieldModule,
-    // MatInputModule,
-    // MatButtonModule,
-    // MatIconModule,
-    // MatCardModule,
   ],
 })
 export class UsersModule { }

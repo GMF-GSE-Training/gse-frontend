@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { UpdateUserRequest, User } from '../../../shared/model/user.model';
-import { UserService } from '../../../shared/service/user.service';
-import { SweetalertService } from '../../../shared/service/sweetaler.service';
-import { UserFormComponent } from "../../../contents/user-form/user-form.component";
-import { ErrorHandlerService } from '../../../shared/service/error-handler.service';
+import { UpdateUserRequest, User } from '../../../../shared/model/user.model';
+import { UserService } from '../../../../shared/service/user.service';
+import { SweetalertService } from '../../../../shared/service/sweetaler.service';
+import { UserFormComponent } from "../../../../contents/user-form/user-form.component";
+import { ErrorHandlerService } from '../../../../shared/service/error-handler.service';
 
 @Component({
   selector: 'app-edit-user',
