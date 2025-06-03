@@ -1,7 +1,4 @@
 import { Routes } from '@angular/router';
-import { AddSignComponent } from './pages/sign/add-sign/add-sign.component';
-import { SignatureListComponent } from './pages/sign/signature-list/signature-list.component';
-import { EditSignComponent } from './pages/sign/edit-sign/edit-sign.component';
 import { AddCurriculumComponent } from './pages/curriculum-syllabus/add-curriculum/add-curriculum.component';
 import { AuthGuard } from './shared/guard/auth.guard';
 import { guestGuard } from './shared/guard/guest.guard';
@@ -9,7 +6,6 @@ import { ViewCurriculumSyllabusComponent } from './pages/curriculum-syllabus/vie
 import { EditCurriculumSyllabusComponent } from './pages/curriculum-syllabus/edit-curriculum-syllabus/edit-curriculum-syllabus.component';
 import { RoleGuard } from './shared/guard/role.guard';
 import { DataCompleteGuard } from './shared/guard/data-complete.guard';
-import { DisplaysSignatureFileComponent } from './pages/sign/displays-signature-file/displays-signature-file.component';
 
 export const routes: Routes = [
   {
@@ -48,28 +44,9 @@ export const routes: Routes = [
     canActivate: [AuthGuard], // Role guards are now in users-routing.module.ts
   },
   {
-    path: 'e-sign/add',
-    component: AddSignComponent,
-    canActivate: [AuthGuard, RoleGuard],
-    data: { roles: ['super admin'] }
-  },
-  {
     path: 'e-sign',
-    component: SignatureListComponent,
-    canActivate: [AuthGuard, RoleGuard],
-    data: { roles: ['super admin', 'supervisor'] }
-  },
-  {
-    path: 'e-sign/:eSignId/edit',
-    component: EditSignComponent,
-    canActivate: [AuthGuard, RoleGuard],
-    data: { roles: ['super admin'] }
-  },
-  {
-    path: 'e-sign/:eSignId/view',
-    component: DisplaysSignatureFileComponent,
-    canActivate: [AuthGuard, RoleGuard],
-    data: { roles: ['super admin'] }
+    loadChildren: () => import('./features/e-sign/e-sign.module').then(m => m.ESignModule),
+    canActivate: [AuthGuard], // Role guards are now in e-sign-routing.module.ts
   },
   {
     path: 'curriculum-syllabus/add',
