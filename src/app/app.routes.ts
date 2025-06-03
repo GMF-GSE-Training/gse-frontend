@@ -1,8 +1,5 @@
 import { Routes } from '@angular/router';
-import { UserListComponent } from './pages/users/user-list/user-list.component';
-import { AddUserComponent } from './pages/users/add-user/add-user.component';
 import { AddSignComponent } from './pages/sign/add-sign/add-sign.component';
-import { EditUserComponent } from './pages/users/edit-user/edit-user.component';
 import { SignatureListComponent } from './pages/sign/signature-list/signature-list.component';
 import { EditSignComponent } from './pages/sign/edit-sign/edit-sign.component';
 import { AddCurriculumComponent } from './pages/curriculum-syllabus/add-curriculum/add-curriculum.component';
@@ -10,7 +7,6 @@ import { AuthGuard } from './shared/guard/auth.guard';
 import { guestGuard } from './shared/guard/guest.guard';
 import { ViewCurriculumSyllabusComponent } from './pages/curriculum-syllabus/view-curriculum-syllabus/view-curriculum-syllabus.component';
 import { EditCurriculumSyllabusComponent } from './pages/curriculum-syllabus/edit-curriculum-syllabus/edit-curriculum-syllabus.component';
-import { ProfileComponent } from './pages/users/profile/profile.component';
 import { RoleGuard } from './shared/guard/role.guard';
 import { DataCompleteGuard } from './shared/guard/data-complete.guard';
 import { DisplaysSignatureFileComponent } from './pages/sign/displays-signature-file/displays-signature-file.component';
@@ -48,33 +44,8 @@ export const routes: Routes = [
   },
   {
     path: 'users',
-    component: UserListComponent,
-    canActivate: [AuthGuard, RoleGuard],
-    data: { roles: ['super admin', 'supervisor'] }
-  },
-  {
-    path: 'users/add',
-    component: AddUserComponent,
-    canActivate: [AuthGuard, RoleGuard],
-    data: { roles: ['super admin', 'supervisor', 'lcu'] }
-  },
-  {
-    path: 'users/:userId/edit',
-    component: EditUserComponent,
-    canActivate: [AuthGuard, RoleGuard],
-    data: { roles: ['super admin'] }
-  },
-  {
-    path: 'users/:userId/profile',
-    component: ProfileComponent,
-    canActivate: [AuthGuard, RoleGuard],
-    data: { roles: ['super admin', 'supervisor', 'lcu'] }
-  },
-  {
-    path: 'users/:userId/account',
-    component: ProfileComponent,
-    canActivate: [AuthGuard, RoleGuard],
-    data: { roles: ['super admin', 'supervisor', 'lcu'] }
+    loadChildren: () => import('./features/users/users.module').then(m => m.UsersModule),
+    canActivate: [AuthGuard], // Role guards are now in users-routing.module.ts
   },
   {
     path: 'e-sign/add',
