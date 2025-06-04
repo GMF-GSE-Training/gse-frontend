@@ -1,4 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
+import { ActivatedRoute, convertToParamMap } from '@angular/router';
+import { BehaviorSubject } from 'rxjs';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 import { ParticipantDetailComponent } from './participant-detail.component';
 
@@ -7,8 +11,36 @@ describe('ParticipantDetailComponent', () => {
   let fixture: ComponentFixture<ParticipantDetailComponent>;
 
   beforeEach(async () => {
+    // Mock localStorage
+    spyOn(window.localStorage, 'getItem').and.callFake((key: string) => {
+      if (key === 'user_profile') {
+        return JSON.stringify({
+          participant: { id: 'test-participant-id' },
+          role: { name: 'Admin' }
+        });
+      }
+      return null;
+    });
+    spyOn(window.localStorage, 'setItem');
+    spyOn(window.localStorage, 'removeItem');
+
     await TestBed.configureTestingModule({
-      imports: [ParticipantDetailComponent]
+      imports: [ParticipantDetailComponent, RouterTestingModule, HttpClientTestingModule],
+      providers: [
+        { 
+          provide: ActivatedRoute, 
+          useValue: {
+            snapshot: {
+              paramMap: convertToParamMap({ participantId: 'test-id' }),
+              queryParams: {} // Pastikan snapshot juga memiliki queryParams jika diakses
+            },
+            paramMap: new BehaviorSubject(convertToParamMap({ participantId: 'test-id' })),
+            queryParamMap: new BehaviorSubject(convertToParamMap({})),
+            queryParams: new BehaviorSubject({}), // Ini yang utama untuk memperbaiki galat subscribe
+            url: new BehaviorSubject([])
+          }
+        }
+      ]
     })
     .compileComponents();
 

@@ -1,4 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 
 import { DisplayFilesComponent } from './display-files.component';
 
@@ -8,7 +10,11 @@ describe('DisplayFilesComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [DisplayFilesComponent]
+      imports: [
+        DisplayFilesComponent, 
+        HttpClientTestingModule,
+        RouterTestingModule
+      ]
     })
     .compileComponents();
     

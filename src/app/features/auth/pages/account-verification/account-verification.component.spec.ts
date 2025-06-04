@@ -1,4 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 
 import { AccountVerificationComponent } from './account-verification.component';
 
@@ -8,7 +10,7 @@ describe('AccountVerificationComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AccountVerificationComponent]
+      imports: [AccountVerificationComponent, HttpClientTestingModule, RouterTestingModule]
     })
     .compileComponents();
     

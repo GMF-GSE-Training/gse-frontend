@@ -42,13 +42,14 @@
     "@types/jasmine": "~5.1.6",
     "@types/node": "^22.13.4",
     "file-saver": "^2.0.5",
+    "http-server": "^14.1.1",
     "jasmine-core": "~5.6.0",
     "karma": "~6.4.4",
+    "karma-brave-launcher": "^1.0.0",
     "karma-chrome-launcher": "~3.2.0",
     "karma-coverage": "~2.2.1",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
-    "typescript": "^5.8.3",
-    "http-server": "^14.1.1"
+    "typescript": "^5.8.3"
   }
 }

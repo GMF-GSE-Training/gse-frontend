@@ -1,4 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 import { CapabilityFormComponent } from './capability-form.component';
 
@@ -8,7 +10,11 @@ describe('CapabilityFormComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [CapabilityFormComponent]
+      imports: [
+        CapabilityFormComponent, 
+        RouterTestingModule,
+        HttpClientTestingModule
+      ]
     })
     .compileComponents();
     

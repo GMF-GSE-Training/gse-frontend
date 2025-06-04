@@ -1,4 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 import { EditCurriculumSyllabusComponent } from './edit-curriculum-syllabus.component';
 
@@ -8,7 +10,7 @@ describe('EditCurriculumSyllabusComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [EditCurriculumSyllabusComponent]
+      imports: [EditCurriculumSyllabusComponent, RouterTestingModule, HttpClientTestingModule]
     })
     .compileComponents();
     

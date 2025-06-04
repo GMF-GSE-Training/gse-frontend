@@ -1,4 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 
 import { AddCapabilityComponent } from './add-capability.component';
 
@@ -8,7 +10,7 @@ describe('AddCapabilityComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AddCapabilityComponent]
+      imports: [AddCapabilityComponent, HttpClientTestingModule, RouterTestingModule]
     })
     .compileComponents();
     

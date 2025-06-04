@@ -1,4 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing'; // Added
 
 import { ESignFormComponent } from './e-sign-form.component';
 
@@ -8,7 +10,11 @@ describe('ESignFormComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ESignFormComponent]
+      imports: [
+        ESignFormComponent, 
+        RouterTestingModule,
+        HttpClientTestingModule // Added
+      ]
     })
     .compileComponents();
     

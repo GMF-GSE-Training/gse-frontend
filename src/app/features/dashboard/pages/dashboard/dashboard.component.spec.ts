@@ -1,10 +1,12 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { DashboardComponent } from './dashboard.component';
-import { CotService } from '../../shared/service/cot.service';
+import { CotService } from '../../../../shared/service/cot.service';
 import { of } from 'rxjs';
-import { CotResponse } from '../../shared/model/cot.model';
-import { WebResponse } from '../../shared/model/web.model';
+import { CotResponse } from '../../../../shared/model/cot.model';
+import { WebResponse } from '../../../../shared/model/web.model';
 import { CommonModule } from '@angular/common';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('DashboardComponent', () => {
   let component: DashboardComponent;
@@ -45,8 +47,7 @@ describe('DashboardComponent', () => {
     mockCotService.listCot.and.returnValue(of(mockResponse));
 
     await TestBed.configureTestingModule({
-      imports: [CommonModule],
-      declarations: [DashboardComponent],
+      imports: [CommonModule, DashboardComponent, HttpClientTestingModule, RouterTestingModule],
       providers: [{ provide: CotService, useValue: mockCotService }],
     }).compileComponents();
 

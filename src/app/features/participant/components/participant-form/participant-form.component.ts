@@ -49,10 +49,10 @@ export class ParticipantFormComponent implements OnInit {
   @ViewChild('form') form!: NgForm;
 
   cachedUserProfile = JSON.parse(localStorage.getItem('user_profile') || '{}');
-  currentUserRole: string | undefined = this.cachedUserProfile.role.name ;
+  currentUserRole: string | undefined = this.cachedUserProfile.role?.name;
 
   ngOnInit(): void {
-    this.currentUserRole = this.cachedUserProfile.role.name;
+    this.currentUserRole = this.cachedUserProfile.role?.name;
   }
 
   onSubmit() {
