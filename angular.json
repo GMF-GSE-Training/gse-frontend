@@ -30,7 +30,11 @@
               "node_modules/@fortawesome/fontawesome-free/css/all.min.css",
               "node_modules/sweetalert2/dist/sweetalert2.min.css"
             ],
-            "scripts": []
+            "scripts": [],
+            "allowedCommonJsDependencies": [
+              "file-saver",
+              "sweetalert2"
+            ]
           },
           "configurations": {
             "production": {

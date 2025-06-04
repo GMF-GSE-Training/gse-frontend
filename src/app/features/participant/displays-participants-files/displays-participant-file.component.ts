@@ -137,7 +137,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { finalize, map, switchMap } from 'rxjs/operators';
 import { from } from 'rxjs';
 import { ParticipantService } from '../../../shared/service/participant.service';
-import { DisplayFilesComponent } from '../../../contents/display-files/display-files.component';
+import { DisplayFilesComponent } from '../../../shared/components/display-files/display-files.component';
 import { CommonModule } from '@angular/common';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 

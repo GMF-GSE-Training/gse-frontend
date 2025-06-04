@@ -5,7 +5,7 @@ import { CreateParticipant, Participant } from '../../../shared/model/participan
 import { FormsModule } from '@angular/forms';
 import { SweetalertService } from '../../../shared/service/sweetaler.service';
 import { CompanyInputComponent } from '../../../components/input/company-input/company-input.component';
-import { ParticipantFormComponent } from '../../../contents/participant-form/participant-form.component';
+import { ParticipantFormComponent } from '../../features/participant/components/participant-form/participant-form.component';
 import { ErrorHandlerService } from '../../../shared/service/error-handler.service';
 
 @Component({
