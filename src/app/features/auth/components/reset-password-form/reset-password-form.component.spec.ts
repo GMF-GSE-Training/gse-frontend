@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
+import { provideRouter } from '@angular/router';
+import { provideLocationMocks } from '@angular/common/testing';
 
 import { ResetPasswordFormComponent } from './reset-password-form.component';
 
@@ -9,7 +10,11 @@ describe('ResetPasswordFormComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ResetPasswordFormComponent, RouterTestingModule]
+      imports: [ResetPasswordFormComponent],
+      providers: [
+        provideRouter([]),
+        provideLocationMocks()
+      ]
     })
     .compileComponents();
     

@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideRouter } from '@angular/router';
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { provideLocationMocks } from '@angular/common/testing';
 
 import { CapabilityFormComponent } from './capability-form.component';
 
@@ -10,10 +12,12 @@ describe('CapabilityFormComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [
-        CapabilityFormComponent, 
-        RouterTestingModule,
-        HttpClientTestingModule
+      imports: [CapabilityFormComponent],
+      providers: [
+        provideRouter([]),
+        provideLocationMocks(),
+        provideHttpClient(),
+        provideHttpClientTesting()
       ]
     })
     .compileComponents();

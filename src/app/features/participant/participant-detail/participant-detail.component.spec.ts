@@ -1,8 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
-import { ActivatedRoute, convertToParamMap } from '@angular/router';
+import { ActivatedRoute, convertToParamMap, provideRouter } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { provideLocationMocks } from '@angular/common/testing';
 
 import { ParticipantDetailComponent } from './participant-detail.component';
 
@@ -25,8 +26,12 @@ describe('ParticipantDetailComponent', () => {
     spyOn(window.localStorage, 'removeItem');
 
     await TestBed.configureTestingModule({
-      imports: [ParticipantDetailComponent, RouterTestingModule, HttpClientTestingModule],
+      imports: [ParticipantDetailComponent],
       providers: [
+        provideRouter([]),
+        provideHttpClient(), // Add actual HttpClient provider
+        provideHttpClientTesting(),
+        provideLocationMocks(),
         { 
           provide: ActivatedRoute, 
           useValue: {

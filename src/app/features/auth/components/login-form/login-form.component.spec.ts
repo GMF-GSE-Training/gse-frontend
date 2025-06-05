@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
+import { provideRouter } from '@angular/router';
+import { provideLocationMocks } from '@angular/common/testing';
 
 import { LoginFormComponent } from './login-form.component';
 
@@ -9,7 +10,11 @@ describe('LoginFormComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [LoginFormComponent, RouterTestingModule]
+      imports: [LoginFormComponent],
+      providers: [
+        provideRouter([]),
+        provideLocationMocks()
+      ]
     })
     .compileComponents();
     

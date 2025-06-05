@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideRouter } from '@angular/router';
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { provideLocationMocks } from '@angular/common/testing';
 
 import { EditCurriculumSyllabusComponent } from './edit-curriculum-syllabus.component';
 
@@ -10,7 +12,13 @@ describe('EditCurriculumSyllabusComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [EditCurriculumSyllabusComponent, RouterTestingModule, HttpClientTestingModule]
+      imports: [EditCurriculumSyllabusComponent],
+      providers: [
+        provideRouter([]),
+        provideLocationMocks(),
+        provideHttpClient(),
+        provideHttpClientTesting()
+      ]
     })
     .compileComponents();
     

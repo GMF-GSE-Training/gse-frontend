@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideRouter } from '@angular/router';
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { provideLocationMocks } from '@angular/common/testing';
 
 import { ViewCurriculumSyllabusComponent } from './view-curriculum-syllabus.component';
 
@@ -20,7 +22,13 @@ describe('ViewCurriculumSyllabusComponent', () => {
     spyOn(window.localStorage, 'removeItem');
 
     await TestBed.configureTestingModule({
-      imports: [ViewCurriculumSyllabusComponent, RouterTestingModule, HttpClientTestingModule]
+      imports: [ViewCurriculumSyllabusComponent],
+      providers: [
+        provideRouter([]),
+        provideLocationMocks(),
+        provideHttpClient(),
+        provideHttpClientTesting()
+      ]
     })
     .compileComponents();
 

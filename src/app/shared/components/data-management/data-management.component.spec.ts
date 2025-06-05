@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
+import { provideRouter } from '@angular/router';
+import { provideLocationMocks } from '@angular/common/testing';
 
 import { DataManagementComponent } from './data-management.component';
 import { RoleBasedAccessDirective } from '../../directive/role-based-access.directive';
@@ -10,7 +11,11 @@ describe('DataManagementComponent', () => {
 
   beforeEach(fakeAsync(() => {
     TestBed.configureTestingModule({
-      imports: [DataManagementComponent, RouterTestingModule, RoleBasedAccessDirective]
+      imports: [DataManagementComponent, RoleBasedAccessDirective],
+      providers: [
+        provideRouter([]),
+        provideLocationMocks()
+      ]
     })
     .compileComponents();
 

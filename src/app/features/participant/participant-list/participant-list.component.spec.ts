@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { RouterTestingModule } from '@angular/router/testing'; // Added
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { provideRouter } from '@angular/router';
+import { provideLocationMocks } from '@angular/common/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 import { ParticipantListComponent } from './participant-list.component';
@@ -31,16 +33,17 @@ describe('ParticipantListComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
-        HttpClientTestingModule,
-        RouterTestingModule,
         ParticipantListComponent
-        // RoleBasedAccessDirective tidak diimpor lagi karena kita menggunakan mock
       ],
       providers: [
         {
           provide: RoleBasedAccessDirective,
           useValue: mockRoleBasedAccessDirective
-        }
+        },
+        provideRouter([]),
+        provideLocationMocks(),
+        provideHttpClient(),
+        provideHttpClientTesting()
       ],
       schemas: [NO_ERRORS_SCHEMA]
       // No need to provide localStorage in TestBed providers if globally mocked

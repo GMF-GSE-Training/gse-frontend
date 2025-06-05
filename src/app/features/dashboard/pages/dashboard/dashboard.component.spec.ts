@@ -5,8 +5,10 @@ import { of } from 'rxjs';
 import { CotResponse } from '../../../../shared/model/cot.model';
 import { WebResponse } from '../../../../shared/model/web.model';
 import { CommonModule } from '@angular/common';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { RouterTestingModule } from '@angular/router/testing';
+import { provideRouter } from '@angular/router';
+import { provideLocationMocks } from '@angular/common/testing';
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 
 describe('DashboardComponent', () => {
   let component: DashboardComponent;
@@ -47,8 +49,14 @@ describe('DashboardComponent', () => {
     mockCotService.listCot.and.returnValue(of(mockResponse));
 
     await TestBed.configureTestingModule({
-      imports: [CommonModule, DashboardComponent, HttpClientTestingModule, RouterTestingModule],
-      providers: [{ provide: CotService, useValue: mockCotService }],
+      imports: [CommonModule, DashboardComponent],
+      providers: [
+        { provide: CotService, useValue: mockCotService },
+        provideRouter([]),
+        provideLocationMocks(),
+        provideHttpClient(),
+        provideHttpClientTesting(),
+      ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(DashboardComponent);

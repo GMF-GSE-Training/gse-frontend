@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { RouterTestingModule } from '@angular/router/testing'; // Added
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { provideRouter } from '@angular/router';
+import { provideLocationMocks } from '@angular/common/testing';
 
 import { AddSignComponent } from './add-sign.component';
 
@@ -20,10 +22,12 @@ describe('AddSignComponent', () => {
     spyOn(window.localStorage, 'removeItem');
 
     await TestBed.configureTestingModule({
-      imports: [
-        AddSignComponent, 
-        HttpClientTestingModule,
-        RouterTestingModule // Added
+      imports: [AddSignComponent],
+      providers: [
+        provideRouter([]),
+        provideLocationMocks(),
+        provideHttpClient(),
+        provideHttpClientTesting()
       ]
     })
     .compileComponents();

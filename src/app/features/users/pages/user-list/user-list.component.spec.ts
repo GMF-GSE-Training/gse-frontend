@@ -1,6 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { RouterTestingModule } from '@angular/router/testing'; // Added
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { provideRouter } from '@angular/router';
+import { provideLocationMocks } from '@angular/common/testing';
+
 import { RoleBasedAccessDirective } from '../../../../shared/directive/role-based-access.directive';
 
 import { UserListComponent } from './user-list.component';
@@ -21,11 +24,12 @@ describe('UserListComponent', () => {
     spyOn(window.localStorage, 'removeItem');
 
     await TestBed.configureTestingModule({
-      imports: [
-        UserListComponent, 
-        HttpClientTestingModule,
-        RouterTestingModule, // Added
-        RoleBasedAccessDirective
+      imports: [UserListComponent, RoleBasedAccessDirective],
+      providers: [
+        provideRouter([]),
+        provideLocationMocks(),
+        provideHttpClient(),
+        provideHttpClientTesting()
       ]
     })
     .compileComponents();
