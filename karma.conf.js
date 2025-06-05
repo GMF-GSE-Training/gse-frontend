@@ -10,7 +10,7 @@ module.exports = function (config) {
       require('karma-chrome-launcher'),
       require('karma-brave-launcher'),
       require('karma-jasmine-html-reporter'),
-      require('karma-coverage'),
+      // require('karma-coverage'),
       require('@angular-devkit/build-angular/plugins/karma')
     ],
     client: {
@@ -25,20 +25,23 @@ module.exports = function (config) {
     jasmineHtmlReporter: {
       suppressAll: true // removes a lot of duplicated traces
     },
+    /*
     coverageReporter: {
       dir: require('path').join(__dirname, './coverage/frontend-projek-sertifikat-berbasis-web'),
       subdir: '.',
       reporters: [
         { type: 'html' },
+        { type: 'lcovonly' },
         { type: 'text-summary' }
       ]
     },
-    reporters: ['progress', 'kjhtml'],
+    */
+    reporters: ['progress', 'kjhtml'], // coverage reporter was here
     port: 9876,
     colors: true,
     logLevel: config.LOG_DEBUG,
     autoWatch: true,
-    browsers: ['BraveHeadlessCI'],
+    browsers: ['Chrome'],
     customLaunchers: {
       ChromeHeadlessCI: {
         base: 'ChromeHeadless',
@@ -56,6 +59,6 @@ module.exports = function (config) {
       }
     },
     singleRun: false,
-    restartOnFileChange: true
+    restartOnFileChange: false
   });
 };

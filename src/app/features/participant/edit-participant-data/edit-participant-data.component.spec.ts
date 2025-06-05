@@ -1,13 +1,34 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing'; // Added
 import { RouterTestingModule } from '@angular/router/testing';
-import { ActivatedRoute, convertToParamMap } from '@angular/router';
+import { ActivatedRoute, convertToParamMap, Router } from '@angular/router';
 import { BehaviorSubject, of } from 'rxjs'; // 'of' ditambahkan
 
 import { EditParticipantDataComponent } from './edit-participant-data.component';
 import { ParticipantService } from '../../../shared/service/participant.service';
+import { SweetalertService } from '../../../shared/service/sweetaler.service';
+import { Component, Input } from '@angular/core'; // Added for mock component
+
+// Mock ParticipantFormComponent
+@Component({
+  selector: 'app-participant-form',
+  standalone: true,
+  template: '<div>Mock Participant Form</div>'
+})
+class MockParticipantFormComponent {
+  @Input() pageTitle: string = '';
+  @Input() participant: any = {};
+  @Input() isUpdate: boolean = false;
+  @Input() selectedCompany: string = '';
+  @Input() companyName: string = '';
+  @Input() showCompanyInput: boolean = false;
+  @Input() backButtonRoute: string = '';
+}
 
 describe('EditParticipantDataComponent', () => {
+  let router: Router;
+  let navigateSpy: jasmine.Spy;
+  let navigateByUrlSpy: jasmine.Spy;
   let component: EditParticipantDataComponent;
   let fixture: ComponentFixture<EditParticipantDataComponent>;
 
@@ -15,7 +36,12 @@ describe('EditParticipantDataComponent', () => {
     // Mock localStorage
     spyOn(window.localStorage, 'getItem').and.callFake((key: string) => {
       if (key === 'user_profile') {
-        return JSON.stringify({ role: { name: 'Admin' }, participant: { id: 'testId' } });
+        // Ensure a more complete and safe structure, especially participant.id
+        return JSON.stringify({
+          role: { name: 'Admin' },
+          participant: { id: 'testParticipantIdFromLocalStorage', email: 'test@example.com' }, // Make sure participant and id exist
+          isDataComplete: true
+        });
       }
       return null;
     });
@@ -24,29 +50,50 @@ describe('EditParticipantDataComponent', () => {
 
     await TestBed.configureTestingModule({
       imports: [
-        EditParticipantDataComponent,
-        HttpClientTestingModule, // Added
-        RouterTestingModule
+        EditParticipantDataComponent, // The component being tested
+        HttpClientTestingModule,
+        RouterTestingModule,
+        MockParticipantFormComponent // Use the mock instead of the real one
       ],
       providers: [
         {
           provide: ActivatedRoute,
           useValue: {
             snapshot: {
-              paramMap: convertToParamMap({ id: 'testId' }), // Menyediakan 'id' untuk paramMap
-              queryParamMap: convertToParamMap({}),
-              queryParams: {}
-            },
-            paramMap: new BehaviorSubject(convertToParamMap({ id: 'testId' })),
-            queryParamMap: new BehaviorSubject(convertToParamMap({})),
-            queryParams: new BehaviorSubject({}),
-            url: new BehaviorSubject([]) // Tambahkan mock untuk url
+            paramMap: convertToParamMap({ participantId: 'testId' }), // Corrected key
+            queryParamMap: convertToParamMap({}),
+            queryParams: {} // Ensures params['showAlert'] is undefined in basic setup
+          },
+          paramMap: new BehaviorSubject(convertToParamMap({ participantId: 'testId' })), // Corrected key
+          queryParamMap: new BehaviorSubject(convertToParamMap({})),
+          queryParams: new BehaviorSubject({}), // Ensures params['showAlert'] is undefined
+          url: new BehaviorSubject([])
           }
         },
         {
           provide: ParticipantService,
           useValue: {
-            getParticipantById: jasmine.createSpy('getParticipantById').and.returnValue(of({ id: 'testId', name: 'Test Participant', /* properti lain */ }))
+            getParticipantById: jasmine.createSpy('getParticipantById').and.returnValue(of({
+            data: {
+              id: 'testId',
+              name: 'Test Participant',
+              dateOfBirth: new Date(1990, 5, 15).toISOString(), // Valid date string
+              tglKeluarSuratSehatButaWarna: new Date(2023, 0, 10).toISOString(), // Valid date string
+              tglKeluarSuratBebasNarkoba: new Date(2023, 0, 11).toISOString(), // Valid date string
+              company: 'Test Company',
+              gmfNonGmf: 'GMF'
+              // Add other properties as needed by setParticipantData to avoid errors
+            }
+          }))
+          }
+        },
+        {
+          provide: SweetalertService,
+          useValue: {
+            alert: jasmine.createSpy('alert').and.resolveTo({ isConfirmed: true }),
+            loading: jasmine.createSpy('loading'),
+            fire: jasmine.createSpy('fire').and.resolveTo({ isConfirmed: true }),
+            close: jasmine.createSpy('close')
           }
         }
       ]
@@ -55,13 +102,46 @@ describe('EditParticipantDataComponent', () => {
     
     fixture = TestBed.createComponent(EditParticipantDataComponent);
     component = fixture.componentInstance;
-    // Panggil ngOnInit secara eksplisit setelah mock siap
+    router = TestBed.inject(Router);
+    navigateSpy = spyOn(router, 'navigate').and.callThrough();
+    navigateByUrlSpy = spyOn(router, 'navigateByUrl').and.callThrough();
+
     component.ngOnInit();
     fixture.detectChanges();
-    await fixture.whenStable(); // Tunggu operasi asinkron selesai
+    await fixture.whenStable();
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
+    expect(navigateSpy).not.toHaveBeenCalled();
+    expect(navigateByUrlSpy).not.toHaveBeenCalled();
+  });
+
+  it('should not navigate if showAlert queryParam is not present during ngOnInit', () => {
+    // ngOnInit is called in beforeEach, queryParams mock is empty by default
+    expect(navigateSpy).not.toHaveBeenCalled();
+    expect(navigateByUrlSpy).not.toHaveBeenCalled();
+  });
+
+  it('should navigate to remove showAlert queryParam if present during ngOnInit', async () => {
+    navigateSpy.calls.reset(); // Reset spy for this specific test
+    navigateByUrlSpy.calls.reset();
+
+    const activatedRouteMock = TestBed.inject(ActivatedRoute) as any;
+    // Directly manipulate the BehaviorSubject that queryParams subscribes to
+    (activatedRouteMock.queryParams as BehaviorSubject<any>).next({ showAlert: 'true' });
+
+    // ngOnInit is already called, but the subscription will trigger with the new value.
+    // If ngOnInit itself needs to be re-evaluated with new initial route state for queryParams,
+    // a more complex TestBed re-configuration or component re-initialization might be needed.
+    // For now, we assume the subscription reacts to the BehaviorSubject's new emission.
+    fixture.detectChanges();
+    await fixture.whenStable();
+
+    expect(navigateSpy).toHaveBeenCalledWith([], {
+      relativeTo: TestBed.inject(ActivatedRoute), // Access route instance via TestBed
+      queryParams: { showAlert: null },
+      queryParamsHandling: 'merge'
+    });
   });
 });
