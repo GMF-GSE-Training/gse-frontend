@@ -6,17 +6,21 @@ RUN apk add --no-cache python3 make g++
 
 WORKDIR /app
 
-# Salin package.json dan package-lock.json
-COPY package.json package-lock.json ./
+# Instal PNPM secara global
+RUN npm install -g pnpm
 
-# Install dependensi dengan npm ci
-RUN npm ci --legacy-peer-deps
+# Salin package.json dan pnpm-lock.yaml
+# PASTIKAN pnpm-lock.yaml SUDAH ADA SEBELUM BUILD IMAGE INI
+COPY package.json pnpm-lock.yaml ./
+
+# Install dependensi dengan PNPM
+RUN pnpm install --frozen-lockfile
 
 # Salin seluruh kode sumber
 COPY . .
 
-# Build konfigurasi
-RUN npm run build
+# Build konfigurasi dengan PNPM
+RUN pnpm run build
 
 # Tahap 2: Menyajikan aplikasi dengan Nginx
 FROM nginx:1.25-alpine
