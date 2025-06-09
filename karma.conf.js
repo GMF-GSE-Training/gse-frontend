@@ -40,7 +40,7 @@ module.exports = function (config) {
     port: 9876,
     colors: true,
     logLevel: config.LOG_DEBUG,
-    autoWatch: true,
+    autoWatch: false,
     browsers: ['Chrome'],
     customLaunchers: {
       ChromeHeadlessCI: {
@@ -58,7 +58,7 @@ module.exports = function (config) {
         ]
       }
     },
-    singleRun: false,
+    singleRun: true,
     restartOnFileChange: false
   });
 };
