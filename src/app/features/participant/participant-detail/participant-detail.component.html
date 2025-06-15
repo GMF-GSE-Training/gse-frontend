@@ -4,6 +4,7 @@
   @if(isLoading) {
     <app-loader></app-loader>
   } @else {
+    <div *ngIf="!participant && !isLoading" class="error-message">Data peserta tidak ditemukan.</div>
     <div class="section">
       <div class="profile-section">
         <div class="photo">

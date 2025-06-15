@@ -11,39 +11,25 @@ export const routes: Routes = [
     redirectTo: 'dashboard',
   },
   {
-    path: 'auth', // Base path for all authentication routes
+    path: 'auth',
     loadChildren: () => import('./features/auth/auth.module').then(m => m.AuthModule),
   },
-  // Direct routes to auth pages for backward compatibility
-  {
-    path: 'login',
-    redirectTo: 'auth/login'
-  },
-  {
-    path: 'register',
-    redirectTo: 'auth/register'
-  },
-  {
-    path: 'password-reset',
-    redirectTo: 'auth/password-reset'
-  },
-  {
-    path: 'reset/:token',
-    redirectTo: 'auth/reset/:token'
-  },
-  {
-    path: 'verification',
-    redirectTo: 'auth/verification'
-  },
+  // Backward compatibility for direct auth routes
+  { path: 'login', redirectTo: 'auth/login', pathMatch: 'full' },
+  { path: 'register', redirectTo: 'auth/register', pathMatch: 'full' },
+  { path: 'password-reset', redirectTo: 'auth/password-reset', pathMatch: 'full' },
+  { path: 'reset/:token', redirectTo: 'auth/reset/:token', pathMatch: 'full' },
+  { path: 'verification', redirectTo: 'auth/verification', pathMatch: 'full' },
+  { path: 'verify', redirectTo: 'auth/verify', pathMatch: 'full' },
+
   {
     path: 'dashboard',
     loadChildren: () => import('./features/dashboard/dashboard.module').then(m => m.DashboardModule),
-    // Guards and data are now in dashboard-routing.module.ts
   },
   {
     path: 'participants',
     loadChildren: () => import('./features/participant/participant.module').then(m => m.ParticipantModule),
-    canActivate: [AuthGuard], // RoleGuards are handled within ParticipantRoutingModule
+    canActivate: [AuthGuard],
   },
   {
     path: 'capability',
@@ -54,25 +40,34 @@ export const routes: Routes = [
   {
     path: 'cot',
     loadChildren: () => import('./features/cot/cot.module').then(m => m.CotModule),
-    canActivate: [AuthGuard], // Role guards are now in cot-routing.module.ts
+    canActivate: [AuthGuard],
   },
   {
     path: 'users',
     loadChildren: () => import('./features/users/users.module').then(m => m.UsersModule),
-    canActivate: [AuthGuard], // Role guards are now in users-routing.module.ts
+    canActivate: [AuthGuard],
   },
   {
     path: 'e-sign',
     loadChildren: () => import('./features/e-sign/e-sign.module').then(m => m.ESignModule),
-    canActivate: [AuthGuard], // Role guards are now in e-sign-routing.module.ts
+    canActivate: [AuthGuard],
   },
   {
     path: 'curriculum-syllabus',
     loadChildren: () => import('./features/curriculum-syllabus/curriculum-syllabus.module').then(m => m.CurriculumSyllabusModule),
-    canActivate: [AuthGuard], // Role guards are now in curriculum-syllabus-routing.module.ts
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'home',
+    redirectTo: 'dashboard',
+    pathMatch: 'full'
+  },
+  {
+    path: 'not-found',
+    loadComponent: () => import('./components/not-found/not-found.component').then(m => m.NotFoundComponent)
   },
   {
     path: '**',
-    redirectTo: 'dashboard',
+    redirectTo: 'not-found',
   },
 ];

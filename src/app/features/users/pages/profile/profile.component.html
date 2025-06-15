@@ -6,14 +6,18 @@
       <div
         class="menu-setting-item"
         [ngClass]="{'active': selectedItem === 0}"
-        [routerLink]="['/users', id, 'profile']">
+        [routerLink]="['/users', id, 'profile']"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{exact: true}">
         <i class="fa-solid fa-user"></i>
         <span>Profil</span>
       </div>
       <div
         class="menu-setting-item"
         [ngClass]="{'active': selectedItem === 1}"
-        [routerLink]="['/users', id, 'account']">
+        [routerLink]="['/users', id, 'account']"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{exact: true}">
         <i class="fa-solid fa-user-gear"></i>
         <span>Akun</span>
       </div>

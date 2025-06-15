@@ -4,6 +4,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: auto;
 }
 
 .form {
@@ -12,7 +13,9 @@
   justify-content: center;
   align-items: center;
   width: 75%;
-  padding: 0 2em;
+  max-width: 480px;
+  padding: 0 2em 2em 2em;
+  background: #fff;
 }
 
 .input-container {
@@ -82,5 +85,6 @@
 @media (max-width: 768px) {
   .form {
     width: 100%;
+    max-width: 100%;
   }
 }

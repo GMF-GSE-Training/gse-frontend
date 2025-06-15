@@ -8,7 +8,7 @@ export const guestGuard: CanActivateFn = (route, state) => {
 
   const cachedUserProfile = localStorage.getItem('user_profile');
   if(cachedUserProfile) {
-    router.navigateByUrl('/home');
+    router.navigateByUrl('/dashboard');
     if(route.routeConfig?.path === 'login') {
       sweetalertService.alert('Peringatan', 'Anda sudah login', 'warning');
     } else if(route.routeConfig?.path === 'register') {

@@ -1,4 +1,5 @@
 import { User } from "./user.model";
+import { Participant } from "./participant.model";
 
 export interface LoginUserRequest {
   identifier: string;
@@ -28,9 +29,10 @@ export interface AuthResponse {
   dinas?: string;
   roleId?: string;
   token?: string;
+  verifiedAccount?: boolean;
   role?: {
       id?: string;
       name?: string;
   }
-  participant?: Object;
+  participant?: Participant;
 }

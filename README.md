@@ -41,6 +41,18 @@ Pastikan Anda memiliki prasyarat berikut ini:
 
 2. **Instal Dependensi**
 
+```bash
+npm install -g @angular/cli
+```
+
+```bash
+npm install -g pnpm
+```
+
+```bash
+npm install -g npm
+```
+
     ```bash
     pnpm install
 

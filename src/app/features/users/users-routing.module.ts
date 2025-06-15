@@ -32,16 +32,16 @@ const routes: Routes = [
     data: { roles: ['super admin'] }
   },
   {
-    path: ':userId/profile', // For /users/:userId/profile
+    path: ':userId/profile',
     component: ProfileComponent,
     canActivate: [AuthGuard, RoleGuard],
-    data: { roles: ['super admin', 'supervisor', 'lcu'] }
+    data: { roles: ['super admin', 'supervisor', 'lcu'], tab: 'profile' }
   },
   {
-    path: ':userId/account', // For /users/:userId/account
+    path: ':userId/account',
     component: ProfileComponent,
     canActivate: [AuthGuard, RoleGuard],
-    data: { roles: ['super admin', 'supervisor', 'lcu'] }
+    data: { roles: ['super admin', 'supervisor', 'lcu'], tab: 'account' }
   }
 ];
 

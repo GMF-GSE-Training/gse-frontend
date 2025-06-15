@@ -23,6 +23,7 @@ export const environment = {
       resetPassword: 'auth/reset-password',
       updateEmailRequest: 'auth/update-email',
       updatePassword: 'auth/update-password',
+      verify: 'auth/verify',
     },
     user: {
       base: 'users',

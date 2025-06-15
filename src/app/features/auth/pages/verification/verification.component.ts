@@ -4,16 +4,15 @@ import { AuthService } from '../../../../shared/service/auth.service';
 import { SweetalertService } from '../../../../shared/service/sweetaler.service';
 import { ErrorHandlerService } from '../../../../shared/service/error-handler.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { SweetAlertResult } from 'sweetalert2';
 
 @Component({
-  selector: 'app-account-verification',
+  selector: 'app-verification',
   standalone: true,
   imports: [EmailFormComponent],
-  templateUrl: './account-verification.component.html',
-  styleUrl: './account-verification.component.css'
+  templateUrl: './verification.component.html',
+  styleUrl: './verification.component.css'
 })
-export class AccountVerificationComponent implements OnInit {
+export class VerificationComponent implements OnInit {
   data = {
     email: ''
   };
@@ -28,14 +27,8 @@ export class AccountVerificationComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    // Cek jika ada token di URL (berarti user mengklik link verifikasi dari email)
+    // Cek jika ada error di URL
     this.route.queryParams.subscribe(params => {
-      const token = params['token'];
-      if (token) {
-        // Proses verifikasi token
-        this.verifyAccount(token);
-      }
-      
       if (params['error']) {
         const errorMessage = params['error'];
         // Tampilkan alert
@@ -50,6 +43,14 @@ export class AccountVerificationComponent implements OnInit {
         }
       }
     });
+
+    // Cek jika ada email di sessionStorage (dari login redirect)
+    const storedEmail = sessionStorage.getItem('unverified_email');
+    if (storedEmail) {
+      this.data.email = storedEmail;
+      // Hapus dari sessionStorage setelah digunakan
+      sessionStorage.removeItem('unverified_email');
+    }
   }
 
   onSubmit(data: { email: string }) {
@@ -67,41 +68,6 @@ export class AccountVerificationComponent implements OnInit {
         this.sweetalertService.close();
         console.log(error);
         this.errorHandlerService.alertError(error);
-      }
-    });
-  }
-  
-  // Metode untuk memverifikasi akun dengan token dari URL
-  private verifyAccount(token: string) {
-    this.sweetalertService.loading('Mohon tunggu', 'Memverifikasi akun Anda...');
-    this.authService.verifyAccount(token).subscribe({
-      next: (response) => {
-        this.sweetalertService.close();
-        this.sweetalertService.alert(
-          'Verifikasi Berhasil', 
-          'Akun Anda telah berhasil diverifikasi. Anda akan diarahkan ke Dashboard.', 
-          'success'
-        ).then(() => {
-          // Ambil profil terbaru agar localStorage ter-update dan AuthGuard tidak mengira akun belum diverifikasi
-          this.authService.me().subscribe({
-            complete: () => this.router.navigateByUrl('/dashboard'),
-            error: () => this.router.navigateByUrl('/dashboard'), // tetap arahkan meski gagal
-          });
-        });
-      },
-      error: (error) => {
-        this.sweetalertService.close();
-        
-        // Pesan khusus untuk token kadaluarsa atau tidak valid
-        if (error.status === 400 && error.error?.message?.includes('Token tidak valid atau telah kadaluarsa')) {
-          this.sweetalertService.alert(
-            'Verifikasi Gagal', 
-            'Tautan verifikasi tidak valid atau telah kadaluarsa. Silakan minta tautan verifikasi baru dengan mengisi formulir di bawah.', 
-            'error'
-          );
-        } else {
-          this.errorHandlerService.alertError(error);
-        }
       }
     });
   }

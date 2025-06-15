@@ -14,59 +14,78 @@ import { DataCompleteGuard } from '../../shared/guard/data-complete.guard';
 
 const routes: Routes = [
   {
-    path: '', // Corresponds to 'participants'
-    component: ParticipantListComponent,
-    canActivate: [AuthGuard, RoleGuard],
-    data: { roles: ['super admin', 'supervisor', 'lcu', 'user'] }
-  },
-  {
-    path: 'add', // Corresponds to 'participants/add'
+    path: 'add',
     component: AddParticipantDataComponent,
     canActivate: [AuthGuard, RoleGuard],
     data: { roles: ['super admin', 'supervisor', 'lcu'] }
   },
   {
-    path: ':participantId', // Corresponds to 'participants/:participantId'
+    path: ':participantId/detail',
     component: ParticipantDetailComponent,
-    canActivate: [AuthGuard, RoleGuard],
-    data: { roles: ['super admin', 'supervisor', 'lcu', 'user'] }
-  },
-  {
-    path: ':participantId/edit', // Corresponds to 'participants/:participantId/edit'
-    component: EditParticipantDataComponent,
-    canActivate: [AuthGuard, RoleGuard],
+    canActivate: [AuthGuard, RoleGuard, DataCompleteGuard],
     data: { roles: ['super admin', 'supervisor', 'lcu'] }
   },
   {
-    path: ':participantId/id-card', // Corresponds to 'participants/:participantId/id-card'
+    path: ':participantId/profile/personal',
+    component: ParticipantDetailComponent,
+    canActivate: [AuthGuard, RoleGuard, DataCompleteGuard],
+    data: { roles: ['user'] }
+  },
+  {
+    path: ':participantId/profile/account',
+    component: ParticipantDetailComponent,
+    canActivate: [AuthGuard, RoleGuard, DataCompleteGuard],
+    data: { roles: ['user'] }
+  },
+  {
+    path: ':participantId/edit',
+    component: EditParticipantDataComponent,
+    canActivate: [AuthGuard, RoleGuard],
+    data: { roles: ['super admin', 'lcu', 'user'] }
+  },
+  {
+    path: ':participantId/id-card',
     component: IdCardComponent,
     canActivate: [AuthGuard, RoleGuard],
     data: { roles: ['super admin', 'supervisor', 'lcu', 'user'] }
   },
   {
-    path: ':participantId/sim-b', // Corresponds to 'participants/:participantId/sim-b'
+    path: ':participantId/sim-a',
     component: DisplaysParticipantFilesComponent,
     canActivate: [AuthGuard, RoleGuard, DataCompleteGuard],
     data: { roles: ['super admin', 'supervisor', 'lcu', 'user'] }
   },
   {
-    path: ':participantId/ktp', // Corresponds to 'participants/:participantId/ktp'
+    path: ':participantId/sim-b',
     component: DisplaysParticipantFilesComponent,
     canActivate: [AuthGuard, RoleGuard, DataCompleteGuard],
     data: { roles: ['super admin', 'supervisor', 'lcu', 'user'] }
   },
   {
-    path: ':participantId/surat-sehat-buta-warna', // Corresponds to 'participants/:participantId/surat-sehat-buta-warna'
+    path: ':participantId/ktp',
     component: DisplaysParticipantFilesComponent,
     canActivate: [AuthGuard, RoleGuard, DataCompleteGuard],
     data: { roles: ['super admin', 'supervisor', 'lcu', 'user'] }
   },
   {
-    path: ':participantId/surat-bebas-narkoba', // Corresponds to 'participants/:participantId/surat-bebas-narkoba'
+    path: ':participantId/surat-sehat-buta-warna',
     component: DisplaysParticipantFilesComponent,
     canActivate: [AuthGuard, RoleGuard, DataCompleteGuard],
     data: { roles: ['super admin', 'supervisor', 'lcu', 'user'] }
-  }
+  },
+  {
+    path: ':participantId/surat-bebas-narkoba',
+    component: DisplaysParticipantFilesComponent,
+    canActivate: [AuthGuard, RoleGuard, DataCompleteGuard],
+    data: { roles: ['super admin', 'supervisor', 'lcu', 'user'] }
+  },
+  {
+    path: '',
+    component: ParticipantListComponent,
+    canActivate: [AuthGuard, RoleGuard],
+    data: { roles: ['super admin', 'supervisor', 'lcu', 'user'] }
+  },
+  { path: '**', redirectTo: '', pathMatch: 'full' }
 ];
 
 @NgModule({

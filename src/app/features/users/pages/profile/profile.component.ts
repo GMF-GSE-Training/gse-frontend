@@ -1,15 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { VerticalTableComponent } from "../../../../components/vertical-table/vertical-table.component";
 import { EmailFormCardComponent } from "../../../../components/card/email-form-card/email-form-card.component";
 import { PasswordUpdateFormCardComponent } from "../../../../components/card/password-update-form-card/password-update-form-card.component";
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { User } from '../../../../shared/model/user.model';
 import { AuthService } from '../../../../shared/service/auth.service';
 import { SweetalertService } from '../../../../shared/service/sweetaler.service';
 import { UpdatePassword } from '../../../../shared/model/auth.model';
 import { ErrorHandlerService } from '../../../../shared/service/error-handler.service';
 import { HeaderComponent } from "../../../../components/header/header.component";
+import { Subscription } from 'rxjs';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-profile',
@@ -20,17 +22,19 @@ import { HeaderComponent } from "../../../../components/header/header.component"
     PasswordUpdateFormCardComponent,
     CommonModule,
     RouterLink,
+    RouterLinkActive,
     HeaderComponent
-],
+  ],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.css'
 })
-export class ProfileComponent implements OnInit {
+export class ProfileComponent implements OnInit, OnDestroy {
   selectedItem: number = 0;
   userProfile = JSON.parse(localStorage.getItem('user_profile') || '{}');
-  id = this.route.snapshot.paramMap.get('id') || this.userProfile.id;
+  id = this.route.snapshot.paramMap.get('userId') || this.userProfile.id;
   user: User | null = null;
   verticalTableData: any[] = [];
+  private routeSubscription: Subscription | undefined;
 
   constructor(
     private readonly route: ActivatedRoute,
@@ -41,45 +45,42 @@ export class ProfileComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    // Subscribe to route data changes
+    this.routeSubscription = this.route.data
+      .pipe(filter(data => !!data['tab']))
+      .subscribe(data => {
+        this.selectedItem = data['tab'] === 'account' ? 1 : 0;
+      });
+
+    // Subscribe to query params for error/success messages
     this.route.queryParams.subscribe(params => {
       if (params['error']) {
         const errorMessage = params['error'];
-        // Tampilkan alert
         this.sweetalertService.alert('Gagal', errorMessage, 'error');
-        // Navigasi hanya jika parameter ada
-        if (errorMessage) {
-          this.router.navigate([], {
-            relativeTo: this.route,
-            queryParams: { error: null },
-            queryParamsHandling: 'merge',
-          });
-        }
+        this.router.navigate([], {
+          relativeTo: this.route,
+          queryParams: { error: null },
+          queryParamsHandling: 'merge',
+        });
       } else if (params['success']) {
         const successMessage = params['success'];
-        // Tampilkan alert
         this.sweetalertService.alert('Berhasil', successMessage, 'success');
         this.getProfile();
-        // Navigasi hanya jika parameter ada
-        if (successMessage) {
-          this.router.navigate([], {
-            relativeTo: this.route,
-            queryParams: { success: null },
-            queryParamsHandling: 'merge',
-          });
-        }
-      }
-    });
-
-    this.route.url.subscribe(urlSegments => {
-      const url = urlSegments.map(segment => segment.path).join('/');
-      if (url === `users/${this.id}/personal`) {
-        this.selectedItem = 0;
-      } else if (url === `users/${this.id}/account`) {
-        this.selectedItem = 1;
+        this.router.navigate([], {
+          relativeTo: this.route,
+          queryParams: { success: null },
+          queryParamsHandling: 'merge',
+        });
       }
     });
 
     this.getUserFromLocalStorage();
+  }
+
+  ngOnDestroy(): void {
+    if (this.routeSubscription) {
+      this.routeSubscription.unsubscribe();
+    }
   }
 
   private getUserFromLocalStorage() {
@@ -94,6 +95,7 @@ export class ProfileComponent implements OnInit {
     this.authService.me().subscribe({
       next: (response) => {
         localStorage.setItem('user_profile', JSON.stringify(response.data));
+        this.getUserFromLocalStorage();
       },
       error: (error) => {
         console.log(error);
@@ -101,7 +103,7 @@ export class ProfileComponent implements OnInit {
     });
   }
 
-  updateEmailSubmit(data: { email: string }): void{
+  updateEmailSubmit(data: { email: string }): void {
     this.sweetalertService.loading('Mohon tunggu', 'Proses...');
     this.authService.updateEmailRequest(data).subscribe({
       next: () => {
@@ -118,7 +120,7 @@ export class ProfileComponent implements OnInit {
     });
   }
 
-  updatePasswordSubmit(data: UpdatePassword): void{
+  updatePasswordSubmit(data: UpdatePassword): void {
     this.sweetalertService.loading('Mohon tunggu', 'Proses...');
     this.authService.updatePassword(data).subscribe({
       next: () => {

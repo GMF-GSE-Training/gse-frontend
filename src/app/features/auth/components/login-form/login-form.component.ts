@@ -42,6 +42,10 @@ export class LoginFormComponent {
 
   onSubmit() {
     if (this.form.valid) {
+      // Trim spasi pada identifier (email/no pegawai) sebelum submit
+      if (this.loginRequest.identifier) {
+        this.loginRequest.identifier = this.loginRequest.identifier.trim();
+      }
       this.formSubmit.emit(this.loginRequest);
     }
   }

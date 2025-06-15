@@ -4,6 +4,7 @@ import { AuthService } from '../../../../shared/service/auth.service';
 import { UserFormComponent } from '../../../users/components/user-form/user-form.component';
 import { SweetalertService } from '../../../../shared/service/sweetaler.service';
 import { ErrorHandlerService } from '../../../../shared/service/error-handler.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -25,11 +26,13 @@ export class RegisterComponent {
 
   isSuccess: boolean = false;
   registerMessage: string = '';
+  isLoading: boolean = false;
 
   constructor(
     private authService: AuthService,
     private readonly sweetalertService: SweetalertService,
     private readonly handleErrorService: ErrorHandlerService,
+    private router: Router
   ){ }
 
   onRegister(user: RegisterUserRequest) {
@@ -39,7 +42,11 @@ export class RegisterComponent {
       next: () => {
         this.sweetalertService.close();
         this.isSuccess = true;
-        this.sweetalertService.alert('Berhasil', 'Register berhasil, link verifikasi akan dikirm ke-email anda', 'success');
+        this.sweetalertService.alert(
+          'Berhasil', 
+          'Registrasi berhasil. Silakan login menggunakan email & kata sandi Anda.', 
+          'success'
+        ).then(() => this.router.navigateByUrl('/auth/login'));
       },
       error: (error) => {
         console.log(error);
@@ -56,5 +63,35 @@ export class RegisterComponent {
         object[key] = undefined;  // Atau bisa diubah menjadi undefined
       }
     }
+  }
+
+  register() {
+    this.isLoading = true;
+    this.authService.register(this.registerUserRequest).subscribe({
+      next: (response) => {
+        this.isLoading = false;
+        this.sweetalertService.alert(
+          'Berhasil', 
+          'Registrasi berhasil. Silakan login menggunakan email & kata sandi Anda.', 
+          'success'
+        ).then(() => this.router.navigateByUrl('/auth/login'));
+      },
+      error: (error) => {
+        if (error.error?.message?.includes('ETIMEDOUT') || 
+            error.error?.message?.includes('Error sending email') ||
+            error.error?.message?.includes('ECONNREFUSED')) {
+          this.isLoading = false;
+          this.sweetalertService.alert(
+            'Berhasil', 
+            'Registrasi berhasil. Silakan login menggunakan email & kata sandi Anda.', 
+            'success'
+          ).then(() => this.router.navigateByUrl('/auth/login'));
+          return;
+        }
+        
+        this.isLoading = false;
+        this.handleErrorService.alertError(error);
+      }
+    });
   }
 }

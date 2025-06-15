@@ -34,6 +34,10 @@ const routes: Routes = [
     path: 'verification', // Will map to /verification or /auth/verification
     component: AccountVerificationComponent,
   },
+  {
+    path: 'verify', // Untuk verifikasi dengan token di query params
+    component: AccountVerificationComponent,
+  },
   // Default route for auth feature
   {
     path: '',
