@@ -21,7 +21,7 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
   const refreshTokenSubject: BehaviorSubject<string | null> = new BehaviorSubject<string | null>(null);
 
   const userProfile = authService.getUserProfile();
-  const authToken = userProfile?.token;
+  const authToken = userProfile?.accessToken;
 
   if (authToken) {
     req = req.clone({
