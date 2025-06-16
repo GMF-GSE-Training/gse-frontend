@@ -20,6 +20,17 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
   let isRefreshing = false;
   const refreshTokenSubject: BehaviorSubject<string | null> = new BehaviorSubject<string | null>(null);
 
+  const userProfile = authService.getUserProfile();
+  const authToken = userProfile?.token;
+
+  if (authToken) {
+    req = req.clone({
+      setHeaders: {
+        Authorization: `Bearer ${authToken}`,
+      },
+    });
+  }
+
   return next(req).pipe(
     catchError((error: HttpErrorResponse) => {
       if (error.status === 401 && !req.url.includes('/token')) {
