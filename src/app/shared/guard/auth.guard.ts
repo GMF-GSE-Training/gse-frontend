@@ -27,22 +27,16 @@ export const AuthGuard: CanActivateFn = (route, state) => {
     const isVerificationPage = state.url.startsWith('/auth/verification') || state.url.startsWith('/auth/verify');
     const isLoginPage = state.url.startsWith('/auth/login');
 
-    if (roleName === 'user' && !userProfile.verifiedAccount && !isVerificationPage && !isLoginPage) {
-      // Hanya tampilkan satu kali per sesi
-      if (!sessionStorage.getItem('unverified_shown')) {
-        sessionStorage.setItem('unverified_shown', '1');
-        sweetalertService
-          .alert(
-            'Peringatan',
-            'Akun belum diverifikasi, silahkan verifikasi akun terlebih dahulu',
-            'warning',
-          )
-          .finally(() => router.navigateByUrl('/auth/verification'));
-      } else {
-        router.navigateByUrl('/auth/verification');
-      }
-      return false;
-    }
+    // if (roleName === 'user' && !userProfile.verifiedAccount && !isVerificationPage && !isLoginPage) {
+    //   sweetalertService
+    //     .alert(
+    //       'Peringatan',
+    //       'Akun belum diverifikasi, silahkan verifikasi akun terlebih dahulu',
+    //       'warning',
+    //     )
+    //     .finally(() => router.navigateByUrl('/auth/verification'));
+    //   return false;
+    // }
     
     return true;
   } else if (!cachedUserProfile) {
@@ -56,21 +50,16 @@ export const AuthGuard: CanActivateFn = (route, state) => {
         const isVerificationPage = state.url.startsWith('/auth/verification') || state.url.startsWith('/auth/verify');
         const isLoginPage = state.url.startsWith('/auth/login');
 
-        if (roleName === 'user' && !userData.verifiedAccount && !isVerificationPage && !isLoginPage) {
-          if (!sessionStorage.getItem('unverified_shown')) {
-            sessionStorage.setItem('unverified_shown', '1');
-            sweetalertService
-              .alert(
-                'Peringatan',
-                'Akun belum diverifikasi, silahkan verifikasi akun terlebih dahulu',
-                'warning',
-              )
-              .finally(() => router.navigateByUrl('/auth/verification'));
-          } else {
-            router.navigateByUrl('/auth/verification');
-          }
-          return false;
-        }
+        // if (roleName === 'user' && !userData.verifiedAccount && !isVerificationPage && !isLoginPage) {
+        //   sweetalertService
+        //     .alert(
+        //       'Peringatan',
+        //       'Akun belum diverifikasi, silahkan verifikasi akun terlebih dahulu',
+        //       'warning',
+        //     )
+        //     .finally(() => router.navigateByUrl('/auth/verification'));
+        //   return false;
+        // }
         
         return true;
       }),
@@ -98,21 +87,16 @@ export const AuthGuard: CanActivateFn = (route, state) => {
       const isVerificationPage = state.url.startsWith('/auth/verification') || state.url.startsWith('/auth/verify');
       const isLoginPage = state.url.startsWith('/auth/login');
 
-      if (roleName === 'user' && !currentUser.verifiedAccount && !isVerificationPage && !isLoginPage) {
-        if (!sessionStorage.getItem('unverified_shown')) {
-          sessionStorage.setItem('unverified_shown', '1');
-          sweetalertService
-            .alert(
-              'Peringatan',
-              'Akun belum diverifikasi, silahkan verifikasi akun terlebih dahulu',
-              'warning',
-            )
-            .finally(() => router.navigateByUrl('/auth/verification'));
-        } else {
-          router.navigateByUrl('/auth/verification');
-        }
-        return false;
-      }
+      // if (roleName === 'user' && !currentUser.verifiedAccount && !isVerificationPage && !isLoginPage) {
+      //   sweetalertService
+      //     .alert(
+      //       'Peringatan',
+      //       'Akun belum diverifikasi, silahkan verifikasi akun terlebih dahulu',
+      //       'warning',
+      //     )
+      //     .finally(() => router.navigateByUrl('/auth/verification'));
+      //   return false;
+      // }
       
       return true;
     })

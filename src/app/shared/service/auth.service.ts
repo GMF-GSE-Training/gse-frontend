@@ -45,7 +45,7 @@ export class AuthService {
   me(): Observable<WebResponse<AuthResponse>> {
     return this.http.get<WebResponse<AuthResponse>>(`${this.apiUrl}/${this.endpoint.base}`, { withCredentials: true }).pipe(
       tap((response) => {
-        this.userProfile$.next(response.data);
+        this.setUserProfile(response.data);
       })
     );
   }
@@ -95,11 +95,21 @@ export class AuthService {
 
   userProfile$ = new BehaviorSubject<AuthResponse | null | undefined>(undefined);
 
-  setUserProfile(data: any) {
-    if(data) {
+  setUserProfile(data: AuthResponse | null) {
+    if (data) {
+      localStorage.setItem('user_profile', JSON.stringify(data));
       this.userProfile$.next(data);
     } else {
+      localStorage.removeItem('user_profile');
       this.userProfile$.next(null);
     }
+  }
+
+  getUserProfile(): AuthResponse | null {
+    const profileString = localStorage.getItem('user_profile');
+    if (profileString) {
+      return JSON.parse(profileString);
+    }
+    return null;
   }
 }

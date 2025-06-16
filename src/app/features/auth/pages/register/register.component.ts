@@ -71,21 +71,21 @@ export class RegisterComponent {
       next: (response) => {
         this.isLoading = false;
         this.sweetalertService.alert(
-          'Berhasil', 
-          'Registrasi berhasil. Silakan login menggunakan email & kata sandi Anda.', 
+          'Berhasil',
+          'Registrasi berhasil. Tautan verifikasi telah dikirim ke email Anda. Periksa kotak masuk/spam.',
           'success'
         ).then(() => this.router.navigateByUrl('/auth/login'));
       },
       error: (error) => {
-        if (error.error?.message?.includes('ETIMEDOUT') || 
-            error.error?.message?.includes('Error sending email') ||
-            error.error?.message?.includes('ECONNREFUSED')) {
+        this.sweetalertService.close();
+        console.log(error);
+        if (error.status === 503) {
           this.isLoading = false;
           this.sweetalertService.alert(
-            'Berhasil', 
-            'Registrasi berhasil. Silakan login menggunakan email & kata sandi Anda.', 
-            'success'
-          ).then(() => this.router.navigateByUrl('/auth/login'));
+            'Peringatan',
+            'Akun Anda sudah terdaftar, namun ada kegagalan dalam pengiriman email verifikasi. Silakan verifikasi akun Anda secara manual di menu "Belum Terverifikasi?".',
+            'warning'
+          ).then(() => this.router.navigateByUrl('/auth/verification'));
           return;
         }
         

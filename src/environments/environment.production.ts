@@ -11,7 +11,7 @@ declare global {
 
 export const environment = {
   production: true,
-  apiUrl: window.__env?.API_URL || '/',
+  apiUrl: 'https://dev-api.gmf-aeroasia.publicvm.com',
   endpoints: {
     auth: {
       base: 'auth/current',

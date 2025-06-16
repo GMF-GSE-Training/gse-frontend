@@ -51,17 +51,6 @@ export class LoginComponent {
             this.loginError = false;
             this.isLoading = false;
             
-            // Cek verifikasi akun khusus role 'user'
-            if (userData.role?.name === 'user' && !userData.verifiedAccount) {
-              sessionStorage.setItem('unverified_shown', '1');
-              this.sweetalertService.alert(
-                'Peringatan', 
-                'Email belum diverifikasi. Silakan verifikasi akun anda.', 
-                'warning'
-              ).then(() => this.router.navigateByUrl('/auth/verification'));
-              return;
-            }
-            
             // Cek kelengkapan data untuk role 'user'
             if (userData.role?.name === 'user' && userData.participant) {
               const participant = userData.participant;
@@ -97,15 +86,18 @@ export class LoginComponent {
         console.log(error)
         this.loginError = true;
         this.isLoading = false;
-        if(error.status === 400) {
-          this.message = 'Informasi login tidak valid. Silakan periksa kembali email atau nomor pegawai dan password Anda';
+        if(error.status === 404) {
+          this.message = 'Akun Anda belum terdaftar. Silakan lakukan pendaftaran.';
+        } else if(error.status === 400) {
+          this.message = 'Kata sandi yang Anda masukkan salah.';
         } else if(error.status === 403) {
-          sessionStorage.setItem('unverified_shown', '1');
-          this.sweetalertService.alert(
-            'Peringatan', 
-            'Email belum diverifikasi. Silakan verifikasi akun Anda.', 
-            'warning'
-          ).then(() => this.router.navigateByUrl('/auth/verification'));
+          this.message = 'Akun Anda belum terverifikasi. Silakan akses menu "Belum Terverifikasi?" dibawah.';
+          // Mengomentari bagian ini karena backend sudah diverifikasi dengan benar
+          // this.sweetalertService.alert(
+          //   'Peringatan', 
+          //   'Email belum diverifikasi. Silakan verifikasi akun Anda.', 
+          //   'warning'
+          // ).then(() => this.router.navigateByUrl('/auth/verification'));
         } else {
           this.message = 'Terjadi kesalahan pada server. Silakan coba lagi nanti.';
         }

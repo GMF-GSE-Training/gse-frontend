@@ -52,7 +52,7 @@ const handle401Error = (
       catchError((err) => {
         isRefreshing = false;
         clearLocalStorageAndLogout(router, authService);
-        sweetalertService.alert('Sesi berakhir', 'Silakan login kembali', 'warning');
+        sweetalertService.alert('Selamat Datang!', 'Sesi tidak ditemukan, sudah mencoba login?', 'warning');
         router.navigate(['/login']);
         return throwError(() => err);
       })
@@ -64,7 +64,7 @@ const handle401Error = (
             return next(req);
         }
         clearLocalStorageAndLogout(router, authService);
-        sweetalertService.alert('Sesi berakhir', 'Silakan login kembali', 'warning');
+        sweetalertService.alert('Selamat Datang!', 'Sesi tidak ditemukan, sudah mencoba login?', 'warning');
         return throwError(() => new Error('Token refresh failed'));
       })
     );
