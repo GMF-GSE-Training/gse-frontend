@@ -28,7 +28,7 @@ export interface AuthResponse {
   name?: string;
   dinas?: string;
   roleId?: string;
-  token?: string;
+  accessToken?: string;
   verifiedAccount?: boolean;
   role?: {
       id?: string;
