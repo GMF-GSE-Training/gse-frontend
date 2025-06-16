@@ -39,7 +39,13 @@ export class AuthService {
   }
 
   login(request: LoginUserRequest): Observable<WebResponse<AuthResponse>> {
-    return this.http.post<WebResponse<AuthResponse>>(`${this.apiUrl}/${this.endpoint.login}`, request, { withCredentials: true });
+    return this.http.post<WebResponse<AuthResponse>>(`${this.apiUrl}/${this.endpoint.login}`, request, { withCredentials: true }).pipe(
+      tap(response => {
+        if (response.data) {
+          this.setUserProfile(response.data);
+        }
+      })
+    );
   }
 
   me(): Observable<WebResponse<AuthResponse>> {
