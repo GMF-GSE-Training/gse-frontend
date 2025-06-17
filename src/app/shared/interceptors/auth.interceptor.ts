@@ -56,9 +56,17 @@ const handle401Error = (
 
     return authService.refreshToken().pipe(
       switchMap((response) => {
+        console.log("AuthInterceptor: Refresh Token Response", response);
         isRefreshing = false;
-        refreshTokenSubject.next(response.data);
-        return next(req);
+        refreshTokenSubject.next(response.data.accessToken || null);
+
+        // Clone the original request with the new access token
+        const clonedReq = req.clone({
+          setHeaders: {
+            Authorization: `Bearer ${response.data.accessToken}`,
+          },
+        });
+        return next(clonedReq);
       }),
       catchError((err) => {
         isRefreshing = false;
@@ -72,7 +80,12 @@ const handle401Error = (
     return refreshTokenSubject.pipe(
       switchMap((token) => {
         if (token) {
-            return next(req);
+          const clonedReq = req.clone({
+            setHeaders: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
+          return next(clonedReq);
         }
         clearLocalStorageAndLogout(router, authService);
         sweetalertService.alert('Selamat Datang!', 'Sesi tidak ditemukan, sudah mencoba login?', 'warning');
