@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 import { SweetalertService } from '../service/sweetaler.service';
 import { AuthService } from '../service/auth.service';
 
-export const authInterceptor: HttpInterceptorFn = (req, next) => {
+export const authInterceptor: HttpInterceptorFn = (req: HttpRequest<any>, next: HttpHandlerFn) => {
   const authService = inject(AuthService);
   const router = inject(Router);
   const sweetalertService = inject(SweetalertService);
