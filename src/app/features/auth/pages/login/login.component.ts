@@ -42,45 +42,33 @@ export class LoginComponent {
   login() {
     this.isLoading = true;
     this.authService.login(this.loginRequest).subscribe({
-      next: () => {
-        this.authService.me().subscribe({
-          next: (response) => {
-            const userData = response.data;
-            this.authService.setUserProfile(userData);
-            localStorage.setItem('user_profile', JSON.stringify(userData));
-            this.loginError = false;
-            this.isLoading = false;
+      next: (response) => {
+        const userData = response.data;
+        this.loginError = false;
+        this.isLoading = false;
+        
+        // Cek kelengkapan data untuk role 'user'
+        if (userData && userData.role?.name === 'user' && userData.participant) {
+          const participant = userData.participant;
+          // Cek apakah data participant lengkap
+          const isDataComplete = participant && 
+            participant.dateOfBirth && 
+            participant.placeOfBirth && 
+            participant.phoneNumber;
             
-            // Cek kelengkapan data untuk role 'user'
-            if (userData.role?.name === 'user' && userData.participant) {
-              const participant = userData.participant;
-              // Cek apakah data participant lengkap
-              const isDataComplete = participant && 
-                participant.dateOfBirth && 
-                participant.placeOfBirth && 
-                participant.phoneNumber;
-                
-              if (!isDataComplete) {
-                this.sweetalertService.alert(
-                  'Peringatan', 
-                  'Data anda belum lengkap, silahkan lengkapi data terlebih dahulu', 
-                  'warning'
-                );
-                this.router.navigate(['/participants', participant.id, 'edit']);
-                return;
-              }
-            }
-            
-            // Jika semua pengecekan berhasil, arahkan ke dashboard
-            this.router.navigateByUrl('/dashboard');
-          },
-          error: (error) => {
-            console.log(error);
-            this.isLoading = false;
-            this.loginError = true;
-            this.message = 'Terjadi kesalahan pada server. Silakan coba lagi nanti.';
+          if (!isDataComplete) {
+            this.sweetalertService.alert(
+              'Peringatan', 
+              'Data anda belum lengkap, silahkan lengkapi data terlebih dahulu', 
+              'warning'
+            );
+            this.router.navigate(['/participants', participant.id, 'edit']);
+            return;
           }
-        });
+        }
+        
+        // Jika semua pengecekan berhasil, arahkan ke dashboard
+        this.router.navigateByUrl('/dashboard');
       },
       error: (error) => {
         console.log(error)
