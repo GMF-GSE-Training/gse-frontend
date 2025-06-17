@@ -42,33 +42,33 @@ export class LoginComponent {
   login() {
     this.isLoading = true;
     this.authService.login(this.loginRequest).subscribe({
-      next: (response) => {
-        const userData = response.data;
-        this.loginError = false;
-        this.isLoading = false;
-        
-        // Cek kelengkapan data untuk role 'user'
-        if (userData && userData.role?.name === 'user' && userData.participant) {
-          const participant = userData.participant;
-          // Cek apakah data participant lengkap
-          const isDataComplete = participant && 
-            participant.dateOfBirth && 
-            participant.placeOfBirth && 
-            participant.phoneNumber;
+          next: (response) => {
+            const userData = response.data;
+            this.loginError = false;
+            this.isLoading = false;
             
-          if (!isDataComplete) {
-            this.sweetalertService.alert(
-              'Peringatan', 
-              'Data anda belum lengkap, silahkan lengkapi data terlebih dahulu', 
-              'warning'
-            );
-            this.router.navigate(['/participants', participant.id, 'edit']);
-            return;
-          }
-        }
-        
-        // Jika semua pengecekan berhasil, arahkan ke dashboard
-        this.router.navigateByUrl('/dashboard');
+            // Cek kelengkapan data untuk role 'user'
+        if (userData && userData.role?.name === 'user' && userData.participant) {
+              const participant = userData.participant;
+              // Cek apakah data participant lengkap
+              const isDataComplete = participant && 
+                participant.dateOfBirth && 
+                participant.placeOfBirth && 
+                participant.phoneNumber;
+                
+              if (!isDataComplete) {
+                this.sweetalertService.alert(
+                  'Peringatan', 
+                  'Data anda belum lengkap, silahkan lengkapi data terlebih dahulu', 
+                  'warning'
+                );
+                this.router.navigate(['/participants', participant.id, 'edit']);
+                return;
+              }
+            }
+            
+            // Jika semua pengecekan berhasil, arahkan ke dashboard
+            this.router.navigateByUrl('/dashboard');
       },
       error: (error) => {
         console.log(error)
