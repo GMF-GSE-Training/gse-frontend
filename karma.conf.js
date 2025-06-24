@@ -27,7 +27,7 @@ module.exports = function (config) {
     },
     /*
     coverageReporter: {
-      dir: require('path').join(__dirname, './coverage/frontend-projek-sertifikat-berbasis-web'),
+      dir: require('path').join(__dirname, './coverage/gse-client'),
       subdir: '.',
       reporters: [
         { type: 'html' },
