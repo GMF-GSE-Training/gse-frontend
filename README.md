@@ -36,8 +36,8 @@ Pastikan Anda memiliki prasyarat berikut ini:
 1. **Clone repository**
 
    ```bash
-   git clone https://github.com/AminudinAbdulloh/frontend-projek-sertifikat-berbasis-web.git
-   cd frontend-projek-sertifikat-berbasis-web
+   git clone https://github.com/GMF-GSE-Training/gse-client.git
+   cd gse-client
 
 2. **Instal Dependensi**
 
