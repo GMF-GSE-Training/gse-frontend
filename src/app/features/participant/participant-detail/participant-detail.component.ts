@@ -49,6 +49,7 @@ export class ParticipantDetailComponent implements OnInit {
   isLoading: boolean = false;
   pasFoto: string | null = localStorage.getItem('pas_foto');
   qrCode: string | null = localStorage.getItem('qr_code');
+  qrCodeDownloadName: string = 'QR_Code.png';
   id = this.route.snapshot.paramMap.get('participantId') || JSON.parse(localStorage.getItem('user_profile') || '{}').participant.id;
   idCardLink: string = '';
   
@@ -159,18 +160,16 @@ export class ParticipantDetailComponent implements OnInit {
   }
 
   private getQrCode(id: string): void {
-    this.participantService.getQrCode(id).pipe(
-      map(blob => new Promise<string>((resolve, reject) => {
+    this.participantService.getQrCode(id).subscribe({
+      next: (blob: Blob) => {
         const reader = new FileReader();
-        reader.onloadend = () => resolve(reader.result as string);
-        reader.onerror = reject;
+        reader.onloadend = () => {
+          this.qrCode = reader.result as string; // data:image/png;base64,...
+          if (this.userProfile.role.name === 'user') {
+            localStorage.setItem('qr_code', this.qrCode);
+          }
+        };
         reader.readAsDataURL(blob);
-      })),
-      switchMap(promise => from(promise))
-    ).subscribe({
-      next: (base64String: string) => {
-        this.qrCode = base64String.split(',')[1]; // Ambil bagian base64 saja
-        if (this.userProfile.role.name === 'user') localStorage.setItem('qr_code', this.qrCode);
       },
       error: (error) => console.error('Error fetching QR code:', error),
     });
@@ -215,35 +214,46 @@ export class ParticipantDetailComponent implements OnInit {
 
   private setParticipantData(participant: Participant) {
     this.participant = participant;
-    this.editLink = `/participants/${this.participant.id}/edit`;
-    this.idCardLink = `/participants/${this.participant.id}/id-card`;
-    this.verticalTableData = [
-      { label: 'No Pegawai', value: this.participant.idNumber ?? '-' },
-      { label: 'Nama Peserta', value: this.participant.name },
-      { label: 'Dinas', value: this.participant.dinas ?? '-' },
-      { label: 'Bidang', value: this.participant.bidang ?? '-' },
-      { label: 'Perusahaan', value: this.participant.company ?? '-' },
-      { label: 'Email', value: this.participant.email },
-      { label: 'No Telp', value: this.participant.phoneNumber ?? '-' },
-      { label: 'Tempat Lahir', value: this.participant.placeOfBirth ?? '-' },
-      { label: 'Tanggal Lahir', value: new Date(this.participant.dateOfBirth).toLocaleDateString('id-ID', this.dateOptions) },
-      { label: 'SIM A', link: `/participants/${this.participant.id}/sim-a` },
-      { label: 'SIM B', link: `/participants/${this.participant.id}/sim-b` },
-      { label: 'KTP', link: `/participants/${this.participant.id}/ktp` },
-      { label: 'Exp Surat Sehat & Buta Warna', 
-        value: new Date(new Date(this.participant.tglKeluarSuratSehatButaWarna).setMonth(new Date(this.participant.tglKeluarSuratSehatButaWarna).getMonth() + 6)).toLocaleDateString('id-ID', this.dateOptions), 
-        link: `/participants/${this.participant.id}/surat-sehat-buta-warna` },
-      { label: 'Exp Surat Bebas Narkoba', 
-        value: new Date(new Date(this.participant.tglKeluarSuratBebasNarkoba).setMonth(new Date(this.participant.tglKeluarSuratBebasNarkoba).getMonth() + 6)).toLocaleDateString('id-ID', this.dateOptions), 
-        link: `/participants/${this.participant.id}/surat-bebas-narkoba` },
-    ];
+    this.verticalTableData = this.transformData(this.participant);
+    this.editLink = `/participants/${this.id}/edit`;
+    this.idCardLink = `/participants/${this.id}/id-card`;
+    this.qrCodeDownloadName = `QR_Code_${participant.name.replace(/ /g, '_')}_${participant.id}.png`;
 
-    if (!this.pasFoto) this.getFoto(this.participant.id);
-    if (!this.qrCode) this.getQrCode(this.participant.id);
+    if (this.userProfile.role.name === 'user') {
+      localStorage.setItem('user_profile', JSON.stringify({ ...this.userProfile, participant: this.participant }));
+    }
+
+    if (this.participant) {
+      this.getFoto(this.participant.id);
+      this.getQrCode(this.participant.id);
+    }
+  }
+
+  private transformData(participant: Participant): any[] {
+    return [
+      { label: 'No Pegawai', value: participant.idNumber ?? '-' },
+      { label: 'Nama Peserta', value: participant.name },
+      { label: 'Dinas', value: participant.dinas ?? '-' },
+      { label: 'Bidang', value: participant.bidang ?? '-' },
+      { label: 'Perusahaan', value: participant.company ?? '-' },
+      { label: 'Email', value: participant.email },
+      { label: 'No Telp', value: participant.phoneNumber ?? '-' },
+      { label: 'Tempat Lahir', value: participant.placeOfBirth ?? '-' },
+      { label: 'Tanggal Lahir', value: new Date(participant.dateOfBirth).toLocaleDateString('id-ID', this.dateOptions) },
+      { label: 'SIM A', link: `/participants/${participant.id}/sim-a` },
+      { label: 'SIM B', link: `/participants/${participant.id}/sim-b` },
+      { label: 'KTP', link: `/participants/${participant.id}/ktp` },
+      { label: 'Exp Surat Sehat & Buta Warna', 
+        value: new Date(new Date(participant.tglKeluarSuratSehatButaWarna).setMonth(new Date(participant.tglKeluarSuratSehatButaWarna).getMonth() + 6)).toLocaleDateString('id-ID', this.dateOptions), 
+        link: `/participants/${participant.id}/surat-sehat-buta-warna` },
+      { label: 'Exp Surat Bebas Narkoba', 
+        value: new Date(new Date(participant.tglKeluarSuratBebasNarkoba).setMonth(new Date(participant.tglKeluarSuratBebasNarkoba).getMonth() + 6)).toLocaleDateString('id-ID', this.dateOptions), 
+        link: `/participants/${participant.id}/surat-bebas-narkoba` },
+    ];
   }
 
   private getMediaType(dataURL: string): string {
-    const match = dataURL.match(/data:(.*?);/);
-    return match ? match[1] : '';
+    const mime = dataURL.match(/data:([a-zA-Z0-9]+\/[a-zA-Z0-9-.+]+).*,.*/);
+    return mime && mime.length > 0 ? mime[1] : '';
   }
 }
