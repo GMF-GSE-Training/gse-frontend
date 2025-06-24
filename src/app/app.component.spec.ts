@@ -14,7 +14,7 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have the 'frontend-projek-sertifikat-berbasis-web' title`, () => {
+  it(`should have the 'gse-client' title`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
     expect(app.title).toEqual('GMF Aeroasia');
