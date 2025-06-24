@@ -34,7 +34,7 @@ COPY docker/nginx.conf /etc/nginx/conf.d/default.conf
 RUN mkdir -p /usr/share/nginx/html/server
 
 # Salin hasil build dari tahap builder
-COPY --from=builder /app/dist/frontend-projek-sertifikat-berbasis-web/browser /usr/share/nginx/html/server
+COPY --from=builder /app/dist/gse-client/browser /usr/share/nginx/html/server
 
 # Salin entrypoint.sh untuk menginject API_URL
 COPY docker/entrypoint.sh /entrypoint.sh
