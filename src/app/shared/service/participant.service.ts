@@ -49,7 +49,7 @@ export class ParticipantService {
   }
 
   getQrCode(id: string): Observable<Blob> {
-    return this.http.get(`${this.apiUrl}/participants/${id}/qr-code`, {
+    return this.http.get(`${this.apiUrl}/${this.endpoints.base}/${id}/qr-code`, {
       responseType: 'blob',
       withCredentials: true,
     });
@@ -63,7 +63,7 @@ export class ParticipantService {
   }
 
   downloadDocument(id: string): Observable<Blob> {
-    return this.http.get(`${this.apiUrl}/${this.endpoints.base}/${id}/${this.endpoints.downloadDocument}`, {
+    return this.http.get(`${this.apiUrl}/${id}/download-id-card`, {
       withCredentials: true,
       responseType: 'blob',
     });
