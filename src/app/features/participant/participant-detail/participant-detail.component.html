@@ -20,11 +20,11 @@
       </div>
       <div class="qr-section">
         <div class="qr-code">
-          <img src="data:image/png;base64,{{ qrCode }}" alt="QR Code" class="file">
+          <img [src]="qrCode" alt="QR Code" class="file">
         </div>
         <div class="download">
           <span *appRoleBasedAccess="['super admin', 'supervisor', 'lcu']" [routerLink]="idCardLink"><span>Cetak Kartu Peserta</span></span>
-          <span><a href="data:image/png;base64,{{ qrCode }}" download="QR_Code.png">Download</a></span>
+          <span><a [href]="qrCode" [download]="qrCodeDownloadName">Download</a></span>
         </div>
       </div>
     </div>
