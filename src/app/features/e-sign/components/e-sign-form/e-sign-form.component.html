@@ -16,7 +16,7 @@
         inputMode="text"
         #idNumber="ngModel"
         required
-      >
+        autocomplete="username">
       </app-base-input>
 
       <app-base-input
@@ -29,7 +29,7 @@
         inputMode="text"
         #nik="ngModel"
         required
-      >
+        autocomplete="off">
       </app-base-input>
 
       <app-base-input
@@ -44,7 +44,7 @@
         required
         [restrictToPattern]="'^[a-zA-Z .-]+$'"
         [pattern]="'^[a-zA-Z .-]+$'"
-      >
+        autocomplete="name">
       </app-base-input>
     </div>
     <div class="right-column">
