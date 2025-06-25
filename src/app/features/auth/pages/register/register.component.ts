@@ -44,7 +44,7 @@ export class RegisterComponent {
         this.isSuccess = true;
         this.sweetalertService.alert(
           'Berhasil', 
-          'Registrasi berhasil. Silakan login menggunakan email & kata sandi Anda.', 
+          'Registrasi berhasil. Silakan login, dan cek email (inbox/spam) untuk verifikasi akun.', 
           'success'
         ).then(() => this.router.navigateByUrl('/auth/login'));
       },
@@ -83,7 +83,7 @@ export class RegisterComponent {
           this.isLoading = false;
           this.sweetalertService.alert(
             'Peringatan',
-            'Akun Anda sudah terdaftar, namun ada kegagalan dalam pengiriman email verifikasi. Silakan verifikasi akun Anda secara manual di menu "Belum Terverifikasi?".',
+            'Akun Anda sudah terdaftar, namun sistem gagal mengirim email verifikasi. Silakan verifikasi akun Anda di menu "Belum Terverifikasi?".',
             'warning'
           ).then(() => this.router.navigateByUrl('/auth/verification'));
           return;
