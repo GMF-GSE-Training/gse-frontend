@@ -75,11 +75,11 @@ export class LoginComponent {
         this.loginError = true;
         this.isLoading = false;
         if(error.status === 404) {
-          this.message = 'Akun Anda belum terdaftar. Silakan lakukan pendaftaran.';
+          this.message = 'Akun Anda belum terdaftar. Silakan lakukan pendaftaran untuk mengakses layanan.';
         } else if(error.status === 400) {
           this.message = 'Kata sandi yang Anda masukkan salah.';
         } else if(error.status === 403) {
-          this.message = 'Akun Anda belum terverifikasi. Silakan akses menu "Belum Terverifikasi?" dibawah.';
+          this.message = 'Akun Anda belum terverifikasi. Silakan klik menu "Belum Terverifikasi?" untuk mengirim ulang email verifikasi.';
           // Mengomentari bagian ini karena backend sudah diverifikasi dengan benar
           // this.sweetalertService.alert(
           //   'Peringatan', 
@@ -87,7 +87,7 @@ export class LoginComponent {
           //   'warning'
           // ).then(() => this.router.navigateByUrl('/auth/verification'));
         } else {
-          this.message = 'Terjadi kesalahan pada server. Silakan coba lagi nanti.';
+          this.message = 'Server sedang sibuk atau terjadi gangguan. Silakan coba beberapa saat lagi.';
         }
       }
     });
