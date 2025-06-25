@@ -78,6 +78,7 @@ export class UserListComponent implements OnInit {
         console.log(error);
         this.isLoading = false;
         this.isLoadingPagination = false;
+        this.sweetalertService.alert('Pemberitahuan', 'Server sedang sibuk atau terjadi gangguan. Silakan coba beberapa saat lagi.', 'error');
       },
       complete: () => {
         this.isLoading = false;
