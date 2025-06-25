@@ -10,7 +10,8 @@
           label="Kode Rating"
           [(ngModel)]="capability.ratingCode"
           name="kodeRating"
-          [disabled]="true">
+          [disabled]="true"
+          autocomplete="off">
         </app-base-input>
       </div>
       <div class="form-section">
@@ -19,7 +20,8 @@
           type="text"
           [(ngModel)]="capability.trainingName"
           name="namaTraining"
-          [disabled]="true">
+          [disabled]="true"
+          autocomplete="name">
         </app-base-input>
       </div>
     </div>
@@ -37,7 +39,8 @@
                 type="text"
                 [isRequired]="true"
                 [disabled]="isView"
-                required>
+                required
+                autocomplete="off">
               </app-base-input>
 
               <app-base-input
@@ -95,7 +98,8 @@
                 type="text"
                 [isRequired]="true"
                 [disabled]="isView"
-                required>
+                required
+                autocomplete="off">
               </app-base-input>
 
               <app-base-input
