@@ -39,7 +39,7 @@
           [isRequired]="true"
           placeholder="Masukkan NIK/Paspor"
           type="text"
-          autocomplete="NIK"
+          autocomplete="off"
           inputMode="text"
           #nik="ngModel"
           required
@@ -54,7 +54,7 @@
           label="Dinas"
           placeholder="Dinas"
           type="text"
-          autocomplete="dinas"
+          autocomplete="off"
           inputMode="text">
         </app-base-input>
 
@@ -64,7 +64,7 @@
           label="Bidang"
           placeholder="Bidang"
           type="text"
-          autocomplete="bidang"
+          autocomplete="off"
           inputMode="text">
         </app-base-input>
 
@@ -98,7 +98,7 @@
           [isRequired]="true"
           placeholder="Gunakan nomor telepon aktif"
           type="tel"
-          autocomplete="phone"
+          autocomplete="tel"
           inputMode="tel"
           #phoneNumber="ngModel"
           [restrictToPattern]="'^[0-9-+ ]+$'"
