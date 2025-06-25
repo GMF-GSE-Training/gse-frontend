@@ -79,4 +79,11 @@ export class ParticipantService {
   isDataComplete(id: string): Observable<WebResponse<boolean>> {
     return this.http.get<WebResponse<boolean>>(`${this.apiUrl}/${this.endpoints.isComplete}/${id}`, { withCredentials: true });
   }
+
+  downloadAllFiles(id: string): Observable<Blob> {
+    return this.http.get(`${this.apiUrl}/participants/${id}/download-all`, {
+      withCredentials: true,
+      responseType: 'blob',
+    });
+  }
 }
