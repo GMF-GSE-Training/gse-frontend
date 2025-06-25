@@ -10,8 +10,6 @@
         <div class="photo">
           @if(pasFoto) {
             <img src="data:{{ photoType }}/;base64,{{ pasFoto }}" alt="Profile Picture" class="file">
-          } @else {
-            <img src="../../../../assets/image/blank_profile_picture.png" alt="Profile Picture" class="file" [class.blank]="!pasFoto">
           }
         </div>
         <div class="name">
