@@ -47,7 +47,7 @@ export class ForgotPasswordComponent implements OnInit {
     this.sweetalertService.loading('Mohon tunggu', 'Proses...');
     this.authService.forgotPassword(data).subscribe({
       next: () => {
-        this.sweetalertService.alert('', 'Jika email terdaftar, tautan reset password akan dikirimkan.', 'success');
+        this.sweetalertService.alert('', 'Permintaan reset password telah diproses. Silakan cek email Anda untuk instruksi selanjutnya.', 'success');
       },
       error: (error) => {
         console.log(error);
