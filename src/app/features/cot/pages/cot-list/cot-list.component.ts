@@ -83,6 +83,7 @@ export class CotListComponent {
       error: (error) => {
         console.log(error);
         this.isLoading = false;
+        this.sweetalertService.alert('Pemberitahuan', 'Server sedang sibuk atau terjadi gangguan. Silakan coba beberapa saat lagi.', 'error');
       },
       complete: () => {
         this.isLoading = false;
