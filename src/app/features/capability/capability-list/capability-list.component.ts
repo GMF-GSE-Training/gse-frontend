@@ -118,7 +118,7 @@ export class CapabilityListComponent implements OnInit {
           });
         },
         error: () => {
-          this.sweetalertService.alert('Gagal!', 'Terjadi kesalahan, coba lagi nanti', 'error');
+          this.sweetalertService.alert('Pemberitahuan', 'Server sedang sibuk atau terjadi gangguan. Silakan coba beberapa saat lagi.', 'error');
         }
       });
     }
