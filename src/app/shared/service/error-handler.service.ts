@@ -37,16 +37,16 @@ export class ErrorHandlerService {
     if (status) {
       switch (status) {
         case 400:
-          this.sweetalertService.alert('Gagal!', 'Data tidak valid, periksa input Anda.', 'error');
+          this.sweetalertService.alert('Pemberitahuan', 'Data tidak valid, periksa input Anda.', 'error');
           return;
         case 409:
-          this.sweetalertService.alert('Gagal!', 'Jadwal bertabrakan, silakan pilih waktu lain.', 'error');
+          this.sweetalertService.alert('Pemberitahuan', 'Jadwal bertabrakan, silakan pilih waktu lain.', 'error');
           return;
         case 404:
-          this.sweetalertService.alert('Gagal!', 'Data tidak ditemukan.', 'error');
+          this.sweetalertService.alert('Pemberitahuan', 'Data tidak ditemukan.', 'error');
           return;
         case 500:
-          this.sweetalertService.alert('Gagal!', 'Kesalahan server, silakan coba lagi nanti.', 'error');
+          this.sweetalertService.alert('Pemberitahuan', 'Server sedang sibuk atau terjadi gangguan. Silakan coba beberapa saat lagi.', 'error');
           return;
       }
     }
@@ -57,19 +57,19 @@ export class ErrorHandlerService {
 
       if (this.hasRequiredFields(errorDetails, requiredFields || [])) {
         this.sweetalertService.alert(
-          'Gagal!',
+          'Pemberitahuan',
           'Kolom dengan tanda bintang (*) wajib diisi',
           'error'
         );
       } else if (formattedError) {
-        this.sweetalertService.alert('Gagal!', formattedError, 'error');
+        this.sweetalertService.alert('Pemberitahuan', formattedError, 'error');
       }
     } else if (typeof errorDetails === 'string') {
-      this.sweetalertService.alert('Gagal!', errorDetails, 'error');
+      this.sweetalertService.alert('Pemberitahuan', errorDetails, 'error');
     } else {
       this.sweetalertService.alert(
-        'Gagal!',
-        'Terjadi kesalahan, silakan coba lagi nanti.',
+        'Pemberitahuan',
+        'Server sedang sibuk atau terjadi gangguan. Silakan coba beberapa saat lagi.',
         'error'
       );
     }
@@ -103,7 +103,7 @@ export class ErrorHandlerService {
         case 400: return 'Data tidak valid, periksa input Anda.';
         case 409: return 'Jadwal bertabrakan, silakan pilih waktu lain.';
         case 404: return 'Data tidak ditemukan.';
-        case 500: return 'Kesalahan server, silakan coba lagi nanti.';
+        case 500: return 'Server sedang sibuk atau terjadi gangguan. Silakan coba beberapa saat lagi.';
       }
     }
 
@@ -120,7 +120,7 @@ export class ErrorHandlerService {
       return errorDetails;
     }
 
-    return 'Terjadi kesalahan, silakan coba lagi nanti.';
+    return 'Server sedang sibuk atau terjadi gangguan. Silakan coba beberapa saat lagi.';
   }
 
   /**
