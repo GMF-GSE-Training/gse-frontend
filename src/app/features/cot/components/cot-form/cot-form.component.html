@@ -23,7 +23,8 @@
           inputMode="text"
           [value]="selectedCapabily.trainingCode"
           [disabled]="true"
-          required>
+          required
+          autocomplete="off">
         </app-base-input>
 
         <app-base-input
@@ -32,7 +33,8 @@
           inputMode="text"
           [value]="selectedCapabily.trainingName"
           [disabled]="true"
-          required>
+          required
+          autocomplete="off">
         </app-base-input>
 
         <app-base-input
@@ -42,7 +44,8 @@
           [(ngModel)]="cot.startDate"
           name="startDate"
           #startDate="ngModel"
-          required>
+          required
+          autocomplete="off">
         </app-base-input>
 
         <app-base-input
@@ -52,7 +55,8 @@
           [(ngModel)]="cot.endDate"
           name="endDate"
           #endDate="ngModel"
-          required>
+          required
+          autocomplete="off">
         </app-base-input>
 
         <app-base-input
@@ -63,7 +67,8 @@
           [(ngModel)]="cot.trainingLocation"
           name="trainingLocation"
           #trainingLocation="ngModel"
-          required>
+          required
+          autocomplete="off">
         </app-base-input>
       </div>
 
@@ -86,7 +91,8 @@
           [(ngModel)]="cot.theoryInstructorRegGse"
           name="theoryInstructorRegGse"
           #theoryInstructorRegGse="ngModel"
-          required>
+          required
+          autocomplete="name">
         </app-base-input>
 
         <app-base-input
@@ -97,7 +103,8 @@
           [(ngModel)]="cot.theoryInstructorCompetency"
           name="theoryInstructorCompetency"
           #theoryInstructorCompetency="ngModel"
-          required>
+          required
+          autocomplete="name">
         </app-base-input>
 
         <app-base-input
@@ -108,7 +115,8 @@
           [(ngModel)]="cot.practicalInstructor1"
           name="practicalInstructor1"
           #practicalInstructor1="ngModel"
-          required>
+          required
+          autocomplete="name">
         </app-base-input>
 
         <app-base-input
@@ -119,7 +127,8 @@
           [(ngModel)]="cot.practicalInstructor2"
           name="practicalInstructor2"
           #practicalInstructor2="ngModel"
-          required>
+          required
+          autocomplete="name">
         </app-base-input>
       </div>
     </div>
