@@ -69,6 +69,7 @@ export class ParticipantListComponent implements OnInit {
       },
       error: (error) => {
         console.log(error);
+        this.sweetalertService.alert('Pemberitahuan', 'Server sedang sibuk atau terjadi gangguan. Silakan coba beberapa saat lagi.', 'error');
         this.isLoading = false;
       },
       complete: () => {
