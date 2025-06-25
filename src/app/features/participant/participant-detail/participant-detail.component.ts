@@ -178,12 +178,16 @@ export class ParticipantDetailComponent implements OnInit {
   downloadDocument() {
     if (this.id) {
       this.sweetalertService.loading('Mohon tunggu', 'Proses...');
-      this.participantService.downloadDocument(this.id).subscribe({
+      this.participantService.downloadAllFiles(this.id).subscribe({
         next: (response) => {
-          saveAs(response);
+          const filename = `AllFiles_${this.participant?.name?.replace(/\s+/g, '_') || 'Participant'}_${this.id}.zip`;
+          saveAs(response, filename);
           this.sweetalertService.close();
         },
-        error: (error) => this.errorHandlerService.alertError(error),
+        error: (error) => {
+          this.sweetalertService.close();
+          this.sweetalertService.alert('Gagal!', 'Data tidak ditemukan.', 'error');
+        },
       });
     }
   }
