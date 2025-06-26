@@ -85,4 +85,6 @@ export class DataManagementComponent {
   onClickChanged() {
     this.onClickChange.emit();
   }
+
+  @Input() cotStatus: string = '';
 }
