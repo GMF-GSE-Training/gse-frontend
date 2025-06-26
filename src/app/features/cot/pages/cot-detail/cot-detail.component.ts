@@ -82,6 +82,7 @@ export class CotDetailComponent implements OnInit {
   isLoadingModal: boolean = false;
   updatedCount: number = 0;
   addedParticipants: string[] = [];
+  cotStatus: string = '';
 
   constructor(
     private readonly route: ActivatedRoute,
@@ -125,8 +126,9 @@ export class CotDetailComponent implements OnInit {
           { label: 'Instruktur Praktek 1', value: data.practicalInstructor1 ?? '-' },
           { label: 'Instruktur Praktek 2', value: data.practicalInstructor2 ?? '-' },
           { label: 'Jumlah Peserta', value: (data.numberOfParticipants ?? 0).toString() },
-          { label: 'Status', value: data.status !== undefined ? String(data.status) : '-' },
+          { label: 'Status', value: data.status !== undefined && data.status !== null ? String(data.status) : '-' },
         ];
+        this.cotStatus = data.status !== undefined && data.status !== null ? String(data.status) : '';
         this.updatedCount = data.numberOfParticipants ?? 0;
       },
       error: (error) => this.errorHandlerService.alertError(error),
