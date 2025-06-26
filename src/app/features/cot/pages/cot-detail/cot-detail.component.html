@@ -25,8 +25,9 @@
       (searchChange)="onSearchChanged($event)"
       (pageChange)="onPageChanged($event)"
       (viewAllChange)="viewAll()"
-      whiteButtonRoute="/cot">
-    </app-data-management>
+      whiteButtonRoute="/cot"
+      [cotStatus]="cotStatus"
+    ></app-data-management>
   }
 </div>
 
