@@ -81,7 +81,7 @@
           name="email"
           label="Email"
           [isRequired]="true"
-          placeholder="Gunakan alamat email aktif"
+          placeholder="Gunakan email aktif"
           type="email"
           autocomplete="email"
           inputMode="text"
@@ -194,18 +194,18 @@
         <app-file-input
           idInput="surat_sehat_input"
           (valueChange)="onFileChange('suratSehatButaWarna', $event)"
-          label="Surat Ket Sehat dan Buta Warna"
+          label="Surat Ket. Sehat dan Buta Warna"
           [isRequired]="true"
           [fileName]="participant.suratSehatButaWarnaFileName"
           [fileType]="fileType">
         </app-file-input>
-        <span *ngIf="!participant.suratSehatButaWarnaFileName && form.submitted" class="error-message">Surat Ket Sehat dan Buta Warna wajib diunggah</span>
+        <span *ngIf="!participant.suratSehatButaWarnaFileName && form.submitted" class="error-message">Surat Ket. Sehat dan Buta Warna wajib diunggah</span>
         <span>Format png, jpg, jpeg, atau pdf.</span>
 
         <app-base-input
           [(ngModel)]="participant.tglKeluarSuratSehatButaWarna"
           name="tglKeluarSuratSehatButaWarna"
-          label="Tanggal Pembuatan Surat Ket Sehat & Buta Warna"
+          label="Tanggal Pembuatan Surat Ket. Sehat & Buta Warna"
           [isRequired]="true"
           defaultMessage="Masukkan tanggal keluar surat sehat sesuai dengan tanggal keluar surat yang diunggah"
           type="date"
@@ -218,19 +218,19 @@
         <app-file-input
           idInput="surat_bebas_narkoba_input"
           (valueChange)="onFileChange('suratBebasNarkoba', $event)"
-          label="Surat Ket Bebas Narkoba"
+          label="Surat Ket. Bebas Narkoba"
           [isRequired]="true"
           [fileName]="participant.suratBebasNarkobaFileName"
           [fileType]="fileType"
         >
         </app-file-input>
-        <span *ngIf="!participant.suratBebasNarkobaFileName && form.submitted" class="error-message">Surat Ket Bebas Narkoba wajib diunggah</span>
+        <span *ngIf="!participant.suratBebasNarkobaFileName && form.submitted" class="error-message">Surat Ket. Bebas Narkoba wajib diunggah</span>
         <span>Format png, jpg, jpeg, atau pdf.</span>
 
         <app-base-input
           [(ngModel)]="participant.tglKeluarSuratBebasNarkoba"
           name="tglKeluarSuratBebasNarkoba"
-          label="Tanggal Pembuatan Surat Ket Bebas Narkoba"
+          label="Tanggal Pembuatan Surat Ket. Bebas Narkoba"
           [isRequired]="true"
           defaultMessage="Masukkan tanggal keluar surat sehat sesuai dengan tanggal keluar surat yang diunggah"
           type="date"
