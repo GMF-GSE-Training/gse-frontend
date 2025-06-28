@@ -81,7 +81,7 @@ export class AuthService {
         );
   }
 
-  forgotPassword(request: { email: string }): Observable<WebResponse<string>> {
+  forgotPassword(request: { email: string; hcaptchaToken: string }): Observable<WebResponse<string>> {
     return this.http.post<WebResponse<string>>(`${this.apiUrl}/${this.endpoint.resetPasswordRequest}`, request);
   }
 

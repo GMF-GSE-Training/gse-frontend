@@ -4,11 +4,12 @@ import { SweetalertService } from '../../../../shared/service/sweetaler.service'
 import { EmailFormComponent } from "../../components/email-form/email-form.component";
 import { ActivatedRoute, Router } from '@angular/router';
 import { ErrorHandlerService } from '../../../../shared/service/error-handler.service';
+import { NgHcaptchaModule } from 'ng-hcaptcha';
 
 @Component({
   selector: 'app-forgot-password',
   standalone: true,
-  imports: [EmailFormComponent],
+  imports: [EmailFormComponent, NgHcaptchaModule],
   templateUrl: './forgot-password.component.html',
 })
 export class ForgotPasswordComponent implements OnInit {
@@ -24,6 +25,7 @@ export class ForgotPasswordComponent implements OnInit {
     email: ''
   };
   errorMessage: string = '';
+  hcaptchaToken: string = '';
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
@@ -43,15 +45,36 @@ export class ForgotPasswordComponent implements OnInit {
     });
   }
 
+  onCaptchaVerify = (token: string) => {
+    this.hcaptchaToken = token;
+  };
+
+  onCaptchaExpired = () => {
+    this.hcaptchaToken = '';
+  };
+
+  onCaptchaError = (event: any) => {
+    this.hcaptchaToken = '';
+    this.errorMessage = 'Terjadi kesalahan pada hCaptcha. Silakan coba lagi.';
+  };
+
   onSubmit(data: { email: string }) {
+    if (!this.hcaptchaToken) {
+      this.errorMessage = 'Silakan selesaikan verifikasi hCaptcha.';
+      return;
+    }
     this.sweetalertService.loading('Mohon tunggu', 'Proses...');
-    this.authService.forgotPassword(data).subscribe({
+    this.authService.forgotPassword({
+      email: data.email,
+      hcaptchaToken: this.hcaptchaToken
+    }).subscribe({
       next: () => {
         this.sweetalertService.alert('', 'Permintaan reset password telah diproses. Silakan cek email Anda untuk instruksi selanjutnya.', 'success');
+        this.hcaptchaToken = '';
       },
       error: (error) => {
-        console.log(error);
         this.errorHandlerService.alertError(error);
+        this.hcaptchaToken = '';
       }
     });
   }
