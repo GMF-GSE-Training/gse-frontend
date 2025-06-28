@@ -28,11 +28,21 @@
           required
         >
         </app-base-input>
+        <div *ngIf="errorMessage" class="alert-error-custom">
+          <i class="fa-solid fa-circle-exclamation"></i> {{ errorMessage }}
+        </div>
+        <div class="captcha-container">
+          <ng-hcaptcha
+            (verify)="captchaVerified.emit($event)"
+            (expired)="captchaExpired.emit()"
+            (error)="captchaError.emit($event)"
+          ></ng-hcaptcha>
+        </div>
       </div>
 
       <div class="buttons-container">
         <app-white-button class="button" type="button" routerLink="/login">Kembali</app-white-button>
-        <app-blue-button class="button" type="submit" [disabled]="form.invalid!">Kirim</app-blue-button>
+        <app-blue-button class="button" type="submit" [disabled]="!data.email || !hcaptchaToken">Kirim</app-blue-button>
       </div>
     </form>
   </div>
