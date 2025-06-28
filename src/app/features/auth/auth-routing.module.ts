@@ -7,6 +7,7 @@ import { RegisterComponent } from './pages/register/register.component';
 import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
 import { AccountVerificationComponent } from './pages/account-verification/account-verification.component';
+import { VerificationComponent } from './pages/verification/verification.component';
 
 // Guards
 import { guestGuard } from '../../shared/guard/guest.guard'; // Path relative to this file
@@ -37,6 +38,10 @@ const routes: Routes = [
   {
     path: 'verify', // Untuk verifikasi dengan token di query params
     component: AccountVerificationComponent,
+  },
+  {
+    path: 'verified', // Untuk landing page setelah redirect verifikasi email
+    component: VerificationComponent,
   },
   // Default route for auth feature
   {
