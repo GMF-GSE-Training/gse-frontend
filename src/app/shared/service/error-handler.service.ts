@@ -45,6 +45,33 @@ export class ErrorHandlerService {
         case 404:
           this.sweetalertService.alert('Pemberitahuan', 'Data tidak ditemukan.', 'error');
           return;
+        case 429:
+          // Penanganan khusus rate limit
+          let pesan429 = errorDetails || errorMessage || 'Terlalu banyak permintaan. Silakan coba lagi nanti.';
+          // Cek jika ada pesan waktu tunggu dari backend
+          if (error?.error?.message) {
+            pesan429 = error.error.message;
+          } else if (error?.error?.retryAfter) {
+            const retryAfter = Number(error.error.retryAfter);
+            if (!isNaN(retryAfter)) {
+              const minutes = Math.floor(retryAfter / 60);
+              const seconds = retryAfter % 60;
+              pesan429 = minutes > 0
+                ? `Terlalu banyak permintaan. Silakan coba lagi dalam ${minutes} menit${seconds > 0 ? ' ' + seconds + ' detik' : ''}.`
+                : `Terlalu banyak permintaan. Silakan coba lagi dalam ${seconds} detik.`;
+            }
+          } else if (error?.headers && error.headers.get && error.headers.get('Retry-After')) {
+            const retryAfter = Number(error.headers.get('Retry-After'));
+            if (!isNaN(retryAfter)) {
+              const minutes = Math.floor(retryAfter / 60);
+              const seconds = retryAfter % 60;
+              pesan429 = minutes > 0
+                ? `Terlalu banyak permintaan. Silakan coba lagi dalam ${minutes} menit${seconds > 0 ? ' ' + seconds + ' detik' : ''}.`
+                : `Terlalu banyak permintaan. Silakan coba lagi dalam ${seconds} detik.`;
+            }
+          }
+          this.sweetalertService.alert('Terlalu Banyak Permintaan', pesan429, 'error');
+          return;
         case 500:
           this.sweetalertService.alert('Pemberitahuan', 'Server sedang sibuk atau terjadi gangguan. Silakan coba beberapa saat lagi.', 'error');
           return;
@@ -103,6 +130,32 @@ export class ErrorHandlerService {
         case 400: return 'Data tidak valid, periksa input Anda.';
         case 409: return 'Jadwal bertabrakan, silakan pilih waktu lain.';
         case 404: return 'Data tidak ditemukan.';
+        case 429:
+          // Penanganan khusus rate limit
+          let pesan429 = errorDetails || errorMessage || 'Terlalu banyak permintaan. Silakan coba lagi nanti.';
+          // Cek jika ada pesan waktu tunggu dari backend
+          if (error?.error?.message) {
+            pesan429 = error.error.message;
+          } else if (error?.error?.retryAfter) {
+            const retryAfter = Number(error.error.retryAfter);
+            if (!isNaN(retryAfter)) {
+              const minutes = Math.floor(retryAfter / 60);
+              const seconds = retryAfter % 60;
+              pesan429 = minutes > 0
+                ? `Terlalu banyak permintaan. Silakan coba lagi dalam ${minutes} menit${seconds > 0 ? ' ' + seconds + ' detik' : ''}.`
+                : `Terlalu banyak permintaan. Silakan coba lagi dalam ${seconds} detik.`;
+            }
+          } else if (error?.headers && error.headers.get && error.headers.get('Retry-After')) {
+            const retryAfter = Number(error.headers.get('Retry-After'));
+            if (!isNaN(retryAfter)) {
+              const minutes = Math.floor(retryAfter / 60);
+              const seconds = retryAfter % 60;
+              pesan429 = minutes > 0
+                ? `Terlalu banyak permintaan. Silakan coba lagi dalam ${minutes} menit${seconds > 0 ? ' ' + seconds + ' detik' : ''}.`
+                : `Terlalu banyak permintaan. Silakan coba lagi dalam ${seconds} detik.`;
+            }
+          }
+          return pesan429;
         case 500: return 'Server sedang sibuk atau terjadi gangguan. Silakan coba beberapa saat lagi.';
       }
     }
