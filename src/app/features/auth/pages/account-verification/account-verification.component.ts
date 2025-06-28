@@ -19,6 +19,8 @@ export class AccountVerificationComponent implements OnInit {
     email: ''
   };
   message: string = '';
+  errorMessage: string = '';
+  hcaptchaToken: string = '';
 
   constructor(
     private readonly authService: AuthService,
@@ -48,6 +50,7 @@ export class AccountVerificationComponent implements OnInit {
   }
 
   onSubmit(data: { email: string }) {
+    this.errorMessage = '';
     this.sweetalertService.loading('Mohon tunggu', 'Proses...');
     this.authService.resendVerification(data.email).subscribe({
       next: () => {
@@ -60,8 +63,7 @@ export class AccountVerificationComponent implements OnInit {
       },
       error: (error) => {
         this.sweetalertService.close();
-        console.log(error);
-        this.errorHandlerService.alertError(error);
+        this.errorMessage = error?.error?.errors || 'Terjadi kesalahan. Coba lagi.';
       }
     });
   }
@@ -82,15 +84,12 @@ export class AccountVerificationComponent implements OnInit {
             tap(response => {
               // Pastikan profil pengguna diatur di localStorage setelah berhasil diverifikasi
               this.authService.setUserProfile(response.data);
-              console.log('AccountVerificationComponent: User profile updated in localStorage via authService.me()', this.authService.getUserProfile());
             })
           ).subscribe({
             complete: () => {
-              console.log('AccountVerificationComponent: Navigating to dashboard after successful verification and profile update.');
               this.router.navigateByUrl('/dashboard');
             },
             error: (err) => {
-              console.error('AccountVerificationComponent: Error fetching updated user profile:', err);
               this.router.navigateByUrl('/dashboard'); // tetap arahkan meski gagal mengambil profil, karena akun sudah diverifikasi
             },
           });
@@ -111,5 +110,9 @@ export class AccountVerificationComponent implements OnInit {
         }
       }
     });
+  }
+
+  onCaptchaVerify(token: string) {
+    this.hcaptchaToken = token;
   }
 }
