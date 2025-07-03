@@ -37,4 +37,15 @@ export class ESignService {
   listESign(q?: string, page?: number, size?: number): Observable<WebResponse<ESignResponse[]>> {
     return this.http.get<WebResponse<ESignResponse[]>>(`${this.apiUrl}/${this.endpoint.list}?q=${q}&page=${page}&size=${size}`, { withCredentials: true });
   }
+
+  updateESign(id: string, request: FormData): Observable<any> {
+    // Dinonaktifkan sementara (fitur update e-sign)
+    return new Observable();
+  }
+
+  deleteESign(id: string): Observable<any> {
+    // Dinonaktifkan sementara (fitur delete e-sign)
+    return new Observable();
+  }
 }
+

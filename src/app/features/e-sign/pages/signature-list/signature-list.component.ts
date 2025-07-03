@@ -150,4 +150,8 @@ export class SignatureListComponent {
     });
     this.searchQuery = '';
   }
+
+  deleteESign(id: string) {
+    // Dinonaktifkan sementara (fitur delete e-sign)
+  }
 }

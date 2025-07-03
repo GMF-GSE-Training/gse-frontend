@@ -72,9 +72,9 @@ export class DisplaysSignatureFileComponent {
     this.isLoading = false; // Hindari spinner terus tampil
   }
 
-  // downloadFile(file: File) {
-  //   // ...fungsi download file e-sign
-  // }
+  downloadFile() {
+    // Dinonaktifkan sementara (fitur download file)
+  }
 
   private getMediaType(base64String: string): string {
     const header = base64String.slice(0, 10);

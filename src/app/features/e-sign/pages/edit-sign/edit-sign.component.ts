@@ -98,4 +98,8 @@ export class EditSignComponent implements OnInit {
     }
     return formData;
   }
+
+  updateESign() {
+    // Dinonaktifkan sementara (fitur update e-sign)
+  }
 }

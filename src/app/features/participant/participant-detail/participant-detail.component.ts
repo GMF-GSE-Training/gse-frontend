@@ -175,9 +175,9 @@ export class ParticipantDetailComponent implements OnInit {
     });
   }
 
-  // downloadDocument(document: Document) {
-  //   // ...fungsi download file peserta
-  // }
+  downloadDocument() {
+    // Dinonaktifkan sementara (fitur download file)
+  }
 
   updateEmailSubmit(data: { email: string }): void {
     this.sweetalertService.loading('Mohon tunggu', 'Proses...');
