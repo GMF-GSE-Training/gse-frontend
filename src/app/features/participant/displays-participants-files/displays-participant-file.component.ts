@@ -2,10 +2,9 @@ import { Component, ElementRef, OnInit, Renderer2 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { finalize, map, switchMap } from 'rxjs/operators'; // Added switchMap
 import { ParticipantService } from '../../../shared/service/participant.service';
-// Corrected import path for DisplayFilesComponent
-import { DisplayFilesComponent } from '../../../shared/components/display-files/display-files.component';
 import { CommonModule } from '@angular/common';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { DisplayFilesComponent } from '../../../shared/components/display-files/display-files.component';
 
 @Component({
   selector: 'app-displays-participant-file',
@@ -13,7 +12,7 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
   imports: [
     DisplayFilesComponent,
     CommonModule,
-],
+  ],
   templateUrl: './displays-participant-file.component.html',
   styleUrl: './displays-participant-file.component.css'
 })
