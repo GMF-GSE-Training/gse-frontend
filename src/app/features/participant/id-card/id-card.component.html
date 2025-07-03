@@ -1,8 +1,9 @@
+<!--
 <app-display-files
-  pageTitle="ID Card"
+  [files]="idCardFiles"
   [isLoading]="isLoading"
   [navigationLinks]="navigationLink"
-  <!-- (downloadChange)="downloadIdCard()" -->
+  (downloadChange)="downloadIdCard()"
 >
   @if(id_card) {
     <div [innerHTML]="id_card"></div>
@@ -12,3 +13,4 @@
     </div>
   }
 </app-display-files>
+-->

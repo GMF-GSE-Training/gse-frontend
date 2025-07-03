@@ -1,9 +1,9 @@
+<!--
 <app-display-files
-  [pageTitle]="pageTitle"
+  [files]="participantFiles"
   [isLoading]="isLoading"
   [navigationLinks]="navigationLink"
-  <!-- (downloadChange)="downloadFile()" -->
-  <!-- Komentar tombol/link download jika ada -->
+  (downloadChange)="downloadFile()"
 >
   @if(safeUrl) {
     @if(fileType === 'application/pdf') {
@@ -30,3 +30,4 @@
     </div>
   }
 </app-display-files>
+-->
