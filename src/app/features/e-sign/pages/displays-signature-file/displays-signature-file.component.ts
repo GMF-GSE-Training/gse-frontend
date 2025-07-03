@@ -72,15 +72,9 @@ export class DisplaysSignatureFileComponent {
     this.isLoading = false; // Hindari spinner terus tampil
   }
 
-  downloadFile(): void {
-    const fileUrl = `data:${this.fileType};base64,${this.file}`;
-    const link = this.renderer.createElement('a');
-    this.renderer.setAttribute(link, 'href', fileUrl);
-    this.renderer.setAttribute(link, 'download', `${this.pageTitle}${this.getDownloadExtension()}`);
-    this.renderer.appendChild(this.el.nativeElement, link);
-    link.click();
-    this.renderer.removeChild(this.el.nativeElement, link);
-  }
+  // downloadFile(file: File) {
+  //   // ...fungsi download file e-sign
+  // }
 
   private getMediaType(base64String: string): string {
     const header = base64String.slice(0, 10);

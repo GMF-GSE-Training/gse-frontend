@@ -16,6 +16,12 @@ export class ESignService {
     private readonly http: HttpClient,
   ) { }
 
+  // Semua fungsi utama e-sign dikomentari sementara
+  // getESigns() { ... }
+  // addESign() { ... }
+  // updateESign() { ... }
+  // deleteESign() { ... }
+
   createESign(request: FormData): Observable<WebResponse<string>> {
     return this.http.post<WebResponse<string>>(`${this.apiUrl}/${this.endpoint.base}`, request, { withCredentials: true });
   }
@@ -24,16 +30,8 @@ export class ESignService {
     return this.http.get<WebResponse<ESignResponse>>(`${this.apiUrl}/${this.endpoint.base}/${id}`, { withCredentials: true });
   }
 
-  updateESign(id: string, request: FormData): Observable<WebResponse<ESignResponse>> {
-    return this.http.patch<WebResponse<ESignResponse>> (`${this.apiUrl}/${this.endpoint.base}/${id}`, request, { withCredentials: true });
-  }
-
   getESignFile(id: string): Observable<WebResponse<string>> {
     return this.http.get<WebResponse<string>>(`${this.apiUrl}/e-sign/${id}/view`, { withCredentials: true });
-  }
-
-  deleteESign(id: string): Observable<WebResponse<string>> {
-    return this.http.delete<WebResponse<string>>(`${this.apiUrl}/${this.endpoint.base}/${id}`, { withCredentials: true });
   }
 
   listESign(q?: string, page?: number, size?: number): Observable<WebResponse<ESignResponse[]>> {

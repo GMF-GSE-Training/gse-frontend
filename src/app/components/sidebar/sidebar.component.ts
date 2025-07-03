@@ -93,7 +93,7 @@ export class SidebarComponent {
           { name: 'Capability', routerLink: '/capability' },
           { name: 'COT', routerLink: '/cot' },
           { name: 'User Role', routerLink: '/users' },
-          { name: 'E-Sign', routerLink: '/e-sign' },
+          // { name: 'E-Sign', routerLink: '/e-sign' }, // HIDDEN SEMENTARA
           { name: 'Logout' },
         ];
         break;

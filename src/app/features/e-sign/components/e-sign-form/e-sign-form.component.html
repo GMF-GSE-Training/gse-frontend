@@ -81,6 +81,7 @@
   </div>
 
   <div class="container-button">
+    <!-- Komentar seluruh tombol/aksi e-sign di halaman ini jika ada -->
     <app-white-button type="button" routerLink="/e-sign" class="button">Kembali</app-white-button>
     <app-blue-button type="submit" class="button" [disabled]="!isUpdate && (form.invalid || !eSign.eSign || eSign.status === undefined || !eSign.signatureType)">Simpan</app-blue-button>
   </div>

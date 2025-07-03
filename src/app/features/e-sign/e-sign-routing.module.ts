@@ -12,32 +12,7 @@ import { AuthGuard } from '../../shared/guard/auth.guard';
 import { RoleGuard } from '../../shared/guard/role.guard';
 import { DataCompleteGuard } from '../../shared/guard/data-complete.guard';
 
-const routes: Routes = [
-  {
-    path: '', // Base for /e-sign
-    component: SignatureListComponent,
-    canActivate: [AuthGuard, RoleGuard],
-    data: { roles: ['super admin', 'supervisor'] }
-  },
-  {
-    path: 'add', // For /e-sign/add
-    component: AddSignComponent,
-    canActivate: [AuthGuard, RoleGuard],
-    data: { roles: ['super admin'] }
-  },
-  {
-    path: ':eSignId/edit', // For /e-sign/:eSignId/edit
-    component: EditSignComponent,
-    canActivate: [AuthGuard, RoleGuard],
-    data: { roles: ['super admin'] }
-  },
-  {
-    path: ':eSignId/view', // For /e-sign/:eSignId/view
-    component: DisplaysSignatureFileComponent,
-    canActivate: [AuthGuard, RoleGuard],
-    data: { roles: ['super admin'] }
-  }
-];
+const routes: Routes = [];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

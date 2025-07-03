@@ -22,7 +22,7 @@
         </div>
         <div class="download">
           <span *appRoleBasedAccess="['super admin', 'supervisor', 'lcu']" [routerLink]="idCardLink"><span>Cetak Kartu Peserta</span></span>
-          <span><a [href]="qrCode" [download]="qrCodeDownloadName">Download</a></span>
+          <!-- <button (click)="downloadDocument(document)">Download</button> -->
         </div>
       </div>
     </div>
