@@ -8,7 +8,8 @@
 .chart-container {
   width: 100%;
   display: grid;
-  grid-template-columns: repeat(4, minmax(310px, 1fr));
+  grid-template-columns: repeat(2, minmax(310px, 1fr));
+  grid-template-rows: repeat(2, auto);
   gap: 20px;
   padding-right: 1.2em;
   overflow-x: auto;
@@ -17,14 +18,17 @@
 
 @media screen and (max-width: 1200px) {
   .chart-container {
-    grid-template-columns: repeat(2, minmax(310px, 1fr));
+    grid-template-columns: repeat(2, minmax(210px, 1fr));
+    grid-template-rows: repeat(2, auto);
     overflow-x: hidden;
+    padding: 0 0.5em;
   }
 }
 
 @media screen and (max-width: 768px) {
   .chart-container {
-    grid-template-columns: repeat(1, minmax(210px, 1fr));
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(4, auto);
     overflow-x: hidden;
     padding: 0 0.5em;
   }
@@ -32,7 +36,8 @@
 
 @media screen and (max-width: 425px) {
   .chart-container {
-    grid-template-columns: repeat (1, minmax(200px, 1fr));
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(4, auto);
     padding: 0 0.2em;
     overflow-x: auto;
   }
