@@ -16,15 +16,18 @@
           <h2>{{ participant?.name }}</h2>
         </div>
       </div>
+      <!-- Bagian QR code dan tombol Cetak Kartu Peserta disembunyikan -->
+      <!--
       <div class="qr-section">
         <div class="qr-code">
           <img [src]="qrCode" alt="QR Code" class="file">
         </div>
         <div class="download">
           <span *appRoleBasedAccess="['super admin', 'supervisor', 'lcu']" [routerLink]="idCardLink"><span>Cetak Kartu Peserta</span></span>
-          <!-- <button (click)="downloadDocument(document)">Download</button> -->
+          <span><a [href]="qrCode" [download]="qrCodeDownloadName">Download</a></span>
         </div>
       </div>
+      -->
     </div>
 
     <div class="data-section">
